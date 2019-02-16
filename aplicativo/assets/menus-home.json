@@ -1,36 +1,30 @@
 [   
     {
-        "title":"Rubricas",
+        "title":"Transporte do Paciente",
         "key": "m1",
         "icon": "../../assets/icons/rubrica.jpeg",
         "screen": "TELA_LISTA_RUBRICAS"
     },
 
     {
-        "title":"Dashboard",
+        "title":"Controlar Medicação",
         "key": "m2",
         "icon": "../../assets/icons/dashboard.jpeg",
         "screen": "TELA_DASHBOARD"
     },    
 
     {
-        "title":"Lançamentos",
+        "title":"Comparar Preço Medicamento",
         "key": "m3",
         "icon": "../../assets/icons/lancamentos.jpeg",
         "screen": "TELA_LISTA_LANCAMENTOS"
     },    
 
     {
-        "title":"Manter Local",
+        "title":"Marcar Consulta ou Exame",
         "key": "m4",
         "icon": "../../assets/icons/busca-local.jpeg",
         "screen": "TELA_MANTER_LOCAL"
     },    
-
-    {
-        "title":"Buscar Local",
-        "key": "m5",
-        "icon": "../../assets/icons/salvar-local.jpeg",
-        "screen": "TELA_BUSCAR_LOCAL"
-    }    
+ 
 ]

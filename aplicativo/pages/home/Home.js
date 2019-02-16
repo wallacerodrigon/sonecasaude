@@ -1,14 +1,14 @@
 import React from 'react';
 import {View, FlatList, Text, StyleSheet} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
-import AppScreenNames from '../../constants/AppScreenNames';
+import {TELA_HOME, TELA_LOGIN} from '../../constants/AppScreenData';
 import menus from '../../assets/menus-home.json';
 import WidgetMenu from '../../components/widgets/widgetMenu';
 import Botao from '../../components/botao/Botao';
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
-        title: 'Home',
+        title: TELA_HOME.title
       };
 
     constructor(){
@@ -16,7 +16,7 @@ export default class HomeScreen extends React.Component {
     }
 
     retornarLogin = () => {
-        this.props.navigation.navigate(AppScreenNames.TELA_LOGIN);
+        this.props.navigation.navigate(TELA_LOGIN.name);
         
     }
 

@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TextInput, Image} from 'react-native';
 
 import Botao from '../../components/botao/Botao';
 import EstilosComuns from '../../assets/estilos/estilos';
-import AppScreenNames from '../../constants/AppScreenNames'
+import {TELA_PADRAO, TELA_HOME, TELA_ESQUECI_SENHA, TELA_DADOS_PESSOAIS} from '../../constants/AppScreenData';
 
 
 const imgLogo = require('../../assets/img/logo-login.png');
@@ -11,10 +11,7 @@ const imgLogo = require('../../assets/img/logo-login.png');
 export default class LoginComponent extends Component {
    
     static navigationOptions = {
-        title: 'Sysfinanc VI',
-        headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+        title: TELA_PADRAO.title
       };
 
     constructor(){
@@ -22,15 +19,15 @@ export default class LoginComponent extends Component {
     }
 
     efetuarLogin = () => {
-        this.props.navigation.navigate(AppScreenNames.TELA_HOME);
+        this.props.navigation.navigate(TELA_HOME.name);
     }
 
     executarNovoCadastro= () => {
-        this.props.navigation.navigate(AppScreenNames.TELA_CADASTRO);
+        this.props.navigation.navigate(TELA_DADOS_PESSOAIS.name);
     }
 
     executarEsqueciSenha = ()=> {
-        this.props.navigation.navigate(AppScreenNames.TELA_ESQUECI_SENHA);
+        this.props.navigation.navigate(TELA_ESQUECI_SENHA.name);
     }
 
     render() {

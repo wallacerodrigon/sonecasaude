@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 
-export default class EsqueciSenha extends React.Component {
+export default class AdicionaCompartilhamentoInfo extends React.Component {
     static navigationOptions = {
         title: 'Esqueci a Senha',
         /* No more header config here! */

@@ -1,17 +1,20 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
+import {TELA_ENDERECO, TELA_DESAFIOS} from '../../constants/AppScreenData';
 
-export default class EsqueciSenha extends React.Component {
+export default class Endereco extends React.Component {
     static navigationOptions = {
-        title: 'Esqueci a Senha',
+        title: TELA_ENDERECO.title,
         /* No more header config here! */
       };
 
     render() {
         return (
             <View style={EstilosComuns.container}>
-                <Text>EsqueciSenha</Text>
+                <Text>Endereços</Text>
+                
+                <Botao tituloBotao='Próximo' onClick={() =>  this.props.navigation.navigate(TELA_DESAFIOS.name)}/>    
             </View>
         )
     };
