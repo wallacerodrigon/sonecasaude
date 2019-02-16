@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {View, Text, StyleSheet, TextInput, Image} from 'react-native';
 
-import Botao from '../botao/Botao';
+import Botao from '../../components/botao/Botao';
 import EstilosComuns from '../../assets/estilos/estilos';
-import AppScreenNames from '../../constantes/AppScreenNames';
-import {Speech} from 'expo';
+import AppScreenNames from '../../constants/AppScreenNames'
+
 
 const imgLogo = require('../../assets/img/logo-login.png');
  

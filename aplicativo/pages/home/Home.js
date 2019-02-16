@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, FlatList, Text, StyleSheet} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
-import AppScreenNames from '../../constantes/AppScreenNames';
+import AppScreenNames from '../../constants/AppScreenNames';
 import menus from '../../assets/menus-home.json';
-import WidgetMenu from '../widgets/widgetMenu';
-import Botao from '../botao/Botao';
+import WidgetMenu from '../../components/widgets/widgetMenu';
+import Botao from '../../components/botao/Botao';
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
