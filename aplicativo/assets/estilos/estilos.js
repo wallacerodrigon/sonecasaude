@@ -1,6 +1,8 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {Constants} from 'expo';
 
+const tamanhoPadrao = 14;
+
 const EstilosComuns = StyleSheet.create({
     container: {
         flex: 1,
@@ -19,12 +21,12 @@ const EstilosComuns = StyleSheet.create({
     },
     fontePadrao: {
         fontFamily:'Roboto',
-        fontSize: 14
+        fontSize: tamanhoPadrao
     },
     fonteBotao: {
         fontFamily:'Roboto',
         color: '#fff',
-        fontSize: 14
+        fontSize: tamanhoPadrao
     },
     centralizar: {
         justifyContent: 'center',
@@ -32,6 +34,9 @@ const EstilosComuns = StyleSheet.create({
     },
     corVerde: {
         color: '#04B486',
+    },
+    corBranca: {
+        color: '#fff',
     },
     botao: {
         backgroundColor: '#04B486',
@@ -51,7 +56,7 @@ const EstilosComuns = StyleSheet.create({
     inputText: {
         borderBottomWidth: 1,
         borderColor: '#666',
-        fontSize: 14
+        fontSize: tamanhoPadrao
     },    
     circuloWidget: { 
         height: 146,
@@ -60,9 +65,15 @@ const EstilosComuns = StyleSheet.create({
         backgroundColor: '#fff',
         shadowColor: '#04B486',
         shadowOpacity: 0.8,
-    }  ,
+    },
+    textoTamanhoPadrao: {
+        fontSize: tamanhoPadrao
+    },
     textoJustificado: {
         textAlign: 'justify'
+    },
+    textoCentralizado: {
+        textAlign: 'center'
     }    
      
 });

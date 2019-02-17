@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, FlatList, Image, StyleSheet, Text} from 'react-native';
+import {View, TouchableOpacity, Image, StyleSheet, Text} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import {TELA_HOME, TELA_LOGIN} from '../../constants/AppScreenData';
-import menus from '../../assets/menus-home.json';
-import WidgetMenu from '../../components/widgets/widgetMenu';
+
+//import WidgetMenu from '../../components/widgets/widgetMenu';
 import Botao from '../../components/botao/Botao';
-import { Ionicons as Icon } from '@expo/vector-icons';
+//import { Ionicons as Icon } from '@expo/vector-icons';
 
 const imgMicrophone = require('../../assets/img/microphone_green.png');
 
@@ -33,23 +33,31 @@ export default class HomeScreen extends React.Component {
         return (
             <View style={EstilosComuns.container}>
                 <View style={[styles.microfone]}>
-                    <Image source={imgMicrophone}/>
-                    <Text style={[styles.textoMicrofone, EstilosComuns.corVerde]}>Toque no microfone e fale</Text>
+                    <TouchableOpacity>
+                        <Image source={imgMicrophone}/>
+                        <Text style={[styles.textoMicrofone, EstilosComuns.corVerde]}>Toque no microfone e fale</Text>
+                    </TouchableOpacity>
                 </View>
 
                 <View style={[styles.widgets]}>
-                     <FlatList
-                        data={menus}
-                        renderItem = {({ item }) => 
-                            <WidgetMenu itemMenu={item} onClick={(item)=> this.abrirTela(item)}
-                                
-                            />
-                        }
-                        keyExtractor={item => item.key}
-                        numColumns={2}                                                                                                                              
-                    />
-                </View>
+                    <View style={styles.widgetGroup}>
+                        <View style={[styles.widgetItem, EstilosComuns.circuloWidget]}>
+                            <Text>Transporte do Paciente</Text>
+                        </View>
+                        <View style={[styles.widgetItem, EstilosComuns.circuloWidget]}>
+                            <Text>Controlar Medicação</Text>
+                        </View>
+                    </View>
 
+                    <View style={styles.widgetGroup}>
+                        <View style={[styles.widgetItem, EstilosComuns.circuloWidget]}>
+                            <Text>Comparar preço Medicamento</Text>
+                        </View>
+                        <View style={[styles.widgetItem, EstilosComuns.circuloWidget]}>
+                            <Text>Marcar Consulta ou Exame</Text>
+                        </View>
+                    </View>
+                </View>
             </View>
         )
     };
@@ -65,10 +73,22 @@ const styles = StyleSheet.create({
     widgets: {
         flex: 7,
         flexDirection: 'row', 
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
         padding: 5,
     }, 
+    widgetGroup:{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    widgetItem: {
+        flex: 1,
+        padding: 5,
+        marginTop: 4,
+        justifyContent: 'space-between'
+    },
     textoMicrofone: {
         justifyContent: 'center',
         fontWeight: 'bold'
