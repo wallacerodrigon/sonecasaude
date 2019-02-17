@@ -15,12 +15,14 @@ const styles = StyleSheet.create({
     conteiner: {
         flex: 1,
         height: Dimensions.get('window').width /2,
+        backgroundColor: '#ddd'
     },
     widget: {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: 5
+        padding: 5,
+        backgroundColor: '#fff'
     },
     widgetText: {
         fontWeight: 'bold',

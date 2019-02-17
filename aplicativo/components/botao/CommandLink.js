@@ -2,7 +2,7 @@ import React from 'react';
 import {TouchableOpacity, View, Text} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 
-export default class Botao extends React.Component {
+export default class CommandLink extends React.Component {
 
     constructor(props){
         super(props); 
@@ -10,10 +10,9 @@ export default class Botao extends React.Component {
 
     render() {
         return (
-          <TouchableOpacity onPress={()=> this.props.onClick()}  style={[EstilosComuns.botao, this.props.styles]}>
+          <TouchableOpacity onPress={()=> this.props.onClick()}  style={[EstilosComuns.centralizar, this.props.styles]}>
             <View>
-              <Text style={[EstilosComuns.fonteBotao]}>{this.props.loading ? '↻' : this.props.tituloBotao}</Text>
-
+              <Text style={EstilosComuns.fonteBotao}>{this.props.tituloBotao}</Text>
             </View>
           </TouchableOpacity>            
         )

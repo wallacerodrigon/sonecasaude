@@ -1,7 +1,8 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
-import {TELA_DESAFIOS, TELA_FINALIZA_CADASTRO, TELA_SHARE_INFO} from '../../constants/AppScreenData'
+import {TELA_DESAFIOS, TELA_FINALIZA_CADASTRO, TELA_SHARE_INFO, TELA_ADD_SHARE_INFO} from '../../constants/AppScreenData'
+import Botao from '../../components/botao/Botao';
 
 export default class Desafios extends React.Component {
     static navigationOptions = {
@@ -13,8 +14,7 @@ export default class Desafios extends React.Component {
         return (
             <View style={EstilosComuns.container}>
                 <Text>Desafios</Text>
-                <Botao tituloBotao='Próximo' onClick={() =>  this.props.navigation.navigate(TELA_SHARE_INFO.name)}/>                
-                <Botao tituloBotao='Pular desafio' onClick={() =>  this.props.navigation.navigate(TELA_FINALIZA_CADASTRO.name)}/>                                
+                <Botao tituloBotao='Próximo' onClick={() =>  this.props.navigation.navigate(TELA_ADD_SHARE_INFO.name)}/>                
             </View>
         )
     };

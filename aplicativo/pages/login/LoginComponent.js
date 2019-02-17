@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, TextInput, Image} from 'react-native';
+import {View, Text, StyleSheet, TextInput, Image, TouchableOpacity} from 'react-native';
 
 import Botao from '../../components/botao/Botao';
 import EstilosComuns from '../../assets/estilos/estilos';
 import {TELA_PADRAO, TELA_HOME, TELA_ESQUECI_SENHA, TELA_DADOS_PESSOAIS} from '../../constants/AppScreenData';
+import CommandLink from '../../components/botao/CommandLink';
 
 
 const imgLogo = require('../../assets/img/logo-login.png');
@@ -33,25 +34,22 @@ export default class LoginComponent extends Component {
     render() {
 
         return (
-            <View
-            style={[EstilosComuns.container]}>
+          <View style={[EstilosComuns.container]}>
             <View style={styles.header}>
                 <Image source={imgLogo}/>
-                <Text style={[EstilosComuns.fontePadrao, styles.headerEntrada]}>Para entrar,</Text>
-                <Text style={[EstilosComuns.fontePadrao, styles.headerMensagem]}>informe seu login e senha</Text>
             </View>
 
             <View style={styles.central}>
-                <TextInput style={styles.inputText} placeholder="Login"  maxLength = {10}></TextInput>
-                <TextInput style={styles.inputText} placeholder="Senha"  maxLength = {10} secureTextEntry textContentType="password" ></TextInput>
+                <TextInput style={styles.inputText} placeholder="E-mail ou telefone"  maxLength = {10}
+                    inlineImageLeft="search_icon" //verificar...
+                ></TextInput>
+                <TextInput style={styles.inputText} placeholder="Senha"  maxLength={10} secureTextEntry textContentType="password" ></TextInput>
 
-                <Botao tituloBotao='Login'  onClick={()=>this.efetuarLogin()}/>
+                <Botao tituloBotao='Entrar'  onClick={()=>this.efetuarLogin()}/>
+                <CommandLink tituloBotao="Não sabe sua senha? Clique aqui e vamos recuperá-la" onClick={() => this.executarEsqueciSenha()}/>
+                <CommandLink tituloBotao="Não tem uma conta? Cadastre-se aqui." onClick={() => this.executarNovoCadastro()}/>
             </View>
 
-            <View style={styles.footer}>
-                <Botao tituloBotao='Cadastrar-me'  onClick={() => this.executarNovoCadastro()}/>
-                <Botao tituloBotao='Esqueci a senha' onClick={() =>this.executarEsqueciSenha()}/>
-            </View>
           </View>            
         )
     }

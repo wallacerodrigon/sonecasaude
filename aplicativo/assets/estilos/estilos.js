@@ -16,14 +16,22 @@ const EstilosComuns = StyleSheet.create({
     fontePadrao: {
         fontFamily:'Roboto'
     },
+    fonteBotao: {
+        fontFamily:'Roboto',
+        color: '#fff',
+        fontSize: 14
+    },
+    centralizar: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     botao: {
-        backgroundColor: '#fff',
-        height: 30,
+        backgroundColor: '#04B486',
+        height: 40,
         marginTop: 8,
         justifyContent: 'center',
         alignItems: 'center',
         shadowColor: '#666',
-        
     }
 });
 

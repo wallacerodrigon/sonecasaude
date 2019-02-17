@@ -16,8 +16,8 @@ const AppNavigator = createStackNavigator(
       home: {screen: HomeScreen},
       esqueciSenha: {screen: EsqueciSenha},
 
-      compartilhaInformacoes: {screen: EsqueciSenha},
-
+      compartilhaInformacoes: {screen: AdicionaCompartilhamentoInfo},
+      
       dadosPessoais: {screen: DadosPessoais},
       endereco: {screen: Endereco},
       desafios: {screen: Desafios},

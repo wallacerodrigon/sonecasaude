@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import {TELA_ENDERECO, TELA_DESAFIOS} from '../../constants/AppScreenData';
+import Botao from '../../components/botao/Botao';
 
 export default class Endereco extends React.Component {
     static navigationOptions = {
