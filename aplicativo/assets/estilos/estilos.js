@@ -1,12 +1,16 @@
 import {StyleSheet, Dimensions} from 'react-native';
+import {Constants} from 'expo';
 
 const EstilosComuns = StyleSheet.create({
     container: {
-        height: '100%',
-        padding: 5,
+        flex: 1,
+        paddingTop: Constants.statusBarHeight,
         flexDirection: 'column',
-        borderWidth: 1,
-        borderColor: '#666'
+        backgroundColor: '#ddd',
+        padding: 10
+    },
+    backgroundPadrao: {
+        backgroundColor: '#ddd'
     },
     sombra: {
         shadowColor: '#666',
@@ -14,7 +18,8 @@ const EstilosComuns = StyleSheet.create({
         shadowRadius:30
     },
     fontePadrao: {
-        fontFamily:'Roboto'
+        fontFamily:'Roboto',
+        fontSize: 14
     },
     fonteBotao: {
         fontFamily:'Roboto',
@@ -25,6 +30,9 @@ const EstilosComuns = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    corVerde: {
+        color: '#04B486',
+    },
     botao: {
         backgroundColor: '#04B486',
         height: 40,
@@ -32,7 +40,31 @@ const EstilosComuns = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         shadowColor: '#666',
-    }
+    },
+    negrito: {
+        fontWeight: 'bold'
+    },
+    sublinhado: {
+        textDecorationLine: 'underline',
+        
+    },
+    inputText: {
+        borderBottomWidth: 1,
+        borderColor: '#666',
+        fontSize: 14
+    },    
+    circuloWidget: { 
+        height: 146,
+        width: 146, 
+        borderRadius: 146, 
+        backgroundColor: '#fff',
+        shadowColor: '#04B486',
+        shadowOpacity: 0.8,
+    }  ,
+    textoJustificado: {
+        textAlign: 'justify'
+    }    
+     
 });
 
 export default EstilosComuns;

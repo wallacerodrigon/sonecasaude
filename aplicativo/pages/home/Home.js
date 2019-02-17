@@ -1,15 +1,20 @@
 import React from 'react';
-import {View, FlatList, Text, StyleSheet} from 'react-native';
+import {View, FlatList, Image, StyleSheet, Text} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import {TELA_HOME, TELA_LOGIN} from '../../constants/AppScreenData';
 import menus from '../../assets/menus-home.json';
 import WidgetMenu from '../../components/widgets/widgetMenu';
 import Botao from '../../components/botao/Botao';
+import { Ionicons as Icon } from '@expo/vector-icons';
+
+const imgMicrophone = require('../../assets/img/microphone_green.png');
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
         title: TELA_HOME.title
       };
+
+       
 
     constructor(){
         super()
@@ -20,46 +25,54 @@ export default class HomeScreen extends React.Component {
         
     }
 
-    abrirTela(){
-       // this.props.navigation.navigate(item.screen);
-       alert('ok')
+    abrirTela(item){
+       this.props.navigation.navigate(item.screen);
     }
 
     render() {
         return (
             <View style={EstilosComuns.container}>
-                <View style={styles.lista}>
-                    <FlatList
+                <View style={[styles.microfone]}>
+                    <Image source={imgMicrophone}/>
+                    <Text style={[styles.textoMicrofone, EstilosComuns.corVerde]}>Toque no microfone e fale</Text>
+                </View>
+
+                <View style={[styles.widgets]}>
+                     <FlatList
                         data={menus}
                         renderItem = {({ item }) => 
-                            <WidgetMenu itemMenu={item} onClick={()=> this.abrirTela()}
-                                icone={require("../../assets/icons/lancamentos.jpeg")}
+                            <WidgetMenu itemMenu={item} onClick={(item)=> this.abrirTela(item)}
+                                
                             />
                         }
                         keyExtractor={item => item.key}
-                        numColumns={2}
+                        numColumns={2}                                                                                                                              
                     />
                 </View>
 
-                <View style={styles.footer}>
-                    <Botao tituloBotao='Sair' onClick={() => this.retornarLogin()}/>
-
-                </View>
             </View>
         )
     };
 }
 
 const styles = StyleSheet.create({
-    lista: {
-        flex: 6
+    microfone: {
+        flex: 3,
+        borderBottomWidth: 2,
+        borderBottomColor: '#fff',
+        alignItems: 'center'
     },
-    footer: {
-        flex: 1,
+    widgets: {
+        flex: 7,
         flexDirection: 'row', 
-        justifyContent: 'flex-end', 
-        padding: 5       
+        justifyContent: 'center',
+        alignItems: 'center',                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+        padding: 5,
     }, 
+    textoMicrofone: {
+        justifyContent: 'center',
+        fontWeight: 'bold'
+    }
 
 })
 

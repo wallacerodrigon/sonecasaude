@@ -12,7 +12,7 @@ export default class CommandLink extends React.Component {
         return (
           <TouchableOpacity onPress={()=> this.props.onClick()}  style={[EstilosComuns.centralizar, this.props.styles]}>
             <View>
-              <Text style={EstilosComuns.fonteBotao}>{this.props.tituloBotao}</Text>
+              <Text style={[EstilosComuns.fontePadrao, EstilosComuns.sublinhado]}>{this.props.tituloBotao}</Text>
             </View>
           </TouchableOpacity>            
         )

@@ -9,7 +9,10 @@ import Endereco from './pages/cadastro/Endereco';
 import Desafios from './pages/cadastro/Desafios';
 import FinalizaCadastro from './pages/cadastro/FinalizaCadastro';
 import AdicionaCompartilhamentoInfo from './pages/cadastro/AdicionaCompartilhamentoInfo';
+import { TELA_PADRAO } from './constants/AppScreenData';
+import EstilosComuns from './assets/estilos/estilos';
 
+//https://reactnavigation.org/docs/en/stack-navigator.html
 const AppNavigator = createStackNavigator(
     {
       login: {screen: LoginComponent},
@@ -41,12 +44,16 @@ const AppNavigator = createStackNavigator(
 
       adicionaClinica: {screen: EsqueciSenha},                                    
       listaClinicas: {screen: EsqueciSenha},                                    
-
-      
     },
     {
-        initialRouteName: "login"
-    }
+        initialRouteName: "login",
+        defaultNavigationOptions: {
+          title: TELA_PADRAO.title,
+          headerStyle: EstilosComuns.backgroundPadrao
+          
+        },
+
+    },
      
 );
 
