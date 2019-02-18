@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, TextInput, Image, Alert} from 'react-native';
+import {View, StyleSheet, Image, Alert} from 'react-native';
 
 import Botao from '../../components/botao/Botao';
 import EstilosComuns from '../../assets/estilos/estilos';

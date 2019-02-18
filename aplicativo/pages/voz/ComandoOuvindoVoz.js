@@ -1,6 +1,9 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Image} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
+
+const imgMicrophone = require('../../assets/img/microphone_green.png');
+const imgOuvindo = require('../../assets/img/ouvindo.png');
 
 export default class ComandoOuvindoVoz extends React.Component {
     static navigationOptions = {
@@ -11,7 +14,13 @@ export default class ComandoOuvindoVoz extends React.Component {
     render() {
         return (
             <View style={EstilosComuns.container}>
-                <Text>ComandoOuvindoVoz</Text>
+                <View style={EstilosComuns.bodyTitulo}>
+                    <Image source={imgMicrophone}/>
+                </View>
+
+                <View style={EstilosComuns.bodyMain}>
+                    <Image source={imgOuvindo} width="100%"/>
+                </View>
             </View>
         )
     };

@@ -7,11 +7,11 @@ export const TELA_ESQUECI_SENHA = {name:"esqueciSenha", title: "Esqueci a Senha"
 export const TELA_SHARE_INFO = {name:"compartilhaInformacoes", title: "Compartilhar Informações"};
 
     /**cadastro */
-export const TELA_DADOS_PESSOAIS = {name:"dadosPessoais", title: "Meus Dados Pessoais"};
-export const TELA_ENDERECO = {name:"endereco", title: "Seu Endereço"};
-export const TELA_DESAFIOS = {name:"desafios", title: "Desafios de Saúde"};
-export const TELA_FINALIZA_CADASTRO = {name:"finalizaCadastro", title: "Finalização do Cadastro"};
-export const TELA_ADD_SHARE_INFO = {name:"adicionaCompartilhamentoInfo", title: "Compartilhar Informações"};
+export const TELA_DADOS_PESSOAIS = {name:"dadosPessoais", title: "Cadastro"};
+export const TELA_ENDERECO = {name:"endereco", title: "Cadastro"};
+export const TELA_DESAFIOS = {name:"desafios", title: "Cadastro"};
+export const TELA_FINALIZA_CADASTRO = {name:"finalizaCadastro", title: "Cadastro"};
+export const TELA_ADD_SHARE_INFO = {name:"adicionaCompartilhamentoInfo", title: "Cadastro"};
 
     /*Controle de medicação */
 export const TELA_CONTROLE_MEDICACAO = {name:"controleMedicacao", title: "Controlar Medicação"};

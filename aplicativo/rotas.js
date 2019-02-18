@@ -11,6 +11,9 @@ import FinalizaCadastro from './pages/cadastro/FinalizaCadastro';
 import AdicionaCompartilhamentoInfo from './pages/cadastro/AdicionaCompartilhamentoInfo';
 import { TELA_PADRAO } from './constants/AppScreenData';
 import EstilosComuns from './assets/estilos/estilos';
+import ComandoOuvindoVoz from './pages/voz/ComandoOuvindoVoz';
+import AlarmeEstoque from './pages/medicacao/AlarmeEstoque';
+import AlarmeHorario from './pages/medicacao/AlarmeHorario';
 
 //https://reactnavigation.org/docs/en/stack-navigator.html
 const AppNavigator = createStackNavigator(
@@ -33,9 +36,9 @@ const AppNavigator = createStackNavigator(
       historicoMedicacao: {screen: EsqueciSenha},                                    
       listaCompartilhamentoMedicacao: {screen: EsqueciSenha},                                    
 
-      alarmeEstoque: {screen: EsqueciSenha},
-      alarmeHorario: {screen: EsqueciSenha},                                    
-      comandoVoz: {screen: EsqueciSenha},                                    
+      alarmeEstoque: {screen: AlarmeEstoque},
+      alarmeHorario: {screen: AlarmeHorario},                                    
+      comandoVoz: {screen: ComandoOuvindoVoz},                                    
 
       adicionaMedicos: {screen: EsqueciSenha},
       listaMedicos: {screen: EsqueciSenha},                                    
@@ -46,10 +49,11 @@ const AppNavigator = createStackNavigator(
       listaClinicas: {screen: EsqueciSenha},                                    
     },
     {
+        //melhorar a fonte
         initialRouteName: "login",
         defaultNavigationOptions: {
           title: TELA_PADRAO.title,
-          headerStyle: EstilosComuns.backgroundPadrao
+          headerStyle: [EstilosComuns.backgroundPadrao, EstilosComuns.corBranca]
           
         },
 

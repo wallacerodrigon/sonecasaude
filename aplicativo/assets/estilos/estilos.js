@@ -54,9 +54,10 @@ const EstilosComuns = StyleSheet.create({
         
     },
     inputText: {
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.8,
         borderColor: '#666',
-        fontSize: tamanhoPadrao
+        fontSize: 16,
+        padding: 8
     },    
     circuloWidget: { 
         height: 146,
@@ -74,7 +75,24 @@ const EstilosComuns = StyleSheet.create({
     },
     textoCentralizado: {
         textAlign: 'center'
-    }    
+    } ,
+    tituloJanelas: {
+        fontSize: 20, 
+        fontWeight: 'bold',
+        marginBottom: 5,
+        color: '#666',
+        padding: 10
+    },
+    bodyTitulo: {
+        flex: 1
+    },
+    bodyMain : {
+        flex: 8,
+        padding: 10
+    },
+    rodape: {
+        flex: 1
+    }      
      
 });
 

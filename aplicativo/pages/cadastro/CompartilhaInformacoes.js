@@ -13,7 +13,8 @@ export default class CompartilhaInformacoes extends React.Component {
     render() {
         return (
             <View style={EstilosComuns.container}>
-                <Text>CompartilhaInformacoes</Text>
+               
+
             </View>
         )
     };

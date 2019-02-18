@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity, Image, StyleSheet, Text} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
-import {TELA_HOME, TELA_LOGIN} from '../../constants/AppScreenData';
+import {TELA_HOME, TELA_LOGIN, TELA_COMANDO_VOZ} from '../../constants/AppScreenData';
 
 //import WidgetMenu from '../../components/widgets/widgetMenu';
 import Botao from '../../components/botao/Botao';
@@ -29,11 +29,15 @@ export default class HomeScreen extends React.Component {
        this.props.navigation.navigate(item.screen);
     }
 
+    abrirTelaOuvindo(){
+        this.props.navigation.navigate(TELA_COMANDO_VOZ.name);
+    }
+
     render() {
         return (
             <View style={EstilosComuns.container}>
                 <View style={[styles.microfone]}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=> this.abrirTelaOuvindo()}>
                         <Image source={imgMicrophone}/>
                         <Text style={[styles.textoMicrofone, EstilosComuns.corVerde]}>Toque no microfone e fale</Text>
                     </TouchableOpacity>
