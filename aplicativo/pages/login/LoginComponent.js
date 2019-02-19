@@ -6,6 +6,7 @@ import EstilosComuns from '../../assets/estilos/estilos';
 import {TELA_PADRAO, TELA_HOME, TELA_ESQUECI_SENHA, TELA_DADOS_PESSOAIS} from '../../constants/AppScreenData';
 import CommandLink from '../../components/botao/CommandLink';
 import InputTexto from '../../components/input/InputTexto';
+import { MensagemAlerta, MensagemErro } from '../../components/mensagens/Mensagens';
 
 
 const imgLogo = require('../../assets/img/logo-login.png');
@@ -17,12 +18,15 @@ export default class LoginComponent extends Component {
         header: null
       };
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props);
 
         this.state= {
             login: '', senha: ''
         };
+
+        this.onChangeLogin= this.onChangeLogin.bind(this);
+        this.onChangeSenha = this.onChangeSenha.bind(this);
     }
 
     isVazio(texto){
@@ -30,18 +34,10 @@ export default class LoginComponent extends Component {
     }
 
     efetuarLogin = () => {
-
-       /* if (this.isVazio(this.state.login) || this.isVazio(this.state.senha)){
-            //criar um componente de mensagem para cada tipo
-            Alert.alert(
-                'Atenção!',
-                'Campo login e senha devem ser informados!',
-                [
-                  {text: 'OK', onPress: () => console.log('OK Pressed')},
-                ],
-              );            
+        if (this.isVazio(this.state.login) || this.isVazio(this.state.senha)){
+            MensagemErro("Login e senha são obrigatórios!");
             return;
-        }*/
+        }
         this.props.navigation.navigate(TELA_HOME.name);
     }
 
@@ -53,14 +49,12 @@ export default class LoginComponent extends Component {
         this.props.navigation.navigate(TELA_ESQUECI_SENHA.name);
     }
 
-    tratarInputLogin(text){
-        //alert(text);
-        //this.setState({login: text});
+    onChangeLogin(text){
+        this.setState({login: text});
     }
 
-    tratarInputSenha(text){
-       // this.setState({senha: text.value});
-      // alert('senha')
+    onChangeSenha(text){
+        this.setState({senha: text});
     }
 
     render() {
@@ -73,12 +67,12 @@ export default class LoginComponent extends Component {
 
             <View style={styles.central}>
                 <InputTexto placeholder="E-mail ou telefone" maxLength={40}
-                    onChangeInput={value => this.tratarInputLogin(value)}
+                    onChangeInput={this.onChangeLogin}
                     textcontextType="password"/>
 
 
                 <InputTexto placeholder="Senha" maxLength={10} secureTextEntry
-                    onChangeInput={value => this.tratarInputSenha(value)}
+                    onChangeInput={this.onChangeSenha}
                     textcontextType="password"/>
 
                 <CommandLink styles={styles.esqueceuSenha} tituloBotao="Não sabe sua senha? Clique aqui e vamos recuperá-la" onClick={() => this.executarEsqueciSenha()}/>

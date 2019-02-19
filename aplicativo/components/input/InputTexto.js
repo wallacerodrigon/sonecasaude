@@ -14,7 +14,7 @@ export default class InputTexto extends React.Component {
                 <TextInput style={[EstilosComuns.inputText]} placeholder={this.props.placeholder} 
                     maxLength={this.props.maxLength} secureTextEntry={this.props.secureTextEntry} 
                     textContentType={this.props.textContentType} 
-                    onChange={value => this.props.onChangeInput(value)}
+                    onChange={value => this.props.onChangeInput(value.nativeEvent.text)}
                 />
             </View>
         )
