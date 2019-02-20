@@ -53,8 +53,17 @@ const AppNavigator = createStackNavigator(
         initialRouteName: "login",
         defaultNavigationOptions: {
           title: TELA_PADRAO.title,
-          headerStyle: [EstilosComuns.backgroundPadrao, EstilosComuns.corBranca]
-          
+          headerStyle: [ EstilosComuns.backgroundToolbar],
+          cardShadowEnabled: "true",
+          headerTitleStyle: [EstilosComuns.corBranca],
+          // headerRight: (
+          //       <View>
+          //         <Botao tituloBotao="..."/>
+          //       </View>
+          // )
+          //
+          //headerTransparent: "true"
+          //headerBackground
         },
 
     },

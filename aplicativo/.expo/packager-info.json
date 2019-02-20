@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://wj-gd7.wallacerodrigon.aplicativo.exp.direct",
+  "packagerNgrokUrl": "https://packager.wj-gd7.wallacerodrigon.aplicativo.exp.direct",
+  "ngrokPid": 10193
 }

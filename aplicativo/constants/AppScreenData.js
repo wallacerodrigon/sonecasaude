@@ -10,7 +10,7 @@ export const TELA_SHARE_INFO = {name:"compartilhaInformacoes", title: "Compartil
 export const TELA_DADOS_PESSOAIS = {name:"dadosPessoais", title: "Cadastro"};
 export const TELA_ENDERECO = {name:"endereco", title: "Cadastro"};
 export const TELA_DESAFIOS = {name:"desafios", title: "Cadastro"};
-export const TELA_FINALIZA_CADASTRO = {name:"finalizaCadastro", title: "Cadastro"};
+export const TELA_FINALIZA_CADASTRO = {name:"finalizaCadastro", title: "Finalizar Cadastro"};
 export const TELA_ADD_SHARE_INFO = {name:"adicionaCompartilhamentoInfo", title: "Cadastro"};
 
     /*Controle de medicação */

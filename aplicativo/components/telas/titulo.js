@@ -2,16 +2,10 @@ import React, {Component} from 'react';
 import {Text} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 
-export default class Titulo extends Component {
-    constructor(props){
-        super(props);
-    }
+const Titulo = props => (
+    <View>
+       <Text style={EstilosComuns.tituloJanelas}>{props.tituloJanela}</Text>
+    </View>
+);
 
-    render() {
-        return (
-            <Text style={EstilosComuns.tituloJanelas}>{this.props.tituloJanela}</Text>
-        )
-    }
-};
-
-
+export default Titulo;

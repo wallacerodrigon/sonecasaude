@@ -2,20 +2,27 @@ import {StyleSheet, Dimensions} from 'react-native';
 import {Constants} from 'expo';
 
 const tamanhoPadrao = 14;
+const corVerde = "#04B486";
+const corBranco = "#fff";
+const corCinza = "#ddd"
 
 const EstilosComuns = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: Constants.statusBarHeight,
         flexDirection: 'column',
-        backgroundColor: '#ddd',
+        backgroundColor: corCinza,
         padding: 10
     },
+    backgroundToolbar: {
+        backgroundColor: corVerde,
+    },
+
     backgroundPadrao: {
-        backgroundColor: '#ddd'
+        backgroundColor: corCinza
     },
     sombra: {
-        shadowColor: '#666',
+        shadowColor: corCinza,
         shadowOpacity: 0.3,
         shadowRadius:30
     },
@@ -88,7 +95,7 @@ const EstilosComuns = StyleSheet.create({
     },
     bodyMain : {
         flex: 8,
-        padding: 10
+       // padding: 10
     },
     rodape: {
         flex: 1
@@ -98,3 +105,4 @@ const EstilosComuns = StyleSheet.create({
 
 export default EstilosComuns;
 
+//elevation resolve o espaço da tab bar...

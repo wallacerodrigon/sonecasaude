@@ -33,18 +33,23 @@ export default class DadosPessoais extends React.Component {
                 
                 <View style={EstilosComuns.bodyMain}>
                     <InputTexto placeholder="CPF" maxLength={15}
+                        keyboardType="number-pad"
                         onChangeInput={value => this.tratarInputCpf(value)}
                         />
                     <InputTexto placeholder="E-mail" maxLength={40}
+                        keyboardType="email-address"
+                        autoCapitalize="none"
                         onChangeInput={value => this.tratarInputCpf(value)}
                         />
                     <InputTexto placeholder="Nome Completo" maxLength={60}
+                        autoCapitalize="words"
                         onChangeInput={value => this.tratarInputCpf(value)}
                         />
                     <InputTexto placeholder="Data de Nascimento" maxLength={40}
                         onChangeInput={value => this.tratarInputCpf(value)}
                         />
                     <InputTexto placeholder="Celular" maxLength={40}
+                        keyboardType="phone-pad"
                         onChangeInput={value => this.tratarInputCpf(value)}
                         />
                     <InputTexto placeholder="Sexo" maxLength={40}

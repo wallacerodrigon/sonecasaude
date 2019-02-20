@@ -4,12 +4,26 @@ import EstilosComuns from '../../assets/estilos/estilos';
 import { TELA_ADD_SHARE_INFO, TELA_FINALIZA_CADASTRO } from '../../constants/AppScreenData';
 import Botao from '../../components/botao/Botao';
 import InputTexto from '../../components/input/InputTexto';
+import ConfirmacaoSwitch from '../../components/radio/ConfirmacaoSwitch';
 
 export default class AdicionaCompartilhamentoInfo extends React.Component {
     static navigationOptions = {
         title: TELA_ADD_SHARE_INFO.title,
         /* No more header config here! */
       };
+
+    constructor(props){
+        super(props);
+
+        this.state = {marcouTransporte: false, marcouMedicacao: false}
+    }
+
+    toggleTransporte(){
+        this.setState({marcouTransporte: !this.state.marcouTransporte});
+    }
+    toggleMedicacao(){
+        this.setState({marcouMedicacao: !this.state.marcouMedicacao});
+    }    
 
     render() {
         return (
@@ -33,8 +47,8 @@ export default class AdicionaCompartilhamentoInfo extends React.Component {
                         />
                     <Text>Compartilhar Informações:</Text>
                     <View style={styles.checkboxes}>
-                        <Text>Transporte</Text>
-                        <Text>Medicação</Text>
+                        <Text>Transporte</Text><ConfirmacaoSwitch value={this.state.marcouTransporte} toggleSwitch={this.toggleTransporte}></ConfirmacaoSwitch>
+                        <Text>Medicação</Text><ConfirmacaoSwitch value={this.state.marcouMedicacao} toggleSwitch={this.toggleMedicacao}></ConfirmacaoSwitch>
                     </View>
                 </View>
 
@@ -51,6 +65,6 @@ const styles = StyleSheet.create({
     checkboxes: {
         flex: 1,
         flexDirection: 'column',
-        padding: 2
+        padding: 5
     }
 })

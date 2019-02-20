@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, StyleSheet, Image, Alert} from 'react-native';
+import {View, StyleSheet, Image, TextInput} from 'react-native';
 
 import Botao from '../../components/botao/Botao';
 import EstilosComuns from '../../assets/estilos/estilos';
@@ -57,6 +57,10 @@ export default class LoginComponent extends Component {
         this.setState({senha: text});
     }
 
+    onChangeField(field, value){
+        this.setState({[field]: value});
+    }
+
     render() {
 
         return (
@@ -65,22 +69,27 @@ export default class LoginComponent extends Component {
                 <Image source={imgLogo}/>
             </View>
 
+
             <View style={styles.central}>
                 <InputTexto placeholder="E-mail ou telefone" maxLength={40}
                     onChangeInput={this.onChangeLogin}
-                    textcontextType="password"/>
+                    autoCapitalize="none"
+                    placeholderTextColor="#fff"
+                    keyboardType="email-address"
+                    />
 
 
                 <InputTexto placeholder="Senha" maxLength={10} secureTextEntry
                     onChangeInput={this.onChangeSenha}
+                    autoCapitalize="none"
                     textcontextType="password"/>
 
-                <CommandLink styles={styles.esqueceuSenha} tituloBotao="Não sabe sua senha? Clique aqui e vamos recuperá-la" onClick={() => this.executarEsqueciSenha()}/>
+                <CommandLink styles={styles.esqueceuSenha} tituloBotao="Não sabe sua senha? Clique aqui para recuperá-la, ok?" onClick={() => this.executarEsqueciSenha()}/>
 
                 <Botao tituloBotao='Entrar'  onClick={()=>this.efetuarLogin()}/>
 
                 <View style={styles.commandLinks}>
-                    <CommandLink styles={EstilosComuns.negrito} tituloBotao="Não tem uma conta? Cadastre-se aqui." onClick={() => this.executarNovoCadastro()}/>
+                    <CommandLink styles={EstilosComuns.negrito} tituloBotao="Ainda não tem uma conta? Cadastre-se" onClick={() => this.executarNovoCadastro()}/>
                 </View>
             </View>
 
