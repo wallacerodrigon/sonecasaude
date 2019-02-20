@@ -99,6 +99,9 @@ const EstilosComuns = StyleSheet.create({
     },
     rodape: {
         flex: 1
+    },
+    rodapeDuplo:{
+        flex: 2
     }      
      
 });

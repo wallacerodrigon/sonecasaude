@@ -30,23 +30,23 @@ const AppNavigator = createStackNavigator(
       finalizaCadastro: {screen: FinalizaCadastro},
       adicionaCompartilhamentoInfo: {screen: AdicionaCompartilhamentoInfo},
       
-      controleMedicacao: {screen: EsqueciSenha},
-      adicionaCompartilhamentoMedicacao: {screen: EsqueciSenha},
-      adicionaMedicamento: {screen: EsqueciSenha},
-      historicoMedicacao: {screen: EsqueciSenha},                                    
-      listaCompartilhamentoMedicacao: {screen: EsqueciSenha},                                    
+      // controleMedicacao: {screen: EsqueciSenha},
+      // adicionaCompartilhamentoMedicacao: {screen: EsqueciSenha},
+      // adicionaMedicamento: {screen: EsqueciSenha},
+      // historicoMedicacao: {screen: EsqueciSenha},                                    
+      // listaCompartilhamentoMedicacao: {screen: EsqueciSenha},                                    
 
-      alarmeEstoque: {screen: AlarmeEstoque},
-      alarmeHorario: {screen: AlarmeHorario},                                    
-      comandoVoz: {screen: ComandoOuvindoVoz},                                    
+      // alarmeEstoque: {screen: AlarmeEstoque},
+      // alarmeHorario: {screen: AlarmeHorario},                                    
+      // comandoVoz: {screen: ComandoOuvindoVoz},                                    
 
-      adicionaMedicos: {screen: EsqueciSenha},
-      listaMedicos: {screen: EsqueciSenha},                                    
+      // adicionaMedicos: {screen: EsqueciSenha},
+      // listaMedicos: {screen: EsqueciSenha},                                    
 
-      meuPerfil: {screen: EsqueciSenha},                                    
+      // meuPerfil: {screen: EsqueciSenha},                                    
 
-      adicionaClinica: {screen: EsqueciSenha},                                    
-      listaClinicas: {screen: EsqueciSenha},                                    
+      // adicionaClinica: {screen: EsqueciSenha},                                    
+      // listaClinicas: {screen: EsqueciSenha},                                    
     },
     {
         //melhorar a fonte

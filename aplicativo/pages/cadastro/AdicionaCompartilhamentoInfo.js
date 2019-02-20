@@ -15,7 +15,9 @@ export default class AdicionaCompartilhamentoInfo extends React.Component {
     constructor(props){
         super(props);
 
-        this.state = {marcouTransporte: false, marcouMedicacao: false}
+        this.state = {marcouTransporte: false, marcouMedicacao: false};
+        this.toggleTransporte = this.toggleTransporte.bind(this);
+        this.toggleMedicacao = this.toggleMedicacao.bind(this);
     }
 
     toggleTransporte(){
@@ -45,10 +47,19 @@ export default class AdicionaCompartilhamentoInfo extends React.Component {
                     <InputTexto placeholder="Celular" maxLength={15}
                         onChangeInput={value => this.tratarInputCpf(value)}
                         />
-                    <Text>Compartilhar Informações:</Text>
                     <View style={styles.checkboxes}>
-                        <Text>Transporte</Text><ConfirmacaoSwitch value={this.state.marcouTransporte} toggleSwitch={this.toggleTransporte}></ConfirmacaoSwitch>
-                        <Text>Medicação</Text><ConfirmacaoSwitch value={this.state.marcouMedicacao} toggleSwitch={this.toggleMedicacao}></ConfirmacaoSwitch>
+                        <View style={styles.checkboxItem}>
+                            <Text>Compartilhar Informações:</Text>
+                        </View>
+                        <View style={styles.checkboxItem}>
+                            <Text style={styles.checkboxLeft}>Transporte</Text>
+                            <ConfirmacaoSwitch value={this.state.marcouTransporte} toggleSwitch={this.toggleTransporte}></ConfirmacaoSwitch>
+                        </View>
+
+                        <View style={styles.checkboxItem}>
+                            <Text style={styles.checkboxLeft}>Medicação</Text>
+                            <ConfirmacaoSwitch value={this.state.marcouMedicacao} toggleSwitch={this.toggleMedicacao}></ConfirmacaoSwitch>
+                        </View>
                     </View>
                 </View>
 
@@ -66,5 +77,15 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         padding: 5
+    },
+    checkboxItem: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    checkboxLeft: {
+        flex: 8
+    },
+    checkboxRight: {
+        flex: 2
     }
 })

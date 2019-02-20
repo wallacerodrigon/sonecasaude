@@ -38,7 +38,8 @@ export default class LoginComponent extends Component {
             MensagemErro("Login e senha são obrigatórios!");
             return;
         }
-        this.props.navigation.navigate(TELA_HOME.name);
+       // this.props.navigation.navigate(TELA_HOME.name);
+       MensagemAlerta('Com os dados válidos, vamos para a home que está em construção')
     }
 
     executarNovoCadastro= () => {
@@ -105,7 +106,9 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center', 
         alignItems: 'center',
-        padding: 3
+        padding: 10,
+        backgroundColor: '#fff',
+        marginTop: 5
     },
 
     headerEntrada: {

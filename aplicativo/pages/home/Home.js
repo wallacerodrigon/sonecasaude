@@ -11,13 +11,23 @@ const imgMicrophone = require('../../assets/img/microphone_green.png');
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
-        title: TELA_HOME.title
+        title: TELA_HOME.title,
+        headerRight: ( 
+            <View>
+                <Botao tituloBotao="..." onClick={() => this.abrirMenu()}/>
+            </View>
+        )
       };
 
        
 
     constructor(){
-        super()
+        super();
+        
+    }
+
+    abrirMenu() {
+        alert('ok')
     }
 
     retornarLogin = () => {
