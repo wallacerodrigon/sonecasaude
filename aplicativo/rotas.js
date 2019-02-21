@@ -9,6 +9,7 @@ import Endereco from './pages/cadastro/Endereco';
 import Desafios from './pages/cadastro/Desafios';
 import FinalizaCadastro from './pages/cadastro/FinalizaCadastro';
 import AdicionaCompartilhamentoInfo from './pages/cadastro/AdicionaCompartilhamentoInfo';
+import ControleMedicacao from './pages/medicacao/ControleMedicacao';
 import { TELA_PADRAO } from './constants/AppScreenData';
 import EstilosComuns from './assets/estilos/estilos';
 import ComandoOuvindoVoz from './pages/voz/ComandoOuvindoVoz';
@@ -30,7 +31,7 @@ const AppNavigator = createStackNavigator(
       finalizaCadastro: {screen: FinalizaCadastro},
       adicionaCompartilhamentoInfo: {screen: AdicionaCompartilhamentoInfo},
       
-      // controleMedicacao: {screen: EsqueciSenha},
+      controleMedicacao: {screen: ControleMedicacao},
       // adicionaCompartilhamentoMedicacao: {screen: EsqueciSenha},
       // adicionaMedicamento: {screen: EsqueciSenha},
       // historicoMedicacao: {screen: EsqueciSenha},                                    
@@ -49,7 +50,6 @@ const AppNavigator = createStackNavigator(
       // listaClinicas: {screen: EsqueciSenha},                                    
     },
     {
-        //melhorar a fonte
         initialRouteName: "login",
         defaultNavigationOptions: {
           title: TELA_PADRAO.title,
@@ -62,7 +62,6 @@ const AppNavigator = createStackNavigator(
           //       </View>
           // )
           //
-          //headerTransparent: "true"
           //headerBackground
         },
 

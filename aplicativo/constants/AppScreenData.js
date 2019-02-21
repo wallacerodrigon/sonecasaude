@@ -1,8 +1,8 @@
-export const TELA_PADRAO = {name: null, title: "Solution Prime Care"};
-export const TELA_HOME = {name: "home", title: "Solution Prime Care"};
+export const TELA_PADRAO = {name: null, title: "Soneca Saúde"};
+export const TELA_HOME = {name: "home", title: "Soneca Saúde"};
 
     /**telas iniciais */
-export const TELA_LOGIN = {name:"login", title: "Solution Prime Care"};
+export const TELA_LOGIN = {name:"login", title: "Soneca Saúde"};
 export const TELA_ESQUECI_SENHA = {name:"esqueciSenha", title: "Esqueci a Senha"};
 export const TELA_SHARE_INFO = {name:"compartilhaInformacoes", title: "Compartilhar Informações"};
 
@@ -10,7 +10,7 @@ export const TELA_SHARE_INFO = {name:"compartilhaInformacoes", title: "Compartil
 export const TELA_DADOS_PESSOAIS = {name:"dadosPessoais", title: "Cadastro"};
 export const TELA_ENDERECO = {name:"endereco", title: "Cadastro"};
 export const TELA_DESAFIOS = {name:"desafios", title: "Cadastro"};
-export const TELA_FINALIZA_CADASTRO = {name:"finalizaCadastro", title: "Finalizar Cadastro"};
+export const TELA_FINALIZA_CADASTRO = {name:"finalizaCadastro", title: "Cadastro"};
 export const TELA_ADD_SHARE_INFO = {name:"adicionaCompartilhamentoInfo", title: "Cadastro"};
 
     /*Controle de medicação */

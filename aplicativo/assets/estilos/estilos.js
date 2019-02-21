@@ -66,13 +66,13 @@ const EstilosComuns = StyleSheet.create({
         fontSize: 16,
         padding: 8
     },    
-    circuloWidget: { 
-        height: 146,
-        width: 146, 
-        borderRadius: 146, 
-        backgroundColor: '#fff',
-        shadowColor: '#04B486',
-        shadowOpacity: 0.8,
+    widget: { 
+        height: 160,
+        width: 160, 
+       //borderRadius: 160, 
+        backgroundColor: '#04B486',
+        shadowColor: '#fff',
+        shadowOpacity: 0.3,
     },
     textoTamanhoPadrao: {
         fontSize: tamanhoPadrao

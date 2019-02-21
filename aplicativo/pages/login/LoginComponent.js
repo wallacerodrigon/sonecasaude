@@ -38,8 +38,7 @@ export default class LoginComponent extends Component {
             MensagemErro("Login e senha são obrigatórios!");
             return;
         }
-       // this.props.navigation.navigate(TELA_HOME.name);
-       MensagemAlerta('Com os dados válidos, vamos para a home que está em construção')
+        this.props.navigation.navigate(TELA_HOME.name);
     }
 
     executarNovoCadastro= () => {
@@ -85,7 +84,7 @@ export default class LoginComponent extends Component {
                     autoCapitalize="none"
                     textcontextType="password"/>
 
-                <CommandLink styles={styles.esqueceuSenha} tituloBotao="Não sabe sua senha? Clique aqui para recuperá-la, ok?" onClick={() => this.executarEsqueciSenha()}/>
+                <CommandLink styles={styles.esqueceuSenha} tituloBotao="Não sabe sua senha? Clique aqui para recuperá-la." onClick={() => this.executarEsqueciSenha()}/>
 
                 <Botao tituloBotao='Entrar'  onClick={()=>this.efetuarLogin()}/>
 
@@ -136,6 +135,7 @@ const styles = StyleSheet.create({
     esqueceuSenha: {
          
         marginTop: 15,
-        marginBottom: 15
+        marginBottom: 15,
+        alignItems: 'center'
     }
   });
