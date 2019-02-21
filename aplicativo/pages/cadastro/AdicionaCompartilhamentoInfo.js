@@ -80,7 +80,8 @@ const styles = StyleSheet.create({
     },
     checkboxItem: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        padding: 5
     },
     checkboxLeft: {
         flex: 8

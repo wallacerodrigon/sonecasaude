@@ -25,7 +25,7 @@ export default class EsqueciSenha extends React.Component {
         return (
             <View style={[EstilosComuns.container]}>
                 <Text style={[EstilosComuns.textoCentralizado, EstilosComuns.textoTamanhoPadrao]}>
-                    Para recuperar sua senha, informe o seu e-mail de cadastro abaixo e você receberá um link para ativação da sua conta com uma nova senha.
+                    Para recuperar sua senha, informe o seu e-mail de cadastro. Você receberá no e-mail um link para ativação de uma nova senha.
 
                 </Text>
                 <InputTexto placeholder="Informe seu E-mail " maxLength={40}

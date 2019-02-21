@@ -91,7 +91,9 @@ export default class FinalizaCadastro extends React.Component {
                 </View>
 
                 <View style={EstilosComuns.rodapeDuplo}>
-                    <Botao tituloBotao='Concluir' onClick={() =>  this.props.navigation.navigate(TELA_LOGIN.name)}/>                
+                    <Botao tituloBotao='Concluir'  onClick={() =>  this.props.navigation.navigate(TELA_LOGIN.name)}
+                        disabled={!this.state.liTermos}
+                    />                
                     <Text style={styles.mensagemRodape}>Você receberá no seu e-mail orientações para ativar o seu usuário e cadastrar senha.</Text>
                 </View>                
             </View>

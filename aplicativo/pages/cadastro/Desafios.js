@@ -58,7 +58,7 @@ export default class Desafios extends React.Component {
         return (
             <View style={EstilosComuns.container}>
                 <View style={EstilosComuns.bodyTitulo}>
-                    <Text style={EstilosComuns.tituloJanelas}>Marque os Desafios de Saúde</Text>
+                    <Text style={EstilosComuns.tituloJanelas}>Marque os desafios da saúde</Text>
                 </View>
 
                 {/* aqui tem que ser um flatlist */}
@@ -116,7 +116,8 @@ const styles= StyleSheet.create({
         margin: 4,
         padding: 20,
         flexBasis: 0,
-        textAlign: 'center'
+        textAlign: 'center',
+        borderRadius: 30
     },
     itemMarcado: {
         backgroundColor: '#1637D5'

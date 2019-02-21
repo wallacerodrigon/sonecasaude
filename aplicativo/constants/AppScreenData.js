@@ -3,8 +3,8 @@ export const TELA_HOME = {name: "home", title: "Soneca Saúde"};
 
     /**telas iniciais */
 export const TELA_LOGIN = {name:"login", title: "Soneca Saúde"};
-export const TELA_ESQUECI_SENHA = {name:"esqueciSenha", title: "Esqueci a Senha"};
-export const TELA_SHARE_INFO = {name:"compartilhaInformacoes", title: "Compartilhar Informações"};
+export const TELA_ESQUECI_SENHA = {name:"esqueciSenha", title: "Esqueci a senha"};
+export const TELA_SHARE_INFO = {name:"compartilhaInformacoes", title: "Compartilhar informações"};
 
     /**cadastro */
 export const TELA_DADOS_PESSOAIS = {name:"dadosPessoais", title: "Cadastro"};
@@ -14,11 +14,11 @@ export const TELA_FINALIZA_CADASTRO = {name:"finalizaCadastro", title: "Cadastro
 export const TELA_ADD_SHARE_INFO = {name:"adicionaCompartilhamentoInfo", title: "Cadastro"};
 
     /*Controle de medicação */
-export const TELA_CONTROLE_MEDICACAO = {name:"controleMedicacao", title: "Controlar Medicação"};
-export const TELA_ADD_SHARE_MEDICACAO = {name:"adicionaCompartilhamentoMedicacao", title: "Compartilhar Controle"};
-export const TELA_ADD_MEDICAMENTO = {name:"adicionaMedicamento", title: "Adicionar Medicamento"};
+export const TELA_CONTROLE_MEDICACAO = {name:"controleMedicacao", title: "Controlar medicação"};
+export const TELA_ADD_SHARE_MEDICACAO = {name:"adicionaCompartilhamentoMedicacao", title: "Compartilhar controle"};
+export const TELA_ADD_MEDICAMENTO = {name:"adicionaMedicamento", title: "Adicionar medicamento"};
 export const TELA_HISTORICO_MEDICACAO = {name:"historicoMedicacao", title: "Histórico"};
-export const TELA_LISTA_SHARE_MEDICACAO = {name:"listaCompartilhamentoMedicacao", title: "Compartilhar Medicações"};
+export const TELA_LISTA_SHARE_MEDICACAO = {name:"listaCompartilhamentoMedicacao", title: "Compartilhar medicações"};
 
     /**alarmes e controle de voz */
 export const TELA_ALARME_ESTOQUE = {name:"alarmeEstoque", title: ""};
@@ -30,7 +30,7 @@ export const TELA_ADD_MEDICOS = {name:"adicionaMedicos", title: "Médico"};
 export const TELA_LISTA_MEDICOS = {name:"listaMedicos", title: "Médicos"};
 
     /**perfil */
-export const TELA_MEU_PERFIL = {name:"meuPerfil", title: "Meus Dados"};
+export const TELA_MEU_PERFIL = {name:"meuPerfil", title: "Meus dados"};
     
     /**clínicas */
 export const TELA_ADD_CLINICA = {name:"adicionaClinica", title: ""};

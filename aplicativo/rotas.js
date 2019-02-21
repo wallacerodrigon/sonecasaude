@@ -1,3 +1,6 @@
+import React from 'react';
+
+import {Text, View} from 'react-native';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 
 import LoginComponent from './pages/login/LoginComponent';
@@ -51,11 +54,22 @@ const AppNavigator = createStackNavigator(
     },
     {
         initialRouteName: "login",
-        defaultNavigationOptions: {
+        defaultNavigationOptions:  ({navigation}) => ({
           title: TELA_PADRAO.title,
           headerStyle: [ EstilosComuns.backgroundToolbar],
           cardShadowEnabled: "true",
           headerTitleStyle: [EstilosComuns.corBranca],
+          headerLeft: (
+            <Text onPress={() => 
+                navigation.navigate('DrawerOpen')}>Menu
+            </Text>
+
+          ),
+          headerRight: (
+              <View>
+                  <Text>Voltar</Text>
+              </View>
+          )
           // headerRight: (
           //       <View>
           //         <Botao tituloBotao="..."/>
@@ -63,7 +77,7 @@ const AppNavigator = createStackNavigator(
           // )
           //
           //headerBackground
-        },
+        }),
 
     },
      

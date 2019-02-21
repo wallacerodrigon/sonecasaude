@@ -91,7 +91,8 @@ const EstilosComuns = StyleSheet.create({
         padding: 10
     },
     bodyTitulo: {
-        flex: 1
+        flex: 1,
+        padding: 5
     },
     bodyMain : {
         flex: 8,
