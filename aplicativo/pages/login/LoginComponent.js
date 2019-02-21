@@ -34,10 +34,10 @@ export default class LoginComponent extends Component {
     }
 
     efetuarLogin = () => {
-        if (this.isVazio(this.state.login) || this.isVazio(this.state.senha)){
+       /* if (this.isVazio(this.state.login) || this.isVazio(this.state.senha)){
             MensagemErro("Login e senha devem ser informados!");
             return;
-        }
+        }*/
         this.props.navigation.navigate(TELA_HOME.name);
     }
 

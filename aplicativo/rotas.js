@@ -59,17 +59,11 @@ const AppNavigator = createStackNavigator(
           headerStyle: [ EstilosComuns.backgroundToolbar],
           cardShadowEnabled: "true",
           headerTitleStyle: [EstilosComuns.corBranca],
-          headerLeft: (
-            <Text onPress={() => 
-                navigation.navigate('DrawerOpen')}>Menu
-            </Text>
-
-          ),
-          headerRight: (
-              <View>
-                  <Text>Voltar</Text>
-              </View>
-          )
+          // headerRight: (
+          //     <View>
+          //         <Text>Voltar</Text>
+          //     </View>
+          // )
           // headerRight: (
           //       <View>
           //         <Botao tituloBotao="..."/>

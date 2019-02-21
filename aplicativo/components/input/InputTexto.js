@@ -16,7 +16,7 @@ export default class InputTexto extends React.Component {
                     maxLength={this.props.maxLength} 
                     secureTextEntry={this.props.secureTextEntry} 
                     textContentType={this.props.textContentType} 
-                    onChange={value => this.props.onChangeInput(value.nativeEvent.text)}
+                    onChange={value => this.props.onChangeInput(this.props.fieldname, value.nativeEvent.text)}
                     autoCapitalize={this.props.autoCapitalize}
                     multiline={this.props.multiline}
                     numberOfLines={this.props.numberOfLines}

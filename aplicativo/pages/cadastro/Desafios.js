@@ -4,6 +4,8 @@ import EstilosComuns from '../../assets/estilos/estilos';
 import {TELA_DESAFIOS, TELA_ADD_SHARE_INFO} from '../../constants/AppScreenData'
 import Botao from '../../components/botao/Botao';
 import InputTexto from '../../components/input/InputTexto';
+import { SearchBar } from 'react-native-elements';
+//https://react-native-training.github.io/react-native-elements/docs/searchbar.html
 
 export default class Desafios extends React.Component {
     static navigationOptions = {
@@ -64,11 +66,13 @@ export default class Desafios extends React.Component {
                 {/* aqui tem que ser um flatlist */}
                 <View style={EstilosComuns.bodyMain}>
                     <View style={styles.blocoBusca}>
-                        <InputTexto
-                        autoCapitalize="none"
-                        onChangeInput={this.tratarFiltro}
-                        placeholder="Informe um nome de desafio para filtrar" 
-                        maxLength={40}/>
+                        <SearchBar
+                            placeholderTextColor="#fff"
+                            containerStyle={{borderColor: 'red'}}
+                            lightTheme={true}
+                            placeholder="Pesquise por um desafio" 
+                            onChangeText={this.tratarFiltro}
+                            value={this.state.filtro}/>
                     </View>
 
                     <View style={styles.blocoDesafios}>
@@ -78,7 +82,7 @@ export default class Desafios extends React.Component {
                             renderItem={({ item }) => {
                                 return (
                                 <TouchableOpacity style={[styles.cardDesafio]}>
-                                    <Text>{item.nome}</Text>
+                                    <Text style={{fontSize: 12}} >{item.nome}</Text>
                                 </TouchableOpacity>
                                 );
                             }}
@@ -107,7 +111,10 @@ const styles= StyleSheet.create({
     blocoDesafios: {
         flex: 7,
         justifyContent: 'space-between',
-        alignItems: 'stretch'
+        alignItems: 'stretch',
+        borderWidth: 2,
+        borderColor: "#04B486",
+        marginBottom: 5
     },
     cardDesafio: {
         alignItems: "center",
@@ -117,7 +124,8 @@ const styles= StyleSheet.create({
         padding: 20,
         flexBasis: 0,
         textAlign: 'center',
-        borderRadius: 30
+        borderRadius: 30,
+        height: 45
     },
     itemMarcado: {
         backgroundColor: '#1637D5'

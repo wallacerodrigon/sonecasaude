@@ -11,6 +11,10 @@ export default class Endereco extends React.Component {
         /* No more header config here! */
       };
 
+    onChangeInput(fieldname, text){
+        this.setState({[fieldname]: text});
+    }      
+
     render() {
         return (
             <View style={EstilosComuns.container}>
@@ -18,25 +22,27 @@ export default class Endereco extends React.Component {
             
             <View style={styles.inputs}>
                 <InputTexto placeholder="CEP" maxLength={11}
-                    onChangeInput={value => this.tratarInputCpf(value)}
+                    keyboardType="number-pad"
+                    onChangeInput={value => this.onChangeInput(value)}
                     />
                 <InputTexto placeholder="Estado" maxLength={40}
-                    onChangeInput={value => this.tratarInputCpf(value)}
+                    onChangeInput={value => this.onChangeInput(value)}
                     />
                 <InputTexto placeholder="Cidade" maxLength={40}
-                    onChangeInput={value => this.tratarInputCpf(value)}
+                    onChangeInput={value => this.onChangeInput(value)}
                     />
                 <InputTexto placeholder="Bairro" maxLength={40}
-                    onChangeInput={value => this.tratarInputCpf(value)}
+                    onChangeInput={value => this.onChangeInput(value)}
                     />
                 <InputTexto placeholder="Logradouro" maxLength={40}
-                    onChangeInput={value => this.tratarInputCpf(value)}
+                    onChangeInput={value => this.onChangeInput(value)}
                     />
                 <InputTexto placeholder="Número" maxLength={60}
-                    onChangeInput={value => this.tratarInputCpf(value)}
+                    keyboardType="number-pad"
+                    onChangeInput={value => this.onChangeInput(value)}
                     />
                 <InputTexto placeholder="Complemento" maxLength={40}
-                    onChangeInput={value => this.tratarInputCpf(value)}
+                    onChangeInput={value => this.onChangeInput(value)}
                     />
 
             </View>

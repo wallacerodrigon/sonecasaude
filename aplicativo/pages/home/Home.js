@@ -3,9 +3,8 @@ import {View, TouchableOpacity, Image, StyleSheet, Text} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import {TELA_HOME, TELA_LOGIN, TELA_COMANDO_VOZ, TELA_CONTROLE_MEDICACAO} from '../../constants/AppScreenData';
 
-//import WidgetMenu from '../../components/widgets/widgetMenu';
-import Botao from '../../components/botao/Botao';
-//import { Ionicons as Icon } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { Icon } from 'react-native-elements';
 
 const imgMicrophone = require('../../assets/img/microphone_green.png');
 
@@ -14,15 +13,16 @@ const imgConsulta   = require('../../assets/icons/home/consulta.png');
 const imgComparacao = require('../../assets/icons/home/comparacao.png');
 const imgMedicacao  = require('../../assets/icons/home/medicacao.png');
 
+//https://react-native-training.github.io/react-native-elements/docs/avatar.html
 export default class HomeScreen extends React.Component {
-    static navigationOptions = {
+    static navigationOptions =  ({navigation}) => ({
         title: TELA_HOME.title,
-        headerRight: ( 
-            <View>
-                <Botao tituloBotao="..." onClick={() => this.abrirMenu()}/>
-            </View>
-        )
-      };
+        headerRight:(
+            <TouchableOpacity onPress={() => navigation.navigate("DrawerOpen")}>
+                <Icon name="menu" size={30} />
+            </TouchableOpacity>
+        ),
+      });
 
        
 
@@ -60,7 +60,7 @@ export default class HomeScreen extends React.Component {
 
                 <View style={[styles.widgets]}>
                     <View style={styles.widgetGroup}>
-                        <TouchableOpacity style={[styles.widgetItem,EstilosComuns.widget]} onPress={() => this.abrirTela()}>
+                        <TouchableOpacity style={[styles.widgetItem,EstilosComuns.widget]} onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
                                 <Image style={styles.imgWidget} aspectRadio={1} source={imgTransporte} resizeMode="cover"/>
                                 <Text style={styles.textoWidget}>Transporte do Paciente</Text>
                         </TouchableOpacity>
@@ -71,11 +71,11 @@ export default class HomeScreen extends React.Component {
                     </View>
 
                     <View style={styles.widgetGroup}>
-                        <TouchableOpacity style={[styles.widgetItem, EstilosComuns.widget]} onPress={() => this.abrirTela('')}>
+                        <TouchableOpacity style={[styles.widgetItem, EstilosComuns.widget]} onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
                             <Image style={styles.imgWidget} aspectRadio={1} source={imgComparacao} resizeMode="cover"/>
                             <Text style={styles.textoWidget}>Comparar Preços</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.widgetItem, EstilosComuns.widget]} onPress={() => this.abrirTela('')}>
+                        <TouchableOpacity style={[styles.widgetItem, EstilosComuns.widget]} onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
                             <Image style={styles.imgWidget} aspectRadio={1} source={imgConsulta} resizeMode="cover"/>
                             <Text style={styles.textoWidget}>Marcar Consulta ou Exame</Text>
                         </TouchableOpacity>

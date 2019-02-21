@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Picker} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import { TELA_ADD_SHARE_INFO, TELA_FINALIZA_CADASTRO } from '../../constants/AppScreenData';
 import Botao from '../../components/botao/Botao';
@@ -15,7 +15,7 @@ export default class AdicionaCompartilhamentoInfo extends React.Component {
     constructor(props){
         super(props);
 
-        this.state = {marcouTransporte: false, marcouMedicacao: false};
+        this.state = {marcouTransporte: false, marcouMedicacao: false, parentesco: ''};
         this.toggleTransporte = this.toggleTransporte.bind(this);
         this.toggleMedicacao = this.toggleMedicacao.bind(this);
     }
@@ -27,6 +27,10 @@ export default class AdicionaCompartilhamentoInfo extends React.Component {
         this.setState({marcouMedicacao: !this.state.marcouMedicacao});
     }    
 
+    onChangeInput(fieldname, text){
+        this.setState({[fieldname]: text});
+    }      
+
     render() {
         return (
             <View style={EstilosComuns.container}>
@@ -36,16 +40,31 @@ export default class AdicionaCompartilhamentoInfo extends React.Component {
 
                 <View style={EstilosComuns.bodyMain}>
                     <InputTexto placeholder="CPF" maxLength={15}
-                        onChangeInput={value => this.tratarInputCpf(value)}
+                        keyboardType="number-pad"
+                        onChangeInput={value => this.onChangeInput(value)}
                         />
                     <InputTexto placeholder="E-mail" maxLength={15}
-                        onChangeInput={value => this.tratarInputCpf(value)}
+                        onChangeInput={value => this.onChangeInput(value)}
                         />
-                    <InputTexto placeholder="Parentesco" maxLength={15}
-                        onChangeInput={value => this.tratarInputCpf(value)}
-                        />
+                    <Text style={EstilosComuns.corBranca}>Parentesco</Text>
+                    <Picker
+                        selectedValue={this.state.parentesco}
+                        mode="dialog"
+                        style={{height: 50, width: "100%"}}
+                        onValueChange={(itemValue, itemIndex) =>
+                            this.setState({parentesco: itemValue})
+                        }>
+                        <Picker.Item label="Pai" value="1" />
+                        <Picker.Item label="Mãe" value="2" />
+                        <Picker.Item label="Sobrinho" value="3" />
+                        <Picker.Item label="Tio" value="4" />
+                        <Picker.Item label="Avô" value="5" />
+                        <Picker.Item label="Avó" value="6" />
+                        <Picker.Item label="Outros" value="7" />
+                    </Picker> 
                     <InputTexto placeholder="Celular" maxLength={15}
-                        onChangeInput={value => this.tratarInputCpf(value)}
+                        keyboardType="phone-pad"
+                        onChangeInput={value => this.onChangeInput(value)}
                         />
                     <View style={styles.checkboxes}>
                         <View style={styles.checkboxItem}>

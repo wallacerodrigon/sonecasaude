@@ -2,7 +2,7 @@ import {StyleSheet, Dimensions} from 'react-native';
 import {Constants} from 'expo';
 
 const tamanhoPadrao = 14;
-const corVerde = "#04B486";
+const VERDE = "#04B486";
 const corBranco = "#fff";
 const corCinza = "#ddd"
 
@@ -15,7 +15,7 @@ const EstilosComuns = StyleSheet.create({
         padding: 10
     },
     backgroundToolbar: {
-        backgroundColor: corVerde,
+        backgroundColor: VERDE,
     },
 
     backgroundPadrao: {
@@ -92,7 +92,7 @@ const EstilosComuns = StyleSheet.create({
     },
     bodyTitulo: {
         flex: 1,
-        padding: 5
+        padding: 3
     },
     bodyMain : {
         flex: 8,
