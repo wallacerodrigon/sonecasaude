@@ -53,7 +53,7 @@ const AppNavigator = createStackNavigator(
       // listaClinicas: {screen: EsqueciSenha},                                    
     },
     {
-        initialRouteName: "login",
+        initialRouteName: "esqueciSenha",
         defaultNavigationOptions:  ({navigation}) => ({
           title: TELA_PADRAO.title,
           headerStyle: [ EstilosComuns.backgroundToolbar],

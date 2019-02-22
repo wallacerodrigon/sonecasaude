@@ -3,8 +3,9 @@ import {View, Text, StyleSheet, Picker} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import { TELA_ADD_SHARE_INFO, TELA_FINALIZA_CADASTRO } from '../../constants/AppScreenData';
 import Botao from '../../components/botao/Botao';
-import InputTexto from '../../components/input/InputTexto';
+import {InputTexto, InputTextComMascara} from '../../components/input/InputTexto';
 import ConfirmacaoSwitch from '../../components/radio/ConfirmacaoSwitch';
+import { Input } from 'react-native-elements';
 
 export default class AdicionaCompartilhamentoInfo extends React.Component {
     static navigationOptions = {
@@ -39,18 +40,18 @@ export default class AdicionaCompartilhamentoInfo extends React.Component {
                 </View>
 
                 <View style={EstilosComuns.bodyMain}>
-                    <InputTexto placeholder="CPF" maxLength={15}
-                        keyboardType="number-pad"
-                        onChangeInput={value => this.onChangeInput(value)}
+                    <InputTextComMascara placeholder="CPF"
+                        type={InputTextComMascara.MASK_CPF}
+                        onChangeText={value => this.onChangeInput(value)}
                         />
-                    <InputTexto placeholder="E-mail" maxLength={15}
+                    <InputTexto placeholder="E-mail" maxLength={60}
+                        keyboardType={InputTexto.KEYBOARD_EMAIL}
                         onChangeInput={value => this.onChangeInput(value)}
                         />
                     <Text style={EstilosComuns.corBranca}>Parentesco</Text>
                     <Picker
                         selectedValue={this.state.parentesco}
                         mode="dialog"
-                        style={{height: 50, width: "100%"}}
                         onValueChange={(itemValue, itemIndex) =>
                             this.setState({parentesco: itemValue})
                         }>
@@ -62,8 +63,8 @@ export default class AdicionaCompartilhamentoInfo extends React.Component {
                         <Picker.Item label="Avó" value="6" />
                         <Picker.Item label="Outros" value="7" />
                     </Picker> 
-                    <InputTexto placeholder="Celular" maxLength={15}
-                        keyboardType="phone-pad"
+                    <InputTextComMascara placeholder="Celular"
+                        type={InputTextComMascara.MASK_CELULAR}
                         onChangeInput={value => this.onChangeInput(value)}
                         />
                     <View style={styles.checkboxes}>

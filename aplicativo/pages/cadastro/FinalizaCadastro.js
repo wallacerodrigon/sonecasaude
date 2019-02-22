@@ -3,7 +3,7 @@ import {View, Text, Switch, StyleSheet} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import { TELA_LOGIN, TELA_FINALIZA_CADASTRO } from '../../constants/AppScreenData';
 import Botao from '../../components/botao/Botao';
-import InputTexto from '../../components/input/InputTexto';
+import {InputTexto} from '../../components/input/InputTexto';
 import ConfirmacaoSwitch from '../../components/radio/ConfirmacaoSwitch';
 
 export default class FinalizaCadastro extends React.Component {

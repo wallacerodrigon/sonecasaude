@@ -5,7 +5,7 @@ import Botao from '../../components/botao/Botao';
 import EstilosComuns from '../../assets/estilos/estilos';
 import {TELA_PADRAO, TELA_HOME, TELA_ESQUECI_SENHA, TELA_DADOS_PESSOAIS} from '../../constants/AppScreenData';
 import CommandLink from '../../components/botao/CommandLink';
-import InputTexto from '../../components/input/InputTexto';
+import {InputTexto} from '../../components/input/InputTexto';
 import { MensagemAlerta, MensagemErro } from '../../components/mensagens/Mensagens';
 
 

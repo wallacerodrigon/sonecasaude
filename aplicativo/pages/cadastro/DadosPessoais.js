@@ -3,9 +3,8 @@ import {View, Text, Picker} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import {TELA_DADOS_PESSOAIS, TELA_ENDERECO, TELA_LOGIN} from '../../constants/AppScreenData'
 import Botao from '../../components/botao/Botao';
-import InputTexto from '../../components/input/InputTexto';
-import CommandLink from '../../components/botao/CommandLink';
-import { CheckBox } from 'react-native-elements';
+import {InputTexto, InputTextComMascara } from '../../components/input/InputTexto';
+
 
 export default class DadosPessoais extends React.Component {
 //pensar nesse objeto como um método de uma classe estática ou sei lá o que. Que facilite a susa configuração
@@ -16,7 +15,8 @@ export default class DadosPessoais extends React.Component {
     constructor(props){
         super(props);
 
-        this.state = {sexo: "M", cpf:''};
+        this.state = {sexo: "M", cpf:'', dataNascimento: '', celular: ''};
+
     }
 
     onChangeInput(fieldname, text){
@@ -27,6 +27,15 @@ export default class DadosPessoais extends React.Component {
         this.props.navigation.navigate(TELA_LOGIN.name)
     }
 
+    onChangeCpf(text){
+        this.setState({cpf: text});
+    }
+    onChangeDataNascimento(text){
+        this.setState({dataNascimento: text});
+    }
+    onChangeCelular(text){
+        this.setState({celular: text});
+    }
 
 
     render() {
@@ -37,13 +46,14 @@ export default class DadosPessoais extends React.Component {
                 </View>
                 
                 <View style={EstilosComuns.bodyMain}>
-                    <InputTexto placeholder="CPF" maxLength={15}
-                        keyboardType="number-pad"
-                        onChangeInput={value => this.onChangeInput(value)}
-                        fieldname= 'cpf'
-                        />
+                    <InputTextComMascara  style={[EstilosComuns.inputText]} 
+                        onChangeText={this.onChangeCpf}
+                        placeholder="Digite seu CPF"
+                        type={InputTextComMascara.MASK_CPF}
+                    />
+           
                     <InputTexto placeholder="E-mail" maxLength={40}
-                        keyboardType="email-address"
+                        keyboardType={InputTexto.KEYBOARD_EMAIL}
                         autoCapitalize="none"
                         onChangeInput={value => this.onChangeInput(value)}
                         />
@@ -54,14 +64,15 @@ export default class DadosPessoais extends React.Component {
                     <InputTexto placeholder="Data de Nascimento" maxLength={40}
                         onChangeInput={value => this.onChangeInput(value)}
                         />
-                    <InputTexto placeholder="Celular" maxLength={40}
-                        keyboardType="phone-pad"
-                        onChangeInput={value => this.onChangeInput(value)}
-                        />
+                    <InputTextComMascara  style={[EstilosComuns.inputText]} 
+                        onChangeText={this.onChangeCelular}
+                        placeholder="Digite seu celular"
+                        type={InputTextComMascara.MASK_CELULAR}
+                    />                        
                     <Text style={EstilosComuns.corBranca}>Sexo</Text>
                     <Picker
                         selectedValue={this.state.sexo}
-                        style={{height: 50, width: "100%", borderBottomWidth: 1}}
+                        style={[EstilosComuns.inputText]} 
                         onValueChange={(itemValue, itemIndex) =>
                             this.setState({sexo: itemValue})
                         }>

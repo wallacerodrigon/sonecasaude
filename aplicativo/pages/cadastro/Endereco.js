@@ -3,7 +3,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import {TELA_ENDERECO, TELA_DESAFIOS} from '../../constants/AppScreenData';
 import Botao from '../../components/botao/Botao';
-import InputTexto from '../../components/input/InputTexto';
+import {InputTexto, InputTextComMascara} from '../../components/input/InputTexto';
 
 export default class Endereco extends React.Component {
     static navigationOptions = {
@@ -21,9 +21,9 @@ export default class Endereco extends React.Component {
             <Text style={EstilosComuns.tituloJanelas}>Endereço</Text>
             
             <View style={styles.inputs}>
-                <InputTexto placeholder="CEP" maxLength={11}
-                    keyboardType="number-pad"
-                    onChangeInput={value => this.onChangeInput(value)}
+                <InputTextComMascara placeholder="CEP"
+                    type={InputTextComMascara.MASK_CEP}
+                    onChangeText={value => this.onChangeInput(value)}
                     />
                 <InputTexto placeholder="Estado" maxLength={40}
                     onChangeInput={value => this.onChangeInput(value)}
@@ -38,7 +38,7 @@ export default class Endereco extends React.Component {
                     onChangeInput={value => this.onChangeInput(value)}
                     />
                 <InputTexto placeholder="Número" maxLength={60}
-                    keyboardType="number-pad"
+                    keyboardType={InputTexto.KEYBOARD_NUMBER}
                     onChangeInput={value => this.onChangeInput(value)}
                     />
                 <InputTexto placeholder="Complemento" maxLength={40}
