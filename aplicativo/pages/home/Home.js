@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, TouchableOpacity, Image, StyleSheet, Text} from 'react-native';
+import {Dimensions, View, TouchableOpacity, Image, StyleSheet, Text} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import {TELA_HOME, TELA_LOGIN, TELA_COMANDO_VOZ, TELA_CONTROLE_MEDICACAO} from '../../constants/AppScreenData';
 
-import { Ionicons } from '@expo/vector-icons';
 import { Icon } from 'react-native-elements';
+import { Card, CardItem, Body } from 'native-base';
+import { DrawerMenu } from '../../Menu';
 
 const imgMicrophone = require('../../assets/img/microphone_green.png');
 
@@ -17,8 +18,8 @@ const imgMedicacao  = require('../../assets/icons/home/medicacao.png');
 export default class HomeScreen extends React.Component {
     static navigationOptions =  ({navigation}) => ({
         title: TELA_HOME.title,
-        headerRight:(
-            <TouchableOpacity onPress={() => navigation.navigate("DrawerOpen")}>
+        headerLeft:(
+            <TouchableOpacity onPress={() => navigation.navigate("login")}>
                 <Icon name="menu" size={30} />
             </TouchableOpacity>
         ),
@@ -51,36 +52,78 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <View style={EstilosComuns.container}>
-                <View style={[styles.microfone]}>
-                    <TouchableOpacity onPress={()=> this.abrirTelaOuvindo()}>
-                        <Image style={styles.imgWidget} aspectRadio={1} source={imgMicrophone} resizeMode="cover"/>
-                        <Text style={[styles.textoMicrofone, EstilosComuns.corVerde]}>Toque no microfone e fale</Text>
-                    </TouchableOpacity>
-                </View>
 
-                <View style={[styles.widgets]}>
-                    <View style={styles.widgetGroup}>
-                        <TouchableOpacity style={[styles.widgetItem,EstilosComuns.widget]} onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
-                                <Image style={styles.imgWidget} aspectRadio={1} source={imgTransporte} resizeMode="cover"/>
-                                <Text style={styles.textoWidget}>Transporte do Paciente</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.widgetItem, EstilosComuns.widget]} onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
-                            <Image style={styles.imgWidget} aspectRadio={1} source={imgMedicacao} resizeMode="cover"/>
-                            <Text style={styles.textoWidget}>Controlar Medicação</Text>
-                        </TouchableOpacity>
-                    </View>
+                <Card style={[styles.microfone, EstilosComuns.backgroundPadrao]}>
+                    <CardItem cardBody>
+                        <Body style={styles.microfone}>
+                            <TouchableOpacity onPress={()=> this.abrirTelaOuvindo()} >
+                                <Image spectRadio={1} source={imgMicrophone} resizeMode="cover"/>
+                            </TouchableOpacity>
+                        </Body>
+                    </CardItem>
 
-                    <View style={styles.widgetGroup}>
-                        <TouchableOpacity style={[styles.widgetItem, EstilosComuns.widget]} onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
-                            <Image style={styles.imgWidget} aspectRadio={1} source={imgComparacao} resizeMode="cover"/>
-                            <Text style={styles.textoWidget}>Comparar Preços</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.widgetItem, EstilosComuns.widget]} onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
-                            <Image style={styles.imgWidget} aspectRadio={1} source={imgConsulta} resizeMode="cover"/>
-                            <Text style={styles.textoWidget}>Marcar Consulta ou Exame</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+                    <CardItem footer style={styles.rodapeMicrofone}>
+                        <Text style={EstilosComuns.corVerde}>Clique no microfone para falar</Text>
+                    </CardItem>                    
+                </Card>
+
+
+                <Card style={[styles.icones, EstilosComuns.backgroundPadrao]}>
+                    <CardItem cardBody style={[styles.linhaIcones,EstilosComuns.backgroundPadrao]}>
+                        <Card style={styles.card}>
+                            <CardItem cardBody>
+                                <TouchableOpacity onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
+                                       <Image style={styles.imgWidget} aspectRadio={1} source={imgTransporte} resizeMode="cover"/>
+                                </TouchableOpacity>
+                            </CardItem>
+                            <CardItem footer  style={styles.textoWidget}>
+                                <Text>Transporte</Text>
+                            </CardItem>
+
+                        </Card>
+
+                        <Card style={styles.card}>
+                            <CardItem cardBody>
+                                <TouchableOpacity  onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
+                                   <Image style={styles.imgWidget} aspectRadio={1} source={imgMedicacao} resizeMode="cover"/>
+                                </TouchableOpacity>                            
+                            </CardItem>
+                            <CardItem footer  style={styles.textoWidget}>
+                                <Text>Medicação</Text>
+                            </CardItem>
+
+                        </Card>
+
+                  </CardItem>  
+
+                  <CardItem cardBody style={[styles.linhaIcones,EstilosComuns.backgroundPadrao]}>
+                        <Card style={[styles.card]}>
+                            <CardItem cardBody>
+                                <TouchableOpacity  onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
+                                        <Image style={styles.imgWidget} aspectRadio={1} source={imgComparacao} resizeMode="cover"/>
+                                </TouchableOpacity>
+
+                            </CardItem>
+                            <CardItem footer  style={styles.textoWidget}>
+                                <Text>Comparar Preços</Text>
+                            </CardItem>
+                        </Card>  
+
+                        <Card style={styles.card}>
+                            <CardItem cardBody>
+                                <TouchableOpacity  onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
+                                        <Image style={styles.imgWidget} aspectRadio={1} source={imgConsulta} resizeMode="cover"/>
+                                </TouchableOpacity>
+
+                            </CardItem>
+                            <CardItem footer style={styles.textoWidget}>
+                                <Text >Marcar Consulta ou Exame</Text>
+                            </CardItem>
+                        </Card>                           
+
+                  </CardItem>
+
+                </Card>
             </View>
         )
     };
@@ -88,34 +131,25 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
     microfone: {
-        flex: 3,
-        borderBottomWidth: 2,
-        borderBottomColor: '#fff',
-        alignItems: 'center'
+        flex: 4,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#ddd'
     },
-    widgets: {
-        flex: 7,
+    rodapeMicrofone: {
+        flex: 2,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#ddd',
+    },
+    icones: {
+        flex: 6,
         flexDirection: 'column', 
         justifyContent: 'space-between',
-        padding: 5,
+        padding: 8,
     }, 
-    widgetGroup:{
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginLeft: 10,
-        marginRight: 10
-    },
-    widgetItem: {
-        borderWidth: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-    },
-    imgWidget: {
-        marginLeft: 15,
-        marginRight: 15
-        
-    },
     textoWidget: {
         position: 'absolute', 
         width: '100%',
@@ -127,6 +161,16 @@ const styles = StyleSheet.create({
     textoMicrofone: {
         justifyContent: 'center',
         fontWeight: 'bold'
+    },
+    linhaIcones: {
+        flex: 1,
+        padding: 10, 
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        backgroundColor: '#04B486'
+    },
+    card: {
+        backgroundColor: '#04B486'
     }
     
 })

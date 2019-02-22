@@ -1,73 +1,37 @@
-import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {NavigationActions} from 'react-navigation';
-import {ScrollView, Text, View, StyleSheet} from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import {Text, View} from 'react-native';
+import { Drawer } from 'native-base';
 
-class SideMenu extends Component {
-  navigateToScreen = (route) => () => {
-    const navigateAction = NavigationActions.navigate({
-      routeName: route
-    });
-    this.props.navigation.dispatch(navigateAction);
+export class DrawerMenu extends Component {
+  
+  render(){
+      closeDrawer = () => {
+        this.drawer._root.close()
+      };
+      openDrawer = () => {
+        this.drawer._root.open()
+      };
+    
+      return (
+        <Drawer
+          ref={(ref) => { this.drawer = ref; }}
+          content={<SideMenu navigator={this.navigator} />}
+          onClose={() => this.closeDrawer()} >
+        </Drawer>
+      );
   }
+}
 
-  render () {
+export class SideMenu extends Component {
+  render(){
     return (
-      <View style={styles.container}>
-        <ScrollView>
-          <View>
-            <Text style={styles.sectionHeadingStyle}>
-              Section 1
-            </Text>
-            <View style={styles.navSectionStyle}>
-              <Text>
-                controleMedicacao
-              </Text>
-            </View>
-          </View>
-          <View>
-            <Text style={styles.sectionHeadingStyle}>
-              Section 2
-            </Text>
-            <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('controleMedicacao')}>
-                controleMedicacao
-              </Text>
-              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('dadosPessoais')}>
-                dadosPessoais
-              </Text>
-            </View>            
-          </View>
-        </ScrollView>
-      </View>
+        <View>
+          <Text>Teste 1</Text>
+          <Text>Teste 2</Text>
+          <Text>Teste 3</Text>
+        </View>
     );
   }
 }
 
-SideMenu.propTypes = {
-  navigation: PropTypes.object
-};
 
-export default SideMenu;
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 20,
-    flex: 1
-  },
-  navItemStyle: {
-    padding: 10
-  },
-  navSectionStyle: {
-    backgroundColor: 'lightgrey'
-  },
-  sectionHeadingStyle: {
-    paddingVertical: 10,
-    paddingHorizontal: 5
-  },
-  footerContainer: {
-    padding: 20,
-    backgroundColor: 'lightgrey'
-  }
-});

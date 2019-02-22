@@ -3,8 +3,9 @@ import {View, Text, StyleSheet,TouchableOpacity, FlatList} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import {TELA_DESAFIOS, TELA_ADD_SHARE_INFO} from '../../constants/AppScreenData'
 import Botao from '../../components/botao/Botao';
-import InputTexto from '../../components/input/InputTexto';
+import {InputTexto} from '../../components/input/InputTexto';
 import { SearchBar } from 'react-native-elements';
+import { Card, CardItem } from 'native-base';
 //https://react-native-training.github.io/react-native-elements/docs/searchbar.html
 
 export default class Desafios extends React.Component {
@@ -63,35 +64,32 @@ export default class Desafios extends React.Component {
                     <Text style={EstilosComuns.tituloJanelas}>Marque os desafios da saúde</Text>
                 </View>
 
-                {/* aqui tem que ser um flatlist */}
-                <View style={EstilosComuns.bodyMain}>
-                    <View style={styles.blocoBusca}>
-                        <SearchBar
-                            placeholderTextColor="#fff"
-                            containerStyle={{borderColor: 'red'}}
-                            lightTheme={true}
-                            placeholder="Pesquise por um desafio" 
-                            onChangeText={this.tratarFiltro}
-                            value={this.state.filtro}/>
-                    </View>
+                <View style={[EstilosComuns.bodyMain, EstilosComuns.backgroundPadrao]}>
+                    <Card style={[styles.blocoBusca, EstilosComuns.backgroundPadrao]}>
+                        <View style={{flex: 10}}>
+                            <InputTexto placeholder="Pesquise por um desafio" maxLength={40}
+                                onChangeInput={this.tratarFiltro}
+                                autoCapitalize="none"
+                                placeholderTextColor="#fff"
+                            />                    
 
-                    <View style={styles.blocoDesafios}>
+                        </View>
+                    </Card>
+
+                    <Card style={[styles.blocoDesafios, EstilosComuns.backgroundPadrao]}>
                         <FlatList
                             data={this.state.desafios}
                             keyExtractor={item => item.id}
                             renderItem={({ item }) => {
                                 return (
-                                <TouchableOpacity style={[styles.cardDesafio]}>
-                                    <Text style={{fontSize: 12}} >{item.nome}</Text>
-                                </TouchableOpacity>
+                                    <TouchableOpacity style={[styles.cardDesafio]}>
+                                        <Text style={{fontSize: 12}} >{item.nome}</Text>
+                                    </TouchableOpacity>
                                 );
                             }}
                             numColumns={2}
-                        >
-
-                        </FlatList>
-                    </View>
-
+                        />
+                    </Card>
                 </View>
 
                 <View style={EstilosComuns.rodape}>
@@ -105,7 +103,9 @@ export default class Desafios extends React.Component {
 const styles= StyleSheet.create({
     blocoBusca: {
         flex: 1,
-        padding: 5
+        padding: 5,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
 
     },
     blocoDesafios: {

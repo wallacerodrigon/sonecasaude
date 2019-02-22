@@ -22,7 +22,7 @@ const EstilosComuns = StyleSheet.create({
         backgroundColor: corCinza
     },
     sombra: {
-        shadowColor: corCinza,
+        shadowColor: VERDE,
         shadowOpacity: 0.3,
         shadowRadius:30
     },
@@ -66,14 +66,6 @@ const EstilosComuns = StyleSheet.create({
         fontSize: 16,
         padding: 8
     },    
-    widget: { 
-        height: 160,
-        width: 160, 
-       //borderRadius: 160, 
-        backgroundColor: '#04B486',
-        shadowColor: '#fff',
-        shadowOpacity: 0.3,
-    },
     textoTamanhoPadrao: {
         fontSize: tamanhoPadrao
     },

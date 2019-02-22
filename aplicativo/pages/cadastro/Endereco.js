@@ -5,6 +5,7 @@ import {TELA_ENDERECO, TELA_DESAFIOS} from '../../constants/AppScreenData';
 import Botao from '../../components/botao/Botao';
 import {InputTexto, InputTextComMascara} from '../../components/input/InputTexto';
 
+
 export default class Endereco extends React.Component {
     static navigationOptions = {
         title: TELA_ENDERECO.title,

@@ -6,6 +6,7 @@ import Botao from '../../components/botao/Botao';
 import {InputTexto, InputTextComMascara} from '../../components/input/InputTexto';
 import ConfirmacaoSwitch from '../../components/radio/ConfirmacaoSwitch';
 import { Input } from 'react-native-elements';
+import { CheckBox, Body } from 'native-base';
 
 export default class AdicionaCompartilhamentoInfo extends React.Component {
     static navigationOptions = {
@@ -100,13 +101,13 @@ const styles = StyleSheet.create({
     },
     checkboxItem: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
         padding: 5
     },
     checkboxLeft: {
-        flex: 8
+        flex: 1
     },
     checkboxRight: {
-        flex: 2
+        flex: 9
     }
 })

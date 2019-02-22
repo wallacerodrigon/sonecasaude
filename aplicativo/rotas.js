@@ -18,6 +18,8 @@ import EstilosComuns from './assets/estilos/estilos';
 import ComandoOuvindoVoz from './pages/voz/ComandoOuvindoVoz';
 import AlarmeEstoque from './pages/medicacao/AlarmeEstoque';
 import AlarmeHorario from './pages/medicacao/AlarmeHorario';
+import Botao from './components/botao/Botao';
+import { DrawerMenu } from './Menu';
 
 //https://reactnavigation.org/docs/en/stack-navigator.html
 const AppNavigator = createStackNavigator(
@@ -25,6 +27,7 @@ const AppNavigator = createStackNavigator(
       login: {screen: LoginComponent},
       home: {screen: HomeScreen},
       esqueciSenha: {screen: EsqueciSenha},
+      menu: {screen: DrawerMenu},
 
       compartilhaInformacoes: {screen: AdicionaCompartilhamentoInfo},
       
@@ -53,7 +56,7 @@ const AppNavigator = createStackNavigator(
       // listaClinicas: {screen: EsqueciSenha},                                    
     },
     {
-        initialRouteName: "esqueciSenha",
+        initialRouteName: "login",
         defaultNavigationOptions:  ({navigation}) => ({
           title: TELA_PADRAO.title,
           headerStyle: [ EstilosComuns.backgroundToolbar],
@@ -64,12 +67,12 @@ const AppNavigator = createStackNavigator(
           //         <Text>Voltar</Text>
           //     </View>
           // )
-          // headerRight: (
+          // headerLeft: (
           //       <View>
           //         <Botao tituloBotao="..."/>
           //       </View>
           // )
-          //
+          
           //headerBackground
         }),
 

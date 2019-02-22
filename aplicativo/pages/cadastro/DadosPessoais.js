@@ -4,7 +4,7 @@ import EstilosComuns from '../../assets/estilos/estilos';
 import {TELA_DADOS_PESSOAIS, TELA_ENDERECO, TELA_LOGIN} from '../../constants/AppScreenData'
 import Botao from '../../components/botao/Botao';
 import {InputTexto, InputTextComMascara } from '../../components/input/InputTexto';
-
+import {DatePicker } from 'native-base';
 
 export default class DadosPessoais extends React.Component {
 //pensar nesse objeto como um método de uma classe estática ou sei lá o que. Que facilite a susa configuração
@@ -15,8 +15,9 @@ export default class DadosPessoais extends React.Component {
     constructor(props){
         super(props);
 
-        this.state = {sexo: "M", cpf:'', dataNascimento: '', celular: ''};
-
+        this.state = {sexo: "M", cpf:'', dataNascimento: null, celular: ''};
+        
+        this.onChangeDataNascimento =this.onChangeDataNascimento.bind(this);
     }
 
     onChangeInput(fieldname, text){
@@ -61,9 +62,23 @@ export default class DadosPessoais extends React.Component {
                         autoCapitalize="words"
                         onChangeInput={value => this.onChangeInput(value)}
                         />
-                    <InputTexto placeholder="Data de Nascimento" maxLength={40}
-                        onChangeInput={value => this.onChangeInput(value)}
+                    <DatePicker
+                        defaultDate={new Date()}
+                        minimumDate={new Date(1900, 1, 1)}
+                        maximumDate={new Date()}
+                        locale={"en"} //ver em portugues
+                        modalTransparent={false}
+                        animationType={"fade"}
+                        androidMode={"default"}
+                        placeHolderText="Data de nascimento"
+                        textStyle={{ color: "#fff" }}
+                        placeHolderTextStyle={{ color: "#fff" }}
+                        onDateChange={this.onChangeDataNascimento}
+                        disabled={false}
+                        style={[EstilosComuns.inputText]} 
                         />
+
+
                     <InputTextComMascara  style={[EstilosComuns.inputText]} 
                         onChangeText={this.onChangeCelular}
                         placeholder="Digite seu celular"
@@ -72,7 +87,6 @@ export default class DadosPessoais extends React.Component {
                     <Text style={EstilosComuns.corBranca}>Sexo</Text>
                     <Picker
                         selectedValue={this.state.sexo}
-                        style={[EstilosComuns.inputText]} 
                         onValueChange={(itemValue, itemIndex) =>
                             this.setState({sexo: itemValue})
                         }>

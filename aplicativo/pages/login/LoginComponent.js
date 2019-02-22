@@ -75,7 +75,7 @@ export default class LoginComponent extends Component {
                     onChangeInput={this.onChangeLogin}
                     autoCapitalize="none"
                     placeholderTextColor="#fff"
-                    keyboardType="email-address"
+                    keyboardType={InputTexto.KEYBOARD_EMAIL}
                     />
 
 
