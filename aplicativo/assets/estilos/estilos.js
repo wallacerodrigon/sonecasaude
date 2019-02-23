@@ -61,10 +61,10 @@ const EstilosComuns = StyleSheet.create({
         
     },
     inputText: {
-        borderBottomWidth: 0.8,
-        borderColor: '#666',
+        borderBottomWidth: 1,
+        borderColor: '#fff',
         fontSize: 16,
-        padding: 8
+        padding: 8,
     },    
     textoTamanhoPadrao: {
         fontSize: tamanhoPadrao

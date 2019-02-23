@@ -70,7 +70,6 @@ export default class Desafios extends React.Component {
                             <InputTexto placeholder="Pesquise por um desafio" maxLength={40}
                                 onChangeInput={this.tratarFiltro}
                                 autoCapitalize="none"
-                                placeholderTextColor="#fff"
                             />                    
 
                         </View>

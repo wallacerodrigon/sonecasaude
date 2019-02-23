@@ -1,37 +1,46 @@
-import React, {Component} from 'react';
+import React from 'react';
+
 import {Text, View} from 'react-native';
-import { Drawer } from 'native-base';
+import {createDrawerNavigator, createAppContainer} from 'react-navigation';
 
-export class DrawerMenu extends Component {
-  
-  render(){
-      closeDrawer = () => {
-        this.drawer._root.close()
-      };
-      openDrawer = () => {
-        this.drawer._root.open()
-      };
-    
-      return (
-        <Drawer
-          ref={(ref) => { this.drawer = ref; }}
-          content={<SideMenu navigator={this.navigator} />}
-          onClose={() => this.closeDrawer()} >
-        </Drawer>
-      );
-  }
-}
+import LoginComponent from './pages/login/LoginComponent';
 
-export class SideMenu extends Component {
-  render(){
-    return (
-        <View>
-          <Text>Teste 1</Text>
-          <Text>Teste 2</Text>
-          <Text>Teste 3</Text>
-        </View>
-    );
-  }
-}
+import ControleMedicacao from './pages/medicacao/ControleMedicacao';
+import EstilosComuns from './assets/estilos/estilos';
+import ListaMedicos from './pages/medicos/ListaMedicos';
+import EsqueciSenha from './pages/esqueci-senha/EsqueciSenha';
+import MeusDados from './pages/perfil/MeusDados';
+import AdicionaCompartilhamentoInfo from './pages/cadastro/AdicionaCompartilhamentoInfo';
+import Endereco from './pages/cadastro/Endereco';
+import { TELA_PADRAO } from './constants/AppScreenData';
 
+//https://reactnavigation.org/docs/en/stack-navigator.html
+const DrawerMenu = createDrawerNavigator(
+    {
+      sair: {screen: LoginComponent},
+      esqueciSenha: {screen: EsqueciSenha},
 
+      compartilhaInformacoes: {screen: AdicionaCompartilhamentoInfo},
+      
+      endereco: {screen: Endereco},
+      
+      controleMedicacao: {screen: ControleMedicacao},
+      listaMedicos: {screen: ListaMedicos},                                    
+
+       meuPerfil: {screen: MeusDados},                                    
+
+    },
+    {
+        //initialRouteName: "login",
+        defaultNavigationOptions:  ({navigation}) => ({
+          title: TELA_PADRAO.title,
+          headerStyle: [ EstilosComuns.backgroundToolbar],
+          cardShadowEnabled: "true",
+          headerTitleStyle: [EstilosComuns.backgroundPadrao],
+        }),
+
+    },
+     
+);
+
+export const DrawerMenuContainer = createAppContainer(DrawerMenu);

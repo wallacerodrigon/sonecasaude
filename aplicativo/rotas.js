@@ -19,15 +19,17 @@ import ComandoOuvindoVoz from './pages/voz/ComandoOuvindoVoz';
 import AlarmeEstoque from './pages/medicacao/AlarmeEstoque';
 import AlarmeHorario from './pages/medicacao/AlarmeHorario';
 import Botao from './components/botao/Botao';
+import ListaMedicos from './pages/medicos/ListaMedicos';
+import AdicionaMedico from './pages/medicos/AdicionaMedico';
 import { DrawerMenu } from './Menu';
 
 //https://reactnavigation.org/docs/en/stack-navigator.html
 const AppNavigator = createStackNavigator(
     {
+     // drawer: {screen: DrawerMenu},
       login: {screen: LoginComponent},
       home: {screen: HomeScreen},
       esqueciSenha: {screen: EsqueciSenha},
-      menu: {screen: DrawerMenu},
 
       compartilhaInformacoes: {screen: AdicionaCompartilhamentoInfo},
       
@@ -47,8 +49,8 @@ const AppNavigator = createStackNavigator(
       // alarmeHorario: {screen: AlarmeHorario},                                    
       // comandoVoz: {screen: ComandoOuvindoVoz},                                    
 
-      // adicionaMedicos: {screen: EsqueciSenha},
-      // listaMedicos: {screen: EsqueciSenha},                                    
+       adicionaMedicos: {screen: AdicionaMedico},
+       listaMedicos: {screen: ListaMedicos},                                    
 
       // meuPerfil: {screen: EsqueciSenha},                                    
 

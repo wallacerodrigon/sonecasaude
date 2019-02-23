@@ -25,7 +25,7 @@ export class InputTexto extends React.Component {
                     autoCapitalize={this.props.autoCapitalize}
                     multiline={this.props.multiline}
                     numberOfLines={this.props.numberOfLines}
-                    placeholderTextColor={this.props.placeholderTextColor || '#fff'}
+                    placeholderTextColor={this.props.placeholderTextColor || '#04B486'}
                     keyboardType={this.props.keyboardType}
                     editable={this.props.editable}
                 />
@@ -66,7 +66,7 @@ export class InputTextComMascara extends React.Component {
            <TextInputMask  style={[EstilosComuns.inputText]} 
                 onChangeText={this.onChangeText}
                 placeholder={this.props.placeholder}
-                placeholderTextColor={this.props.placeholderTextColor || '#fff'}
+                placeholderTextColor={this.props.placeholderTextColor || '#04B486'}
                 type={this.props.type}
             />    
         );

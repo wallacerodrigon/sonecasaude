@@ -74,7 +74,6 @@ export default class LoginComponent extends Component {
                 <InputTexto placeholder="E-mail ou telefone" maxLength={40}
                     onChangeInput={this.onChangeLogin}
                     autoCapitalize="none"
-                    placeholderTextColor="#fff"
                     keyboardType={InputTexto.KEYBOARD_EMAIL}
                     />
 

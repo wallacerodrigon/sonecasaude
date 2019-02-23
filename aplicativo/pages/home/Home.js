@@ -1,11 +1,11 @@
 import React from 'react';
 import {Dimensions, View, TouchableOpacity, Image, StyleSheet, Text} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
-import {TELA_HOME, TELA_LOGIN, TELA_COMANDO_VOZ, TELA_CONTROLE_MEDICACAO} from '../../constants/AppScreenData';
+import {TELA_HOME, TELA_LOGIN, TELA_COMANDO_VOZ, TELA_CONTROLE_MEDICACAO, TELA_LISTA_MEDICOS} from '../../constants/AppScreenData';
 
 import { Icon } from 'react-native-elements';
 import { Card, CardItem, Body } from 'native-base';
-import { DrawerMenu } from '../../Menu';
+//import { DrawerMenu } from '../../Menu';
 
 const imgMicrophone = require('../../assets/img/microphone_green.png');
 
@@ -111,7 +111,7 @@ export default class HomeScreen extends React.Component {
 
                         <Card style={styles.card}>
                             <CardItem cardBody>
-                                <TouchableOpacity  onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
+                                <TouchableOpacity  onPress={() => this.abrirTela(TELA_LISTA_MEDICOS.name)}>
                                         <Image style={styles.imgWidget} aspectRadio={1} source={imgConsulta} resizeMode="cover"/>
                                 </TouchableOpacity>
 
