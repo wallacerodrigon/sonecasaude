@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableHighlight} from 'react-native';
+import {View, Text, TouchableHighlight, ScrollView} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import { TELA_LISTA_MEDICOS, TELA_ADD_MEDICOS } from '../../constants/AppScreenData';
 import { List, ListItem, Left, Thumbnail, Body, Button, Right, Container, Fab, Icon } from 'native-base';
@@ -23,56 +23,24 @@ export default class ListaMedicos extends React.Component {
                 <Text style={EstilosComuns.tituloJanelas}>Seus médicos cadastrados</Text>
 
                 <Container style={[EstilosComuns.backgroundPadrao, EstilosComuns.bodyMain]}>
-                    <List >
-                        <ListItem thumbnail selected button>
-                            <Left>
-                                <Thumbnail square source={imgComparacao} />
-                            </Left>
-                            <Body>
-                                <Text>Médico 1</Text>
-                                <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
-                                <Text note numberOfLines={1}>fulano@gmail.com</Text>
-                            </Body>
-                            <Right>
-                                <TouchableHighlight >
-                                    <Icon name="trash" active />
-                                </TouchableHighlight>
-                            </Right>
-                        </ListItem>
-
-                        <ListItem thumbnail selected button>
-                            <Left>
-                                <Thumbnail square source={imgComparacao2} />
-                            </Left>
-                            <Body>
-                                <Text>Médico 2</Text>
-                                <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
-                                <Text note numberOfLines={1}>fulano@gmail.com</Text>
-                            </Body>
-                            <Right>
-                                <TouchableHighlight >
-                                    <Icon name="trash" active />
-                                </TouchableHighlight>
-                            </Right>
-                        </ListItem>
-
-
-                        <ListItem thumbnail selected button>
-                            <Left>
-                                <Thumbnail square source={imgComparacao3} />
-                            </Left>
-                            <Body>
-                                <Text>Médico 3</Text>
-                                <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
-                                <Text note numberOfLines={1}>fulano@gmail.com</Text>
-                            </Body>
-                            <Right>
-                                <TouchableHighlight >
-                                    <Icon name="trash" active />
-                                </TouchableHighlight>
-                            </Right>
-                        </ListItem>
-
+                    <List>
+                        <ScrollView>
+                            <ListItem thumbnail selected button>
+                                <Left>
+                                    <Thumbnail square source={imgComparacao} />
+                                </Left>
+                                <Body>
+                                    <Text>Médico 1</Text>
+                                    <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
+                                    <Text note numberOfLines={1}>fulano@gmail.com</Text>
+                                </Body>
+                                <Right>
+                                    <TouchableHighlight >
+                                        <Icon name="trash" active />
+                                    </TouchableHighlight>
+                                </Right>
+                            </ListItem>
+                        </ScrollView>
                     </List>
 
                 </Container>

@@ -33,5 +33,5 @@ export const TELA_LISTA_MEDICOS = {name:"listaMedicos", title: "Médicos"};
 export const TELA_MEU_PERFIL = {name:"meuPerfil", title: "Meus dados"};
     
     /**clínicas */
-export const TELA_ADD_CLINICA = {name:"adicionaClinica", title: ""};
+export const TELA_ADD_CLINICA = {name:"adicionaClinica", title: "Adicionar clínica"};
 export const TELA_LISTA_CLINICAS = {name:"listaClinicas", title: ""};

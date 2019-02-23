@@ -19,7 +19,7 @@ export default class HomeScreen extends React.Component {
     static navigationOptions =  ({navigation}) => ({
         title: TELA_HOME.title,
         headerLeft:(
-            <TouchableOpacity onPress={() => navigation.navigate("login")}>
+            <TouchableOpacity onPress={() => navigation.navigate('login')}> 
                 <Icon name="menu" size={30} />
             </TouchableOpacity>
         ),
@@ -71,14 +71,14 @@ export default class HomeScreen extends React.Component {
                 <Card style={[styles.icones, EstilosComuns.backgroundPadrao]}>
                     <CardItem cardBody style={[styles.linhaIcones,EstilosComuns.backgroundPadrao]}>
                         <Card style={styles.card}>
-                            <CardItem cardBody>
-                                <TouchableOpacity onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
-                                       <Image style={styles.imgWidget} aspectRadio={1} source={imgTransporte} resizeMode="cover"/>
-                                </TouchableOpacity>
-                            </CardItem>
-                            <CardItem footer  style={styles.textoWidget}>
-                                <Text>Transporte</Text>
-                            </CardItem>
+                            <TouchableOpacity onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
+                                <CardItem cardBody>
+                                        <Image style={styles.imgWidget} aspectRadio={1} source={imgTransporte} resizeMode="cover"/>
+                                </CardItem>
+                                <CardItem footer  style={styles.textoWidget}>
+                                    <Text>Transporte</Text>
+                                </CardItem>
+                            </TouchableOpacity>
 
                         </Card>
 
@@ -98,27 +98,27 @@ export default class HomeScreen extends React.Component {
 
                   <CardItem cardBody style={[styles.linhaIcones,EstilosComuns.backgroundPadrao]}>
                         <Card style={[styles.card]}>
-                            <CardItem cardBody>
-                                <TouchableOpacity  onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
-                                        <Image style={styles.imgWidget} aspectRadio={1} source={imgComparacao} resizeMode="cover"/>
-                                </TouchableOpacity>
+                            <TouchableOpacity  onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
+                                <CardItem cardBody>
+                                            <Image style={styles.imgWidget} aspectRadio={1} source={imgComparacao} resizeMode="cover"/>
 
-                            </CardItem>
-                            <CardItem footer  style={styles.textoWidget}>
-                                <Text>Comparar Preços</Text>
-                            </CardItem>
+                                </CardItem>
+                                <CardItem footer  style={styles.textoWidget}>
+                                    <Text>Comparar Preços</Text>
+                                </CardItem>
+                            </TouchableOpacity>
                         </Card>  
 
                         <Card style={styles.card}>
-                            <CardItem cardBody>
-                                <TouchableOpacity  onPress={() => this.abrirTela(TELA_LISTA_MEDICOS.name)}>
-                                        <Image style={styles.imgWidget} aspectRadio={1} source={imgConsulta} resizeMode="cover"/>
-                                </TouchableOpacity>
+                            <TouchableOpacity  onPress={() => this.abrirTela(TELA_LISTA_MEDICOS.name)}>
+                                <CardItem cardBody>
+                                            <Image style={styles.imgWidget} aspectRadio={1} source={imgConsulta} resizeMode="cover"/>
 
-                            </CardItem>
-                            <CardItem footer style={styles.textoWidget}>
-                                <Text >Marcar Consulta ou Exame</Text>
-                            </CardItem>
+                                </CardItem>
+                                <CardItem footer style={styles.textoWidget}>
+                                    <Text >Marcar Consulta ou Exame</Text>
+                                </CardItem>
+                            </TouchableOpacity>
                         </Card>                           
 
                   </CardItem>
@@ -169,9 +169,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         backgroundColor: '#04B486'
     },
-    card: {
-        backgroundColor: '#04B486'
-    }
+    // card: {
+    //     backgroundColor: '#04B486'
+    // }
     
 })
 

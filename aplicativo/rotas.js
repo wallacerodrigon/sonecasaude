@@ -22,11 +22,13 @@ import Botao from './components/botao/Botao';
 import ListaMedicos from './pages/medicos/ListaMedicos';
 import AdicionaMedico from './pages/medicos/AdicionaMedico';
 import { DrawerMenu } from './Menu';
+import AdicionaClinica from './pages/medicos/AdicionaClinica';
+import ListaClinicas from './pages/medicos/ListaClinicas';
 
 //https://reactnavigation.org/docs/en/stack-navigator.html
-const AppNavigator = createStackNavigator(
+const StackNavigatorSpc = createStackNavigator(
     {
-     // drawer: {screen: DrawerMenu},
+      drawer: {screen: DrawerMenu},
       login: {screen: LoginComponent},
       home: {screen: HomeScreen},
       esqueciSenha: {screen: EsqueciSenha},
@@ -54,8 +56,8 @@ const AppNavigator = createStackNavigator(
 
       // meuPerfil: {screen: EsqueciSenha},                                    
 
-      // adicionaClinica: {screen: EsqueciSenha},                                    
-      // listaClinicas: {screen: EsqueciSenha},                                    
+       adicionaClinica: {screen: AdicionaClinica},                                    
+       listaClinicas: {screen: ListaClinicas},                                    
     },
     {
         initialRouteName: "login",
@@ -82,4 +84,4 @@ const AppNavigator = createStackNavigator(
      
 );
 
-export const AppContainer = createAppContainer(AppNavigator);
+export default NavigatorSpc = createAppContainer(StackNavigatorSpc);
