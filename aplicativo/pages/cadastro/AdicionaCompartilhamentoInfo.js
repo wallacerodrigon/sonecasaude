@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Picker} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
-import { TELA_ADD_SHARE_INFO, TELA_FINALIZA_CADASTRO } from '../../constants/AppScreenData';
+import { TELA_ADD_SHARE_INFO, TELA_FINALIZA_CADASTRO, TELA_ADD_SHARE_INFO_FROM_LIST, TELA_HOME, TELA_SHARE_INFO } from '../../constants/AppScreenData';
 import Botao from '../../components/botao/Botao';
 import {InputTexto, InputTextComMascara} from '../../components/input/InputTexto';
 import ConfirmacaoSwitch from '../../components/radio/ConfirmacaoSwitch';
@@ -14,12 +14,20 @@ export default class AdicionaCompartilhamentoInfo extends React.Component {
         /* No more header config here! */
       };
 
+    novoCadastroAPartirDaLista= false;
+    
     constructor(props){
         super(props);
 
-        this.state = {marcouTransporte: false, marcouMedicacao: false, parentesco: ''};
         this.toggleTransporte = this.toggleTransporte.bind(this);
         this.toggleMedicacao = this.toggleMedicacao.bind(this);
+        this.state = {
+            marcouTransporte: false, 
+            marcouMedicacao: false, 
+            parentesco: '', 
+        };
+
+        this.novoCadastroAPartirDaLista = this.props.navigation.state.routeName === TELA_ADD_SHARE_INFO_FROM_LIST.name;
     }
 
     toggleTransporte(){
@@ -33,11 +41,25 @@ export default class AdicionaCompartilhamentoInfo extends React.Component {
         this.setState({[fieldname]: text});
     }      
 
+    salvarCompartilhamento(){
+        this.props.navigation.navigate(
+            this.novoCadastroAPartirDaLista ? 
+                        TELA_SHARE_INFO.name :
+                        TELA_FINALIZA_CADASTRO.name 
+                         );
+
+    }
+
+    getTituloBotao(){
+        return this.novoCadastroAPartirDaLista ? "Adicionar":"Próximo";
+    }
+
     render() {
         return (
             <View style={EstilosComuns.container}>
                 <View style={EstilosComuns.bodyTitulo}>
                     <Text style={EstilosComuns.tituloJanelas}>Compartilhar as informações do aplicativo?</Text>
+                    <Text>{this.state.isSenderFromList}</Text>
                 </View>
 
                 <View style={EstilosComuns.bodyMain}>
@@ -85,7 +107,8 @@ export default class AdicionaCompartilhamentoInfo extends React.Component {
                 </View>
 
                 <View style={EstilosComuns.rodape}>
-                    <Botao tituloBotao='Próximo' onClick={() =>  this.props.navigation.navigate(TELA_FINALIZA_CADASTRO.name)}/>    
+                    <Botao tituloBotao={this.getTituloBotao()}
+                    onClick={() => this.salvarCompartilhamento() }/>    
                 </View>            
 
             </View>

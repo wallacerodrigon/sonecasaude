@@ -12,6 +12,7 @@ export const TELA_ENDERECO = {name:"endereco", title: "Cadastro"};
 export const TELA_DESAFIOS = {name:"desafios", title: "Cadastro"};
 export const TELA_FINALIZA_CADASTRO = {name:"finalizaCadastro", title: "Cadastro"};
 export const TELA_ADD_SHARE_INFO = {name:"adicionaCompartilhamentoInfo", title: "Cadastro"};
+export const TELA_ADD_SHARE_INFO_FROM_LIST = {name: 'novoCompartilhamentoInfo', title: 'Compartilhar informações'};
 
     /*Controle de medicação */
 export const TELA_CONTROLE_MEDICACAO = {name:"controleMedicacao", title: "Controlar medicação"};

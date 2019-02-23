@@ -24,22 +24,24 @@ import AdicionaMedico from './pages/medicos/AdicionaMedico';
 import { DrawerMenu } from './Menu';
 import AdicionaClinica from './pages/medicos/AdicionaClinica';
 import ListaClinicas from './pages/medicos/ListaClinicas';
+import CompartilhaInformacoes from './pages/cadastro/CompartilhaInformacoes';
 
 //https://reactnavigation.org/docs/en/stack-navigator.html
 const StackNavigatorSpc = createStackNavigator(
     {
-      drawer: {screen: DrawerMenu},
+    //  drawer: {screen: DrawerMenu},
       login: {screen: LoginComponent},
       home: {screen: HomeScreen},
       esqueciSenha: {screen: EsqueciSenha},
 
-      compartilhaInformacoes: {screen: AdicionaCompartilhamentoInfo},
+      compartilhaInformacoes: {screen: CompartilhaInformacoes},
       
       dadosPessoais: {screen: DadosPessoais},
       endereco: {screen: Endereco},
       desafios: {screen: Desafios},
       finalizaCadastro: {screen: FinalizaCadastro},
       adicionaCompartilhamentoInfo: {screen: AdicionaCompartilhamentoInfo},
+      novoCompartilhamentoInfo: {screen: AdicionaCompartilhamentoInfo},
       
       controleMedicacao: {screen: ControleMedicacao},
       // adicionaCompartilhamentoMedicacao: {screen: EsqueciSenha},

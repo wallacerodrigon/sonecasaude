@@ -19,7 +19,7 @@ export default class HomeScreen extends React.Component {
     static navigationOptions =  ({navigation}) => ({
         title: TELA_HOME.title,
         headerLeft:(
-            <TouchableOpacity onPress={() => navigation.navigate('login')}> 
+            <TouchableOpacity onPress={() => navigation.navigate('compartilhaInformacoes')}> 
                 <Icon name="menu" size={30} />
             </TouchableOpacity>
         ),
@@ -98,7 +98,7 @@ export default class HomeScreen extends React.Component {
 
                   <CardItem cardBody style={[styles.linhaIcones,EstilosComuns.backgroundPadrao]}>
                         <Card style={[styles.card]}>
-                            <TouchableOpacity  onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
+                            <TouchableOpacity  onPress={() => this.retornarLogin()}>
                                 <CardItem cardBody>
                                             <Image style={styles.imgWidget} aspectRadio={1} source={imgComparacao} resizeMode="cover"/>
 
