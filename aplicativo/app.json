@@ -23,8 +23,12 @@
       "**/*"
     ],
     "android": {
-	"package": "br.com.sonecasaude"
+      "package": "br.com.sonecasaude"
     },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "br.com.sonecasaude"
+    },    
     "description": "Soneca Saúde"
   }
 }

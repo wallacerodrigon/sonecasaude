@@ -1,7 +1,7 @@
 import React from 'react';
 import {Dimensions, View, TouchableOpacity, Image, StyleSheet, Text} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
-import {TELA_HOME, TELA_LOGIN, TELA_COMANDO_VOZ, TELA_CONTROLE_MEDICACAO, TELA_LISTA_MEDICOS} from '../../constants/AppScreenData';
+import {TELA_HOME, TELA_LOGIN, TELA_COMANDO_VOZ, TELA_CONTROLE_MEDICACAO, TELA_LISTA_MEDICOS, TELA_ALARME} from '../../constants/AppScreenData';
 
 import { Icon } from 'react-native-elements';
 import { Card, CardItem, Body } from 'native-base';
@@ -71,7 +71,7 @@ export default class HomeScreen extends React.Component {
                 <Card style={[styles.icones, EstilosComuns.backgroundPadrao]}>
                     <CardItem cardBody style={[styles.linhaIcones,EstilosComuns.backgroundPadrao]}>
                         <Card style={styles.card}>
-                            <TouchableOpacity onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
+                            <TouchableOpacity onPress={() => this.abrirTela(TELA_ALARME.name)}>
                                 <CardItem cardBody>
                                         <Image style={styles.imgWidget} aspectRadio={1} source={imgTransporte} resizeMode="cover"/>
                                 </CardItem>
@@ -104,7 +104,7 @@ export default class HomeScreen extends React.Component {
 
                                 </CardItem>
                                 <CardItem footer  style={styles.textoWidget}>
-                                    <Text>Comparar Preços</Text>
+                                    <Text>Sair</Text>
                                 </CardItem>
                             </TouchableOpacity>
                         </Card>  
@@ -116,7 +116,8 @@ export default class HomeScreen extends React.Component {
 
                                 </CardItem>
                                 <CardItem footer style={styles.textoWidget}>
-                                    <Text >Marcar Consulta ou Exame</Text>
+                                    {/* <Text >Marcar Consulta ou Exame</Text> */}
+                                     <Text >Médicos</Text>
                                 </CardItem>
                             </TouchableOpacity>
                         </Card>                           

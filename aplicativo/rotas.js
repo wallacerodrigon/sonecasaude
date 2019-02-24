@@ -1,30 +1,31 @@
 import React from 'react';
 
-import {Text, View} from 'react-native';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
+
+import { View } from "react-native";
+import { TELA_PADRAO } from './constants/AppScreenData';
+import EstilosComuns from './assets/estilos/estilos';
+import { Icon } from 'native-base';
 
 import LoginComponent from './pages/login/LoginComponent';
 import HomeScreen from './pages/home/Home';
 import EsqueciSenha from './pages/esqueci-senha/EsqueciSenha';
-
 import DadosPessoais from './pages/cadastro/DadosPessoais';
 import Endereco from './pages/cadastro/Endereco';
 import Desafios from './pages/cadastro/Desafios';
 import FinalizaCadastro from './pages/cadastro/FinalizaCadastro';
 import AdicionaCompartilhamentoInfo from './pages/cadastro/AdicionaCompartilhamentoInfo';
 import ControleMedicacao from './pages/medicacao/ControleMedicacao';
-import { TELA_PADRAO } from './constants/AppScreenData';
-import EstilosComuns from './assets/estilos/estilos';
 import ComandoOuvindoVoz from './pages/voz/ComandoOuvindoVoz';
-import AlarmeEstoque from './pages/medicacao/AlarmeEstoque';
-import AlarmeHorario from './pages/medicacao/AlarmeHorario';
-import Botao from './components/botao/Botao';
 import ListaMedicos from './pages/medicos/ListaMedicos';
 import AdicionaMedico from './pages/medicos/AdicionaMedico';
-import { DrawerMenu } from './Menu';
 import AdicionaClinica from './pages/medicos/AdicionaClinica';
 import ListaClinicas from './pages/medicos/ListaClinicas';
 import CompartilhaInformacoes from './pages/cadastro/CompartilhaInformacoes';
+
+import Alarme from './pages/medicacao/Alarme';
+import ControleMedicamento from './pages/medicacao/ControleMedicamento';
+
 
 //https://reactnavigation.org/docs/en/stack-navigator.html
 const StackNavigatorSpc = createStackNavigator(
@@ -40,18 +41,17 @@ const StackNavigatorSpc = createStackNavigator(
       endereco: {screen: Endereco},
       desafios: {screen: Desafios},
       finalizaCadastro: {screen: FinalizaCadastro},
+
       adicionaCompartilhamentoInfo: {screen: AdicionaCompartilhamentoInfo},
       novoCompartilhamentoInfo: {screen: AdicionaCompartilhamentoInfo},
       
       controleMedicacao: {screen: ControleMedicacao},
       // adicionaCompartilhamentoMedicacao: {screen: EsqueciSenha},
-      // adicionaMedicamento: {screen: EsqueciSenha},
-      // historicoMedicacao: {screen: EsqueciSenha},                                    
+      controleMedicamento: {screen: ControleMedicamento},
       // listaCompartilhamentoMedicacao: {screen: EsqueciSenha},                                    
 
-      // alarmeEstoque: {screen: AlarmeEstoque},
-      // alarmeHorario: {screen: AlarmeHorario},                                    
-      // comandoVoz: {screen: ComandoOuvindoVoz},                                    
+      alarme: {screen: Alarme},
+      comandoVoz: {screen: ComandoOuvindoVoz},                                    
 
        adicionaMedicos: {screen: AdicionaMedico},
        listaMedicos: {screen: ListaMedicos},                                    
@@ -63,24 +63,17 @@ const StackNavigatorSpc = createStackNavigator(
     },
     {
         initialRouteName: "login",
-        defaultNavigationOptions:  ({navigation}) => ({
+        defaultNavigationOptions:  () => ({
           title: TELA_PADRAO.title,
           headerStyle: [ EstilosComuns.backgroundToolbar],
           cardShadowEnabled: "true",
           headerTitleStyle: [EstilosComuns.corBranca],
-          // headerRight: (
-          //     <View>
-          //         <Text>Voltar</Text>
-          //     </View>
-          // )
-          // headerLeft: (
-          //       <View>
-          //         <Botao tituloBotao="..."/>
-          //       </View>
-          // )
-          
-          //headerBackground
-        }),
+           headerRight: (
+              <View>
+                  <Icon name="mic"/>
+              </View>
+          )
+         }),
 
     },
      

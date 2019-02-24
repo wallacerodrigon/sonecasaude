@@ -1,6 +1,5 @@
 import React from 'react';
-import {Button, View, Text} from 'react-native';
-import EstilosComuns from '../../assets/estilos/estilos';
+import {Button, View, Text, TouchableOpacity} from 'react-native';
 
 export default class Botao extends React.Component {
 
@@ -10,17 +9,35 @@ export default class Botao extends React.Component {
 
     render() {
         return (
-          <Button title={this.props.tituloBotao} onPress={()=> this.props.onClick()} color={this.props.disabled ? "#fff" :  "#04B486"} 
+          <Button title={this.props.tituloBotao} onPress={()=> this.props.onClick()} 
+            color={this.props.disabled ? "#fff" :  "#04B486"} 
             accessibilityLabel={this.props.tituloBotao}
             disabled={this.props.disabled}
           >
-            {/* <View>
-              <Text style={[EstilosComuns.fonteBotao]}>{this.props.loading ? '↻' : this.props.tituloBotao}</Text>
-
-            </View> */}
           </Button>            
         )
     };
 }
 
 
+export class BotaoOpacity extends React.Component  {
+
+  constructor(props){
+    super(props); 
+}
+
+render() {
+    return (
+      <TouchableOpacity 
+        onPress={()=> {this.props.onClick() || null}} 
+        color={this.props.disabled ? "#fff" :  "#04B486"} 
+        accessibilityLabel={this.props.tituloBotao}
+        disabled={this.props.disabled}
+      >
+        <View>
+          {this.props.children}
+        </View>
+      </TouchableOpacity>            
+    )
+};
+}

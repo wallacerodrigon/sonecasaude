@@ -8,6 +8,7 @@ import {InputTexto} from '../../components/input/InputTexto';
 export default class EsqueciSenha extends React.Component {
     static navigationOptions = {
         title: TELA_ESQUECI_SENHA.title,
+       // headerRight: null
       };
 
 
@@ -32,14 +33,13 @@ export default class EsqueciSenha extends React.Component {
                 </View>
 
                 <View style={{flex: 1}}>
-                    <InputTexto placeholder="Informe seu E-mail " maxLength={40}
                         onChangeInput={value => this.tratarInputEmail(value)}
                         keyboardType={InputTexto.KEYBOARD_EMAIL}
                         />
                 </View>
 
                 <View style={{flex: 8}}>
-                    <Botao style={styles.botaoEnviar} tituloBotao='Enviar' onClick={() =>  this.props.navigation.navigate(TELA_LOGIN.name)}/>
+                    {/* <Botao style={styles.botaoEnviar} tituloBotao='Enviar' onClick={() =>  this.props.navigation.navigate(TELA_LOGIN.name)}/> */}
                 </View>
             </View>
         )

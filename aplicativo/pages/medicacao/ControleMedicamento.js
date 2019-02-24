@@ -2,16 +2,16 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 
-export default class AlarmeHorario extends React.Component {
+export default class ControleMedicamento extends React.Component {
     static navigationOptions = {
-        title: 'AlarmeHorario',
+        title: 'ControleMedicamento',
         /* No more header config here! */
       };
 
     render() {
         return (
             <View style={EstilosComuns.container}>
-                <Text>AlarmeHorario</Text>
+                <Text>ControleMedicamento</Text>
             </View>
         )
     };

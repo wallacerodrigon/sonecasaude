@@ -9,7 +9,7 @@ import {InputTexto} from '../../components/input/InputTexto';
 import { MensagemAlerta, MensagemErro } from '../../components/mensagens/Mensagens';
 
 
-const imgLogo = require('../../assets/img/logo-login.png');
+const imgLogo = require('../../assets/img/logo-login.jpeg');
  
 export default class LoginComponent extends Component {
    

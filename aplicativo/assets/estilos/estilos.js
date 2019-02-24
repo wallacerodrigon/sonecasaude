@@ -14,10 +14,15 @@ const EstilosComuns = StyleSheet.create({
         backgroundColor: corCinza,
         padding: 10
     },
+    containerListening: {
+        flex: 1,
+        paddingTop: Constants.statusBarHeight,
+        flexDirection: 'column',
+        backgroundColor: VERDE,
+    },    
     backgroundToolbar: {
         backgroundColor: VERDE,
     },
-
     backgroundPadrao: {
         backgroundColor: corCinza
     },

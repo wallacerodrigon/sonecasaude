@@ -17,13 +17,12 @@ export const TELA_ADD_SHARE_INFO_FROM_LIST = {name: 'novoCompartilhamentoInfo', 
     /*Controle de medicação */
 export const TELA_CONTROLE_MEDICACAO = {name:"controleMedicacao", title: "Controlar medicação"};
 export const TELA_ADD_SHARE_MEDICACAO = {name:"adicionaCompartilhamentoMedicacao", title: "Compartilhar controle"};
-export const TELA_ADD_MEDICAMENTO = {name:"adicionaMedicamento", title: "Adicionar medicamento"};
+export const TELA_CONTROLE_MEDICAMENTO = {name:"controleMedicamento", title: "Adicionar medicamento"};
 export const TELA_HISTORICO_MEDICACAO = {name:"historicoMedicacao", title: "Histórico"};
 export const TELA_LISTA_SHARE_MEDICACAO = {name:"listaCompartilhamentoMedicacao", title: "Compartilhar medicações"};
 
     /**alarmes e controle de voz */
-export const TELA_ALARME_ESTOQUE = {name:"alarmeEstoque", title: ""};
-export const TELA_ALARME_HORARIO = {name:"alarmeHorario", title: ""};
+export const TELA_ALARME = {name:"alarme", title: ""};
 export const TELA_COMANDO_VOZ = {name:"comandoVoz", title: ""};
 
     /**médicos */
