@@ -63,7 +63,7 @@ const StackNavigatorSpc = createStackNavigator(
        listaClinicas: {screen: ListaClinicas},                                    
     },
     {
-        initialRouteName: "controleMedicacao",
+        initialRouteName: "login",
         defaultNavigationOptions:  ({navigation}) => ({
           title: TELA_PADRAO.title,
           headerStyle: [ EstilosComuns.backgroundToolbar],
