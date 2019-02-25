@@ -3,8 +3,8 @@ import React from 'react';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 
 import { View } from "react-native";
-import { TELA_PADRAO } from './constants/AppScreenData';
-import EstilosComuns from './assets/estilos/estilos';
+import { TELA_PADRAO, TELA_COMANDO_VOZ } from './constants/AppScreenData';
+import EstilosComuns, { BRANCO } from './assets/estilos/estilos';
 import { Icon } from 'native-base';
 
 import LoginComponent from './pages/login/LoginComponent';
@@ -25,6 +25,7 @@ import CompartilhaInformacoes from './pages/cadastro/CompartilhaInformacoes';
 
 import Alarme from './pages/medicacao/Alarme';
 import ControleMedicamento from './pages/medicacao/ControleMedicamento';
+import { BotaoOpacity } from './components/botao/Botao';
 
 
 //https://reactnavigation.org/docs/en/stack-navigator.html
@@ -62,16 +63,19 @@ const StackNavigatorSpc = createStackNavigator(
        listaClinicas: {screen: ListaClinicas},                                    
     },
     {
-        initialRouteName: "login",
-        defaultNavigationOptions:  () => ({
+        initialRouteName: "controleMedicacao",
+        defaultNavigationOptions:  ({navigation}) => ({
           title: TELA_PADRAO.title,
           headerStyle: [ EstilosComuns.backgroundToolbar],
           cardShadowEnabled: "true",
           headerTitleStyle: [EstilosComuns.corBranca],
-           headerRight: (
-              <View>
-                  <Icon name="mic"/>
-              </View>
+        //   headerLeft: (
+        //         <View style={{backgroundColor: '#fff'}} > </View>
+        //   ),
+          headerRight: (
+            <BotaoOpacity onClick={() => navigation.navigate(TELA_COMANDO_VOZ.name)}> 
+                <Icon name="mic" size={30} color={BRANCO}/>
+            </BotaoOpacity>
           )
          }),
 

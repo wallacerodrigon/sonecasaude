@@ -1,17 +1,19 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {Constants} from 'expo';
 
-const tamanhoPadrao = 14;
-const VERDE = "#04B486";
-const corBranco = "#fff";
-const corCinza = "#ddd"
+export const TAMANHO_PADRAO = 14;
+export const VERDE = "#04B486";
+export const BRANCO = "#fff";
+export const FUNDO = "#ddd";
+export const FUNDO_ESCURO = "#666"
+export const DESMARCADO = "#f00";
 
 const EstilosComuns = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: Constants.statusBarHeight,
         flexDirection: 'column',
-        backgroundColor: corCinza,
+        backgroundColor: FUNDO,
         padding: 10
     },
     containerListening: {
@@ -24,7 +26,7 @@ const EstilosComuns = StyleSheet.create({
         backgroundColor: VERDE,
     },
     backgroundPadrao: {
-        backgroundColor: corCinza
+        backgroundColor: FUNDO
     },
     sombra: {
         shadowColor: VERDE,
@@ -33,30 +35,30 @@ const EstilosComuns = StyleSheet.create({
     },
     fontePadrao: {
         fontFamily:'Roboto',
-        fontSize: tamanhoPadrao
+        fontSize: TAMANHO_PADRAO
     },
     fonteBotao: {
         fontFamily:'Roboto',
-        color: '#fff',
-        fontSize: tamanhoPadrao
+        color: BRANCO,
+        fontSize: TAMANHO_PADRAO
     },
     centralizar: {
         justifyContent: 'center',
         alignItems: 'center',
     },
     corVerde: {
-        color: '#04B486',
+        color: VERDE,
     },
     corBranca: {
-        color: '#fff',
+        color: BRANCO,
     },
     botao: {
-        backgroundColor: '#04B486',
+        backgroundColor: VERDE,
         height: 40,
         marginTop: 8,
         justifyContent: 'center',
         alignItems: 'center',
-        shadowColor: '#666',
+        shadowColor: FUNDO_ESCURO,
     },
     negrito: {
         fontWeight: 'bold'
@@ -67,12 +69,12 @@ const EstilosComuns = StyleSheet.create({
     },
     inputText: {
         borderBottomWidth: 1,
-        borderColor: '#fff',
+        borderColor: "#A4A4A4",
         fontSize: 16,
         padding: 8,
     },    
     textoTamanhoPadrao: {
-        fontSize: tamanhoPadrao
+        fontSize: TAMANHO_PADRAO
     },
     textoJustificado: {
         textAlign: 'justify'
@@ -84,7 +86,7 @@ const EstilosComuns = StyleSheet.create({
         fontSize: 20, 
         fontWeight: 'bold',
         marginBottom: 5,
-        color: '#666',
+        color: FUNDO_ESCURO,
         padding: 10
     },
     bodyTitulo: {
@@ -93,7 +95,6 @@ const EstilosComuns = StyleSheet.create({
     },
     bodyMain : {
         flex: 8,
-       // padding: 10
     },
     rodape: {
         flex: 1

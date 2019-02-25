@@ -26,10 +26,12 @@ export class BotaoOpacity extends React.Component  {
     super(props); 
 }
 
+simulaClick(){}
+
 render() {
     return (
-      <TouchableOpacity 
-        onPress={()=> {this.props.onClick() || null}} 
+      <TouchableOpacity style={this.props.style}
+        onPress={()=> {this.props.onClick() || this.simulaClick()}} 
         color={this.props.disabled ? "#fff" :  "#04B486"} 
         accessibilityLabel={this.props.tituloBotao}
         disabled={this.props.disabled}

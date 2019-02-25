@@ -1,11 +1,11 @@
 import React from 'react';
 import {Dimensions, View, TouchableOpacity, Image, StyleSheet, Text} from 'react-native';
-import EstilosComuns from '../../assets/estilos/estilos';
+import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
 import {TELA_HOME, TELA_LOGIN, TELA_COMANDO_VOZ, TELA_CONTROLE_MEDICACAO, TELA_LISTA_MEDICOS, TELA_ALARME} from '../../constants/AppScreenData';
 
 import { Icon } from 'react-native-elements';
 import { Card, CardItem, Body } from 'native-base';
-//import { DrawerMenu } from '../../Menu';
+import { BotaoOpacity } from '../../components/botao/Botao';
 
 const imgMicrophone = require('../../assets/img/microphone_green.png');
 
@@ -19,9 +19,9 @@ export default class HomeScreen extends React.Component {
     static navigationOptions =  ({navigation}) => ({
         title: TELA_HOME.title,
         headerLeft:(
-            <TouchableOpacity onPress={() => navigation.navigate('compartilhaInformacoes')}> 
-                <Icon name="menu" size={30} />
-            </TouchableOpacity>
+            <BotaoOpacity onPress={() => navigation.navigate('compartilhaInformacoes')}> 
+                <Icon name="menu" size={30} color={BRANCO}/>
+            </BotaoOpacity>
         ),
       });
 
@@ -174,8 +174,7 @@ const styles = StyleSheet.create({
     //     backgroundColor: '#04B486'
     // }
     
-})
+});
 
 //axios.get(url)
 //retorna promise --> then(resp => resp.data)
-

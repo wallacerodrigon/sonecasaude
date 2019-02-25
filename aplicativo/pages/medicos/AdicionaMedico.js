@@ -80,7 +80,10 @@ export const DadosMedico = ({navigation}) => (
 
 const styles= StyleSheet.create({
     containerBusca: {
-        flex: 2
+        flex: 2,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: 5,
     },
     containerTabsMedico: {
         flex: 8,

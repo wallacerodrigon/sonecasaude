@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Button, Text} from 'react-native';
-import EstilosComuns from '../../assets/estilos/estilos';
+import EstilosComuns, { VERDE, BRANCO } from '../../assets/estilos/estilos';
 import { Icon, Fab, Tabs, Tab, Container } from 'native-base';
 import Historico from './Historico';
 import Medicacao from './Medicacao';
@@ -8,7 +8,7 @@ import { TELA_CONTROLE_MEDICACAO, TELA_HISTORICO_MEDICACAO, TELA_ADD_SHARE_MEDIC
 
 export default class ControleMedicacao extends React.Component {
     static navigationOptions = {
-        title: TELA_CONTROLE_MEDICACAO.title,
+        title: TELA_CONTROLE_MEDICACAO.title
         /* No more header config here! */
       };
 
@@ -25,10 +25,10 @@ export default class ControleMedicacao extends React.Component {
 
     render() {
         return (
-            <View style={EstilosComuns.container}>
+            <View style={{flex: 1}}>
 
                 <Container>
-                    <Tabs tabStyle={{color: '#f00', backgroundColor:"#ddd"}}>
+                    <Tabs>
                         <Tab heading="Medicação">
                             <Medicacao />
                         </Tab>
@@ -42,18 +42,17 @@ export default class ControleMedicacao extends React.Component {
                     active={this.state.active}
                     direction="up"
                     containerStyle={{ }}
-                    style={{ backgroundColor: "#04B486" }}
+                    style={{ backgroundColor: VERDE }}
                     position="bottomRight"
                     onPress={() => this.setState({ active: !this.state.active })}>
                         <Icon name="apps" />
-                    {/* itens */}
-                    <Button style={{ backgroundColor: '#04B486' }} onPress={()=> this.props.navigation.navigate(TELA_HISTORICO_MEDICACAO.name)}>
+                    <Button style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_HISTORICO_MEDICACAO.name)}>
                         <Icon name="calendar" />
                     </Button>
-                    <Button style={{ backgroundColor: '#04B486' }} onPress={()=> this.props.navigation.navigate(TELA_ADD_SHARE_MEDICACAO.name)}>
+                    <Button style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_ADD_SHARE_MEDICACAO.name)}>
                         <Icon name="share" />
                     </Button>
-                    <Button disabled style={{ backgroundColor: '#04B486' }} onPress={()=> this.props.navigation.navigate(TELA_ADD_MEDICAMENTO.name)}>
+                    <Button disabled style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_ADD_MEDICAMENTO.name)}>
                         <Icon name="medkit" />
                     </Button>
                 </Fab>               
