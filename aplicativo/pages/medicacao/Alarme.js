@@ -34,17 +34,17 @@ export default class Alarme extends React.Component {
 
     adiar(){
         if (this.state.bolAlertaEstoque){
-            return this.navigation.navigate(TELA_HOME.name);
+            return this.props.navigation.navigate(TELA_HOME.name);
         } else {
-            return this.navigation.navigate(TELA_CONTROLE_MEDICACAO.name);
+            return this.props.navigation.navigate(TELA_CONTROLE_MEDICACAO.name);
         }
     }
 
     confirmar(){
         if (this.state.bolAlertaEstoque){
-            return this.navigation.navigate(TELA_ADD_MEDICAMENTO.name);//encaminhar para a medicacao
+            return this.props.navigation.navigate(TELA_ADD_MEDICAMENTO.name);//encaminhar para a medicacao
         } else {
-            return this.navigation.navigate(TELA_CONTROLE_MEDICACAO.name);
+            return this.props.navigation.navigate(TELA_CONTROLE_MEDICACAO.name);
         }
 
     }
@@ -83,11 +83,11 @@ export default class Alarme extends React.Component {
 
                 <View style={styles.row}>
                     <View style={styles.botoesAlerta}>
-                        <BotaoOpacity /*onClick={()=>this.adiar()}*/ >
+                        <BotaoOpacity onClick={()=>this.adiar()} >
                             <Thumbnail large circular source={require('../../assets/img/alerta/adiamento.jpeg')} />
                         </BotaoOpacity>                      
         
-                        <BotaoOpacity  /*onClick={()=>this.confirmar()}*/>
+                        <BotaoOpacity  onClick={()=>this.confirmar()}>
                             <Thumbnail large circular source={require('../../assets/img/alerta/confirmacao.png')} />
                         </BotaoOpacity>                      
                     </View>

@@ -1,11 +1,12 @@
 import React from 'react';
 import {Dimensions, View, TouchableOpacity, Image, StyleSheet, Text} from 'react-native';
 import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
-import {TELA_HOME, TELA_LOGIN, TELA_COMANDO_VOZ, TELA_CONTROLE_MEDICACAO, TELA_LISTA_MEDICOS, TELA_ALARME} from '../../constants/AppScreenData';
+import {TELA_HOME, TELA_LOGIN, TELA_COMANDO_VOZ, TELA_CONTROLE_MEDICACAO, TELA_LISTA_MEDICOS, TELA_ALARME, TELA_SHARE_INFO} from '../../constants/AppScreenData';
 
 import { Icon } from 'react-native-elements';
 import { Card, CardItem, Body } from 'native-base';
 import { BotaoOpacity } from '../../components/botao/Botao';
+import DrawerMenu from '../../Menu';
 
 const imgMicrophone = require('../../assets/img/microphone_green.png');
 
@@ -19,7 +20,7 @@ export default class HomeScreen extends React.Component {
     static navigationOptions =  ({navigation}) => ({
         title: TELA_HOME.title,
         headerLeft:(
-            <BotaoOpacity onPress={() => navigation.navigate('compartilhaInformacoes')}> 
+            <BotaoOpacity onClick={() => navigation.navigate('drawer')}> 
                 <Icon name="menu" size={30} color={BRANCO}/>
             </BotaoOpacity>
         ),
@@ -33,7 +34,7 @@ export default class HomeScreen extends React.Component {
     }
 
     abrirMenu() {
-        alert('ok')
+        
     }
 
     retornarLogin = () => {

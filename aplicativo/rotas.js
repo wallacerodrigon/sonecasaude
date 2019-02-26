@@ -27,12 +27,12 @@ import Alarme from './pages/medicacao/Alarme';
 import ControleMedicamento from './pages/medicacao/ControleMedicamento';
 import { BotaoOpacity } from './components/botao/Botao';
 import Historico from './pages/medicacao/Historico';
-
+import SideBarMenu from './components/menu/SideBarMenu';
 
 //https://reactnavigation.org/docs/en/stack-navigator.html
 const StackNavigatorSpc = createStackNavigator(
     {
-    //  drawer: {screen: DrawerMenu},
+      drawer: {screen: SideBarMenu},
       login: {screen: LoginComponent},
       home: {screen: HomeScreen},
       esqueciSenha: {screen: EsqueciSenha},

@@ -4,7 +4,7 @@ import EstilosComuns from '../../assets/estilos/estilos';
 import { TELA_ADD_MEDICOS, TELA_LISTA_MEDICOS } from '../../constants/AppScreenData';
 import { InputTexto } from '../../components/input/InputTexto';
 import Botao from '../../components/botao/Botao';
-import { Container, Tabs, Tab } from 'native-base';
+import { Container, Tabs, Tab, Segment, Button } from 'native-base';
 import ListaClinicas from './ListaClinicas';
 
 export default class AdicionaMedico extends React.Component {
@@ -69,6 +69,16 @@ export const DadosMedico = ({navigation}) => (
                 keyboardType={InputTexto.KEYBOARD_EMAIL}
                 onChangeInput={value => this.onChangeInput(value)}
                 />
+
+         <Segment>
+              <Button first><Text>Seg</Text></Button>
+              <Button ><Text>TER</Text></Button>
+              <Button ><Text>QUA</Text></Button>
+              <Button ><Text>QUI</Text></Button>
+              <Button ><Text>SEX</Text></Button>
+              <Button ><Text>SAB</Text></Button>
+              <Button last><Text>DOM</Text></Button>
+          </Segment>                
         
         </View>
 
@@ -83,7 +93,7 @@ const styles= StyleSheet.create({
         flex: 2,
         flexDirection: 'column',
         justifyContent: 'center',
-        padding: 5,
+        padding: 5 ,
     },
     containerTabsMedico: {
         flex: 8,
