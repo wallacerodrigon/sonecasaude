@@ -28,7 +28,7 @@ export default class ControleMedicacao extends React.Component {
             <View style={{flex: 1}}>
 
                 <Container>
-                    <Tabs>
+                    <Tabs> 
                         <Tab heading="Medicação">
                             <Medicacao />
                         </Tab>

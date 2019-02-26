@@ -7,6 +7,7 @@ export const BRANCO = "#fff";
 export const FUNDO = "#ddd";
 export const FUNDO_ESCURO = "#666"
 export const DESMARCADO = "#f00";
+export const PRETO = "#000";
 
 const EstilosComuns = StyleSheet.create({
     container: {

@@ -13,6 +13,15 @@ export default class ControleMedicamento extends React.Component {
             <View style={EstilosComuns.container}>
                 <Text>ControleMedicamento</Text>
             </View>
+        //      <Segment>
+        //      <Button first><Text>Seg</Text></Button>
+        //      <Button last><Text>TER</Text></Button>
+        //      <Button first><Text>QUA</Text></Button>
+        //      <Button last><Text>QUI</Text></Button>
+        //      <Button first><Text>SEX</Text></Button>
+        //      <Button last><Text>SAB</Text></Button>
+        //      <Button first><Text>DOM</Text></Button>
+        //  </Segment>
         )
     };
 }

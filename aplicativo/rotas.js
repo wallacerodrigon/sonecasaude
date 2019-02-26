@@ -26,6 +26,7 @@ import CompartilhaInformacoes from './pages/cadastro/CompartilhaInformacoes';
 import Alarme from './pages/medicacao/Alarme';
 import ControleMedicamento from './pages/medicacao/ControleMedicamento';
 import { BotaoOpacity } from './components/botao/Botao';
+import Historico from './pages/medicacao/Historico';
 
 
 //https://reactnavigation.org/docs/en/stack-navigator.html
@@ -58,7 +59,7 @@ const StackNavigatorSpc = createStackNavigator(
        listaMedicos: {screen: ListaMedicos},                                    
 
       // meuPerfil: {screen: EsqueciSenha},                                    
-
+       historico: {screen: Historico},
        adicionaClinica: {screen: AdicionaClinica},                                    
        listaClinicas: {screen: ListaClinicas},                                    
     },
