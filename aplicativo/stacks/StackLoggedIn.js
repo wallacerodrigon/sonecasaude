@@ -1,8 +1,6 @@
 import React from "react";
-import LoginComponent from "../pages/login/LoginComponent";
-import {createStackNavigator, createDrawerNavigator} from 'react-navigation';
+import {createDrawerNavigator} from 'react-navigation';
 import PADRAO_NAVEGACAO from "./StackConfigs";
-import HomeScreenRouter from "../pages/home";
 import HomeScreen from "../pages/home/Home";
 import ControleMedicacao from "../pages/medicacao/ControleMedicacao";
 import { BotaoOpacity } from "../components/botao/Botao";
@@ -11,26 +9,36 @@ import EstilosComuns, { BRANCO } from "../assets/estilos/estilos";
 import { BotaoMenu } from "../components/botao/BotaoMenu";
 import { TELA_PADRAO, TELA_COMANDO_VOZ } from "../constants/AppScreenData";
 
+import MeusDados from "../pages/perfil/MeusDados";
+import AdicionaClinica from "../pages/medicos/AdicionaClinica";
+import ListaClinicas from "../pages/medicos/ListaClinicas";
+import ListaMedicos from "../pages/medicos/ListaMedicos";
+import AdicionaMedico from "../pages/medicos/AdicionaMedico";
+import AdicionaCompartilhamentoInfo from "../pages/cadastro/AdicionaCompartilhamentoInfo";
+import CadastroMedicamento from "../pages/medicacao/CadastroMedicamento";
+import Alarme from "../pages/medicacao/Alarme";
+import ComandoOuvindoVoz from "../pages/voz/ComandoOuvindoVoz";
+import PrescricaoMedicamento from "../pages/medicacao/PrescricaoMedicamento";
+
 const StackLoggedIn = createDrawerNavigator(
     {
         home: HomeScreen,
+        cadastroMedicamento: CadastroMedicamento,
         controleMedicacao: {screen: ControleMedicacao},
-        // adicionaCompartilhamentoMedicacao: AdicionaCompartilhamentoInfo,
-        // novoCompartilhamentoInfo:  AdicionaCompartilhamentoInfo,
+        novoCompartilhamentoInfo:  AdicionaCompartilhamentoInfo,
 
-        // controleMedicamento: {screen: ControleMedicamento},
-        // listaCompartilhamentoMedicacao: {screen: EsqueciSenha},                                    
 
-        // alarme: {screen: Alarme},
-        // comandoVoz: {screen: ComandoOuvindoVoz},                                    
+        alarme: Alarme,
+        comandoVoz: ComandoOuvindoVoz,                                    
 
-        // adicionaMedicos: {screen: AdicionaMedico},
-        // listaMedicos: {screen: ListaMedicos},                                    
+        adicionaMedicos: {screen: AdicionaMedico},
+        listaMedicos: {screen: ListaMedicos},                                    
 
-        // meuPerfil: {screen: EsqueciSenha},                                    
-        // historico: {screen: Historico},
-        // adicionaClinica: {screen: AdicionaClinica},                                    
-        // listaClinicas: {screen: ListaClinicas},                                            
+        meuPerfil: {screen: MeusDados},                                    
+        
+        adicionaClinica: {screen: AdicionaClinica},                                    
+        listaClinicas: {screen: ListaClinicas},  
+        prescricaoMedicamento: PrescricaoMedicamento                                          
     },
     {
         defaultNavigationOptions: {

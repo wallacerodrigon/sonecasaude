@@ -17,7 +17,7 @@ export const TELA_ADD_SHARE_INFO_FROM_LIST = {name: 'novoCompartilhamentoInfo', 
     /*Controle de medicação */
 export const TELA_CONTROLE_MEDICACAO = {name:"controleMedicacao", title: "Controlar medicação"};
 export const TELA_ADD_SHARE_MEDICACAO = {name:"adicionaCompartilhamentoMedicacao", title: "Compartilhar controle"};
-export const TELA_CONTROLE_MEDICAMENTO = {name:"controleMedicamento", title: "Adicionar medicamento"};
+export const TELA_CADASTRO_MEDICAMENTO = {name:"cadastroMedicamento", title: "Adicionar medicamento"};
 export const TELA_HISTORICO_MEDICACAO = {name:"historicoMedicacao", title: "Histórico"};
 export const TELA_LISTA_SHARE_MEDICACAO = {name:"listaCompartilhamentoMedicacao", title: "Compartilhar medicações"};
 
@@ -40,4 +40,5 @@ export const DRAWER = {name:"DrawerOpen", title:""};
 export const CADASTRO = {name:"cadastro", title:""};
 export const VOLTA_LOGIN= {name: "startStack", title:""};
 export const TELA_LOGIN_EFETUADO= {name: "logadoStack", title:""};
+export const TELA_PRESCRICAO = {name: "prescricaoMedicamento", title:"Prescrição"};
 

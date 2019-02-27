@@ -1,15 +1,20 @@
 import React from 'react';
 import {View, Text, Picker} from 'react-native';
-import EstilosComuns from '../../assets/estilos/estilos';
+import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
 import {TELA_DADOS_PESSOAIS, TELA_ENDERECO, TELA_LOGIN} from '../../constants/AppScreenData'
-import Botao from '../../components/botao/Botao';
+import Botao, { BotaoOpacity } from '../../components/botao/Botao';
 import {InputTexto, InputTextComMascara } from '../../components/input/InputTexto';
-import {DatePicker } from 'native-base';
+import {DatePicker, Icon } from 'native-base';
 
 export default class DadosPessoais extends React.Component {
 //pensar nesse objeto como um método de uma classe estática ou sei lá o que. Que facilite a susa configuração
     static navigationOptions = {
-        title: TELA_DADOS_PESSOAIS.title
+        title: TELA_DADOS_PESSOAIS.title,
+        headerLeft: (
+            <BotaoOpacity onClick={() =>this.props.navigation.navigate(TELA_LOGIN.name)}>
+                <Icon name="close" color={BRANCO} height={20}/>
+            </BotaoOpacity>
+        )
       };
 
     constructor(props){
@@ -18,6 +23,7 @@ export default class DadosPessoais extends React.Component {
         this.state = {sexo: "M", cpf:'', dataNascimento: null, celular: ''};
         
         this.onChangeDataNascimento =this.onChangeDataNascimento.bind(this);
+        this.voltaParaLogin = this.voltaParaLogin.bind(this);
     }
 
     onChangeInput(fieldname, text){

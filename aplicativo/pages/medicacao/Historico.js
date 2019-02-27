@@ -9,6 +9,8 @@ import {
 //    PieChart,
   } from 'react-native-chart-kit'
 import { Rating } from 'react-native-elements';
+import { Botao } from "../../components/botao/Botao";
+import { MensagemInformativa } from '../../components/mensagens/Mensagens';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const imgRemedio = require('../../assets/img/alerta/losartana.jpeg');
@@ -124,6 +126,10 @@ export default class Historico extends React.Component {
                                 </Picker>
                             </View>                    
                         </View>
+                        <View style={styles.containerLinhaFiltro}>
+                            {/* <Botao onClick={() => alert('pesquisando...')} tituloBotao="Pesquisar" /> */}
+                        </View>
+
                 </View>
 
                 <View style={styles.containerResultado}>
@@ -136,12 +142,10 @@ export default class Historico extends React.Component {
                                 labels: item.medicamento.labelDiasUso,
                                 datasets: [{
                                   data: item.medicamento.diasUso,
-                        //              color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})` // optional
                                   strokeWidth: 2 // optional
                                 }]
                               }
                     
-                            console.log(data);
 
                             return (
                                 <View style={EstilosComuns.backgroundPadrao}>

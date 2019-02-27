@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet,TouchableOpacity, FlatList} from 'react-native';
-import EstilosComuns from '../../assets/estilos/estilos';
+import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
 import {TELA_DESAFIOS, TELA_ADD_SHARE_INFO} from '../../constants/AppScreenData'
 import Botao from '../../components/botao/Botao';
 import {InputTexto} from '../../components/input/InputTexto';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, Icon } from 'react-native-elements';
 import { Card, CardItem } from 'native-base';
 //https://react-native-training.github.io/react-native-elements/docs/searchbar.html
 
@@ -66,11 +66,16 @@ export default class Desafios extends React.Component {
 
                 <View style={[EstilosComuns.bodyMain, EstilosComuns.backgroundPadrao]}>
                     <Card style={[styles.blocoBusca, EstilosComuns.backgroundPadrao]}>
-                        <View style={{flex: 10}}>
-                            <InputTexto placeholder="Pesquise por um desafio" maxLength={40}
-                                onChangeInput={this.tratarFiltro}
-                                autoCapitalize="none"
-                            />                    
+                        <View style={{flex: 10, flexDirection:'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                            <View style={{flex: 9}}>
+                                <InputTexto placeholder="Pesquise por um desafio" maxLength={40}
+                                    onChangeInput={this.tratarFiltro}
+                                    autoCapitalize="none"
+                                />                    
+                            </View>
+                            <View style={{flex: 1}}>
+                                <Icon name="search" color={BRANCO} size={25} />
+                            </View>
 
                         </View>
                     </Card>
