@@ -3,7 +3,7 @@ import {View, StyleSheet, Image, TextInput} from 'react-native';
 
 import Botao from '../../components/botao/Botao';
 import EstilosComuns from '../../assets/estilos/estilos';
-import {TELA_PADRAO, TELA_HOME, TELA_ESQUECI_SENHA, TELA_DADOS_PESSOAIS} from '../../constants/AppScreenData';
+import {TELA_PADRAO, TELA_HOME, TELA_ESQUECI_SENHA, TELA_DADOS_PESSOAIS, CADASTRO, TELA_LOGIN_EFETUADO} from '../../constants/AppScreenData';
 import CommandLink from '../../components/botao/CommandLink';
 import {InputTexto} from '../../components/input/InputTexto';
 import { MensagemAlerta, MensagemErro } from '../../components/mensagens/Mensagens';
@@ -38,11 +38,11 @@ export default class LoginComponent extends Component {
             MensagemErro("Login e senha devem ser informados!");
             return;
         }*/
-        this.props.navigation.navigate(TELA_HOME.name);
+        this.props.navigation.navigate(TELA_LOGIN_EFETUADO.name);
     }
 
     executarNovoCadastro= () => {
-        this.props.navigation.navigate(TELA_DADOS_PESSOAIS.name);
+        this.props.navigation.navigate(CADASTRO.name);
     }
 
     executarEsqueciSenha = ()=> {

@@ -6,7 +6,6 @@ import {TELA_HOME, TELA_LOGIN, TELA_COMANDO_VOZ, TELA_CONTROLE_MEDICACAO, TELA_L
 import { Icon } from 'react-native-elements';
 import { Card, CardItem, Body } from 'native-base';
 import { BotaoOpacity } from '../../components/botao/Botao';
-import DrawerMenu from '../../Menu';
 
 const imgMicrophone = require('../../assets/img/microphone_green.png');
 
@@ -17,16 +16,6 @@ const imgMedicacao  = require('../../assets/icons/home/medicacao.png');
 
 //https://react-native-training.github.io/react-native-elements/docs/avatar.html
 export default class HomeScreen extends React.Component {
-    static navigationOptions =  ({navigation}) => ({
-        title: TELA_HOME.title,
-        headerLeft:(
-            <BotaoOpacity onClick={() => navigation.navigate('drawer')}> 
-                <Icon name="menu" size={30} color={BRANCO}/>
-            </BotaoOpacity>
-        ),
-      });
-
-       
 
     constructor(){
         super();

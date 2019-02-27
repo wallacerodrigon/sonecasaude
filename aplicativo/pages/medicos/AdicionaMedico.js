@@ -69,16 +69,6 @@ export const DadosMedico = ({navigation}) => (
                 keyboardType={InputTexto.KEYBOARD_EMAIL}
                 onChangeInput={value => this.onChangeInput(value)}
                 />
-
-         <Segment>
-              <Button first><Text>Seg</Text></Button>
-              <Button ><Text>TER</Text></Button>
-              <Button ><Text>QUA</Text></Button>
-              <Button ><Text>QUI</Text></Button>
-              <Button ><Text>SEX</Text></Button>
-              <Button ><Text>SAB</Text></Button>
-              <Button last><Text>DOM</Text></Button>
-          </Segment>                
         
         </View>
 

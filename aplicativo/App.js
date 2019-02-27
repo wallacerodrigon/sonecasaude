@@ -1,5 +1,5 @@
 import React from 'react';
-import NavigatorSpc from './rotas';
+import GeneralNavigator from './stacks/GeneralNavigator';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
@@ -9,7 +9,7 @@ export default class App extends React.Component {
     //const store = createStore();
     return (
      // <Provider store={store}>
-        <NavigatorSpc />
+      <GeneralNavigator/>
       //</Provider>
     )
   }

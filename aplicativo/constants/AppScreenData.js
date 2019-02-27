@@ -35,3 +35,9 @@ export const TELA_MEU_PERFIL = {name:"meuPerfil", title: "Meus dados"};
     /**clínicas */
 export const TELA_ADD_CLINICA = {name:"adicionaClinica", title: "Adicionar clínica"};
 export const TELA_LISTA_CLINICAS = {name:"listaClinicas", title: ""};
+
+export const DRAWER = {name:"DrawerOpen", title:""};
+export const CADASTRO = {name:"cadastro", title:""};
+export const VOLTA_LOGIN= {name: "startStack", title:""};
+export const TELA_LOGIN_EFETUADO= {name: "logadoStack", title:""};
+
