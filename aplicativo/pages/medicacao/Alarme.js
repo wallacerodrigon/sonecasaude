@@ -28,6 +28,10 @@ export default class Alarme extends React.Component {
         }
     }
 
+    componentWillMount(){
+        console.log('falar o texto');
+    }
+
     getFoto(){
         return this.state.medicamento.foto;
     }

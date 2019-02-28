@@ -12,12 +12,14 @@ import EsqueciSenha from '../pages/esqueci-senha/EsqueciSenha';
 import StackNotLoggedIn from './StackNotLoggedIn';
 import CadastroStack from './CadastroStack';
 import StackLoggedIn from './StackLoggedIn';
+import MedicosStack from '../pages/medicos';
 
 export default createAppContainer(createSwitchNavigator(
   {
     startStack: StackNotLoggedIn,
     cadastro: CadastroStack,
-    logadoStack: StackLoggedIn
+    logadoStack: StackLoggedIn,
+    medicos: MedicosStack
   },
 ));
 

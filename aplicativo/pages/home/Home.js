@@ -1,11 +1,10 @@
 import React from 'react';
-import {Dimensions, View, TouchableOpacity, Image, StyleSheet, Text} from 'react-native';
+import {View, TouchableOpacity, Image, StyleSheet, Text} from 'react-native';
 import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
-import {TELA_HOME, TELA_LOGIN, TELA_COMANDO_VOZ, TELA_CONTROLE_MEDICACAO, TELA_LISTA_MEDICOS, TELA_ALARME, TELA_SHARE_INFO} from '../../constants/AppScreenData';
+import {TELA_LOGIN, TELA_COMANDO_VOZ, TELA_CONTROLE_MEDICACAO, TELA_LISTA_MEDICOS, TELA_ALARME, TELA_SHARE_INFO} from '../../constants/AppScreenData';
 
-import { Icon } from 'react-native-elements';
 import { Card, CardItem, Body } from 'native-base';
-import { BotaoOpacity } from '../../components/botao/Botao';
+import StatusBar from '../../components/statusBar/StatusBar';
 
 const imgMicrophone = require('../../assets/img/microphone_green.png');
 
@@ -23,12 +22,11 @@ export default class HomeScreen extends React.Component {
     }
 
     abrirMenu() {
-        
+        this.props.navigation.openDrawer();
     }
 
     retornarLogin = () => {
         this.props.navigation.navigate(TELA_LOGIN.name);
-        
     }
 
     abrirTela(item){
@@ -42,6 +40,7 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <View style={EstilosComuns.container}>
+                <StatusBar style={styles.containerStatusBar} {...this.props}/>
 
                 <Card style={[styles.microfone, EstilosComuns.backgroundPadrao]}>
                     <CardItem cardBody>
@@ -90,11 +89,10 @@ export default class HomeScreen extends React.Component {
                         <Card style={[styles.card]}>
                             <TouchableOpacity  onPress={() => this.retornarLogin()}>
                                 <CardItem cardBody>
-                                            <Image style={styles.imgWidget} aspectRadio={1} source={imgComparacao} resizeMode="cover"/>
-
+                                    <Image style={styles.imgWidget} aspectRadio={1} source={imgComparacao} resizeMode="cover"/>
                                 </CardItem>
                                 <CardItem footer  style={styles.textoWidget}>
-                                    <Text>Sair</Text>
+                                    <Text>Comparação</Text>
                                 </CardItem>
                             </TouchableOpacity>
                         </Card>  
@@ -106,8 +104,7 @@ export default class HomeScreen extends React.Component {
 
                                 </CardItem>
                                 <CardItem footer style={styles.textoWidget}>
-                                    {/* <Text >Marcar Consulta ou Exame</Text> */}
-                                     <Text >Médicos</Text>
+                                    <Text >Marcar Consulta ou Exame</Text>
                                 </CardItem>
                             </TouchableOpacity>
                         </Card>                           
@@ -122,12 +119,15 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
     microfone: {
-        flex: 4,
+        flex: 3,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#ddd'
     },
+    containerStatusBar: {
+        flex: 1
+    },  
     rodapeMicrofone: {
         flex: 2,
         flexDirection: 'row',
@@ -160,9 +160,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         backgroundColor: '#04B486'
     },
-    // card: {
-    //     backgroundColor: '#04B486'
-    // }
     
 });
 

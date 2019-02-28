@@ -9,7 +9,8 @@ export default class App extends React.Component {
     //const store = createStore();
     return (
      // <Provider store={store}>
-      <GeneralNavigator/>
+          <GeneralNavigator/>
+        
       //</Provider>
     )
   }

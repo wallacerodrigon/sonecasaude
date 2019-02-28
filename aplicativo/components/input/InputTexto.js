@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, TextInput} from 'react-native';
-import EstilosComuns from '../../assets/estilos/estilos';
+import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
 import { TextInputMask } from 'react-native-masked-text';
+
+export const PLACE_HOLDER_COLOR = BRANCO;
 
 export class InputTexto extends React.Component {
 
@@ -25,7 +27,7 @@ export class InputTexto extends React.Component {
                     autoCapitalize={this.props.autoCapitalize}
                     multiline={this.props.multiline}
                     numberOfLines={this.props.numberOfLines}
-                    placeholderTextColor={this.props.placeholderTextColor || '#04B486'}
+                    placeholderTextColor={this.props.placeholderTextColor || PLACE_HOLDER_COLOR}
                     keyboardType={this.props.keyboardType}
                     editable={this.props.editable}
                 />
@@ -66,7 +68,7 @@ export class InputTextComMascara extends React.Component {
            <TextInputMask  style={[EstilosComuns.inputText]} 
                 onChangeText={this.onChangeText}
                 placeholder={this.props.placeholder}
-                placeholderTextColor={this.props.placeholderTextColor || '#04B486'}
+                placeholderTextColor={this.props.placeholderTextColor || PLACE_HOLDER_COLOR}
                 type={this.props.type}
             />    
         );

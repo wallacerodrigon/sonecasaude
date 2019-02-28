@@ -2,17 +2,19 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import {List, ListItem, Thumbnail } from "native-base";
 import EstilosComuns, { FUNDO_ESCURO, VERDE } from "../../assets/estilos/estilos";
-import { TELA_CONTROLE_MEDICACAO, TELA_LOGIN, TELA_SHARE_INFO, TELA_LISTA_MEDICOS, TELA_ENDERECO, TELA_ALARME } from "../../constants/AppScreenData";
+import { TELA_CONTROLE_MEDICACAO, TELA_LOGIN, TELA_SHARE_INFO, TELA_LISTA_MEDICOS, TELA_ENDERECO, TELA_ALARME, TELA_MEDICOS, TELA_CADASTRO_MEDICAMENTO } from "../../constants/AppScreenData";
 import { Rating } from "react-native-ratings";
 
 const routes = [
     {label: 'Controle de medicação', rota: TELA_CONTROLE_MEDICACAO.name},
-    {label: 'Médicos', rota: TELA_LISTA_MEDICOS.name},
+    {label: 'Médicos', rota: TELA_MEDICOS.name},
     {label: 'Compartilhar informações', rota: TELA_SHARE_INFO.name},
-    {label: 'Endereços', rota: TELA_ENDERECO.name},
+    {label: TELA_CADASTRO_MEDICAMENTO.title, rota: TELA_CADASTRO_MEDICAMENTO.name}, //criar mais um item nas constantes...
+   // {label: 'Endereços', rota: TELA_ENDERECO.name},
     {label: 'Configurações', rota: TELA_LOGIN.name},
+    {label: 'Alarme Estoque', rota: TELA_ALARME.name, params:[]},
+    {label: 'Alarme Medicação', rota: TELA_ALARME.name, params:[]},
     {label: 'Sair do aplicativo', rota: TELA_LOGIN.name},
-    {label: 'Exemplos de alarme', rota: TELA_ALARME.name},
     
 ];
 
@@ -54,7 +56,7 @@ export default class SideBarMenu extends React.Component {
                     return (
                         <ListItem
                                 button
-                                onPress={() => this.props.navigation.navigate(data.rota)}>
+                                onPress={() => this.props.navigation.navigate(data.rota, data.params)}>
                             <Text style={styles.labelRotaDestaque}>{data.label}</Text>
                         </ListItem>
                     );
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
     labelRotaDestaque: {
         color: FUNDO_ESCURO,
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 16,
     },    
 
     perfil: {

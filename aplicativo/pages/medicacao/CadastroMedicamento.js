@@ -5,6 +5,7 @@ import { TELA_CADASTRO_MEDICAMENTO, TELA_PRESCRICAO } from '../../constants/AppS
 import { Icon, Item } from 'native-base';
 import {InputTexto} from "../../components/input/InputTexto";
 import Botao, { BotaoOpacity } from '../../components/botao/Botao';
+import StatusBar from '../../components/statusBar/StatusBar';
 
 export default class CadastroMedicamento extends React.Component {
     static navigationOptions = {
@@ -32,6 +33,7 @@ export default class CadastroMedicamento extends React.Component {
     render() {
         return (
             <View style={EstilosComuns.container}>
+                <StatusBar/>
                 
                 <View style={styles.containerBusca}>
                     <View style={{flex: 9}}>

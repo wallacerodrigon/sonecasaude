@@ -5,6 +5,7 @@ import { Icon, Fab, Tabs, Tab, Container } from 'native-base';
 import Historico from './Historico';
 import Medicacao from './Medicacao';
 import { TELA_CONTROLE_MEDICACAO, TELA_HISTORICO_MEDICACAO, TELA_ADD_SHARE_MEDICACAO, TELA_ADD_MEDICAMENTO } from '../../constants/AppScreenData';
+import StatusBar from '../../components/statusBar/StatusBar';
 
 export default class ControleMedicacao extends React.Component {
     static navigationOptions = {
@@ -25,37 +26,42 @@ export default class ControleMedicacao extends React.Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <View style={EstilosComuns.container}>
+                <StatusBar {...this.props}/>
 
-                <Container>
-                    <Tabs> 
-                        <Tab heading="Medicação">
-                            <Medicacao />
-                        </Tab>
-                        <Tab heading="Histórico">
-                            <Historico />
-                        </Tab>
-                    </Tabs>                    
-                </Container>
+                <View style={{flex: 11, padding: 5}}>
 
-                <Fab
-                    active={this.state.active}
-                    direction="up"
-                    containerStyle={{ }}
-                    style={{ backgroundColor: VERDE }}
-                    position="bottomRight"
-                    onPress={() => this.setState({ active: !this.state.active })}>
-                        <Icon name="apps" />
-                    <Button style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_HISTORICO_MEDICACAO.name)}>
-                        <Icon name="calendar" />
-                    </Button>
-                    <Button style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_ADD_SHARE_MEDICACAO.name)}>
-                        <Icon name="share" />
-                    </Button>
-                    <Button disabled style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_ADD_MEDICAMENTO.name)}>
-                        <Icon name="medkit" />
-                    </Button>
-                </Fab>               
+                    <Container>
+                        <Tabs> 
+                            <Tab heading="Medicação">
+                                <Medicacao />
+                            </Tab>
+                            <Tab heading="Histórico">
+                                <Historico />
+                            </Tab>
+                        </Tabs>                    
+                    </Container>
+
+                    <Fab
+                        active={this.state.active}
+                        direction="up"
+                        containerStyle={{ }}
+                        style={{ backgroundColor: VERDE }}
+                        position="bottomRight"
+                        onPress={() => this.setState({ active: !this.state.active })}>
+                            <Icon name="apps" />
+                        {/* <Button style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_HISTORICO_MEDICACAO.name)}>
+                            <Icon name="calendar" />
+                        </Button>
+                        <Button style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_ADD_SHARE_MEDICACAO.name)}>
+                            <Icon name="share" />
+                        </Button>
+                        <Button disabled style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_ADD_MEDICAMENTO.name)}>
+                            <Icon name="medkit" />
+                        </Button> */}
+                    </Fab>               
+                </View>
+
             </View>
         )
     };

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button, View, Text, TouchableOpacity} from 'react-native';
+import { Icon } from 'native-base';
 
 export default class Botao extends React.Component {
 
@@ -24,22 +25,39 @@ export class BotaoOpacity extends React.Component  {
 
   constructor(props){
     super(props); 
+  }
+
+
+  render() {
+      return (
+        <TouchableOpacity style={this.props.style}
+          onPress={()=> {this.props.onClick() }} 
+          color={this.props.disabled ? "#fff" :  "#04B486"} 
+          accessibilityLabel={this.props.tituloBotao}
+          disabled={this.props.disabled}
+        >
+          <View>
+            {this.props.children}
+          </View>
+        </TouchableOpacity>            
+      )
+  };
 }
 
-simulaClick(){}
+export class BotaoFechar extends React.Component  {
 
-render() {
-    return (
-      <TouchableOpacity style={this.props.style}
-        onPress={()=> {this.props.onClick() || this.simulaClick()}} 
-        color={this.props.disabled ? "#fff" :  "#04B486"} 
-        accessibilityLabel={this.props.tituloBotao}
-        disabled={this.props.disabled}
-      >
-        <View>
-          {this.props.children}
-        </View>
-      </TouchableOpacity>            
-    )
-};
+  constructor(props){
+    super(props); 
+  }
+
+
+  render() {
+      return (
+          <BotaoOpacity onClick={() => this.props.navigation.goBack()} style={{padding: 5}}> 
+              <Icon name="close" size={30}/>
+          </BotaoOpacity>                 
+      )
+  };
 }
+
+

@@ -41,4 +41,4 @@ export const CADASTRO = {name:"cadastro", title:""};
 export const VOLTA_LOGIN= {name: "startStack", title:""};
 export const TELA_LOGIN_EFETUADO= {name: "logadoStack", title:""};
 export const TELA_PRESCRICAO = {name: "prescricaoMedicamento", title:"Prescrição"};
-
+export const TELA_MEDICOS = {name: 'medicos', title:"Médicos"}

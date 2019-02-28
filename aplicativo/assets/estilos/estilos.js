@@ -15,7 +15,7 @@ const EstilosComuns = StyleSheet.create({
         paddingTop: Constants.statusBarHeight,
         flexDirection: 'column',
         backgroundColor: FUNDO,
-        padding: 10
+        padding: 4
     },
     containerListening: {
         flex: 1,
@@ -102,7 +102,15 @@ const EstilosComuns = StyleSheet.create({
     },
     rodapeDuplo:{
         flex: 2
-    }      
+    },
+    italico:{
+        fontStyle: 'italic'
+    },
+    bordaSeparacaoBlocos: {
+        borderBottomWidth: 1,
+        borderBottomColor: BRANCO
+    }
+
      
 });
 

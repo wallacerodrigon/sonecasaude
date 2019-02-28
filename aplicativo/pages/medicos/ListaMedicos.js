@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Text, TouchableHighlight, ScrollView} from 'react-native';
-import EstilosComuns from '../../assets/estilos/estilos';
+import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
 import { TELA_LISTA_MEDICOS, TELA_ADD_MEDICOS } from '../../constants/AppScreenData';
 import { List, ListItem, Left, Thumbnail, Body, Button, Right, Container, Fab, Icon } from 'native-base';
-import Botao from '../../components/botao/Botao';
+import Botao, { BotaoOpacity, BotaoFechar } from '../../components/botao/Botao';
 
 const imgComparacao = require('../../assets/img/medicos/medico1.jpeg');
 const imgComparacao2 = require('../../assets/img/medicos/medico2.jpeg');
@@ -13,7 +13,11 @@ const imgComparacao3 = require('../../assets/img/medicos/medico3.jpeg');
 
 export default class ListaMedicos extends React.Component {
     static navigationOptions = {
-        title: TELA_LISTA_MEDICOS.title
+        title: TELA_LISTA_MEDICOS.title,
+        headerLeft: (
+            //criar um botão para fechar e outro para o microfone
+            <BotaoFechar/>
+        ),        
         /* No more header config here! */
       };
 

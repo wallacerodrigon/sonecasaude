@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Picker} from 'react-native';
 import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
 import {TELA_DADOS_PESSOAIS, TELA_ENDERECO, TELA_LOGIN} from '../../constants/AppScreenData'
-import Botao, { BotaoOpacity } from '../../components/botao/Botao';
+import Botao, { BotaoOpacity, BotaoFechar } from '../../components/botao/Botao';
 import {InputTexto, InputTextComMascara } from '../../components/input/InputTexto';
 import {DatePicker, Icon } from 'native-base';
 
@@ -11,15 +11,13 @@ export default class DadosPessoais extends React.Component {
     static navigationOptions = {
         title: TELA_DADOS_PESSOAIS.title,
         headerLeft: (
-            <BotaoOpacity onClick={() =>this.props.navigation.navigate(TELA_LOGIN.name)}>
-                <Icon name="close" color={BRANCO} height={20}/>
-            </BotaoOpacity>
+            <BotaoFechar/>
         )
       };
 
     constructor(props){
         super(props);
-
+        console.log(props);
         this.state = {sexo: "M", cpf:'', dataNascimento: null, celular: ''};
         
         this.onChangeDataNascimento =this.onChangeDataNascimento.bind(this);
@@ -31,7 +29,7 @@ export default class DadosPessoais extends React.Component {
     }
 
     voltaParaLogin(){
-        this.props.navigation.navigate(TELA_LOGIN.name)
+        this.props.navigation.goBack();
     }
 
     onChangeCpf(text){
