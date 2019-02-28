@@ -4,7 +4,7 @@ import EstilosComuns, { VERDE, BRANCO } from '../../assets/estilos/estilos';
 import { Icon, Fab, Tabs, Tab, Container } from 'native-base';
 import Historico from './Historico';
 import Medicacao from './Medicacao';
-import { TELA_CONTROLE_MEDICACAO, TELA_HISTORICO_MEDICACAO, TELA_ADD_SHARE_MEDICACAO, TELA_ADD_MEDICAMENTO } from '../../constants/AppScreenData';
+import { TELA_CONTROLE_MEDICACAO, TELA_HISTORICO_MEDICACAO, TELA_ADD_SHARE_MEDICACAO, TELA_ADD_MEDICAMENTO, TELA_MEDICAMENTOS, TELA_HOME, TELA_CADASTRO_MEDICAMENTO } from '../../constants/AppScreenData';
 import StatusBar from '../../components/statusBar/StatusBar';
 
 export default class ControleMedicacao extends React.Component {
@@ -27,7 +27,6 @@ export default class ControleMedicacao extends React.Component {
     render() {
         return (
             <View style={EstilosComuns.container}>
-                <StatusBar {...this.props}/>
 
                 <View style={{flex: 11, padding: 5}}>
 
@@ -50,15 +49,19 @@ export default class ControleMedicacao extends React.Component {
                         position="bottomRight"
                         onPress={() => this.setState({ active: !this.state.active })}>
                             <Icon name="apps" />
-                        {/* <Button style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_HISTORICO_MEDICACAO.name)}>
+                        <Button style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_HISTORICO_MEDICACAO.name)}>
                             <Icon name="calendar" />
                         </Button>
                         <Button style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_ADD_SHARE_MEDICACAO.name)}>
                             <Icon name="share" />
                         </Button>
-                        <Button disabled style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_ADD_MEDICAMENTO.name)}>
+                        <Button disabled style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_CADASTRO_MEDICAMENTO.name)}>
                             <Icon name="medkit" />
-                        </Button> */}
+                        </Button>
+                        <Button disabled style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_HOME.name)}>
+                            <Icon name="close" />
+                        </Button>
+
                     </Fab>               
                 </View>
 

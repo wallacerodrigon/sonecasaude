@@ -29,8 +29,6 @@ export default class PrescricaoMedicamento extends React.Component {
     render() {
         return (
             <View style={[{flex: 1}, EstilosComuns.backgroundPadrao]}>
-                <StatusBar styles={EstilosComuns.containerStatusBar}/>
-
                 <View style={[EstilosComuns.bodyMain]}>
                         <View style={[styles.containerDadosRemedio, EstilosComuns.bordaSeparacaoBlocos]}>
                             <Text style={EstilosComuns.negrito}>Medicamento: {this.state.medicamento} </Text>
@@ -151,7 +149,7 @@ const styles = StyleSheet.create({
     },
 
     containerDadosPrescricao: {
-        flex: 4,
+        flex: 1,
         padding: 5
     },
 

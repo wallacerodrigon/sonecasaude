@@ -19,6 +19,7 @@ export const TELA_CONTROLE_MEDICACAO = {name:"controleMedicacao", title: "Contro
 export const TELA_ADD_SHARE_MEDICACAO = {name:"adicionaCompartilhamentoMedicacao", title: "Compartilhar controle"};
 export const TELA_CADASTRO_MEDICAMENTO = {name:"cadastroMedicamento", title: "Adicionar medicamento"};
 export const TELA_HISTORICO_MEDICACAO = {name:"historicoMedicacao", title: "Histórico"};
+
 export const TELA_LISTA_SHARE_MEDICACAO = {name:"listaCompartilhamentoMedicacao", title: "Compartilhar medicações"};
 
     /**alarmes e controle de voz */
@@ -42,3 +43,8 @@ export const VOLTA_LOGIN= {name: "startStack", title:""};
 export const TELA_LOGIN_EFETUADO= {name: "logadoStack", title:""};
 export const TELA_PRESCRICAO = {name: "prescricaoMedicamento", title:"Prescrição"};
 export const TELA_MEDICOS = {name: 'medicos', title:"Médicos"}
+export const TELA_MEDICAMENTOS = {name: 'medicamentos', title:"Medicamentos"}
+export const TELA_MEDICACOES = {name: 'medicacoes', title:"Medicações"}
+
+
+

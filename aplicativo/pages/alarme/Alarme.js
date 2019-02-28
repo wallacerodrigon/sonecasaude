@@ -14,7 +14,7 @@ export default class Alarme extends React.Component {
     constructor(props){
         super(props);
         this.state= {
-            bolAlertaEstoque: false,
+            bolAlertaEstoque: true,
             mensagemAlerta: 'Alerta estoque',
             mensagemHorarioEstoque: 'Restam apenas 10 comprimidos',
             medicamento: {
@@ -26,10 +26,17 @@ export default class Alarme extends React.Component {
             },
             lembreteSoneca: 'Lembrar-me com estoque menor que 10 comprimidos'
         }
+
     }
 
-    componentWillMount(){
-        console.log('falar o texto');
+    componentDidMount(){
+        if (this.props.navigation.state.routeName == 'alarme'){
+            this.setState({bolAlertaEstoque: false});
+            this.setState({mensagemAlerta: 'Alerta de medicamento'});
+            this.setState({mensagemHorarioEstoque: '08:50'}); 
+            this.setState({lembreteSoneca:'Lembrar em 5 minutos'});
+        }
+
     }
 
     getFoto(){

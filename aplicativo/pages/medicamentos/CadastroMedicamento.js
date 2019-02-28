@@ -26,15 +26,12 @@ export default class CadastroMedicamento extends React.Component {
     }
 
     gotoPrescricao(medicamento){
-        console.log(medicamento);
         this.props.navigation.navigate(TELA_PRESCRICAO.name)
     }
 
     render() {
         return (
-            <View style={EstilosComuns.container}>
-                <StatusBar/>
-                
+            <View style={EstilosComuns.container}>                
                 <View style={styles.containerBusca}>
                     <View style={{flex: 9}}>
                         <InputTexto placeholder="Pesquise por um remédio" maxLength={40}

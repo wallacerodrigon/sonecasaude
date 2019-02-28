@@ -13,13 +13,17 @@ import StackNotLoggedIn from './StackNotLoggedIn';
 import CadastroStack from './CadastroStack';
 import StackLoggedIn from './StackLoggedIn';
 import MedicosStack from '../pages/medicos';
+import MedicamentosStack from '../pages/medicamentos';
+import MedicacoesStack from '../pages/medicacao';
 
 export default createAppContainer(createSwitchNavigator(
   {
     startStack: StackNotLoggedIn,
     cadastro: CadastroStack,
     logadoStack: StackLoggedIn,
-    medicos: MedicosStack
+    medicos: MedicosStack,
+    medicamentos: MedicamentosStack,
+    medicacoes:MedicacoesStack
   },
 ));
 

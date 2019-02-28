@@ -2,18 +2,21 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import {List, ListItem, Thumbnail } from "native-base";
 import EstilosComuns, { FUNDO_ESCURO, VERDE } from "../../assets/estilos/estilos";
-import { TELA_CONTROLE_MEDICACAO, TELA_LOGIN, TELA_SHARE_INFO, TELA_LISTA_MEDICOS, TELA_ENDERECO, TELA_ALARME, TELA_MEDICOS, TELA_CADASTRO_MEDICAMENTO } from "../../constants/AppScreenData";
+import { TELA_CONTROLE_MEDICACAO, TELA_LOGIN, TELA_SHARE_INFO, TELA_LISTA_MEDICOS, TELA_ENDERECO, TELA_ALARME, TELA_MEDICOS, TELA_CADASTRO_MEDICAMENTO, TELA_MEDICAMENTOS, TELA_MEDICACOES, TELA_COMANDO_VOZ } from "../../constants/AppScreenData";
 import { Rating } from "react-native-ratings";
 
 const routes = [
-    {label: 'Controle de medicação', rota: TELA_CONTROLE_MEDICACAO.name},
-    {label: 'Médicos', rota: TELA_MEDICOS.name},
+    {label: 'Controle de medicação', rota: TELA_MEDICACOES.name},
+    {label: TELA_MEDICOS.title, rota: TELA_MEDICOS.name},
     {label: 'Compartilhar informações', rota: TELA_SHARE_INFO.name},
-    {label: TELA_CADASTRO_MEDICAMENTO.title, rota: TELA_CADASTRO_MEDICAMENTO.name}, //criar mais um item nas constantes...
+    {label: TELA_MEDICAMENTOS.title, rota: TELA_MEDICAMENTOS.name}, //criar mais um item nas constantes...
    // {label: 'Endereços', rota: TELA_ENDERECO.name},
     {label: 'Configurações', rota: TELA_LOGIN.name},
-    {label: 'Alarme Estoque', rota: TELA_ALARME.name, params:[]},
+
+    {label: 'Alarme Estoque', rota: 'alarmeEstoque', params:[]},
     {label: 'Alarme Medicação', rota: TELA_ALARME.name, params:[]},
+    {label: 'Comando de voz', rota: TELA_COMANDO_VOZ.name},
+   
     {label: 'Sair do aplicativo', rota: TELA_LOGIN.name},
     
 ];
