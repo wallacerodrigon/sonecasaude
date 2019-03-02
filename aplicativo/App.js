@@ -5,6 +5,10 @@ import { Provider } from 'react-redux';
 
 export default class App extends React.Component {
 
+  componentDidMount(){
+    console.disableYellowBox = true;    
+  }
+
   render() {
     //const store = createStore();
     return (

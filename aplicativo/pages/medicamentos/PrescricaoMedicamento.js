@@ -33,6 +33,7 @@ export default class PrescricaoMedicamento extends React.Component {
                         <View style={[styles.containerDadosRemedio, EstilosComuns.bordaSeparacaoBlocos]}>
                             <Text style={EstilosComuns.negrito}>Medicamento: {this.state.medicamento} </Text>
                             <Text  style={EstilosComuns.negrito}>Laboratório: xxxxx</Text>
+                            <Text  style={EstilosComuns.negrito}>Princípio ativo: xxxxx</Text>
                             <Text  style={EstilosComuns.italico}>Detalhes: caixa com 100 comprimidos</Text>
                         </View>
 
@@ -47,10 +48,6 @@ export default class PrescricaoMedicamento extends React.Component {
                                 <InputTexto keyboardType={InputTexto.KEYBOARD_NUMBER} onChangeInput={value => this.onChangeInput(value)}/>
                             </View>
 
-                            <View style={styles.containerConfiguracaoGrupo}>
-                                <Label style={EstilosComuns.corVerde}>Soneca:</Label>
-                                <InputTexto keyboardType={InputTexto.KEYBOARD_NUMBER} onChangeInput={value => this.onChangeInput(value)}/>
-                            </View>
                         </View>
 
                     <View style={[styles.containerDadosPrescricao, EstilosComuns.bordaSeparacaoBlocos]}>

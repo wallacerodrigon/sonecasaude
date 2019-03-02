@@ -7,6 +7,7 @@ export const TELA_ESQUECI_SENHA = {name:"esqueciSenha", title: "Esqueci a senha"
 export const TELA_SHARE_INFO = {name:"compartilhaInformacoes", title: "Compartilhar informações"};
 
     /**cadastro */
+export const CADASTRO_PERFIL = {name:"cadastroPerfil", title:"Cadastro"};
 export const TELA_DADOS_PESSOAIS = {name:"dadosPessoais", title: "Cadastro"};
 export const TELA_ENDERECO = {name:"endereco", title: "Cadastro"};
 export const TELA_DESAFIOS = {name:"desafios", title: "Cadastro"};
@@ -38,7 +39,7 @@ export const TELA_ADD_CLINICA = {name:"adicionaClinica", title: "Adicionar clín
 export const TELA_LISTA_CLINICAS = {name:"listaClinicas", title: ""};
 
 export const DRAWER = {name:"DrawerOpen", title:""};
-export const CADASTRO = {name:"cadastro", title:""};
+export const CADASTRO = {name:"cadastroPerfil", title:""};
 export const VOLTA_LOGIN= {name: "startStack", title:""};
 export const TELA_LOGIN_EFETUADO= {name: "logadoStack", title:""};
 export const TELA_PRESCRICAO = {name: "prescricaoMedicamento", title:"Prescrição"};

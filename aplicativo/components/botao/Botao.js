@@ -53,11 +53,11 @@ export class BotaoFechar extends React.Component  {
 
   render() {
       return (
-          <BotaoOpacity onClick={() => this.props.navigation.goBack()} style={{padding: 5}}> 
+          <BotaoOpacity onClick={() => this.props.onClose()} style={{padding: 5}}> 
               <Icon name="close" size={30}/>
           </BotaoOpacity>                 
       )
   };
 }
 
-
+//export class withNavigation(BotaoFechar);

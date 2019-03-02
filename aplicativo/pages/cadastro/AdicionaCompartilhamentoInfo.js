@@ -71,6 +71,10 @@ export default class AdicionaCompartilhamentoInfo extends React.Component {
                         keyboardType={InputTexto.KEYBOARD_EMAIL}
                         onChangeInput={value => this.onChangeInput(value)}
                         />
+                    <InputTexto placeholder="Nome" maxLength={60}
+                        keyboardType={InputTexto.KEYBOARD_DEFAULT}
+                        onChangeInput={value => this.onChangeInput(value)}
+                        />
                     <Text style={EstilosComuns.corBranca}>Parentesco</Text>
                     <Picker
                         selectedValue={this.state.parentesco}
@@ -84,7 +88,7 @@ export default class AdicionaCompartilhamentoInfo extends React.Component {
                         <Picker.Item label="Tio" value="4" />
                         <Picker.Item label="Avô" value="5" />
                         <Picker.Item label="Avó" value="6" />
-                        <Picker.Item label="Outros" value="7" />
+                        <Picker.Item label="Cuidador" value="7" />
                     </Picker> 
                     <InputTextComMascara placeholder="Celular"
                         type={InputTextComMascara.MASK_CELULAR}

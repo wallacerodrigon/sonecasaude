@@ -27,7 +27,7 @@ const EstilosComuns = StyleSheet.create({
         backgroundColor: VERDE,
     },
     backgroundPadrao: {
-        backgroundColor: FUNDO
+        backgroundColor: FUNDO //FUNDO
     },
     sombra: {
         shadowColor: VERDE,

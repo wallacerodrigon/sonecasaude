@@ -10,9 +10,11 @@ import AdicionaCompartilhamentoInfo from "../pages/cadastro/AdicionaCompartilham
 import FinalizaCadastro from "../pages/cadastro/FinalizaCadastro";
 import { View, Icon } from 'native-base';
 import { BotaoOpacity } from '../components/botao/Botao';
+import PerfilCadastro from '../pages/cadastro/PerfilCadastro';
 
 const CadastroStack = createStackNavigator(
     {
+        cadastroPerfil: PerfilCadastro,
         dadosPessoais: DadosPessoais,
         endereco: Endereco,
         desafios: Desafios,

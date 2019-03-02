@@ -5,8 +5,9 @@ import {TELA_DADOS_PESSOAIS, TELA_ENDERECO, TELA_LOGIN} from '../../constants/Ap
 import Botao, { BotaoOpacity, BotaoFechar } from '../../components/botao/Botao';
 import {InputTexto, InputTextComMascara } from '../../components/input/InputTexto';
 import {DatePicker, Icon } from 'native-base';
+import {withNavigation} from 'react-navigation';
 
-export default class DadosPessoais extends React.Component {
+class DadosPessoais extends React.Component {
 //pensar nesse objeto como um método de uma classe estática ou sei lá o que. Que facilite a susa configuração
     static navigationOptions = {
         title: TELA_DADOS_PESSOAIS.title,
@@ -66,21 +67,11 @@ export default class DadosPessoais extends React.Component {
                         autoCapitalize="words"
                         onChangeInput={value => this.onChangeInput(value)}
                         />
-                    <DatePicker
-                        defaultDate={new Date()}
-                        minimumDate={new Date(1900, 1, 1)}
-                        maximumDate={new Date()}
-                        locale={"en"} //ver em portugues
-                        modalTransparent={false}
-                        animationType={"fade"}
-                        androidMode={"default"}
-                        placeHolderText="Data de nascimento"
-                        textStyle={{ color: "#fff" }}
-                        placeHolderTextStyle={{ color: "#fff" }}
-                        onDateChange={this.onChangeDataNascimento}
-                        disabled={false}
-                        style={[EstilosComuns.inputText]} 
-                        />
+                    <InputTextComMascara  style={[EstilosComuns.inputText]} 
+                        onChangeText={this.onChangeCpf}
+                        placeholder="Data de nascimento"
+                        type={InputTextComMascara.MASK_DATA}
+                    />                   
 
 
                     <InputTextComMascara  style={[EstilosComuns.inputText]} 
@@ -94,6 +85,7 @@ export default class DadosPessoais extends React.Component {
                         onValueChange={(itemValue, itemIndex) =>
                             this.setState({sexo: itemValue})
                         }>
+                        <Picker.Item label="Selecione" value=""  />
                         <Picker.Item label="Masculino" value="M" />
                         <Picker.Item label="Feminino" value="F" />
                     </Picker>                                       
@@ -107,3 +99,5 @@ export default class DadosPessoais extends React.Component {
         )
     };
 }
+
+export default DadosPessoais;

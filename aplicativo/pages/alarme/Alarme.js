@@ -44,19 +44,15 @@ export default class Alarme extends React.Component {
     }
 
     adiar(){
-        if (this.state.bolAlertaEstoque){
-            return this.props.navigation.navigate(TELA_HOME.name);
-        } else {
-            return this.props.navigation.navigate(TELA_CONTROLE_MEDICACAO.name);
-        }
+        return this.fecharTela();
     }
 
     confirmar(){
-        if (this.state.bolAlertaEstoque){
-            return this.props.navigation.navigate(TELA_ADD_MEDICAMENTO.name);//encaminhar para a medicacao
-        } else {
-            return this.props.navigation.navigate(TELA_CONTROLE_MEDICACAO.name);
-        }
+        return this.fecharTela();
+    }
+
+    fecharTela(){
+        return this.props.navigation.goBack();
 
     }
 

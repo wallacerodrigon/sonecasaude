@@ -18,10 +18,10 @@ export default class CadastroMedicamento extends React.Component {
     
     getResultadoFiltro(){
         return [
-            {id: 1, nomeMedicamento: 'Xarope 1', laboratorio: 'laboratorio 1', detalhes: 'comprimido', foto: {}},
-            {id: 2, nomeMedicamento: 'Xarope 2', laboratorio: 'laboratorio 1', detalhes: 'comprimido', foto: {}},
-            {id: 3, nomeMedicamento: 'Xarope 3', laboratorio: 'laboratorio 1', detalhes: 'comprimido', foto: {}},
-            {id: 4, nomeMedicamento: 'Xarope 4', laboratorio: 'laboratorio 1', detalhes: 'comprimido', foto: {}}
+            {id: 1, nomeMedicamento: 'Xarope 1', laboratorio: 'laboratorio 1', detalhes: 'comprimido', principioAtivo: "ácido acetil salicílico"},
+            {id: 2, nomeMedicamento: 'Xarope 2', laboratorio: 'laboratorio 1', detalhes: 'comprimido', principioAtivo: "ácido acetil salicílico"},
+            {id: 3, nomeMedicamento: 'Xarope 3', laboratorio: 'laboratorio 1', detalhes: 'comprimido', principioAtivo: "ácido acetil salicílico"},
+            {id: 4, nomeMedicamento: 'Xarope 4', laboratorio: 'laboratorio 1', detalhes: 'comprimido', principioAtivo: "ácido acetil salicílico"}
         ]
     }
 
@@ -53,6 +53,7 @@ export default class CadastroMedicamento extends React.Component {
                                 <View style={styles.containerRemedioResultado}>
                                     <BotaoOpacity onClick={()=> this.gotoPrescricao(item)} >
                                         <Text style={styles.dadosMedicamento} >{item.nomeMedicamento}</Text>
+                                        <Text style={styles.dadosMedicamento} >{item.principioAtivo}</Text>
                                         <Text style={styles.dadosMedicamento} >{item.laboratorio}</Text>
                                         <Text style={styles.dadosMedicamentoItalico} >{item.detalhes}</Text>
                                     </BotaoOpacity>
