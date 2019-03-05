@@ -8,7 +8,7 @@ import {InputTexto} from '../../components/input/InputTexto';
 export default class EsqueciSenha extends React.Component {
     static navigationOptions = {
         title: TELA_ESQUECI_SENHA.title,
-        headerRight: null
+       // headerRight: null
       };
 
 

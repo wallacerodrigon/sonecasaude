@@ -14,10 +14,7 @@ const imgComparacao3 = require('../../assets/img/medicos/medico3.jpeg');
 export default class ListaMedicos extends React.Component {
     static navigationOptions = {
         title: TELA_LISTA_MEDICOS.title,
-        headerLeft: (
-            //criar um botão para fechar e outro para o microfone
-            <BotaoFechar/>
-        ),        
+            
         /* No more header config here! */
       };
 

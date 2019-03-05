@@ -12,24 +12,19 @@ import EsqueciSenha from '../pages/esqueci-senha/EsqueciSenha';
 import StackNotLoggedIn from './StackNotLoggedIn';
 import CadastroStack from './CadastroStack';
 import StackLoggedIn from './StackLoggedIn';
-import MedicosStack from '../pages/medicos';
-import MedicamentosStack from '../pages/medicamentos';
-import MedicacoesStack from '../pages/medicacao';
 
-const switchNavigator = createSwitchNavigator(
+
+const SwitchNavigator = createSwitchNavigator(
   {
     startStack: StackNotLoggedIn,
     logadoStack: StackLoggedIn,
-    cadastro: CadastroStack,
-    medicos: MedicosStack,
-    medicamentos: MedicamentosStack,
-    medicacoes:MedicacoesStack
+
   },
   {
     initialRouteName: 'startStack',
-    resetOnBlur: false,
-    backBehavior: true
+  //  resetOnBlur: false,
+   // backBehavior: true
   }
 );
 
-export default createAppContainer(switchNavigator);
+export default createAppContainer(SwitchNavigator);

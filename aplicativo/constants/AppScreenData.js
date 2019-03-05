@@ -41,7 +41,7 @@ export const TELA_LISTA_CLINICAS = {name:"listaClinicas", title: ""};
 
 export const DRAWER = {name:"DrawerOpen", title:""};
 export const CADASTRO = {name:"cadastroPerfil", title:""};
-export const VOLTA_LOGIN= {name: "startStack", title:""};
+export const VOLTA_LOGIN= {name: "login", title:""};
 export const TELA_LOGIN_EFETUADO= {name: "logadoStack", title:""};
 export const TELA_PRESCRICAO = {name: "prescricaoMedicamento", title:"Prescrição"};
 export const TELA_MEDICOS = {name: 'medicos', title:"Médicos"}

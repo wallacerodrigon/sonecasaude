@@ -15,7 +15,7 @@ export default class LoginComponent extends Component {
    
     static navigationOptions = {
         title: TELA_PADRAO.title,
-        header: null
+       // header: null
       };
 
     constructor(props){

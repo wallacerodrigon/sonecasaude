@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity, Image, StyleSheet, Text} from 'react-native';
 import EstilosComuns, { BRANCO, FUNDO } from '../../assets/estilos/estilos';
-import {TELA_LOGIN, TELA_COMANDO_VOZ, TELA_CONTROLE_MEDICACAO, TELA_LISTA_MEDICOS, TELA_ALARME, TELA_SHARE_INFO, TELA_MEDICACOES} from '../../constants/AppScreenData';
+import {TELA_LOGIN, TELA_COMANDO_VOZ, TELA_CONTROLE_MEDICACAO, TELA_LISTA_MEDICOS, TELA_ALARME, TELA_SHARE_INFO, TELA_MEDICACOES, TELA_HOME} from '../../constants/AppScreenData';
 
 import { Card, CardItem, Body } from 'native-base';
 import StatusBar from '../../components/statusBar/StatusBar';
@@ -15,6 +15,8 @@ const imgMedicacao  = require('../../assets/icons/home/medicacao.png');
 
 //https://react-native-training.github.io/react-native-elements/docs/avatar.html
 export default class HomeScreen extends React.Component {
+
+    
 
     constructor(){
         super();
@@ -40,7 +42,7 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <View style={EstilosComuns.container}>
-                <StatusBar style={styles.containerStatusBar} {...this.props}/>
+                {/* <StatusBar style={styles.containerStatusBar} {...this.props}/> */}
 
                 <Card style={[styles.microfone, EstilosComuns.backgroundPadrao]}>
                     <CardItem cardBody>
@@ -60,7 +62,7 @@ export default class HomeScreen extends React.Component {
                 <Card style={[styles.icones, EstilosComuns.backgroundPadrao]}>
                     <CardItem cardBody style={[styles.linhaIcones,EstilosComuns.backgroundPadrao]}>
                         <Card style={styles.card}>
-                            <TouchableOpacity onPress={() => this.abrirTela(TELA_ALARME.name)}>
+                            <TouchableOpacity onPress={() => this.abrirMenu()}>
                                 <CardItem cardBody>
                                         <Image style={styles.imgWidget} aspectRadio={1} source={imgTransporte} resizeMode="cover"/>
                                 </CardItem>
@@ -73,7 +75,7 @@ export default class HomeScreen extends React.Component {
 
                         <Card style={styles.card}>
                             <CardItem cardBody>
-                                <TouchableOpacity  onPress={() => this.abrirTela(TELA_MEDICACOES.name)}>
+                                <TouchableOpacity  onPress={() => this.abrirTela(TELA_CONTROLE_MEDICACAO.name)}>
                                    <Image style={styles.imgWidget} aspectRadio={1} source={imgMedicacao} resizeMode="cover"/>
                                 </TouchableOpacity>                            
                             </CardItem>

@@ -7,25 +7,16 @@ import PrescricaoMedicamento from './PrescricaoMedicamento';
 import { TELA_COMANDO_VOZ, TELA_MEDICAMENTOS } from "../../constants/AppScreenData";
 import { BotaoOpacity } from "../../components/botao/Botao";
 import { Icon } from "native-base";
+import { PADRAO_NAVEGACAO } from "../../stacks/StackConfigs";
 
-const MedicamentosStack = createStackNavigator(
+const MedicamentosNavigator = createStackNavigator(
     {
         cadastroMedicamento: CadastroMedicamento,
         prescricaoMedicamento: PrescricaoMedicamento
     },
     {
-        defaultNavigationOptions: {
-            title: TELA_MEDICAMENTOS.title,
-            headerStyle: [ EstilosComuns.backgroundToolbar],
-            cardShadowEnabled: "true",
-            headerTitleStyle: [EstilosComuns.corBranca],
-            headerRight: (
-                <BotaoOpacity onClick={() => this.props.navigation.navigate(TELA_COMANDO_VOZ.name)}> 
-                    <Icon name="mic" size={30} color={BRANCO}/>
-                </BotaoOpacity>                 
-            ),
-        },
+        defaultNavigationOptions: PADRAO_NAVEGACAO
     }    
 );
 
-export default MedicamentosStack;
+export default MedicamentosNavigator;

@@ -12,8 +12,9 @@ import Historico from "./Historico";
 import MedicamentosStack from "../medicamentos";
 import CadastroMedicamento from "../medicamentos/CadastroMedicamento";
 import HomeScreen from "../home/Home";
+import { PADRAO_NAVEGACAO } from "../../stacks/StackConfigs";
 
-const MedicacoesStack = createStackNavigator(
+const MedicacoesNavigator = createStackNavigator(
     {
         controleMedicacao: {screen: ControleMedicacao},
         novoCompartilhamentoInfo:  AdicionaCompartilhamentoInfo,
@@ -22,22 +23,11 @@ const MedicacoesStack = createStackNavigator(
         historicoMedicacao: Historico,
         adicionaCompartilhamentoMedicacao: AdicionaCompartilhamentoInfo,
         cadastroMedicamento: CadastroMedicamento,
-
-        home: HomeScreen
     },
     {
-        defaultNavigationOptions: {
-            title: TELA_CONTROLE_MEDICACAO.title,
-            headerStyle: [ EstilosComuns.backgroundToolbar],
-            cardShadowEnabled: "true",
-            headerTitleStyle: [EstilosComuns.corBranca],
-            headerRight: (
-                <BotaoOpacity onClick={() => this.props.navigation.navigate(TELA_COMANDO_VOZ.name)}> 
-                    <Icon name="mic" style={[ EstilosComuns.corBranca, {fontSize: 30} ]} />
-                </BotaoOpacity>                 
-            ),
-        },
+        defaultNavigationOptions: PADRAO_NAVEGACAO,
+        
     }    
 );
 
-export default MedicacoesStack;
+export default MedicacoesNavigator;

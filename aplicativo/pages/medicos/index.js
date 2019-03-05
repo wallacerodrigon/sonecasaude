@@ -9,8 +9,9 @@ import AdicionaMedico from "../../pages/medicos/AdicionaMedico";
 import { TELA_LISTA_MEDICOS, TELA_COMANDO_VOZ } from "../../constants/AppScreenData";
 import { BotaoOpacity } from "../../components/botao/Botao";
 import { Icon } from "native-base";
+import { PADRAO_NAVEGACAO } from "../../stacks/StackConfigs";
 
-const MedicosStack = createStackNavigator(
+const MedicosNavigator = createStackNavigator(
     {
         listaMedicos: {screen: ListaMedicos},                                    
         adicionaMedicos: {screen: AdicionaMedico},
@@ -19,18 +20,8 @@ const MedicosStack = createStackNavigator(
         listaClinicas: {screen: ListaClinicas},  
     },
     {
-        defaultNavigationOptions: {
-            title: TELA_LISTA_MEDICOS.title,
-            headerStyle: [ EstilosComuns.backgroundToolbar],
-            cardShadowEnabled: "true",
-            headerTitleStyle: [EstilosComuns.corBranca],
-            headerRight: (
-                <BotaoOpacity onClick={() => this.props.navigation.navigate(TELA_COMANDO_VOZ.name)}> 
-                    <Icon name="mic" size={30} color={BRANCO}/>
-                </BotaoOpacity>                 
-            ),
-        },
+        defaultNavigationOptions: PADRAO_NAVEGACAO
     }    
 );
 
-export default MedicosStack;
+export default MedicosNavigator;

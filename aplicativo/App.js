@@ -1,5 +1,5 @@
 import React from 'react';
-import GeneralNavigator from './stacks/GeneralNavigator';
+import SwitchNavigator from './stacks/SwitchNavigator';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
@@ -13,7 +13,7 @@ export default class App extends React.Component {
     //const store = createStore();
     return (
      // <Provider store={store}>
-          <GeneralNavigator/>
+          <SwitchNavigator/>
         
       //</Provider>
     )

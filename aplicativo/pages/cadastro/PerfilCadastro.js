@@ -6,16 +6,6 @@ import Botao, { BotaoOpacity, BotaoFechar } from '../../components/botao/Botao';
 import {withNavigation} from 'react-navigation';
 
 class PerfilCadastro extends React.Component {
-//pensar nesse objeto como um método de uma classe estática ou sei lá o que. Que facilite a susa configuração
-    // static navigationOptions = {
-    //     title: CADASTRO_PERFIL.title,
-    //     headerLeft: ({navigation}) => (
-    //         // <BotaoFechar onClose={() => console.log(navigation)}/>
-    //         <TouchableOpacity onPress={() => console.log(navigation)} style={{padding: 5}}> 
-    //             <Text>X</Text>
-    //         </TouchableOpacity>               
-    //     )
-    //   };
 
     perfisVisiveis = [
         {id: 1, nome: 'Paciente', ordem: 1},
@@ -56,18 +46,19 @@ class PerfilCadastro extends React.Component {
                         </Text>
                     </View>                                    
 
-                    <View style={{flexDirection: 'column', padding: 10, justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={{flexDirection: 'column', flex: 1, padding: 20, justifyContent: 'center', alignItems: 'center'}}>
                         <FlatList
                             data= {this.perfisVisiveis}
                             keyExtractor={item => item.id}
                             renderItem={({ item }) => {
                                 return (
-                                    <Botao tituloBotao={item.nome} onClick={() => this.gotoNextScreen(TELA_DADOS_PESSOAIS)}/>
+                                    <View style={{flex: 1}}>
+                                        <Botao tituloBotao={item.nome} onClick={() => this.gotoNextScreen(TELA_DADOS_PESSOAIS)}/>
+                                    </View>
                                 );
                             }} 
                         />
-                        <Botao tituloBotao="Sair" onClick={() => this.gotoNextScreen(TELA_LOGIN)}/>
-                    </View>
+                        </View>
 
 
                 </View>

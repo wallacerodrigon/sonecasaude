@@ -4,26 +4,24 @@ import HomeScreen from "./Home";
 //import Cadastro from "../cadastro/index";
 import SideBarMenu from "../../components/menu/SideBarMenu";
 import { DrawerNavigator, createStackNavigator} from "react-navigation";
-import { DRAWER } from "../../constants/AppScreenData";
+import { DRAWER, TELA_COMANDO_VOZ } from "../../constants/AppScreenData";
 import { BotaoOpacity } from "../../components/botao/Botao";
 import { Icon } from "native-base";
-import { BRANCO } from "../../assets/estilos/estilos";
+import { Text } from "react-native";
+import EstilosComuns, { BRANCO } from "../../assets/estilos/estilos";
 import LoginComponent from "../login/LoginComponent";
+import ListaMedicos from "../medicos/ListaMedicos";
+import { PADRAO_NAVEGACAO } from "../../stacks/StackConfigs";
+import CadastroMedicamento from "../medicamentos/CadastroMedicamento";
+import ControleMedicacao from "../medicacao/ControleMedicacao";
 
-const HomeScreenRouter = createStackNavigator(
+const HomeScreenNavigator = createStackNavigator(
   {
-    Home: HomeScreen,
+    home: HomeScreen,
+    medicamentos: CadastroMedicamento,
+    medicos: ListaMedicos,
+    controleMedicacao: ControleMedicacao
   },
-  {
-    navigationOptions:{
-        headerLeft: (
-            <BotaoOpacity onClick={() => navigation.navigate(DRAWER.name)}> 
-                <Icon name="menu" size={30} color={BRANCO}/>
-            </BotaoOpacity>
 
-          ),
-
-    }
-  }
 );
-export default HomeScreenRouter;
+export default HomeScreenNavigator;
