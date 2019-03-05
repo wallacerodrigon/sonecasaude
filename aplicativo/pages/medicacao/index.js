@@ -33,7 +33,7 @@ const MedicacoesStack = createStackNavigator(
             headerTitleStyle: [EstilosComuns.corBranca],
             headerRight: (
                 <BotaoOpacity onClick={() => this.props.navigation.navigate(TELA_COMANDO_VOZ.name)}> 
-                    <Icon name="mic" size={30} color={BRANCO}/>
+                    <Icon name="mic" style={[ EstilosComuns.corBranca, {fontSize: 30} ]} />
                 </BotaoOpacity>                 
             ),
         },

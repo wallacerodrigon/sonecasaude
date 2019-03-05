@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet,TouchableOpacity, FlatList} from 'react-native';
-import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
+import EstilosComuns, { BRANCO, FUNDO_ESCURO, FUNDO, VERDE } from '../../assets/estilos/estilos';
 import {TELA_DESAFIOS, TELA_ADD_SHARE_INFO} from '../../constants/AppScreenData'
 import Botao from '../../components/botao/Botao';
 import {InputTexto} from '../../components/input/InputTexto';
@@ -87,7 +87,7 @@ export default class Desafios extends React.Component {
                             renderItem={({ item }) => {
                                 return (
                                     <TouchableOpacity style={[styles.cardDesafio]}>
-                                        <Text style={{fontSize: 12}} >{item.nome}</Text>
+                                        <Text style={{fontSize: 10}} >{item.nome}</Text>
                                     </TouchableOpacity>
                                 );
                             }}
@@ -122,16 +122,18 @@ const styles= StyleSheet.create({
     },
     cardDesafio: {
         alignItems: "center",
-        backgroundColor: "#fff",
+        backgroundColor: FUNDO,
         flexGrow: 1,
         margin: 4,
         padding: 20,
         flexBasis: 0,
         textAlign: 'center',
         borderRadius: 30,
-        height: 45
+        height: 45,
+        borderColor: VERDE,
+        borderWidth: 1
     },
     itemMarcado: {
-        backgroundColor: '#1637D5'
+        backgroundColor: VERDE
     }
 })

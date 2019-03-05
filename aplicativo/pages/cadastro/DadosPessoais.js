@@ -8,13 +8,6 @@ import {DatePicker, Icon } from 'native-base';
 import {withNavigation} from 'react-navigation';
 
 class DadosPessoais extends React.Component {
-//pensar nesse objeto como um método de uma classe estática ou sei lá o que. Que facilite a susa configuração
-    static navigationOptions = {
-        title: TELA_DADOS_PESSOAIS.title,
-        headerLeft: (
-            <BotaoFechar/>
-        )
-      };
 
     constructor(props){
         super(props);

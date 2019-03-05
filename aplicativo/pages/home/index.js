@@ -15,7 +15,6 @@ const HomeScreenRouter = createStackNavigator(
     Home: HomeScreen,
   },
   {
-  //  contentComponent: props => <SideBarMenu {...props} />,
     navigationOptions:{
         headerLeft: (
             <BotaoOpacity onClick={() => navigation.navigate(DRAWER.name)}> 

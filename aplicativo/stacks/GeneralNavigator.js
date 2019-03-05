@@ -16,14 +16,20 @@ import MedicosStack from '../pages/medicos';
 import MedicamentosStack from '../pages/medicamentos';
 import MedicacoesStack from '../pages/medicacao';
 
-export default createAppContainer(createSwitchNavigator(
+const switchNavigator = createSwitchNavigator(
   {
     startStack: StackNotLoggedIn,
-    cadastro: CadastroStack,
     logadoStack: StackLoggedIn,
+    cadastro: CadastroStack,
     medicos: MedicosStack,
     medicamentos: MedicamentosStack,
     medicacoes:MedicacoesStack
   },
-));
+  {
+    initialRouteName: 'startStack',
+    resetOnBlur: false,
+    backBehavior: true
+  }
+);
 
+export default createAppContainer(switchNavigator);

@@ -20,6 +20,7 @@ export const TELA_CONTROLE_MEDICACAO = {name:"controleMedicacao", title: "Contro
 export const TELA_ADD_SHARE_MEDICACAO = {name:"adicionaCompartilhamentoMedicacao", title: "Compartilhar controle"};
 export const TELA_CADASTRO_MEDICAMENTO = {name:"cadastroMedicamento", title: "Adicionar medicamento"};
 export const TELA_HISTORICO_MEDICACAO = {name:"historicoMedicacao", title: "Histórico"};
+export const TELA_HISTORICO_DIARIO = {name:"historicoUso", title: "Seu histórico diário"};
 
 export const TELA_LISTA_SHARE_MEDICACAO = {name:"listaCompartilhamentoMedicacao", title: "Compartilhar medicações"};
 

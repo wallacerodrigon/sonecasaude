@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Switch, StyleSheet} from 'react-native';
-import EstilosComuns from '../../assets/estilos/estilos';
+import EstilosComuns, { FUNDO } from '../../assets/estilos/estilos';
 import { TELA_LOGIN, TELA_FINALIZA_CADASTRO, VOLTA_LOGIN } from '../../constants/AppScreenData';
 import Botao from '../../components/botao/Botao';
 import {InputTexto} from '../../components/input/InputTexto';
@@ -37,14 +37,6 @@ export default class FinalizaCadastro extends React.Component {
     render() {
         return (
             <View style={EstilosComuns.container}>
-                {/* <View style={EstilosComuns.bodyTitulo}>
-                    <Text style={EstilosComuns.tituloJanelas}>Finalizar Cadastro</Text>
-                </View> */}
-
-                {/* aqui tem que ser um flatlist 
-                                            /*onValueChange = {props.toggleSwitch1}*/
-                            /*value = {props.switch1Value}*/                    
-                }
                  <View style={[EstilosComuns.bodyMain]}>
                     {/* criar uma classe do tipo groupfield e um componente com texto e  */}
                     {/**usar o multiline para a escrita com 2 linhas no máximo */}
@@ -107,7 +99,7 @@ const styles = StyleSheet.create({
     },
 
     card: {
-        backgroundColor: '#ddd',
+        backgroundColor: FUNDO,
         padding: 10,
     },
 

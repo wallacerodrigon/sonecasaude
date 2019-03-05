@@ -9,9 +9,9 @@ export default class StatusBar extends React.Component {
   render() {
     return (
       <View style={[EstilosComuns.backgroundToolbar, styles.containerStatus]}>
-            <Icon name="menu" onPress={()=> this.props.navigation.openDrawer()} color={BRANCO} />
+            <Icon name="menu" onPress={()=> this.props.navigation.openDrawer()} style={[ EstilosComuns.corBranca, styles.fonteStatusBar ]} />
             <Text style={[ EstilosComuns.corBranca, EstilosComuns.negrito, styles.fonteStatusBar ]}>{ TELA_PADRAO.title }</Text>
-            <Icon name="mic" color={BRANCO} onPress={() => this.props.navigation.navigate(TELA_COMANDO_VOZ.name)}/>
+            <Icon name="mic" style={[ EstilosComuns.corBranca, styles.fonteStatusBar ]} onPress={() => this.props.navigation.navigate(TELA_COMANDO_VOZ.name)}/>
       </View>
     );
   }

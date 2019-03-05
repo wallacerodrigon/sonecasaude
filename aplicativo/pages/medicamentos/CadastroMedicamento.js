@@ -97,7 +97,7 @@ const styles= StyleSheet.create({
 
     containerRemedioResultado: {
         flex: 1,
-        borderBottomColor: BRANCO,
+        borderBottomColor: FUNDO_ESCURO,
         borderBottomWidth:1,
         padding: 3
     },

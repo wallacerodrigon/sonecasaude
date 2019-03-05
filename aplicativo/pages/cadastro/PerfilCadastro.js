@@ -1,18 +1,21 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
-import { CADASTRO_PERFIL, TELA_DADOS_PESSOAIS} from '../../constants/AppScreenData'
+import { CADASTRO_PERFIL, TELA_DADOS_PESSOAIS, TELA_LOGIN} from '../../constants/AppScreenData'
 import Botao, { BotaoOpacity, BotaoFechar } from '../../components/botao/Botao';
 import {withNavigation} from 'react-navigation';
 
 class PerfilCadastro extends React.Component {
 //pensar nesse objeto como um método de uma classe estática ou sei lá o que. Que facilite a susa configuração
-    static navigationOptions = {
-        title: CADASTRO_PERFIL.title,
-        headerLeft: ({navigation}) => (
-            <BotaoFechar onClose={() => navigation.goBack()}/>
-        )
-      };
+    // static navigationOptions = {
+    //     title: CADASTRO_PERFIL.title,
+    //     headerLeft: ({navigation}) => (
+    //         // <BotaoFechar onClose={() => console.log(navigation)}/>
+    //         <TouchableOpacity onPress={() => console.log(navigation)} style={{padding: 5}}> 
+    //             <Text>X</Text>
+    //         </TouchableOpacity>               
+    //     )
+    //   };
 
     perfisVisiveis = [
         {id: 1, nome: 'Paciente', ordem: 1},
@@ -22,13 +25,16 @@ class PerfilCadastro extends React.Component {
     constructor(props){
         super(props);
         this.state = {idPerfil: 0};
-       
+        this.close = this.close.bind(this);
     }
 
     onChangeInput(fieldname, text){
         this.setState({[fieldname]: text});
     }
 
+    close(){
+        this.props.navigation.goBack();
+    }
  
     gotoNextScreen(screen){
         this.props.navigation.navigate(screen.name)        
@@ -60,7 +66,7 @@ class PerfilCadastro extends React.Component {
                                 );
                             }} 
                         />
-
+                        <Botao tituloBotao="Sair" onClick={() => this.gotoNextScreen(TELA_LOGIN)}/>
                     </View>
 
 
@@ -71,4 +77,4 @@ class PerfilCadastro extends React.Component {
     };
 }
 
-export default withNavigation(PerfilCadastro);
+export default (PerfilCadastro);

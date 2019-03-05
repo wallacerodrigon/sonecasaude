@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, TouchableOpacity, Image, StyleSheet, Text} from 'react-native';
-import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
+import EstilosComuns, { BRANCO, FUNDO } from '../../assets/estilos/estilos';
 import {TELA_LOGIN, TELA_COMANDO_VOZ, TELA_CONTROLE_MEDICACAO, TELA_LISTA_MEDICOS, TELA_ALARME, TELA_SHARE_INFO, TELA_MEDICACOES} from '../../constants/AppScreenData';
 
 import { Card, CardItem, Body } from 'native-base';
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#ddd'
+        backgroundColor: FUNDO
     },
     containerStatusBar: {
         flex: 1
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#ddd',
+        backgroundColor: FUNDO,
     },
     icones: {
         flex: 6,

@@ -2,10 +2,10 @@ import React from 'react';
 import {View, Button, Text} from 'react-native';
 import EstilosComuns, { VERDE, BRANCO } from '../../assets/estilos/estilos';
 import { Icon, Fab, Tabs, Tab, Container } from 'native-base';
-import Historico from './Historico';
 import Medicacao from './Medicacao';
 import { TELA_CONTROLE_MEDICACAO, TELA_HISTORICO_MEDICACAO, TELA_ADD_SHARE_MEDICACAO, TELA_ADD_MEDICAMENTO, TELA_MEDICAMENTOS, TELA_HOME, TELA_CADASTRO_MEDICAMENTO } from '../../constants/AppScreenData';
 import StatusBar from '../../components/statusBar/StatusBar';
+import HistoricoUsoPorData from './HistoricoUsoPorData';
 
 export default class ControleMedicacao extends React.Component {
     static navigationOptions = {
@@ -35,8 +35,8 @@ export default class ControleMedicacao extends React.Component {
                             <Tab heading="Medicação">
                                 <Medicacao />
                             </Tab>
-                            <Tab heading="Histórico">
-                                <Historico />
+                            <Tab heading="Seus usos">
+                                <HistoricoUsoPorData />
                             </Tab>
                         </Tabs>                    
                     </Container>
@@ -57,9 +57,6 @@ export default class ControleMedicacao extends React.Component {
                         </Button>
                         <Button disabled style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_CADASTRO_MEDICAMENTO.name)}>
                             <Icon name="medkit" />
-                        </Button>
-                        <Button disabled style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_HOME.name)}>
-                            <Icon name="close" />
                         </Button>
 
                     </Fab>               

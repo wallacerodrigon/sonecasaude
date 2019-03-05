@@ -11,16 +11,18 @@ import FinalizaCadastro from "../pages/cadastro/FinalizaCadastro";
 import { View, Icon } from 'native-base';
 import { BotaoOpacity } from '../components/botao/Botao';
 import PerfilCadastro from '../pages/cadastro/PerfilCadastro';
+import { Text } from "react-native";
 
 const CadastroStack = createStackNavigator(
     {
-        cadastroPerfil: PerfilCadastro,
+        cadastroPerfil: {screen: PerfilCadastro},
         dadosPessoais: DadosPessoais,
         endereco: Endereco,
         desafios: Desafios,
         adicionaCompartilhamentoInfo: AdicionaCompartilhamentoInfo,
         finalizaCadastro: FinalizaCadastro, 
     },
+    
     {
         defaultNavigationOptions: PADRAO_NAVEGACAO
     }    

@@ -2,9 +2,10 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {CardItem, Icon} from 'native-base';
 import { BotaoOpacity } from '../botao/Botao';
-import { FUNDO, DESMARCADO, FUNDO_ESCURO, MARCADO, COR_SEPARADOR } from '../../assets/estilos/estilos';
+import EstilosComuns, { FUNDO, DESMARCADO, FUNDO_ESCURO, MARCADO } from '../../assets/estilos/estilos';
+import MedicacaoCardItem from './MedicacaoCardItem';
 
-export default class MedicacaoCardItem extends React.Component {
+export default class MedicacaoCardItemUso extends React.Component {
 
     constructor(props){
         super(props);
@@ -15,24 +16,24 @@ export default class MedicacaoCardItem extends React.Component {
 
         return (
             <CardItem cardBody style={styles.medicacaoDia}>
-                <View style={styles.medicacaoPrescricao}>
+                <View style={[styles.medicacaoPrescricao ]}>
                     <Text>
                         {medicamento.nomeMedicamento}
                     </Text>
                     <Text>
                         {medicamento.prescricao}
                     </Text>
+                    <Text style={[EstilosComuns.negrito, medicamento.confirmado ? styles.medicacaoConfirmada: styles.medicacaoNaoConfirmada ]}>
+                        {medicamento.confirmado ? 'Tomei' : 'Não tomei'}
+                        {medicamento.confirmado ? ' às ' + medicamento.horaUsoEfetivo : ''}
+                    </Text>
                 </View>
 
-                <View style={styles.medicacaoAcoes}>
-                    <BotaoOpacity onClick={() => alert('confirmei')} >
-                        <Icon name="checkmark-circle" style={{color: MARCADO}}/>
-                    </BotaoOpacity>
-
-                    <BotaoOpacity onClick={() => alert('não tomei')}>
-                        <Icon name="close-circle"  style={{color: DESMARCADO}}/>
-                    </BotaoOpacity>
+                <View style={styles.medicacaoSimbolo}>
+                    <Icon name={medicamento.confirmado? "checkmark-circle":"close-circle"} 
+                          style={{color: medicamento.confirmado ? MARCADO: DESMARCADO }}/>
                 </View>
+
             </CardItem>            
         )
     }
@@ -55,10 +56,16 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         marginLeft: 25
     },
-    medicacaoAcoes: {
+    medicacaoSimbolo: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-around'
-
-    }
+    },
+    medicacaoConfirmada: {
+        color: MARCADO
+    }, 
+    medicacaoNaoConfirmada: {
+        color: DESMARCADO
+    },
+ 
 })

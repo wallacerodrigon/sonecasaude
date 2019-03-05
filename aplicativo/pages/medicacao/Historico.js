@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
-import EstilosComuns, { BRANCO, FUNDO, VERDE, FUNDO_ESCURO, PRETO } from '../../assets/estilos/estilos';
+import EstilosComuns, { BRANCO, FUNDO, VERDE, FUNDO_ESCURO, PRETO, BACKGROUND_COLOR_RATING, COLOR_RATING } from '../../assets/estilos/estilos';
 import { TELA_HISTORICO_MEDICACAO, TELA_ADD_SHARE_MEDICACAO } from '../../constants/AppScreenData';
 import {DatePicker, Segment, Button, Picker, Card, CardItem, Container, Thumbnail, Icon, Fab} from 'native-base';
 import { Dimensions } from 'react-native'
@@ -157,7 +157,8 @@ export default class Historico extends React.Component {
                                                         minValue={0}
                                                         fractions={1}
                                                         startingValue={item.medicamento.pontualidade}
-                                                        style={{ backgroundColor: 'yellow' }}
+                                                        ratingBackgroundColor= {FUNDO}
+                                                        ratingColor= {COLOR_RATING}
                                                         />
 
                                                 </View>

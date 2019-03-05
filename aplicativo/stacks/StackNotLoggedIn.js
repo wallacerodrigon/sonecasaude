@@ -9,8 +9,8 @@ import PADRAO_NAVEGACAO from "./StackConfigs";
 
 const StackNotLoggedIn = createStackNavigator(
     {
-        login: LoginComponent,
-        esqueciSenha: EsqueciSenha,
+        login: {screen: LoginComponent},
+        esqueciSenha: {screen: EsqueciSenha},
     },
     {
         defaultNavigationOptions: PADRAO_NAVEGACAO

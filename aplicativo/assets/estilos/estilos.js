@@ -4,10 +4,13 @@ import {Constants} from 'expo';
 export const TAMANHO_PADRAO = 14;
 export const VERDE = "#04B486";
 export const BRANCO = "#fff";
-export const FUNDO = "#ddd";
+export const FUNDO = "#fff";
 export const FUNDO_ESCURO = "#666"
 export const DESMARCADO = "#f00";
+export const MARCADO = "#00f";
 export const PRETO = "#000";
+export const COLOR_RATING = "yellow";
+export const COR_SEPARADOR = "#000";
 
 const EstilosComuns = StyleSheet.create({
     container: {
