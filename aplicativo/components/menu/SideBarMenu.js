@@ -1,27 +1,34 @@
+import { List, ListItem, Thumbnail } from "native-base";
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
-import {List, ListItem, Thumbnail } from "native-base";
-import EstilosComuns, { FUNDO_ESCURO, VERDE } from "../../assets/estilos/estilos";
-import { TELA_CONTROLE_MEDICACAO, TELA_LOGIN, TELA_SHARE_INFO, TELA_LISTA_MEDICOS, TELA_ENDERECO, TELA_ALARME, TELA_MEDICOS, TELA_CADASTRO_MEDICAMENTO, TELA_MEDICAMENTOS, TELA_MEDICACOES, TELA_COMANDO_VOZ } from "../../constants/AppScreenData";
+import { StyleSheet, Text, View } from "react-native";
 import { Rating } from "react-native-ratings";
+import EstilosComuns, { FUNDO_ESCURO } from "../../assets/estilos/estilos";
+import { TELA_ADD_COMPARTILHAMENTO_LIST, TELA_HOME, TELA_LOGIN, TELA_MEDICACOES, TELA_MEDICAMENTOS, TELA_MEDICOS, TELA_LISTA_COMPARTILHAMENTO } from "../../constants/AppScreenData";
+import { MensagemInformativa } from "../mensagens/Mensagens";
 
 const routes = [
+    {label: 'Iníćio', rota: TELA_HOME.name},
     {label: 'Controle de medicação', rota: TELA_MEDICACOES.name},
-    {label: TELA_MEDICOS.title, rota: TELA_MEDICOS.name},
-    {label: 'Compartilhar informações', rota: TELA_SHARE_INFO.name},
-    {label: TELA_MEDICAMENTOS.title, rota: TELA_MEDICAMENTOS.name}, //criar mais um item nas constantes...
-   // {label: 'Endereços', rota: TELA_ENDERECO.name},
-    {label: 'Configurações', rota: TELA_LOGIN.name},
-
-    {label: 'Alarme Estoque', rota: 'alarmeEstoque', params:[]},
-    {label: 'Alarme Medicação', rota: TELA_ALARME.name, params:[]},
-    {label: 'Comando de voz', rota: TELA_COMANDO_VOZ.name},
-   
+    {label: 'Meus médicos', rota: TELA_MEDICOS.name},
+    {label: 'Compartilhar informações', rota: TELA_LISTA_COMPARTILHAMENTO.name},
+    {label: 'Medicamentos', rota: TELA_MEDICAMENTOS.name}, //criar mais um item nas constantes...
+    {label: 'Meus endereços', rota: ''},
+    {label: 'Minhas configurações', rota: ''},
     {label: 'Sair do aplicativo', rota: TELA_LOGIN.name},
     
 ];
 
 export default class SideBarMenu extends React.Component {
+
+  abrirTela(route){
+      console.log(route);
+    if (route.rota == ''){
+        MensagemInformativa('Desculpe. Esta tela ainda está em construção!');
+    } else {
+        this.props.navigation.navigate(route.rota, route.params)      
+    }
+  }
+
   render() {
     return (
       <View style={EstilosComuns.container}>
@@ -59,7 +66,7 @@ export default class SideBarMenu extends React.Component {
                     return (
                         <ListItem
                                 button
-                                onPress={() => this.props.navigation.navigate(data.rota, data.params)}>
+                                onPress={() => this.abrirTela(data)}>
                             <Text style={styles.labelRotaDestaque}>{data.label}</Text>
                         </ListItem>
                     );

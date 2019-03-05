@@ -1,9 +1,8 @@
+import { Body, Container, Left, List, ListItem, Thumbnail } from "native-base";
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
-import { List, ListItem, Thumbnail, Left, Body, Content, Container, Button, Icon } from "native-base";
-import Botao, { BotaoOpacity } from '../../components/botao/Botao';
-import { TELA_CONTROLE_MEDICACAO, TELA_HOME, TELA_ADD_MEDICAMENTO } from '../../constants/AppScreenData';
+import { BotaoOpacity } from '../../components/botao/Botao';
 
 export default class Alarme extends React.Component {
     static navigationOptions = {

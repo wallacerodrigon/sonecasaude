@@ -58,7 +58,7 @@ export default class AdicionaClinica extends React.Component {
                 </View>
                 
                 <View style={EstilosComuns.rodape}>
-                    <Botao tituloBotao='Salvar' onClick={() =>  this.props.navigation.navigate(TELA_ADD_MEDICOS.name)}/>    
+                    <Botao tituloBotao='Salvar' onClick={() =>  this.props.navigation.goBack()}/>    
                 </View>
                     
             </View>

@@ -4,8 +4,6 @@ import EstilosComuns, { BRANCO, FUNDO_ESCURO } from '../../assets/estilos/estilo
 import { TELA_CADASTRO_MEDICAMENTO, TELA_PRESCRICAO } from '../../constants/AppScreenData';
 import { Icon, Item } from 'native-base';
 import {InputTexto} from "../../components/input/InputTexto";
-import Botao, { BotaoOpacity } from '../../components/botao/Botao';
-import StatusBar from '../../components/statusBar/StatusBar';
 
 export default class CadastroMedicamento extends React.Component {
     static navigationOptions = {
@@ -26,7 +24,7 @@ export default class CadastroMedicamento extends React.Component {
     }
 
     gotoPrescricao(medicamento){
-        this.props.navigation.navigate(TELA_PRESCRICAO.name)
+        this.props.navigation.navigate(TELA_PRESCRICAO.name, {medicamento: medicamento})
     }
 
     render() {

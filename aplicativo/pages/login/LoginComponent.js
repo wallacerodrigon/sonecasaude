@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import {View, StyleSheet, Image, TextInput} from 'react-native';
+import {View, KeyboardAvoidingView, StyleSheet, Image} from 'react-native';
 
 import Botao from '../../components/botao/Botao';
 import EstilosComuns from '../../assets/estilos/estilos';
-import {TELA_PADRAO, TELA_HOME, TELA_ESQUECI_SENHA, TELA_DADOS_PESSOAIS, CADASTRO, TELA_LOGIN_EFETUADO} from '../../constants/AppScreenData';
+import {TELA_PADRAO, TELA_HOME, TELA_ESQUECI_SENHA, TELA_CADASTRO_PERFIL} from '../../constants/AppScreenData';
 import CommandLink from '../../components/botao/CommandLink';
 import {InputTexto} from '../../components/input/InputTexto';
-import { MensagemAlerta, MensagemErro } from '../../components/mensagens/Mensagens';
 
 
 const imgLogo = require('../../assets/img/logo-login.jpeg');
@@ -15,7 +14,7 @@ export default class LoginComponent extends Component {
    
     static navigationOptions = {
         title: TELA_PADRAO.title,
-       // header: null
+        header: null
       };
 
     constructor(props){
@@ -38,11 +37,11 @@ export default class LoginComponent extends Component {
             MensagemErro("Login e senha devem ser informados!");
             return;
         }*/
-        this.props.navigation.navigate(TELA_LOGIN_EFETUADO.name);
+        this.props.navigation.navigate(TELA_HOME.name);
     }
 
     executarNovoCadastro= () => {
-        this.props.navigation.navigate(CADASTRO.name);
+        this.props.navigation.navigate(TELA_CADASTRO_PERFIL.name);
     }
 
     executarEsqueciSenha = ()=> {
@@ -64,7 +63,7 @@ export default class LoginComponent extends Component {
     render() {
 
         return (
-          <View style={[EstilosComuns.container]}>
+          <KeyboardAvoidingView style={[EstilosComuns.container]} keyboardVerticalOffset={70} behavior="padding" >
             <View style={styles.header}>
                 <Image source={imgLogo}/>
             </View>
@@ -92,7 +91,7 @@ export default class LoginComponent extends Component {
                 </View>
             </View>
 
-          </View>            
+          </KeyboardAvoidingView>            
         )
     }
 };

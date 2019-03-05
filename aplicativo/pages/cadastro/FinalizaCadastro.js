@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Text, Switch, StyleSheet} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import EstilosComuns, { FUNDO } from '../../assets/estilos/estilos';
-import { TELA_LOGIN, TELA_FINALIZA_CADASTRO, VOLTA_LOGIN } from '../../constants/AppScreenData';
 import Botao from '../../components/botao/Botao';
-import {InputTexto} from '../../components/input/InputTexto';
+import { InputTexto } from '../../components/input/InputTexto';
 import ConfirmacaoSwitch from '../../components/radio/ConfirmacaoSwitch';
+import { TELA_FINALIZA_CADASTRO, TELA_LOGIN } from '../../constants/AppScreenData';
 
 export default class FinalizaCadastro extends React.Component {
     static navigationOptions = {
@@ -83,7 +83,7 @@ export default class FinalizaCadastro extends React.Component {
                 </View>
 
                 <View style={EstilosComuns.rodapeDuplo}>
-                    <Botao tituloBotao='Concluir'  onClick={() =>  this.props.navigation.navigate(VOLTA_LOGIN.name)}
+                    <Botao tituloBotao='Concluir'  onClick={() =>  this.props.navigation.navigate(TELA_LOGIN.name)}
                         disabled={!this.state.liTermos}
                     />                
                     <Text style={styles.mensagemRodape}>Você receberá no seu e-mail orientações para ativar o seu usuário e cadastrar senha.</Text>

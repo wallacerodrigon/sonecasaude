@@ -1,16 +1,14 @@
 import React from 'react';
-import {View, Text, StyleSheet, Picker} from 'react-native';
+import { Picker, StyleSheet, Text, View } from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
-import { TELA_ADD_SHARE_INFO, TELA_FINALIZA_CADASTRO, TELA_ADD_SHARE_INFO_FROM_LIST, TELA_HOME, TELA_SHARE_INFO } from '../../constants/AppScreenData';
 import Botao from '../../components/botao/Botao';
-import {InputTexto, InputTextComMascara} from '../../components/input/InputTexto';
+import { InputTextComMascara, InputTexto } from '../../components/input/InputTexto';
 import ConfirmacaoSwitch from '../../components/radio/ConfirmacaoSwitch';
-import { Input } from 'react-native-elements';
-import { CheckBox, Body } from 'native-base';
+import { TELA_ADD_COMPARTILHAMENTO, TELA_FINALIZA_CADASTRO, TELA_ADD_COMPARTILHAMENTO_LIST, TELA_LISTA_COMPARTILHAMENTO } from '../../constants/AppScreenData';
 
-export default class AdicionaCompartilhamentoInfo extends React.Component {
+export default class CadastroCompartilhamento extends React.Component {
     static navigationOptions = {
-        title: TELA_ADD_SHARE_INFO.title,
+        title: TELA_ADD_COMPARTILHAMENTO.title,
         /* No more header config here! */
       };
 
@@ -27,7 +25,7 @@ export default class AdicionaCompartilhamentoInfo extends React.Component {
             parentesco: '', 
         };
 
-        this.novoCadastroAPartirDaLista = this.props.navigation.state.routeName === TELA_ADD_SHARE_INFO_FROM_LIST.name;
+        this.novoCadastroAPartirDaLista = this.props.navigation.state.routeName === TELA_ADD_COMPARTILHAMENTO_LIST.name;
     }
 
     toggleTransporte(){
@@ -44,7 +42,7 @@ export default class AdicionaCompartilhamentoInfo extends React.Component {
     salvarCompartilhamento(){
         this.props.navigation.navigate(
             this.novoCadastroAPartirDaLista ? 
-                        TELA_SHARE_INFO.name :
+                        TELA_LISTA_COMPARTILHAMENTO.name :
                         TELA_FINALIZA_CADASTRO.name 
                          );
 
@@ -82,6 +80,7 @@ export default class AdicionaCompartilhamentoInfo extends React.Component {
                         onValueChange={(itemValue, itemIndex) =>
                             this.setState({parentesco: itemValue})
                         }>
+                        <Picker.Item label="Selecione o parentesco" value=""/>
                         <Picker.Item label="Pai" value="1" />
                         <Picker.Item label="Mãe" value="2" />
                         <Picker.Item label="Sobrinho" value="3" />

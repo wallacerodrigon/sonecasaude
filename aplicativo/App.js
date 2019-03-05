@@ -1,5 +1,5 @@
 import React from 'react';
-import SwitchNavigator from './stacks/SwitchNavigator';
+import SwitchNavigator from './navigators/SwitchNavigator';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 

@@ -44,21 +44,10 @@ export default class ControleMedicacao extends React.Component {
                     <Fab
                         active={this.state.active}
                         direction="up"
-                        containerStyle={{ }}
                         style={{ backgroundColor: VERDE }}
                         position="bottomRight"
                         onPress={() => this.setState({ active: !this.state.active })}>
-                            <Icon name="apps" />
-                        <Button style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_HISTORICO_MEDICACAO.name)}>
-                            <Icon name="calendar" />
-                        </Button>
-                        <Button style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_ADD_SHARE_MEDICACAO.name)}>
-                            <Icon name="share" />
-                        </Button>
-                        <Button disabled style={{ backgroundColor: VERDE }} onPress={()=> this.props.navigation.navigate(TELA_CADASTRO_MEDICAMENTO.name)}>
-                            <Icon name="medkit" />
-                        </Button>
-
+                            <Icon name="add" />
                     </Fab>               
                 </View>
 

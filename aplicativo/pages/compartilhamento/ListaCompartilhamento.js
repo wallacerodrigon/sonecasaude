@@ -1,24 +1,23 @@
+import { Body, Container, Fab, Icon, Left, List, ListItem, Right, Thumbnail } from 'native-base';
 import React from 'react';
-import {View, Text, TouchableHighlight} from 'react-native';
+import { Text, TouchableHighlight, View } from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
-import { TELA_LISTA_MEDICOS, TELA_ADD_MEDICOS } from '../../constants/AppScreenData';
-import { List, ListItem, Left, Thumbnail, Body, Button, Right, Container, Fab, Icon } from 'native-base';
-import Botao from '../../components/botao/Botao';
+import { TELA_ADD_COMPARTILHAMENTO_LIST, TELA_LISTA_COMPARTILHAMENTO } from '../../constants/AppScreenData';
 
-const imgComparacao = require('../../assets/img/medicos/medico1.jpeg');
-const imgComparacao2 = require('../../assets/img/medicos/medico2.jpeg');
-const imgComparacao3 = require('../../assets/img/medicos/medico3.jpeg');
+const imgComparacao = require('../../assets/img/share/pessoa1.jpeg');
+const imgComparacao2 = require('../../assets/img/share/pessoa2.jpeg');
+const imgComparacao3 = require('../../assets/img/share/pessoa3.jpeg');
 
-export default class ListaCompartilhamentoMedicacao extends React.Component {
+export default class ListaCompartilhamento extends React.Component {
     static navigationOptions = {
-        title: TELA_LISTA_MEDICOS.title
+        title: TELA_LISTA_COMPARTILHAMENTO.title
         /* No more header config here! */
       };
 
     render() {
         return (
             <View style={EstilosComuns.container}>
-                <Text style={EstilosComuns.tituloJanelas}>Seus médicos cadastrados</Text>
+                <Text style={EstilosComuns.tituloJanelas}>Seus compartilhamentos</Text>
 
                 <Container style={[EstilosComuns.backgroundPadrao, EstilosComuns.bodyMain]}>
                     <List >
@@ -27,8 +26,8 @@ export default class ListaCompartilhamentoMedicacao extends React.Component {
                                 <Thumbnail square source={imgComparacao} />
                             </Left>
                             <Body>
-                                <Text>Médico 1</Text>
-                                <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
+                                <Text>Carlos da Silva 1</Text>
+                                <Text note numberOfLines={1} style={EstilosComuns.negrito}>Filho</Text>
                                 <Text note numberOfLines={1}>fulano@gmail.com</Text>
                             </Body>
                             <Right>
@@ -43,8 +42,8 @@ export default class ListaCompartilhamentoMedicacao extends React.Component {
                                 <Thumbnail square source={imgComparacao2} />
                             </Left>
                             <Body>
-                                <Text>Médico 2</Text>
-                                <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
+                                <Text>Flávia da Silva</Text>
+                                <Text note numberOfLines={1} style={EstilosComuns.negrito}>Filha</Text>
                                 <Text note numberOfLines={1}>fulano@gmail.com</Text>
                             </Body>
                             <Right>
@@ -60,8 +59,8 @@ export default class ListaCompartilhamentoMedicacao extends React.Component {
                                 <Thumbnail square source={imgComparacao3} />
                             </Left>
                             <Body>
-                                <Text>Médico 3</Text>
-                                <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
+                                <Text>Cândida dos Santos</Text>
+                                <Text note numberOfLines={1} style={EstilosComuns.negrito}>Cuidadora</Text>
                                 <Text note numberOfLines={1}>fulano@gmail.com</Text>
                             </Body>
                             <Right>
@@ -79,7 +78,7 @@ export default class ListaCompartilhamentoMedicacao extends React.Component {
                     containerStyle={{ }}
                     style={{ backgroundColor: "#04B486" }}
                     position="bottomRight"
-                    onPress={() => this.props.navigation.navigate(TELA_ADD_MEDICOS.name) }>
+                    onPress={() => this.props.navigation.navigate(TELA_ADD_COMPARTILHAMENTO_LIST.name) }>
                      <Icon name="add" />
                 </Fab>                   
             </View>

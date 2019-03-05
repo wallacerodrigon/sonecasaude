@@ -1,33 +1,26 @@
-import React from "react";
-import {createStackNavigator} from 'react-navigation';
-import EstilosComuns, { BRANCO, VERDE, FUNDO } from "../../assets/estilos/estilos";
-
-import { TELA_LISTA_MEDICOS, TELA_COMANDO_VOZ, TELA_CADASTRO_MEDICAMENTO, TELA_CONTROLE_MEDICACAO } from "../../constants/AppScreenData";
-import { BotaoOpacity } from "../../components/botao/Botao";
-import { Icon } from "native-base";
+import { createBottomTabNavigator } from 'react-navigation';
+import { PADRAO_NAVEGACAO } from "../../navigators/NavigatorConfigs";
+import CadastroCompartilhamento from '../compartilhamento/CadastroCompartilhamento';
 import ControleMedicacao from "./ControleMedicacao";
-import AdicionaCompartilhamentoInfo from "../cadastro/AdicionaCompartilhamentoInfo";
-import CompartilhaInformacoes from "../cadastro/CompartilhaInformacoes";
-import Historico from "./Historico";
-import MedicamentosStack from "../medicamentos";
-import CadastroMedicamento from "../medicamentos/CadastroMedicamento";
-import HomeScreen from "../home/Home";
-import { PADRAO_NAVEGACAO } from "../../stacks/StackConfigs";
+import EstatisticaHistoricoUso from './EstatisticaHistoricoUso';
+import { TELA_MEDICACOES } from '../../constants/AppScreenData';
+import EstilosComuns from '../../assets/estilos/estilos';
 
-const MedicacoesNavigator = createStackNavigator(
+
+const MedicacoesNavigator = createBottomTabNavigator(
     {
-        controleMedicacao: {screen: ControleMedicacao},
-        novoCompartilhamentoInfo:  AdicionaCompartilhamentoInfo,
-        compartilhaInformacoes: CompartilhaInformacoes,
-
-        historicoMedicacao: Historico,
-        adicionaCompartilhamentoMedicacao: AdicionaCompartilhamentoInfo,
-        cadastroMedicamento: CadastroMedicamento,
+        controleMedicacao: ControleMedicacao,
+        estatisticaMedicacao: EstatisticaHistoricoUso,
+        compartilhamento: CadastroCompartilhamento
     },
     {
-        defaultNavigationOptions: PADRAO_NAVEGACAO,
-        
-    }    
+        defaultNavigationOptions: {
+            title: TELA_MEDICACOES.title,
+            headerStyle: [ EstilosComuns.backgroundToolbar],
+            cardShadowEnabled: "true",
+            headerTitleStyle: [EstilosComuns.corBranca],  
+        }
+    }  
 );
 
 export default MedicacoesNavigator;

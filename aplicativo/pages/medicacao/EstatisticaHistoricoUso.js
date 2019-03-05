@@ -1,26 +1,20 @@
+import { Card, CardItem, DatePicker, Fab, Icon, Picker, Thumbnail } from 'native-base';
 import React from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
-import EstilosComuns, { BRANCO, FUNDO, VERDE, FUNDO_ESCURO, PRETO, BACKGROUND_COLOR_RATING, COLOR_RATING } from '../../assets/estilos/estilos';
-import { TELA_HISTORICO_MEDICACAO, TELA_ADD_SHARE_MEDICACAO } from '../../constants/AppScreenData';
-import {DatePicker, Segment, Button, Picker, Card, CardItem, Container, Thumbnail, Icon, Fab} from 'native-base';
-import { Dimensions } from 'react-native'
-import {
-    LineChart,
-//    PieChart,
-  } from 'react-native-chart-kit'
+import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native';
+import { LineChart } from 'react-native-chart-kit';
 import { Rating } from 'react-native-elements';
-import { Botao } from "../../components/botao/Botao";
-import { MensagemInformativa } from '../../components/mensagens/Mensagens';
+import EstilosComuns, { BRANCO, COLOR_RATING, FUNDO, PRETO, VERDE } from '../../assets/estilos/estilos';
+import { TELA_ADD_SHARE_MEDICACAO, TELA_ESTATISTICA_MEDICACAO } from '../../constants/AppScreenData';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const imgRemedio = require('../../assets/img/alerta/losartana.jpeg');
 
-export default class Historico extends React.Component {
+export default class EstatisticaHistoricoUso extends React.Component {
 
 
 
     static navigationOptions = {
-        title: TELA_HISTORICO_MEDICACAO.title,
+        title: TELA_ESTATISTICA_MEDICACAO.title,
       };
 
     constructor(props){

@@ -1,11 +1,11 @@
+import { Card } from 'native-base';
 import React from 'react';
-import {View, Text, StyleSheet,TouchableOpacity, FlatList} from 'react-native';
-import EstilosComuns, { BRANCO, FUNDO_ESCURO, FUNDO, VERDE } from '../../assets/estilos/estilos';
-import {TELA_DESAFIOS, TELA_ADD_SHARE_INFO} from '../../constants/AppScreenData'
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Icon } from 'react-native-elements';
+import EstilosComuns, { BRANCO, FUNDO, VERDE } from '../../assets/estilos/estilos';
 import Botao from '../../components/botao/Botao';
-import {InputTexto} from '../../components/input/InputTexto';
-import { SearchBar, Icon } from 'react-native-elements';
-import { Card, CardItem } from 'native-base';
+import { InputTexto } from '../../components/input/InputTexto';
+import { TELA_ADD_COMPARTILHAMENTO, TELA_DESAFIOS } from '../../constants/AppScreenData';
 //https://react-native-training.github.io/react-native-elements/docs/searchbar.html
 
 export default class Desafios extends React.Component {
@@ -97,7 +97,7 @@ export default class Desafios extends React.Component {
                 </View>
 
                 <View style={EstilosComuns.rodape}>
-                    <Botao tituloBotao='Próximo' onClick={() =>  this.props.navigation.navigate(TELA_ADD_SHARE_INFO.name)}/>                
+                    <Botao tituloBotao='Próximo' onClick={() =>  this.props.navigation.navigate(TELA_ADD_COMPARTILHAMENTO.name)}/>                
                 </View>
             </View>
         )

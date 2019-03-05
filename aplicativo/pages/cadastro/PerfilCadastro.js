@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Text, FlatList, TouchableOpacity} from 'react-native';
-import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
-import { CADASTRO_PERFIL, TELA_DADOS_PESSOAIS, TELA_LOGIN} from '../../constants/AppScreenData'
-import Botao, { BotaoOpacity, BotaoFechar } from '../../components/botao/Botao';
-import {withNavigation} from 'react-navigation';
+import { StyleSheet, Text, View } from 'react-native';
+import EstilosComuns from '../../assets/estilos/estilos';
+import Botao from '../../components/botao/Botao';
+import { TELA_DADOS_PESSOAIS } from '../../constants/AppScreenData';
+import { PERFIL_CUIDADOR, PERFIL_PACIENTE } from '../../constants/ConstantesInternas';
 
 class PerfilCadastro extends React.Component {
 
@@ -26,8 +26,8 @@ class PerfilCadastro extends React.Component {
         this.props.navigation.goBack();
     }
  
-    gotoNextScreen(screen){
-        this.props.navigation.navigate(screen.name)        
+    gotoNextScreen(screen, tipoPerfil){
+        this.props.navigation.navigate(screen.name, {tipoPerfil: tipoPerfil})        
     }
 
 
@@ -38,27 +38,15 @@ class PerfilCadastro extends React.Component {
                     <Text style={EstilosComuns.tituloJanelas}>Como você gostaria de utilizar o aplicativo?</Text>
                 </View>
                 
-                <View style={EstilosComuns.bodyMain}>
+                <View style={[EstilosComuns.bodyMain, styles.containerCentral]}>
 
-                    <View>
-                        <Text>
-                            
-                        </Text>
-                    </View>                                    
-
-                    <View style={{flexDirection: 'column', flex: 1, padding: 20, justifyContent: 'center', alignItems: 'center'}}>
-                        <FlatList
-                            data= {this.perfisVisiveis}
-                            keyExtractor={item => item.id}
-                            renderItem={({ item }) => {
-                                return (
-                                    <View style={{flex: 1}}>
-                                        <Botao tituloBotao={item.nome} onClick={() => this.gotoNextScreen(TELA_DADOS_PESSOAIS)}/>
-                                    </View>
-                                );
-                            }} 
-                        />
+                        <View style={{flex: 1}}>
+                            <Botao tituloBotao={this.perfisVisiveis[0].nome} onClick={() => this.gotoNextScreen(TELA_DADOS_PESSOAIS, PERFIL_PACIENTE)}/>
                         </View>
+                        <View style={{flex: 6}}>
+                            <Botao tituloBotao={this.perfisVisiveis[1].nome} onClick={() => this.gotoNextScreen(TELA_DADOS_PESSOAIS, PERFIL_CUIDADOR)}/>
+                        </View>
+                                                                                                            
 
 
                 </View>
@@ -67,5 +55,14 @@ class PerfilCadastro extends React.Component {
         )
     };
 }
+
+const styles= StyleSheet.create({
+    containerCentral: {
+        flexDirection: 'column', 
+        justifyContent: 'flex-start',
+        padding: 20
+    }
+})
+
 
 export default (PerfilCadastro);

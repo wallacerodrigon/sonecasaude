@@ -1,29 +1,33 @@
 import React from 'react';
-import {View, Text, Picker} from 'react-native';
-import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
-import {TELA_DADOS_PESSOAIS, TELA_ENDERECO, TELA_LOGIN} from '../../constants/AppScreenData'
-import Botao, { BotaoOpacity, BotaoFechar } from '../../components/botao/Botao';
-import {InputTexto, InputTextComMascara } from '../../components/input/InputTexto';
-import {DatePicker, Icon } from 'native-base';
-import {withNavigation} from 'react-navigation';
+import { Picker, Text, View } from 'react-native';
+import EstilosComuns from '../../assets/estilos/estilos';
+import Botao from '../../components/botao/Botao';
+import { InputTextComMascara, InputTexto } from '../../components/input/InputTexto';
+import { TELA_ENDERECO, TELA_LOGIN } from '../../constants/AppScreenData';
+import { PERFIL_CUIDADOR, PERFIL_PACIENTE } from '../../constants/ConstantesInternas';
 
 class DadosPessoais extends React.Component {
+
+    tipoPerfil = 'P';
 
     constructor(props){
         super(props);
         console.log(props);
-        this.state = {sexo: "M", cpf:'', dataNascimento: null, celular: ''};
+        this.state = {sexo: "", cpf:'', dataNascimento: null, celular: '', labelBotao: 'Próximo'};
         
         this.onChangeDataNascimento =this.onChangeDataNascimento.bind(this);
-        this.voltaParaLogin = this.voltaParaLogin.bind(this);
+
+        this.tipoPerfil = this.props.navigation.state.params.tipoPerfil;
     }
+
+    componentWillMount(){
+        this.setState({labelBotao: this.tipoPerfil === PERFIL_CUIDADOR ? 'Finalizar': 'Próximo'});
+
+    }
+
 
     onChangeInput(fieldname, text){
         this.setState({[fieldname]: text});
-    }
-
-    voltaParaLogin(){
-        this.props.navigation.goBack();
     }
 
     onChangeCpf(text){
@@ -36,8 +40,18 @@ class DadosPessoais extends React.Component {
         this.setState({celular: text});
     }
 
+    gotoNextScreen(){
+        if (this.tipoPerfil === PERFIL_PACIENTE){
+            this.props.navigation.navigate(TELA_ENDERECO.name);        
+        } else {
+            this.props.navigation.navigate(TELA_LOGIN.name);        
+        }
+
+    }
 
     render() {
+    
+
         return (
             <View style={EstilosComuns.container}>
                 <View style={EstilosComuns.bodyTitulo}>
@@ -73,7 +87,7 @@ class DadosPessoais extends React.Component {
                         type={InputTextComMascara.MASK_CELULAR}
                     />                        
                     <Text style={EstilosComuns.corBranca}>Sexo</Text>
-                    <Picker
+                    <Picker 
                         selectedValue={this.state.sexo}
                         onValueChange={(itemValue, itemIndex) =>
                             this.setState({sexo: itemValue})
@@ -86,7 +100,7 @@ class DadosPessoais extends React.Component {
                 </View>
                 
                 <View style={EstilosComuns.rodape}>
-                    <Botao tituloBotao='Próximo' onClick={() =>  this.props.navigation.navigate(TELA_ENDERECO.name)}/>
+                    <Botao tituloBotao={this.state.labelBotao} onClick={() =>  this.gotoNextScreen()}/>
                 </View>
             </View>
         )
