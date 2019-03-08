@@ -1,9 +1,10 @@
+import { Icon } from 'native-base';
 import React from 'react';
-import {View, StyleSheet, Text, FlatList} from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import EstilosComuns, { BRANCO, FUNDO_ESCURO } from '../../assets/estilos/estilos';
+import { BotaoOpacity } from '../../components/botao/Botao';
+import { InputTexto } from "../../components/input/InputTexto";
 import { TELA_CADASTRO_MEDICAMENTO, TELA_PRESCRICAO } from '../../constants/AppScreenData';
-import { Icon, Item } from 'native-base';
-import {InputTexto} from "../../components/input/InputTexto";
 
 export default class CadastroMedicamento extends React.Component {
     static navigationOptions = {

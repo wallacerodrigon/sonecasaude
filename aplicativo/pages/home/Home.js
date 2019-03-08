@@ -1,10 +1,9 @@
+import { Body, Card, CardItem, Icon } from 'native-base';
 import React from 'react';
-import {View, TouchableOpacity, Image, StyleSheet, Text} from 'react-native';
-import EstilosComuns, { BRANCO, FUNDO } from '../../assets/estilos/estilos';
-import {TELA_LOGIN, TELA_COMANDO_VOZ, TELA_CONTROLE_MEDICACAO, TELA_LISTA_MEDICOS, TELA_ALARME, TELA_SHARE_INFO, TELA_MEDICACOES, TELA_HOME, TELA_MEDICOS} from '../../constants/AppScreenData';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import EstilosComuns, { FUNDO, BRANCO } from '../../assets/estilos/estilos';
+import { TELA_CADASTRO_MEDICAMENTO, TELA_COMANDO_VOZ, TELA_LOGIN, TELA_MEDICOS } from '../../constants/AppScreenData';
 
-import { Card, CardItem, Body } from 'native-base';
-import StatusBar from '../../components/statusBar/StatusBar';
 
 const imgMicrophone = require('../../assets/img/microphone_green.png');
 
@@ -15,23 +14,24 @@ const imgMedicacao  = require('../../assets/icons/home/medicacao.png');
 
 //https://react-native-training.github.io/react-native-elements/docs/avatar.html
 export default class HomeScreen extends React.Component {
-    // static navigationOptions = {
-    //     title: TELA_LISTA_MEDICOS.title,
-    //     headerRight: ({navigation}) => (
-    //         <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-    //             <Text>Sair</Text>
-    //         </TouchableOpacity>
-    //     )
-    //     /* No more header config here! */
-    //   };
+   
+    // static navigationOptions: (navigation) => {
+    //     //title: TELA_PADRAO.title,
+    //      headerLeft: ({navigation}) => (
+    //         <Icon name="menu" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} onPress={() => console.log(navigation, this.props)}/>
+    //      )
+    //    };
     
 
     constructor(){
         super();
+
+        this.abrirMenu = this.abrirMenu.bind(this);
         
     }
 
     abrirMenu() {
+        console.log(this.props);
         this.props.navigation.openDrawer();
     }
 
@@ -83,7 +83,7 @@ export default class HomeScreen extends React.Component {
 
                         <Card style={styles.card}>
                             <CardItem cardBody>
-                                <TouchableOpacity  onPress={() => this.abrirTela(TELA_MEDICACOES.name)}>
+                                <TouchableOpacity  onPress={() => this.abrirTela(TELA_CADASTRO_MEDICAMENTO.name)}>
                                    <Image style={styles.imgWidget} aspectRadio={1} source={imgMedicacao} resizeMode="cover"/>
                                 </TouchableOpacity>                            
                             </CardItem>

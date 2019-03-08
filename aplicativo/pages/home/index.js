@@ -1,41 +1,40 @@
-import HomeScreen from "./Home";
-import React from 'react';
-import {  createStackNavigator} from "react-navigation";
-import ListaMedicos from "../medicos/ListaMedicos";
-import CadastroMedicamento from "../medicamentos/CadastroMedicamento";
-import ControleMedicacao from "../medicacao/ControleMedicacao";
-import { TELA_PADRAO, TELA_COMANDO_VOZ } from "../../constants/AppScreenData";
-import EstilosComuns, { BRANCO } from "../../assets/estilos/estilos";
-import { Text , View} from "react-native";
 import { Icon } from "native-base";
+import React from 'react';
+import { createStackNavigator, withNavigation } from "react-navigation";
+import EstilosComuns, { BRANCO } from "../../assets/estilos/estilos";
+import { TELA_COMANDO_VOZ, TELA_PADRAO } from "../../constants/AppScreenData";
+import CadastroMedicamento from "../medicamentos/CadastroMedicamento";
+import ComandoOuvindoVoz from "../voz/ComandoOuvindoVoz";
+import HomeScreen from "./Home";
 
 const HomeScreenNavigator = createStackNavigator(
   {
-    home: HomeScreen,
-    medicamentos: CadastroMedicamento,
-    medicos: ListaMedicos,
-    controleMedicacao: ControleMedicacao
+    home: {screen: HomeScreen},
+    medicamentos: {screen: CadastroMedicamento},
+    comandoVoz: ComandoOuvindoVoz
+    // medicos: ListaMedicos,
+    // controleMedicacao: ControleMedicacao
   },
   {
-    defaultNavigationOptions: {
+    defaultNavigationOptions: ({navigation}) => ({
       title: TELA_PADRAO.title,
       headerStyle: [ EstilosComuns.backgroundToolbar],
       cardShadowEnabled: "true",
       headerTitleStyle: [EstilosComuns.corBranca],  
-      headerLeft: ({navigation}) => (
-        <View style={{paddingVertical: 10, paddingHorizontal: 10}}>
-          <Icon name="menu" style={{color: BRANCO}} onPress={() => navigation.openDrawer() }/>
-        </View>
+      headerLeft: (
+        <Icon name="menu" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} 
+              onPress={() => navigation.toggleDrawer()}/>
       ),
-      headerRight: ({navigation}) => (
-        <View style={{paddingVertical: 10, paddingHorizontal: 10}}>
-          <Icon name="microphone" style={{color: BRANCO}} onPress={() => navigation.navigate(TELA_COMANDO_VOZ.name) }/>
-        </View>
-      )
+      headerRight: (
+        <Icon name="mic" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} 
+              onPress={() => navigation.navigate(TELA_COMANDO_VOZ.name)}/>
+      )      
 
-    }
+
+
+    })
   }
  // this.props.navigation.pop();
  //this.props.navigation.push('Profile');
 );
-export default HomeScreenNavigator;
+export default withNavigation(HomeScreenNavigator);

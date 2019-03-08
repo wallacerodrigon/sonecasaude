@@ -3,7 +3,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Rating } from "react-native-ratings";
 import EstilosComuns, { FUNDO_ESCURO } from "../../assets/estilos/estilos";
-import { TELA_ADD_COMPARTILHAMENTO_LIST, TELA_HOME, TELA_LOGIN, TELA_MEDICACOES, TELA_MEDICAMENTOS, TELA_MEDICOS, TELA_LISTA_COMPARTILHAMENTO } from "../../constants/AppScreenData";
+import { TELA_HOME, TELA_LISTA_COMPARTILHAMENTO, TELA_LOGIN, TELA_MEDICACOES, TELA_MEDICAMENTOS, TELA_MEDICOS } from "../../constants/AppScreenData";
 import { MensagemInformativa } from "../mensagens/Mensagens";
 
 const routes = [
@@ -14,6 +14,14 @@ const routes = [
     {label: 'Medicamentos', rota: TELA_MEDICAMENTOS.name}, //criar mais um item nas constantes...
     {label: 'Meus endereços', rota: ''},
     {label: 'Minhas configurações', rota: ''},
+
+    {label: 'Minhas configurações', rota: ''},
+    {label: 'Minhas configurações', rota: ''},
+    {label: 'Minhas configurações', rota: ''},
+    {label: 'Minhas configurações', rota: ''},
+    {label: 'Minhas configurações', rota: ''},
+    {label: 'Minhas configurações', rota: ''},
+
     {label: 'Sair do aplicativo', rota: TELA_LOGIN.name},
     
 ];
@@ -51,8 +59,7 @@ export default class SideBarMenu extends React.Component {
                             readonly
                             minValue={0}
                             fractions={1}
-                            startingValue={"3.7"}
-                            style={{ color: 'yellow', backgroundColor: '#ddd' }}
+                            startingValue={3.7}
                             />
                 </View>
                 
