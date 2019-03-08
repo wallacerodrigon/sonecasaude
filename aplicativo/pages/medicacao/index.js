@@ -1,25 +1,45 @@
 import { createBottomTabNavigator } from 'react-navigation';
-import { PADRAO_NAVEGACAO } from "../../navigators/NavigatorConfigs";
-import CadastroCompartilhamento from '../compartilhamento/CadastroCompartilhamento';
+import EstilosComuns from '../../assets/estilos/estilos';
+import { TELA_CONTROLE_MEDICACAO } from '../../constants/AppScreenData';
+import ListaCompartilhamento from '../compartilhamento/ListaCompartilhamento';
 import ControleMedicacao from "./ControleMedicacao";
 import EstatisticaHistoricoUso from './EstatisticaHistoricoUso';
-import { TELA_MEDICACOES } from '../../constants/AppScreenData';
-import EstilosComuns from '../../assets/estilos/estilos';
-
+import React from "react";
 
 const MedicacoesNavigator = createBottomTabNavigator(
     {
-        controleMedicacao: ControleMedicacao,
+        controleMedicacao: {
+            screen: ControleMedicacao,
+            navigationOptions: () => ({
+                tabBarIcon: ({tintColor}) => (
+                    <Icon
+                        name="bookmark"
+                        color={tintColor}
+                        size={24}
+                    />
+                )
+            })
+        },                        
         estatisticaMedicacao: EstatisticaHistoricoUso,
-        compartilhamento: CadastroCompartilhamento
+        listaCompartilhamento: ListaCompartilhamento
     },
     {
         defaultNavigationOptions: {
-            title: TELA_MEDICACOES.title,
+            title: TELA_CONTROLE_MEDICACAO.title,
             headerStyle: [ EstilosComuns.backgroundToolbar],
             cardShadowEnabled: "true",
             headerTitleStyle: [EstilosComuns.corBranca],  
-        }
+        },
+        tabBarOptions: {
+          showLabel: false, // hide labels
+          activeTintColor: 'tomato',
+          inactiveTintColor: 'gray',
+        //   activeTintColor: '#F8F8F8', // active icon color
+        //   inactiveTintColor: '#586589',  // inactive icon color
+        //   style: {
+        //       backgroundColor: '#171F33' // TabBar background
+        //   }          
+        },        
     }  
 );
 

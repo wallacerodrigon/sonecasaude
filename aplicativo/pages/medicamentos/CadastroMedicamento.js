@@ -2,14 +2,18 @@ import { Icon } from 'native-base';
 import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import EstilosComuns, { BRANCO, FUNDO_ESCURO } from '../../assets/estilos/estilos';
-import { BotaoOpacity } from '../../components/botao/Botao';
+import { BotaoOpacity, BotaoFecharHeader } from '../../components/botao/Botao';
 import { InputTexto } from "../../components/input/InputTexto";
 import { TELA_CADASTRO_MEDICAMENTO, TELA_PRESCRICAO } from '../../constants/AppScreenData';
 
 export default class CadastroMedicamento extends React.Component {
-    static navigationOptions = {
+
+      static navigationOptions = ({ navigation }) => ({
         title: TELA_CADASTRO_MEDICAMENTO.title,
-      };
+        headerLeft: (
+            <BotaoFecharHeader navigation={navigation}/>
+          )          
+    });      
 
     constructor(props){
         super(props);

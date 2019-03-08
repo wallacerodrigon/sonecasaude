@@ -1,19 +1,17 @@
-import { Icon } from "native-base";
 import React from 'react';
-import { createStackNavigator, withNavigation } from "react-navigation";
-import EstilosComuns, { BRANCO } from "../../assets/estilos/estilos";
-import { TELA_COMANDO_VOZ, TELA_PADRAO } from "../../constants/AppScreenData";
-import CadastroMedicamento from "../medicamentos/CadastroMedicamento";
+import { createStackNavigator } from "react-navigation";
+import EstilosComuns from "../../assets/estilos/estilos";
+import { BotaoMenuHamburguer, BotaoMicrofoneHeader } from "../../components/botao/Botao";
+import { TELA_PADRAO } from "../../constants/AppScreenData";
+import MedicacoesNavigator from "../medicacao";
 import ComandoOuvindoVoz from "../voz/ComandoOuvindoVoz";
 import HomeScreen from "./Home";
 
 const HomeScreenNavigator = createStackNavigator(
   {
     home: {screen: HomeScreen},
-    medicamentos: {screen: CadastroMedicamento},
-    comandoVoz: ComandoOuvindoVoz
-    // medicos: ListaMedicos,
-    // controleMedicacao: ControleMedicacao
+    comandoVoz: ComandoOuvindoVoz,
+    controleMedicacao: MedicacoesNavigator
   },
   {
     defaultNavigationOptions: ({navigation}) => ({
@@ -22,19 +20,12 @@ const HomeScreenNavigator = createStackNavigator(
       cardShadowEnabled: "true",
       headerTitleStyle: [EstilosComuns.corBranca],  
       headerLeft: (
-        <Icon name="menu" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} 
-              onPress={() => navigation.toggleDrawer()}/>
+        <BotaoMenuHamburguer navigation={navigation}/>
       ),
       headerRight: (
-        <Icon name="mic" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} 
-              onPress={() => navigation.navigate(TELA_COMANDO_VOZ.name)}/>
+        <BotaoMicrofoneHeader navigation={navigation}/>
       )      
-
-
-
     })
   }
- // this.props.navigation.pop();
- //this.props.navigation.push('Profile');
 );
-export default withNavigation(HomeScreenNavigator);
+export default HomeScreenNavigator;

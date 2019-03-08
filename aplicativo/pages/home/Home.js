@@ -18,17 +18,15 @@ export default class HomeScreen extends React.Component {
     constructor(){
         super();
 
-        this.abrirMenu = this.abrirMenu.bind(this);
         
     }
 
-    abrirMenu() {
-        console.log(this.props);
-        this.props.navigation.openDrawer();
-    }
+    static navigationOptions = {
+        headerRight: null
+      };    
 
     retornarLogin = () => {
-        this.props.navigation.navigate(TELA_LOGIN.name);
+        this.abrirTela(TELA_LOGIN.name);
     }
 
     abrirTela(item){
@@ -36,7 +34,7 @@ export default class HomeScreen extends React.Component {
     }
 
     abrirTelaOuvindo(){
-        this.props.navigation.navigate(TELA_COMANDO_VOZ.name);
+        this.abrirTela(TELA_COMANDO_VOZ.name);
     }
 
     render() {
@@ -62,7 +60,7 @@ export default class HomeScreen extends React.Component {
                 <Card style={[styles.icones, EstilosComuns.backgroundPadrao]}>
                     <CardItem cardBody style={[styles.linhaIcones,EstilosComuns.backgroundPadrao]}>
                         <Card style={styles.card}>
-                            <TouchableOpacity onPress={() => null}>
+                            <TouchableOpacity onPress={() => alert('não temos o modulo de transporte')}>
                                 <CardItem cardBody>
                                         <Image style={styles.imgWidget} aspectRadio={1} source={imgTransporte} resizeMode="cover"/>
                                 </CardItem>
@@ -89,7 +87,7 @@ export default class HomeScreen extends React.Component {
 
                   <CardItem cardBody style={[styles.linhaIcones,EstilosComuns.backgroundPadrao]}>
                         <Card style={[styles.card]}>
-                            <TouchableOpacity  onPress={() => this.retornarLogin()}>
+                            <TouchableOpacity  onPress={() => alert('não temos módulo de comparação ainda')}>
                                 <CardItem cardBody>
                                     <Image style={styles.imgWidget} aspectRadio={1} source={imgComparacao} resizeMode="cover"/>
                                 </CardItem>

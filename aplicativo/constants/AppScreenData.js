@@ -18,10 +18,14 @@ export const TELA_ADD_COMPARTILHAMENTO_LIST = {name: 'cadastroCompartilhamentoFr
 export const TELA_LISTA_COMPARTILHAMENTO = {name: 'listaCompartilhamento', title: 'Compartilhamentos'};
 
     /*Controle de medicação */
-export const TELA_CONTROLE_MEDICACAO = {name:"controleMedicacao", title: "Controlar medicação"};
-export const TELA_CADASTRO_MEDICAMENTO = {name:"cadastroMedicamento", title: "Adicionar medicamento"};
+export const TELA_CONTROLE_MEDICACAO = {name:"controleMedicacao", title: "Minhas medicações"};
 export const TELA_ESTATISTICA_MEDICACAO = {name:"estatisticaMedicacao", title: "Estatísticas"};
 export const TELA_HISTORICO_DIARIO = {name:"historicoUso", title: "Seu histórico diário"};
+
+/**MEDICAMENTO */
+export const TELA_CADASTRO_MEDICAMENTO = {name:"cadastroMedicamento", title: "Adicionar medicamento"};
+export const TELA_PRESCRICAO = {name:"listaMedicamentos", title: "Adicionar medicamento"};
+
 
     /**alarmes e controle de voz */
 export const TELA_ALARME = {name:"alarme", title: ""};
@@ -40,11 +44,10 @@ export const TELA_LISTA_CLINICAS = {name:"listaClinicas", title: ""};
 
 /**navigators */
 export const DRAWER = {name:"DrawerOpen", title:""};
-
-export const TELA_PRESCRICAO = {name: "prescricaoMedicamento", title:"Prescrição"};
-export const TELA_MEDICOS = {name: 'medicos', title:"Médicos"}
-export const TELA_MEDICAMENTOS = {name: 'medicamentos', title:"Medicamentos"}
-export const TELA_MEDICACOES = {name: 'medicacoes', title:"Medicações"}
+export const NAV_MEDICOS = {name: 'medicosNavigator', title:"Médicos"}
+export const NAV_MEDICAMENTOS = {name: 'medicamentosNavigator', title:"Medicamentos"}
+export const NAV_MEDICACOES = {name: 'medicacoesNavigator', title:"Medicações"}
+export const NAV_COMPARTILHAMENTOS = {name: 'compartilhamentosNavigator', title:"Compartilhamentos"}
 
 
 

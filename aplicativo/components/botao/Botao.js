@@ -1,8 +1,8 @@
-import React from 'react';
-import {Button, View, Text, TouchableOpacity} from 'react-native';
 import { Icon } from 'native-base';
-import {withNavigation} from 'react-navigation';
+import React from 'react';
+import { Button, TouchableOpacity, View } from 'react-native';
 import { BRANCO } from '../../assets/estilos/estilos';
+import { TELA_COMANDO_VOZ } from '../../constants/AppScreenData';
 
 export default class Botao extends React.Component {
 
@@ -46,20 +46,24 @@ export class BotaoOpacity extends React.Component  {
   };
 }
 
-export class BotaoFechar extends React.Component  {
-
-  constructor(props){
-    super(props); 
-  }
-
-
-  render() {
+export const BotaoFecharHeader = (props) => {
       return (
-          <BotaoOpacity onClick={() => null} style={{paddingVertical: 10, paddingHorizontal: 10}}> 
-              <Icon name="menu" style={{color: BRANCO}}/>
-          </BotaoOpacity>                 
+          <Icon name="close" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} 
+                  onPress={() => props.navigation.dismiss() }/>
       )
-  };
-}
+};
 
+export const BotaoMicrofoneHeader = (props) => {
+  return (
+      <Icon name="mic" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} 
+              onPress={() => props.navigation.navigate(TELA_COMANDO_VOZ.name) }/>
+  )
+};
+
+export const BotaoMenuHamburguer = (props) => {
+  return (
+      <Icon name="menu" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} 
+              onPress={() => props.navigation.toggleDrawer() }/>
+  )
+};
 

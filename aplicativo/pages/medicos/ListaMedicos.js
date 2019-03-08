@@ -1,22 +1,21 @@
+import { Body, Container, Fab, Icon, Left, List, ListItem, Right, Thumbnail } from 'native-base';
 import React from 'react';
-import {View, Text, TouchableHighlight, ScrollView} from 'react-native';
-import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
-import { TELA_LISTA_MEDICOS, TELA_ADD_MEDICOS } from '../../constants/AppScreenData';
-import { List, ListItem, Left, Thumbnail, Body, Button, Right, Container, Fab, Icon } from 'native-base';
-import Botao, { BotaoOpacity, BotaoFechar } from '../../components/botao/Botao';
+import { ScrollView, Text, TouchableHighlight, View } from 'react-native';
+import EstilosComuns from '../../assets/estilos/estilos';
+import { BotaoFecharHeader } from '../../components/botao/Botao';
+import { TELA_ADD_MEDICOS } from '../../constants/AppScreenData';
 
 const imgComparacao = require('../../assets/img/medicos/medico1.jpeg');
-const imgComparacao2 = require('../../assets/img/medicos/medico2.jpeg');
-const imgComparacao3 = require('../../assets/img/medicos/medico3.jpeg');
 
 
 
 export default class ListaMedicos extends React.Component {
-    static navigationOptions = {
-        title: TELA_LISTA_MEDICOS.title,
-            
-        /* No more header config here! */
-      };
+    static navigationOptions = ({ navigation }) => ({
+        headerLeft: (
+            <BotaoFecharHeader navigation={navigation}/>
+          )          
+    });
+    
 
     render() {
         return (

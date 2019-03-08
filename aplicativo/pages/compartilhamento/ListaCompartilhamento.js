@@ -3,16 +3,19 @@ import React from 'react';
 import { Text, TouchableHighlight, View } from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import { TELA_ADD_COMPARTILHAMENTO_LIST, TELA_LISTA_COMPARTILHAMENTO } from '../../constants/AppScreenData';
+import { BotaoFecharHeader } from '../../components/botao/Botao';
 
 const imgComparacao = require('../../assets/img/share/pessoa1.jpeg');
 const imgComparacao2 = require('../../assets/img/share/pessoa2.jpeg');
 const imgComparacao3 = require('../../assets/img/share/pessoa3.jpeg');
 
 export default class ListaCompartilhamento extends React.Component {
-    static navigationOptions = {
-        title: TELA_LISTA_COMPARTILHAMENTO.title
-        /* No more header config here! */
-      };
+      static navigationOptions = ({ navigation }) => ({
+        title: TELA_LISTA_COMPARTILHAMENTO.title,
+        headerLeft: (
+            <BotaoFecharHeader navigation={navigation}/>
+          )          
+    });
 
     render() {
         return (

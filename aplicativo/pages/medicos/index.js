@@ -1,29 +1,36 @@
+import React from "react";
 import { createStackNavigator } from 'react-navigation';
+import EstilosComuns from '../../assets/estilos/estilos';
+import { BotaoMicrofoneHeader } from "../../components/botao/Botao";
+import { TELA_LISTA_MEDICOS } from '../../constants/AppScreenData';
 import AdicionaClinica from "../../pages/medicos/AdicionaClinica";
 import AdicionaMedico from "../../pages/medicos/AdicionaMedico";
 import ListaClinicas from "../../pages/medicos/ListaClinicas";
 import ListaMedicos from "../../pages/medicos/ListaMedicos";
-import { PADRAO_NAVEGACAO } from "../../navigators/NavigatorConfigs";
-import { TELA_MEDICOS } from '../../constants/AppScreenData';
-import EstilosComuns from '../../assets/estilos/estilos';
-
+import ComandoOuvindoVoz from "../voz/ComandoOuvindoVoz";
 
 const MedicosNavigator = createStackNavigator(
     {
-        listaMedicos: {screen: ListaMedicos},                                    
+        listaMedicos: {screen: ListaMedicos},                                     
         adicionaMedicos: {screen: AdicionaMedico},
 
         adicionaClinica: {screen: AdicionaClinica},                                    
         listaClinicas: {screen: ListaClinicas},  
+
+        comandoVoz: ComandoOuvindoVoz,
     },
     {
-        defaultNavigationOptions: {
-            title: TELA_MEDICOS.title,
-            headerStyle: [ EstilosComuns.backgroundToolbar],
-            cardShadowEnabled: "true",
-            headerTitleStyle: [EstilosComuns.corBranca],  
-        }
-    }    
+        defaultNavigationOptions: ({navigation}) => ({
+          title: TELA_LISTA_MEDICOS.title,
+          headerStyle: [ EstilosComuns.backgroundToolbar],
+          cardShadowEnabled: "true",
+          headerTitleStyle: [EstilosComuns.corBranca],  
+          headerRight: (
+            <BotaoMicrofoneHeader navigation={navigation}/>
+          )      
+        })
+    }
+    
 );
 
 export default MedicosNavigator;

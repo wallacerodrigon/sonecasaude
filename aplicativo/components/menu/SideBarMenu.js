@@ -3,28 +3,21 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Rating } from "react-native-ratings";
 import EstilosComuns, { FUNDO_ESCURO } from "../../assets/estilos/estilos";
-import { TELA_HOME, TELA_LISTA_COMPARTILHAMENTO, TELA_LOGIN, TELA_MEDICACOES, TELA_MEDICAMENTOS, TELA_MEDICOS } from "../../constants/AppScreenData";
+import { NAV_COMPARTILHAMENTOS, NAV_MEDICACOES, NAV_MEDICAMENTOS, NAV_MEDICOS, TELA_HOME, TELA_LOGIN } from "../../constants/AppScreenData";
 import { MensagemInformativa } from "../mensagens/Mensagens";
 
 const routes = [
-    {label: 'Iníćio', rota: TELA_HOME.name},
-    {label: 'Controle de medicação', rota: TELA_MEDICACOES.name},
-    {label: 'Meus médicos', rota: TELA_MEDICOS.name},
-    {label: 'Compartilhar informações', rota: TELA_LISTA_COMPARTILHAMENTO.name},
-    {label: 'Medicamentos', rota: TELA_MEDICAMENTOS.name}, //criar mais um item nas constantes...
-    {label: 'Meus endereços', rota: ''},
-    {label: 'Minhas configurações', rota: ''},
-
-    {label: 'Minhas configurações', rota: ''},
-    {label: 'Minhas configurações', rota: ''},
-    {label: 'Minhas configurações', rota: ''},
-    {label: 'Minhas configurações', rota: ''},
-    {label: 'Minhas configurações', rota: ''},
-    {label: 'Minhas configurações', rota: ''},
-
+    {label: 'Início', rota: TELA_HOME.name},
+   // {label: 'Controle de medicação', rota: NAV_MEDICACOES.name},
+    {label: 'Meus médicos', rota: NAV_MEDICOS.name},
+    {label: 'Compartilhar informações', rota: NAV_COMPARTILHAMENTOS.name},
+    {label: 'Medicamentos', rota: NAV_MEDICAMENTOS.name},
+    // {label: 'Meus endereços', rota: ''},
+    // {label: 'Minhas configurações', rota: ''},
     {label: 'Sair do aplicativo', rota: TELA_LOGIN.name},
     
 ];
+
 
 export default class SideBarMenu extends React.Component {
 
