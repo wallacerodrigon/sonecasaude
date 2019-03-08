@@ -15,14 +15,6 @@ const imgMedicacao  = require('../../assets/icons/home/medicacao.png');
 //https://react-native-training.github.io/react-native-elements/docs/avatar.html
 export default class HomeScreen extends React.Component {
    
-    // static navigationOptions: (navigation) => {
-    //     //title: TELA_PADRAO.title,
-    //      headerLeft: ({navigation}) => (
-    //         <Icon name="menu" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} onPress={() => console.log(navigation, this.props)}/>
-    //      )
-    //    };
-    
-
     constructor(){
         super();
 
