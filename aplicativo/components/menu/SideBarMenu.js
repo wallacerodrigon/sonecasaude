@@ -8,7 +8,7 @@ import { MensagemInformativa } from "../mensagens/Mensagens";
 
 const routes = [
     {label: 'Início', rota: TELA_HOME.name},
-   // {label: 'Controle de medicação', rota: NAV_MEDICACOES.name},
+    {label: 'Controle de medicação', rota: NAV_MEDICACOES.name},
     {label: 'Meus médicos', rota: NAV_MEDICOS.name},
     {label: 'Compartilhar informações', rota: NAV_COMPARTILHAMENTOS.name},
     {label: 'Medicamentos', rota: NAV_MEDICAMENTOS.name},

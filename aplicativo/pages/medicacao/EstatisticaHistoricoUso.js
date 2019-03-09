@@ -205,7 +205,7 @@ export default class EstatisticaHistoricoUso extends React.Component {
                     containerStyle={{ }}
                     style={{ backgroundColor: "#04B486" }}
                     position="bottomRight"
-                    onPress={() => this.props.navigation.navigate(TELA_ADD_SHARE_MEDICACAO.name) }>
+                    onPress={() => null }>
                      <Icon name="share" />
                 </Fab>                   
 

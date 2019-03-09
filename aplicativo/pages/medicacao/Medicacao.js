@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Image, StyleSheet, FlatList} from 'react-native';
 import EstilosComuns, { BRANCO, VERDE, FUNDO, FUNDO_ESCURO, DESMARCADO } from '../../assets/estilos/estilos';
 import { BotaoOpacity } from "../../components/botao/Botao";
-import {DatePicker, Container, Thumbnail, Label, Card, CardItem, Content, Icon} from 'native-base';
+import {DatePicker, Container, Thumbnail, Label, Fab, CardItem, Content, Icon} from 'native-base';
 import MedicacaoCard from '../../components/medicacao/MedicacaoCard';
 
 const imgMicrophone = require('../../assets/img/microphone_green.png');
@@ -52,7 +52,18 @@ export default class Medicacao extends React.Component {
                         keyExtractor={(item) => item.idHorario}
                         renderItem={({item}) => <MedicacaoCard item={item}/>}
                     />
+
+                    <Fab 
+                        active={this.state.active}
+                        direction="up"
+                        style={{ backgroundColor: VERDE }}
+                        position="bottomRight"
+                        onPress={() => this.setState({ active: !this.state.active })}>
+                            <Icon name="add" onPress={() => this.props.navigation.navigate(NAV_MEDICAMENTOS.name)} />
+                    </Fab>                      
                 </View>
+
+                              
             </View>
         )
     };

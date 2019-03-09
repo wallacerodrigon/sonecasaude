@@ -3,7 +3,7 @@ import { BotaoMenuHamburguer, BotaoMicrofoneHeader } from '../../components/bota
 import CadastroCompartilhamento from '../compartilhamento/CadastroCompartilhamento';
 import ListaCompartilhamento from './ListaCompartilhamento';
 import { TELA_PADRAO } from '../../constants/AppScreenData';
-import EstilosComuns from '../../assets/estilos/estilos';
+import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
 import React from "react";
 import ComandoOuvindoVoz from '../voz/ComandoOuvindoVoz';
 
@@ -19,6 +19,8 @@ const CompartilhamentoNavigator = createStackNavigator(
           title: TELA_PADRAO.title,
           headerStyle: [ EstilosComuns.backgroundToolbar],
           cardShadowEnabled: "true",
+          headerTintColor: BRANCO,
+
           headerTitleStyle: [EstilosComuns.corBranca],  
           headerRight: (
             <BotaoMicrofoneHeader navigation={navigation}/>

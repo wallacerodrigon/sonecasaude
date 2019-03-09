@@ -3,7 +3,7 @@ import {View, Button, Text} from 'react-native';
 import EstilosComuns, { VERDE, BRANCO } from '../../assets/estilos/estilos';
 import { Icon, Fab, Tabs, Tab, Container } from 'native-base';
 import Medicacao from './Medicacao';
-import { TELA_CONTROLE_MEDICACAO, TELA_HISTORICO_MEDICACAO, TELA_ADD_SHARE_MEDICACAO, TELA_ADD_MEDICAMENTO, TELA_MEDICAMENTOS, TELA_HOME, TELA_CADASTRO_MEDICAMENTO } from '../../constants/AppScreenData';
+import { TELA_CONTROLE_MEDICACAO, TELA_HISTORICO_MEDICACAO, TELA_ADD_SHARE_MEDICACAO, TELA_ADD_MEDICAMENTO, TELA_MEDICAMENTOS, TELA_HOME, TELA_CADASTRO_MEDICAMENTO, NAV_MEDICAMENTOS } from '../../constants/AppScreenData';
 import StatusBar from '../../components/statusBar/StatusBar';
 import HistoricoUsoPorData from './HistoricoUsoPorData';
 
@@ -31,24 +31,18 @@ export default class ControleMedicacao extends React.Component {
                 <View style={{flex: 11, padding: 5}}>
 
                     <Container>
-                        <Tabs> 
+                        <Medicacao />
+                        {/* <Tabs> 
                             <Tab heading="Medicação">
                                 <Medicacao />
                             </Tab>
                             <Tab heading="Seus usos">
                                 <HistoricoUsoPorData />
                             </Tab>
-                        </Tabs>                    
+                        </Tabs>                     */}
                     </Container>
 
-                    <Fab
-                        active={this.state.active}
-                        direction="up"
-                        style={{ backgroundColor: VERDE }}
-                        position="bottomRight"
-                        onPress={() => this.setState({ active: !this.state.active })}>
-                            <Icon name="add" />
-                    </Fab>               
+                                  
                 </View>
 
             </View>

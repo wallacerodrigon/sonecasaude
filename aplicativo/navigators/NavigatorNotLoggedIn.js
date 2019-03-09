@@ -1,5 +1,5 @@
 import {createStackNavigator} from 'react-navigation';
-
+import React from "react";
 import PADRAO_NAVEGACAO from "./NavigatorConfigs";
 
 import LoginComponent from "../pages/login/LoginComponent";
@@ -10,6 +10,11 @@ import Endereco from "../pages/cadastro/Endereco";
 import Desafios from "../pages/cadastro/Desafios";
 import CadastroCompartilhamento from "../pages/compartilhamento/CadastroCompartilhamento";
 import FinalizaCadastro from "../pages/cadastro/FinalizaCadastro";
+
+import { Text } from "react-native";
+import Botao from '../components/botao/Botao';
+import { TELA_PADRAO, TELA_LOGIN } from '../constants/AppScreenData';
+import EstilosComuns, { BRANCO, FUNDO_ESCURO } from '../assets/estilos/estilos';
 
 const StackNotLoggedIn = createStackNavigator(
     {
@@ -23,8 +28,22 @@ const StackNotLoggedIn = createStackNavigator(
         finalizaCadastro: FinalizaCadastro,         
     },
     {
-        defaultNavigationOptions: PADRAO_NAVEGACAO,
-       // headerMode: 'none'
+        defaultNavigationOptions: ({navigation})=> ({
+            title: TELA_PADRAO.title,
+            headerStyle: [ EstilosComuns.backgroundToolbar],
+            headerTintColor: BRANCO,
+            cardShadowEnabled: "true",
+            borderBottomColor: FUNDO_ESCURO,
+            headerTitleStyle: {
+                color: BRANCO
+            },
+            headerRight: (
+                <Text style={{paddingVertical: 10, paddingHorizontal: 10, color: BRANCO, fontSize: 20, fontWeight: 'bold' }} 
+                    onPress={() => navigation.navigate(TELA_LOGIN.name)}>Sair</Text>
+            )
+        })
+            
+        
        
     }    
 );

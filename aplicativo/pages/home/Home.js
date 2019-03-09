@@ -1,9 +1,9 @@
-import { Body, Card, CardItem, Icon } from 'native-base';
+import { KeepAwake } from 'expo';
+import { Body, Card, CardItem } from 'native-base';
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import EstilosComuns, { FUNDO, BRANCO } from '../../assets/estilos/estilos';
-import { TELA_CADASTRO_MEDICAMENTO, TELA_COMANDO_VOZ, TELA_LOGIN, TELA_MEDICOS } from '../../constants/AppScreenData';
-
+import EstilosComuns, { FUNDO } from '../../assets/estilos/estilos';
+import { NAV_MEDICACOES, NAV_MEDICOS, TELA_COMANDO_VOZ, TELA_LOGIN } from '../../constants/AppScreenData';
 
 const imgMicrophone = require('../../assets/img/microphone_green.png');
 
@@ -21,9 +21,7 @@ export default class HomeScreen extends React.Component {
         
     }
 
-    static navigationOptions = {
-        headerRight: null
-      };    
+      
 
     retornarLogin = () => {
         this.abrirTela(TELA_LOGIN.name);
@@ -40,13 +38,12 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <View style={EstilosComuns.container}>
-                {/* <StatusBar style={styles.containerStatusBar} {...this.props}/> */}
-
                 <Card style={[styles.microfone, EstilosComuns.backgroundPadrao]}>
-                    <CardItem cardBody>
+                    <CardItem cardBody >
                         <Body style={styles.microfone}>
                             <TouchableOpacity onPress={()=> this.abrirTelaOuvindo()} >
-                                <Image spectRadio={1} source={imgMicrophone} resizeMode="cover"/>
+                                <Image spectRadio={1} source={imgMicrophone} 
+                                    resizeMode="cover"/>
                             </TouchableOpacity>
                         </Body>
                     </CardItem>
@@ -73,7 +70,7 @@ export default class HomeScreen extends React.Component {
 
                         <Card style={styles.card}>
                             <CardItem cardBody>
-                                <TouchableOpacity  onPress={() => this.abrirTela(TELA_CADASTRO_MEDICAMENTO.name)}>
+                                <TouchableOpacity  onPress={() => this.abrirTela(NAV_MEDICACOES.name)}>
                                    <Image style={styles.imgWidget} aspectRadio={1} source={imgMedicacao} resizeMode="cover"/>
                                 </TouchableOpacity>                            
                             </CardItem>
@@ -98,7 +95,7 @@ export default class HomeScreen extends React.Component {
                         </Card>  
 
                         <Card style={styles.card}>
-                            <TouchableOpacity  onPress={() => this.abrirTela(TELA_MEDICOS.name)}>
+                            <TouchableOpacity  onPress={() => this.abrirTela(NAV_MEDICOS.name)}>
                                 <CardItem cardBody>
                                             <Image style={styles.imgWidget} aspectRadio={1} source={imgConsulta} resizeMode="cover"/>
 
@@ -123,18 +120,19 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: FUNDO
+        backgroundColor: FUNDO,
+        paddingTop: 1
     },
     containerStatusBar: {
         flex: 1
     },  
     rodapeMicrofone: {
-        flex: 2,
+        flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: FUNDO,
-        marginBottom: 5
+        marginBottom: 4
     },
     icones: {
         flex: 6,

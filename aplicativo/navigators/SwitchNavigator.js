@@ -12,6 +12,7 @@ const SwitchNavigator = createSwitchNavigator(
   },
   {
     initialRouteName: 'navigatorNotLoggedIn',
+   
   }
 );
 

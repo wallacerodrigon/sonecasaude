@@ -21,6 +21,10 @@ export default class PrescricaoMedicamento extends React.Component {
         this.state = {email: '', medicamento: 'Xarope 1'}
     }
 
+    componentWillMount(){
+       // this.setState({medicamento: this.props.navigation.state.medicamento.nomeMedicamento})
+    }
+
     onChangeInput(fieldname, text){
         this.setState({[fieldname]: text});
     }

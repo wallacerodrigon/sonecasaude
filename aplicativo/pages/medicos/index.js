@@ -1,6 +1,6 @@
 import React from "react";
 import { createStackNavigator } from 'react-navigation';
-import EstilosComuns from '../../assets/estilos/estilos';
+import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
 import { BotaoMicrofoneHeader } from "../../components/botao/Botao";
 import { TELA_LISTA_MEDICOS } from '../../constants/AppScreenData';
 import AdicionaClinica from "../../pages/medicos/AdicionaClinica";
@@ -24,6 +24,7 @@ const MedicosNavigator = createStackNavigator(
           title: TELA_LISTA_MEDICOS.title,
           headerStyle: [ EstilosComuns.backgroundToolbar],
           cardShadowEnabled: "true",
+          headerTintColor: BRANCO,
           headerTitleStyle: [EstilosComuns.corBranca],  
           headerRight: (
             <BotaoMicrofoneHeader navigation={navigation}/>

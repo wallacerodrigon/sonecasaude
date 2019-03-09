@@ -20,11 +20,11 @@ export const TELA_LISTA_COMPARTILHAMENTO = {name: 'listaCompartilhamento', title
     /*Controle de medicação */
 export const TELA_CONTROLE_MEDICACAO = {name:"controleMedicacao", title: "Minhas medicações"};
 export const TELA_ESTATISTICA_MEDICACAO = {name:"estatisticaMedicacao", title: "Estatísticas"};
-export const TELA_HISTORICO_DIARIO = {name:"historicoUso", title: "Seu histórico diário"};
+export const TELA_HISTORICO_DIARIO = {name:"historicoUso", title: "O que fiz"};
 
 /**MEDICAMENTO */
 export const TELA_CADASTRO_MEDICAMENTO = {name:"cadastroMedicamento", title: "Adicionar medicamento"};
-export const TELA_PRESCRICAO = {name:"listaMedicamentos", title: "Adicionar medicamento"};
+export const TELA_PRESCRICAO = {name:"prescricaoMedicamento", title: "Adicionar medicamento"};
 
 
     /**alarmes e controle de voz */
