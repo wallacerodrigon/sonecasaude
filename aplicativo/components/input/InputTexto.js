@@ -30,6 +30,7 @@ export class InputTexto extends React.Component {
                     placeholderTextColor={this.props.placeholderTextColor || PLACE_HOLDER_COLOR}
                     keyboardType={this.props.keyboardType}
                     editable={this.props.editable}
+                    value={this.props.value}
                 />
             </View>
         )

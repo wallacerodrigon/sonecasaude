@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Image, Text, StyleSheet} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import { Container, Thumbnail } from "native-base";
+import Botao from '../../components/botao/Botao';
 
 const imgMicrophone = require('../../assets/img/microphone_green.png');
 const imgOuvindo = require('../../assets/img/ouvindo.png');
@@ -30,6 +31,9 @@ export default class ComandoOuvindoVoz extends React.Component {
                     <Image source={imgOuvindo}  spectRadio={1} resizeMode="cover" width="500"/>
                 </View>
 
+                <View>
+                    <Botao tituloBotao="Simula término da fala..." onClick={() => this.props.navigation.goBack()}/>
+                </View>
 
             </View>
         )

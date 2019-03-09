@@ -7,10 +7,13 @@ import {TELA_PADRAO, TELA_HOME, TELA_ESQUECI_SENHA, TELA_CADASTRO_PERFIL} from '
 import CommandLink from '../../components/botao/CommandLink';
 import {InputTexto} from '../../components/input/InputTexto';
 
+import { connect } from "react-redux";
+
+import { efetuarLoginAction, validarLoginAction } from "../../actions";
 
 const imgLogo = require('../../assets/img/logo-login.jpeg');
  
-export default class LoginComponent extends Component {
+class LoginComponent extends Component {
    
     static navigationOptions = {
         title: TELA_PADRAO.title,
@@ -24,8 +27,6 @@ export default class LoginComponent extends Component {
             login: '', senha: ''
         };
 
-        this.onChangeLogin= this.onChangeLogin.bind(this);
-        this.onChangeSenha = this.onChangeSenha.bind(this);
     }
 
     isVazio(texto){
@@ -37,7 +38,16 @@ export default class LoginComponent extends Component {
             MensagemErro("Login e senha devem ser informados!");
             return;
         }*/
-        this.props.navigation.navigate(TELA_HOME.name);
+       //this.props.navigation.navigate(TELA_HOME.name);
+       
+       let retorno = this.props.efetuarLogin({login: this.props.login, senha: this.props.senha});
+       console.log(retorno);
+
+    //    if (retorno != null){
+    //        this.props.navigation.navigate(TELA_HOME.name);
+    //    } else {
+    //         MensagemErro("Login ou senha devem estar inválidos!");
+    //    }
     }
 
     executarNovoCadastro= () => {
@@ -71,15 +81,17 @@ export default class LoginComponent extends Component {
 
             <View style={styles.central}>
                 <InputTexto placeholder="E-mail ou telefone" maxLength={40}
-                    onChangeInput={this.onChangeLogin}
+                   // onChangeInput={this.onChangeLogin}
                     autoCapitalize="none"
                     keyboardType={InputTexto.KEYBOARD_EMAIL}
+                    value={this.props.login}
                     />
 
 
                 <InputTexto placeholder="Senha" maxLength={10} secureTextEntry
-                    onChangeInput={this.onChangeSenha}
+                   // onChangeInput={texto => this.props.onChangeField('senha', texto)}
                     autoCapitalize="none"
+                    value={this.props.senha}
                     textcontextType="password"/>
 
                 <CommandLink styles={styles.esqueceuSenha} tituloBotao="Não sabe sua senha? Clique aqui para recuperá-la." onClick={() => this.executarEsqueciSenha()}/>
@@ -95,6 +107,19 @@ export default class LoginComponent extends Component {
         )
     }
 };
+
+/**aqui estou fazendo um de-para de uma variavel interna com a action*/
+const mapStateToProps = state => ({
+    login: state.loginReducer.login,
+    senha: state.loginReducer.senha
+})
+
+const mapDispatchToProps = ({
+    validarLogin: validarLoginAction,
+    efetuarLogin: efetuarLoginAction
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent);
 
 
 const styles = StyleSheet.create({
