@@ -1,19 +1,24 @@
+import { DatePicker, Fab, Icon, Label } from 'native-base';
 import React from 'react';
-import {View, Text, Image, StyleSheet, FlatList} from 'react-native';
-import EstilosComuns, { BRANCO, VERDE, FUNDO, FUNDO_ESCURO, DESMARCADO } from '../../assets/estilos/estilos';
-import { BotaoOpacity } from "../../components/botao/Botao";
-import {DatePicker, Container, Thumbnail, Label, Fab, CardItem, Content, Icon} from 'native-base';
+import { FlatList, StyleSheet, View } from 'react-native';
+import EstilosComuns, { FUNDO, FUNDO_ESCURO, VERDE } from '../../assets/estilos/estilos';
 import MedicacaoCard from '../../components/medicacao/MedicacaoCard';
+import { NAV_MEDICAMENTOS } from '../../constants/AppScreenData';
 
 const imgMicrophone = require('../../assets/img/microphone_green.png');
 
 
 export default class Medicacao extends React.Component {
 
+    constructor(props){
+        super(props);
+        this.state= {active: false};
+    }
+
     medicamentosDoDia(){
        return [
-            {idHorario: 1, hora:"08:00", medicamentos: [ {id: 1, nomeMedicamento: "Losartana", prescricao: "1 comprimido"}] },
-            {idHorario: 11, hora:"10:00", medicamentos: [ {id: 110, nomeMedicamento: "Celestrat", prescricao: "1 colher de chá"}] },
+          //  {idHorario: 1, hora:"08:00", medicamentos: [ {id: 1, nomeMedicamento: "Losartana", prescricao: "1 comprimido"}] },
+          //  {idHorario: 11, hora:"10:00", medicamentos: [ {id: 110, nomeMedicamento: "Celestrat", prescricao: "1 colher de chá"}] },
             {idHorario: 21, hora:"12:00", medicamentos: [ {id: 1111, nomeMedicamento: "Buscopan composto", prescricao: "1 comprimido"}] },
             {idHorario: 2, hora:"20:00", 
               medicamentos: [   {id: 11, nomeMedicamento: "Losartana", prescricao: "1 comprimido"},

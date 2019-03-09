@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from 'react-navigation';
-import EstilosComuns, { VERDE, BRANCO, FUNDO, FUNDO_ESCURO } from '../../assets/estilos/estilos';
+import EstilosComuns, { VERDE, BRANCO, FUNDO, FUNDO_ESCURO, MARCADO, PRETO } from '../../assets/estilos/estilos';
 import { TELA_CONTROLE_MEDICACAO } from '../../constants/AppScreenData';
 import ListaCompartilhamento from '../compartilhamento/ListaCompartilhamento';
 import ControleMedicacao from "./ControleMedicacao";
@@ -9,30 +9,23 @@ import { Icon } from 'native-base';
 import { BotaoFecharHeader } from '../../components/botao/Botao';
 import HistoricoUsoPorData from './HistoricoUsoPorData';
 import Medicacao from './Medicacao';
+import IconeTabBar from './IconeTabBar';
 
 const MedicacoesNavigator = createBottomTabNavigator(
     {
         controleMedicacao: {
-            screen: HistoricoUsoPorData,
+            screen: Medicacao,
             navigationOptions: () => ({
-                tabBarIcon: ({tintColor}) => (
-                    <Icon
-                        name="medkit"
-                        style={{color: BRANCO}}
-                        size={24}
-                    />
+                tabBarIcon: () => (
+                    <IconeTabBar iconName="medkit"/>
                 )
             })
         },   
         historicoUso: {
             screen: HistoricoUsoPorData,
             navigationOptions: () => ({
-                tabBarIcon: ({tintColor}) => (
-                    <Icon
-                        name="calendar"
-                        style={{color: BRANCO}}
-                        size={24}
-                    />
+                tabBarIcon: () => (
+                    <IconeTabBar iconName="calendar"/>
                 )
             })
 
@@ -40,12 +33,8 @@ const MedicacoesNavigator = createBottomTabNavigator(
         estatisticaMedicacao: {
             screen: EstatisticaHistoricoUso,
             navigationOptions: () => ({
-                tabBarIcon: ({tintColor}) => (
-                    <Icon
-                        name="stats"
-                        style={{color: BRANCO}}
-                        size={24}
-                    />
+                tabBarIcon: () => (
+                    <IconeTabBar iconName="stats"/>                
                 )
             })
 
@@ -54,13 +43,8 @@ const MedicacoesNavigator = createBottomTabNavigator(
         listaCompartilhamento: {
             screen: ListaCompartilhamento,
             navigationOptions: () => ({
-                tabBarIcon: ({tintColor}) => (
-                    //MONTAR COMPONENTE
-                    <Icon
-                        name="share"
-                        style={{color: BRANCO}}
-                        size={24}
-                    />
+                tabBarIcon: () => (
+                    <IconeTabBar iconName="share"/>
                 )
             })
 
@@ -79,8 +63,10 @@ const MedicacoesNavigator = createBottomTabNavigator(
         }),
         tabBarOptions: {
           showLabel: true, // hide labels
-          activeTintColor: FUNDO_ESCURO, // active icon color
-          inactiveTintColor: FUNDO,  // inactive icon color
+          activeTintColor: BRANCO, // active icon color
+          activeBackgroundColor: MARCADO, //fundo azul quando ativo
+          inactiveTintColor: PRETO,  // inactive icon color
+          //inactiveBackgroundColor: FUNDO,
           style: {
               backgroundColor: VERDE // TabBar background
           }          

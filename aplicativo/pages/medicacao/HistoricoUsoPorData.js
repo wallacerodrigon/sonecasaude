@@ -22,16 +22,16 @@ export default class HistoricoUsoPorData extends React.Component {
 
     medicamentosDoDia(){
         return [
-            {idHorario: 1, hora:"08:00", telaUso: true, medicamentos: [ {id: 1, nomeMedicamento: "Losartana", prescricao: "1 comprimido", confirmado: true, horaUsoEfetivo: '08h01'}] },
-            {idHorario: 11, hora:"10:00", telaUso: true, medicamentos: [ {id: 110, nomeMedicamento: "Celestrat", prescricao: "1 colher de chá", confirmado: true, horaUsoEfetivo: '10h00'}] },
-            {idHorario: 21, hora:"12:00", telaUso: true, medicamentos: [ {id: 1111, nomeMedicamento: "Buscopan composto", prescricao: "1 comprimido", confirmado: false, horaUsoEfetivo: ''}] },
-            {idHorario: 2, hora:"20:00", telaUso: true,
-              medicamentos: [   {id: 11, nomeMedicamento: "Losartana", prescricao: "1 comprimido", horaUsoEfetivo: '20h03', confirmado: true},
-                                {id: 31, nomeMedicamento: "Roxflan", prescricao: "2 comprimido(s)", horaUsoEfetivo: '', confirmado: false},
-                                {id: 21, nomeMedicamento: "Dipirona", prescricao: "40 gotas", horaUsoEfetivo: '20h10', confirmado: true},
-                            ]
-                         },
-       ]
+            {idHorario: 1, hora:"08:00", telaUso: true, medicamentos: [ {id: 1, nomeMedicamento: "Losartana", prescricao: "1 comprimido", confirmado: true, horaUsoEfetivo: '08h00'}] },
+            {idHorario: 11, hora:"10:00", telaUso: true, medicamentos: [ {id: 110, nomeMedicamento: "Celestrat", prescricao: "1 colher de chá", confirmado: false, horaUsoEfetivo: '-'}] },
+//            {idHorario: 21, hora:"12:00", telaUso: true, medicamentos: [ {id: 1111, nomeMedicamento: "Buscopan composto", prescricao: "1 comprimido", confirmado: false, horaUsoEfetivo: ''}] },
+    //         {idHorario: 2, hora:"20:00", telaUso: true,
+    //           medicamentos: [   {id: 11, nomeMedicamento: "Losartana", prescricao: "1 comprimido", horaUsoEfetivo: '20h03', confirmado: true},
+    //                             {id: 31, nomeMedicamento: "Roxflan", prescricao: "2 comprimido(s)", horaUsoEfetivo: '', confirmado: false},
+    //                             {id: 21, nomeMedicamento: "Dipirona", prescricao: "40 gotas", horaUsoEfetivo: '20h10', confirmado: true},
+    //                         ]
+    //                      },
+        ]
 
     }
     

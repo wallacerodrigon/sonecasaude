@@ -18,9 +18,9 @@ export const TELA_ADD_COMPARTILHAMENTO_LIST = {name: 'cadastroCompartilhamentoFr
 export const TELA_LISTA_COMPARTILHAMENTO = {name: 'listaCompartilhamento', title: 'Compartilhamentos'};
 
     /*Controle de medicação */
-export const TELA_CONTROLE_MEDICACAO = {name:"controleMedicacao", title: "Minhas medicações"};
+export const TELA_CONTROLE_MEDICACAO = {name:"controleMedicacao", title: "Medicações"};
 export const TELA_ESTATISTICA_MEDICACAO = {name:"estatisticaMedicacao", title: "Estatísticas"};
-export const TELA_HISTORICO_DIARIO = {name:"historicoUso", title: "O que fiz"};
+export const TELA_HISTORICO_DIARIO = {name:"historicoUso", title: "Usos diários"};
 
 /**MEDICAMENTO */
 export const TELA_CADASTRO_MEDICAMENTO = {name:"cadastroMedicamento", title: "Adicionar medicamento"};
