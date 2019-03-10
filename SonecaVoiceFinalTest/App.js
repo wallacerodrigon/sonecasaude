@@ -10,7 +10,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Button, Text, View} from 'react-native';
 import Voice from 'react-native-voice';
-//import Speech from 'react-native-speech';
+import Tts from 'react-native-tts';
 
 export default class App extends Component {
 
@@ -24,15 +24,19 @@ export default class App extends Component {
     Voice.onSpeechRecognized = this.onSpeechRecognized.bind(this);
     Voice.onSpeechResults = this.onSpeechResults.bind(this);
 
-    console.log(Voice);
   }
   
   async componentWillMount() {
     this.setState({ isReady: true });
-  }  
+    Tts.setDefaultLanguage('pt-BR');
+    Tts.setDefaultRate(0.6);
+ }  
 
   testarSpeech(){
-    alert('não funciona ainda');
+    Tts.getInitStatus().then(() => {
+      alert('ok, estou pronto para falar');
+      Tts.speak('Bom dia, não se esqueça de tomar sua aspirina às 8 horas');
+    });    
     // Speech.speak({
     //   text: this.state.texto,
     //   voice:'pt-BR'
