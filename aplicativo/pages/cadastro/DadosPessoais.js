@@ -6,47 +6,33 @@ import { InputTextComMascara, InputTexto } from '../../components/input/InputTex
 import { TELA_ENDERECO, TELA_LOGIN } from '../../constants/AppScreenData';
 import { PERFIL_CUIDADOR, PERFIL_PACIENTE } from '../../constants/ConstantesInternas';
 
+import Validador from "../../utilitarios/Validador";
+
 class DadosPessoais extends React.Component {
 
     tipoPerfil = 'P';
 
     constructor(props){
         super(props);
-        console.log(props);
-        this.state = {sexo: "", cpf:'', dataNascimento: null, celular: '', labelBotao: 'Próximo'};
-        
-        this.onChangeDataNascimento =this.onChangeDataNascimento.bind(this);
 
         this.tipoPerfil = this.props.navigation.state.params.tipoPerfil;
     }
 
     componentWillMount(){
         this.setState({labelBotao: this.tipoPerfil === PERFIL_CUIDADOR ? 'Finalizar': 'Próximo'});
-
-    }
-
-
-    onChangeInput(fieldname, text){
-        this.setState({[fieldname]: text});
-    }
-
-    onChangeCpf(text){
-        this.setState({cpf: text});
-    }
-    onChangeDataNascimento(text){
-        this.setState({dataNascimento: text});
-    }
-    onChangeCelular(text){
-        this.setState({celular: text});
     }
 
     gotoNextScreen(){
-        if (this.tipoPerfil === PERFIL_PACIENTE){
-            this.props.navigation.navigate(TELA_ENDERECO.name);        
-        } else {
-            this.props.navigation.navigate(TELA_LOGIN.name);        
-        }
+        let bolCpfValido = true; //new Validador().validaCPF(this.state.cpf);
 
+        if (bolCpfValido && 
+            this.tipoPerfil === PERFIL_PACIENTE){
+            this.props.navigation.navigate(TELA_ENDERECO.name);        
+        } else if (bolCpfValido) {
+            this.props.navigation.navigate(TELA_LOGIN.name);        
+        } else {
+            alert('cpf inválido');
+        }
     }
 
     render() {
@@ -60,29 +46,30 @@ class DadosPessoais extends React.Component {
                 
                 <View style={EstilosComuns.bodyMain}>
                     <InputTextComMascara  style={[EstilosComuns.inputText]} 
-                        onChangeText={this.onChangeCpf}
+                       // onChangeText={text =>this.onChangeCpf(text)}
                         placeholder="Digite seu CPF"
                         type={InputTextComMascara.MASK_CPF}
+                        value={this.state.cpf}
                     />
            
                     <InputTexto placeholder="E-mail" maxLength={40}
                         keyboardType={InputTexto.KEYBOARD_EMAIL}
                         autoCapitalize="none"
-                        onChangeInput={value => this.onChangeInput(value)}
+                      //  onChangeInput={value => this.onChangeInput(value)}
                         />
                     <InputTexto placeholder="Nome Completo" maxLength={60}
                         autoCapitalize="words"
-                        onChangeInput={value => this.onChangeInput(value)}
+                      //  onChangeInput={value => this.onChangeInput(value)}
                         />
                     <InputTextComMascara  style={[EstilosComuns.inputText]} 
-                        onChangeText={this.onChangeCpf}
+                       // onChangeText={this.onChangeCpf}
                         placeholder="Data de nascimento"
                         type={InputTextComMascara.MASK_DATA}
                     />                   
 
 
                     <InputTextComMascara  style={[EstilosComuns.inputText]} 
-                        onChangeText={this.onChangeCelular}
+                        //onChangeText={this.onChangeCelular}
                         placeholder="Digite seu celular"
                         type={InputTextComMascara.MASK_CELULAR}
                     />                        

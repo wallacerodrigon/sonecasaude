@@ -1,7 +1,7 @@
 export const VALIDAR = "validarPreenchimento";
 export const EFETUAR_LOGIN ="efetuarLogin";
 export const EFETUAR_LOGOUT = "";
-export const CHANGE_FIELD = "onChangeField";
+
 
 export const efetuarLoginAction = (user) => ({
     type: EFETUAR_LOGIN,
@@ -18,8 +18,14 @@ export const validarLoginAction = (user) => ({
     user
 })
 
-export const onChangeField = (fieldName, text) => ({
+export const onChangeLogin = (value) => ({
     type: CHANGE_FIELD, 
-    fieldName,
-    text
+    field: 'login',
+    value
+})
+
+export const onChangeSenha = (value) => ({
+    type: CHANGE_FIELD,
+    field: 'senha', 
+    value
 })

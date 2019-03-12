@@ -9,7 +9,8 @@ import {InputTexto} from '../../components/input/InputTexto';
 
 import { connect } from "react-redux";
 
-import { efetuarLoginAction, validarLoginAction } from "../../actions";
+import { efetuarLoginAction, validarLoginAction, onChangeLogin, onChangeSenha } from "../../actions";
+import { MensagemErro } from "../../components/mensagens/Mensagens";
 
 const imgLogo = require('../../assets/img/logo-login.jpeg');
  
@@ -22,29 +23,22 @@ class LoginComponent extends Component {
 
     constructor(props){
         super(props);
-
-        this.state= {
-            login: '', senha: ''
-        };
-
-    }
-
-    isVazio(texto){
-        return texto == null || texto == undefined || texto == '';
     }
 
     efetuarLogin = () => {
-       /* if (this.isVazio(this.state.login) || this.isVazio(this.state.senha)){
-            MensagemErro("Login e senha devem ser informados!");
-            return;
-        }*/
+        let userDto = {login: this.props.login, senha: this.props.senha};
+        // this.props.validarLoginAction(userDto);
+        // if (! this.props.validos ){
+        //     MensagemErro("Login e senha devem ser informados!");
+        //     return;
+        // }
        //this.props.navigation.navigate(TELA_HOME.name);
        
-       let retorno = this.props.efetuarLogin({login: this.props.login, senha: this.props.senha});
-       console.log(retorno);
+//       let retorno = this.props.efetuarLoginAction(userDto);
+  //     console.log('ok, efetuando login agora...', retorno);
 
     //    if (retorno != null){
-    //        this.props.navigation.navigate(TELA_HOME.name);
+            this.props.navigation.navigate(TELA_HOME.name);
     //    } else {
     //         MensagemErro("Login ou senha devem estar inválidos!");
     //    }
@@ -58,18 +52,6 @@ class LoginComponent extends Component {
         this.props.navigation.navigate(TELA_ESQUECI_SENHA.name);
     }
 
-    onChangeLogin(text){
-        this.setState({login: text});
-    }
-
-    onChangeSenha(text){
-        this.setState({senha: text});
-    }
-
-    onChangeField(field, value){
-        this.setState({[field]: value});
-    }
-
     render() {
 
         return (
@@ -81,15 +63,16 @@ class LoginComponent extends Component {
 
             <View style={styles.central}>
                 <InputTexto placeholder="E-mail ou telefone" maxLength={40}
-                   // onChangeInput={this.onChangeLogin}
+                    onChangeInput={texto => this.props.onChangeLogin(texto)}
                     autoCapitalize="none"
+                    fieldName="login"
                     keyboardType={InputTexto.KEYBOARD_EMAIL}
                     value={this.props.login}
                     />
 
 
                 <InputTexto placeholder="Senha" maxLength={10} secureTextEntry
-                   // onChangeInput={texto => this.props.onChangeField('senha', texto)}
+                    onChangeInput={texto => this.props.onChangeSenha(texto)}
                     autoCapitalize="none"
                     value={this.props.senha}
                     textcontextType="password"/>
@@ -111,15 +94,11 @@ class LoginComponent extends Component {
 /**aqui estou fazendo um de-para de uma variavel interna com a action*/
 const mapStateToProps = state => ({
     login: state.loginReducer.login,
-    senha: state.loginReducer.senha
+    senha: state.loginReducer.senha,
+    validos: state.loginReducer.validos
 })
 
-const mapDispatchToProps = ({
-    validarLogin: validarLoginAction,
-    efetuarLogin: efetuarLoginAction
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent);
+export default connect(mapStateToProps, { efetuarLoginAction, validarLoginAction, onChangeLogin, onChangeSenha })(LoginComponent);
 
 
 const styles = StyleSheet.create({
@@ -159,6 +138,6 @@ const styles = StyleSheet.create({
          
         marginTop: 15,
         marginBottom: 15,
-        alignItems: 'center'
+        textAlign: 'center'
     }
   });

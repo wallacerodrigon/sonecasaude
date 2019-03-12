@@ -12,7 +12,7 @@ export const MensagemInformativa = (mensagem) => {
 
 export const MensagemErro= (mensagem) => {
     Alert.alert(
-        'Erro!',
+        'Atenção!',
         mensagem,
         [
             {text: 'OK'},

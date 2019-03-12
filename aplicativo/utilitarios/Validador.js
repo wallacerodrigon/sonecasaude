@@ -1,10 +1,10 @@
-export class Validadores {
+export default class Validador {
 
      corObjErro = '#EBEBEB';
      corObjNormal = '#FFFFFF';
 
 
-     _verifica_cpf_cnpj ( valor )  {
+     verificaCpfCnpj( valor )  {
  
             if (! valor){
                 return '';
@@ -28,7 +28,7 @@ export class Validadores {
                 return null;
             }
     
-    } // verifica_cpf_cnpj    
+    } // verificaCpfCnpj    
 
     /*
     calc_digitos_posicoes
@@ -94,14 +94,11 @@ export class Validadores {
     @param  string cpf O CPF com ou sem pontos e traço
     @return bool True para CPF correto - False para CPF incorreto
     */
-     valida_cpf( valor ) {
-    
+     validaCPF( valor ) {
         if (valor){
                 // Remove caracteres inválidos do valor
                 valor = this.mantemSomenteNumeros(valor);
 
-            
-            
                 // Captura os 9 primeiros dígitos do CPF
                 // Ex.: 02546288423 = 025462884
                 let digitos = valor.substr(0, 9);
@@ -121,22 +118,22 @@ export class Validadores {
                     return false;
                 }
         } else {
-            return true;
+            return false;
         }
 
         
         
-    } // valida_cpf
+    } // validaCPF
     
     /*
-    valida_cnpj
+    validaCNPJ
     
     Valida se for um CNPJ
     
     @param string cnpj
     @return bool true para CNPJ correto
     */
-     valida_cnpj ( valor ) {
+     validaCNPJ( valor ) {
 
         if (! valor){
             return true;
@@ -171,20 +168,20 @@ export class Validadores {
         // Retorna falso por padrão
         return false;
         
-    } // valida_cnpj
+    } // validaCNPJ
     
     /*
-    valida_cpf_cnpj
+    validaCPF_cnpj
     
     Valida o CPF ou CNPJ
     
     @access 
     @return bool true para válido, false para inválido
     */
-     valida_cpf_cnpj ( valor ) {
+     validaCPF_cnpj ( valor ) {
     
         // Verifica se é CPF ou CNPJ
-        let valida = this._verifica_cpf_cnpj( valor );
+        let valida = this._verificaCpfCnpj( valor );
         
         // Remove caracteres inválidos do valor
         valor = this.mantemSomenteNumeros(valor);
@@ -194,13 +191,13 @@ export class Validadores {
         // Valida CPF
         if ( valida === 'CPF' ) {
             // Retorna true para cpf válido
-            return this.valida_cpf( valor );
+            return this.validaCPF( valor );
         } 
         
         // Valida CNPJ
         else if ( valida === 'CNPJ' ) {
             // Retorna true para CNPJ válido
-            return this.valida_cnpj( valor );
+            return this.validaCNPJ( valor );
         } 
         
         // Não retorna nada
@@ -208,7 +205,7 @@ export class Validadores {
             return false;
         }
         
-    } // valida_cpf_cnpj
+    } // validaCPF_cnpj
     
     /*
     formata_cpf_cnpj
@@ -224,7 +221,7 @@ export class Validadores {
         let formatado = '';
         
         // Verifica se é CPF ou CNPJ
-        let valida = this._verifica_cpf_cnpj( valor );
+        let valida = this._verificaCpfCnpj( valor );
     
         // Garante que o valor é uma string
         valor = valor.toString();
@@ -238,7 +235,7 @@ export class Validadores {
         if ( valida === 'CPF' ) {
         
             // Verifica se o CPF é válido
-            if ( this.valida_cpf( valor ) ) {
+            if ( this.validaCPF( valor ) ) {
             
                 // Formata o CPF ###.###.###-##
                 formatado  = valor.substr( 0, 3 ) + '.';
@@ -254,7 +251,7 @@ export class Validadores {
         else if ( valida === 'CNPJ' ) {
         
             // Verifica se o CNPJ é válido
-            if ( this.valida_cnpj( valor ) ) {
+            if ( this.validaCNPJ( valor ) ) {
             
                 // Formata o CNPJ ##.###.###/####-##
                 formatado  = valor.substr( 0,  2 ) + '.';

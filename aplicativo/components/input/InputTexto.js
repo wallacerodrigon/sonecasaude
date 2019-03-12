@@ -23,7 +23,7 @@ export class InputTexto extends React.Component {
                     maxLength={this.props.maxLength} 
                     secureTextEntry={this.props.secureTextEntry} 
                     textContentType={this.props.textContentType} 
-                    onChange={value => this.props.onChangeInput(this.props.fieldname, value.nativeEvent.text)}
+                    onChange={textChanged => this.props.onChangeInput(textChanged.nativeEvent.text) }
                     autoCapitalize={this.props.autoCapitalize}
                     multiline={this.props.multiline}
                     numberOfLines={this.props.numberOfLines}
@@ -67,10 +67,11 @@ export class InputTextComMascara extends React.Component {
     render() {
         return (    
            <TextInputMask  style={[EstilosComuns.inputText]} 
-                onChangeText={this.onChangeText}
+                onChangeText={text => this.props.onChangeText(text) }
                 placeholder={this.props.placeholder}
                 placeholderTextColor={this.props.placeholderTextColor || PLACE_HOLDER_COLOR}
                 type={this.props.type}
+                value={this.props.value}
             />    
         );
     }
