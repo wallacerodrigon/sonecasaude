@@ -34,17 +34,17 @@ class PeriodicidadeMedicamento extends React.Component {
                         Qual a indicação do seu médico para tomar o medicamento?
                     </Text>
                 </View>
-                
+                 
                 <View style={[EstilosComuns.bodyMain, styles.containerCentral]}>
 
-                        <View style={{flex: 2}}>
+                        <View style={{flex: 1}}>
                             <Botao tituloBotao={this.periodicidade[0].nome} onClick={() => this.gotoPrescricao(this.periodicidade[0].sigla)}/>
                         </View>
-                        <View style={{flex: 6}}>
+                        <View style={{flex: 1}}>
                             <Botao tituloBotao={this.periodicidade[1].nome} onClick={() => this.gotoPrescricao(this.periodicidade[1].sigla)}/>
                         </View>
                                                                                                             
-
+                        <View style={{flex: 6}}/>
 
                 </View>
                 
@@ -55,9 +55,8 @@ class PeriodicidadeMedicamento extends React.Component {
 
 const styles= StyleSheet.create({
     containerCentral: {
-        flexDirection: 'column', 
-        justifyContent: 'flex-start',
-        padding: 25
+        padding: 20,
+
     }
 })
 

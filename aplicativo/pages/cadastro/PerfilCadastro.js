@@ -40,15 +40,15 @@ class PerfilCadastro extends React.Component {
                 
                 <View style={[EstilosComuns.bodyMain, styles.containerCentral]}>
 
-                        <View style={{flex: 1}}>
-                            <Botao tituloBotao={this.perfisVisiveis[0].nome} onClick={() => this.gotoNextScreen(TELA_DADOS_PESSOAIS, PERFIL_PACIENTE)}/>
-                        </View>
-                        <View style={{flex: 6}}>
-                            <Botao tituloBotao={this.perfisVisiveis[1].nome} onClick={() => this.gotoNextScreen(TELA_DADOS_PESSOAIS, PERFIL_CUIDADOR)}/>
-                        </View>
-                                                                                                            
+                    <View style={{flex: 1}}>
+                        <Botao tituloBotao={this.perfisVisiveis[0].nome} onClick={() => this.gotoNextScreen(TELA_DADOS_PESSOAIS, PERFIL_PACIENTE)}/>
+                    </View>
 
+                    <View style={{flex: 1}}>
+                        <Botao tituloBotao={this.perfisVisiveis[1].nome} onClick={() => this.gotoNextScreen(TELA_DADOS_PESSOAIS, PERFIL_CUIDADOR)}/>
+                    </View>
 
+                    <View style={{flex: 6}}/>
                 </View>
                 
             </View>
@@ -58,9 +58,8 @@ class PerfilCadastro extends React.Component {
 
 const styles= StyleSheet.create({
     containerCentral: {
-        flexDirection: 'column', 
-        justifyContent: 'flex-start',
-        padding: 20
+        padding: 20,
+        height: 200
     }
 })
 

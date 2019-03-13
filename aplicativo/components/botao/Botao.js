@@ -1,7 +1,7 @@
 import { Icon } from 'native-base';
 import React from 'react';
 import { Button, TouchableOpacity, View, Text } from 'react-native';
-import { BRANCO, FUNDO, VERDE } from '../../assets/estilos/estilos';
+import { BRANCO, FUNDO, VERDE, DESMARCADO } from '../../assets/estilos/estilos';
 import { TELA_COMANDO_VOZ } from '../../constants/AppScreenData';
 
 export default class Botao extends React.Component {
@@ -67,3 +67,9 @@ export const BotaoMenuHamburguer = (props) => {
   )
 };
 
+export const BotaoExcluir = (props) => {
+  return (
+      <Icon name="trash" style={{color: DESMARCADO}} 
+              onPress={() => props.onPress() }/>
+  )
+};

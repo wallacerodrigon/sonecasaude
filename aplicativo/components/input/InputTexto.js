@@ -59,6 +59,7 @@ export class InputTextComMascara extends React.Component {
     static MASK_MONEY = "money";
     static MASK_CELULAR= "cel-phone";
     static MASK_DATA = "datetime";
+    static MASK_CUSTOMIZADO = "custom";
 
     constructor(props){
         super(props); 
@@ -72,6 +73,9 @@ export class InputTextComMascara extends React.Component {
                 placeholderTextColor={this.props.placeholderTextColor || PLACE_HOLDER_COLOR}
                 type={this.props.type}
                 value={this.props.value}
+                options= {{
+                    mask: this.props.mascara
+                }}
             />    
         );
     }

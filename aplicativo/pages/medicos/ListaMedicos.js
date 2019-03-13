@@ -2,7 +2,7 @@ import { Body, Container, Fab, Icon, Left, List, ListItem, Right, Thumbnail } fr
 import React from 'react';
 import { ScrollView, Text, TouchableHighlight, View } from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
-import { BotaoFecharHeader } from '../../components/botao/Botao';
+import { BotaoFecharHeader, BotaoExcluir } from '../../components/botao/Botao';
 import { TELA_ADD_MEDICOS } from '../../constants/AppScreenData';
 
 const imgMedico1 = require('../../assets/img/medicos/medico1.jpeg');
@@ -37,9 +37,7 @@ export default class ListaMedicos extends React.Component {
                                     <Text note numberOfLines={1}>fulano@gmail.com</Text>
                                 </Body>
                                 <Right>
-                                    <TouchableHighlight >
-                                        <Icon name="trash" active />
-                                    </TouchableHighlight>
+                                    <BotaoExcluir onPress={() => null} />
                                 </Right>
                             </ListItem>
 
@@ -53,9 +51,7 @@ export default class ListaMedicos extends React.Component {
                                     <Text note numberOfLines={1}>fulano@gmail.com</Text>
                                 </Body>
                                 <Right>
-                                    <TouchableHighlight >
-                                        <Icon name="trash" active />
-                                    </TouchableHighlight>
+                                    <BotaoExcluir onPress={() => null} />
                                 </Right>
                             </ListItem>
 
@@ -69,9 +65,7 @@ export default class ListaMedicos extends React.Component {
                                     <Text note numberOfLines={1}>fulano@gmail.com</Text>
                                 </Body>
                                 <Right>
-                                    <TouchableHighlight >
-                                        <Icon name="trash" active />
-                                    </TouchableHighlight>
+                                    <BotaoExcluir onPress={() => null} />
                                 </Right>
                             </ListItem>
 
@@ -85,9 +79,7 @@ export default class ListaMedicos extends React.Component {
                                     <Text note numberOfLines={1}>fulano@gmail.com</Text>
                                 </Body>
                                 <Right>
-                                    <TouchableHighlight >
-                                        <Icon name="trash" active />
-                                    </TouchableHighlight>
+                                    <BotaoExcluir onPress={() => null} />
                                 </Right>
                             </ListItem>
 
@@ -102,9 +94,7 @@ export default class ListaMedicos extends React.Component {
                                     <Text note numberOfLines={1}>fulano@gmail.com</Text>
                                 </Body>
                                 <Right>
-                                    <TouchableHighlight >
-                                        <Icon name="trash" active />
-                                    </TouchableHighlight>
+                                    <BotaoExcluir onPress={() => null} />
                                 </Right>
                             </ListItem>
 

@@ -1,30 +1,42 @@
-import { Body, CardItem, Container, Left, List, ListItem, Thumbnail, Label, Icon, Radio, DatePicker } from 'native-base';
+import { CardItem, DatePicker, Icon, Label, Radio, Thumbnail, Picker } from 'native-base';
 import React from 'react';
-import { View, KeyboardAvoidingView, ScrollView, StyleSheet, Text, Switch } from 'react-native';
-import { Card, ButtonGroup } from 'react-native-elements';
-import EstilosComuns, { BRANCO, FUNDO_ESCURO, FUNDO, VERDE } from '../../assets/estilos/estilos';
-import { TELA_PRESCRICAO } from '../../constants/AppScreenData';
-import PrescricaoAlternada from './PrescricaoAlternada';
-import PrescricaoDiaria from './PrescricaoDiaria';
-import {InputTexto} from "../../components/input/InputTexto";
-import { BotaoToggle, BotaoOpacity } from '../../components/botao/Botao';
+import { FlatList, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ButtonGroup, Card } from 'react-native-elements';
+import EstilosComuns, { BRANCO, FUNDO, FUNDO_ESCURO, VERDE } from '../../assets/estilos/estilos';
+import Botao, { BotaoOpacity, BotaoExcluir } from '../../components/botao/Botao';
+import { InputTexto, InputTextComMascara } from "../../components/input/InputTexto";
 import ConfirmacaoSwitch from '../../components/radio/ConfirmacaoSwitch';
+import { TELA_PRESCRICAO, TELA_CONTROLE_MEDICACAO } from '../../constants/AppScreenData';
+import { MensagemInformativa } from '../../components/mensagens/Mensagens';
 
 const imgRemedio = require('../../assets/img/losartana.jpeg');
 
 export default class PrescricaoMedicamento extends React.Component {
-    static navigationOptions = {
+    static navigationOptions = ({navigation}) => ({
         title: TELA_PRESCRICAO.title,
-        headerRight: null
-      };
+        headerRight: (
+            <Text style={{paddingVertical: 10, paddingHorizontal: 10, color: BRANCO, fontSize: 18, fontWeight:'bold' }} 
+                onPress={() => {
+                    MensagemInformativa('Medicamento salvo com sucesso');
+                    navigation.navigate(TELA_CONTROLE_MEDICACAO.name);
+                } }>Salvar</Text>
+
+        )
+      });
     
     constructor(props){
         super(props);
 
-        this.state = {email: '', filtro: '', usoContinuo: true}
+        this.state = {email: '', filtro: '', usoContinuo: true, diasSemana: ['N','S','N','N','N','N','N'], intervaloDias: '15', 
+                      horarios: [{hora: '08:00', qtd: 1.0, medida: '1'}]}
         this.toggleUsoContinuo = this.toggleUsoContinuo.bind(this);
+        this.salvar = this.salvar.bind(this);
     }
 
+    salvar(){
+        MensagemInformativa('Medicamento salvo com sucesso');
+        this.props.navigation.navigate(TELA_CONTROLE_MEDICACAO.name);
+    }
 
     onChangeInput(fieldname, text){
         this.setState({[fieldname]: text});
@@ -32,28 +44,37 @@ export default class PrescricaoMedicamento extends React.Component {
 
     renderComponentePeriodo(){
         let {sigla} = this.props.navigation.state.params;
-        if (sigla === 'A'){
+     //   let indices = this.state.diasSemana.map( (dia, index) => { return dia === 'S' ? index : null }).filter(item => item != null);
+        let buttons = ['2','5','7','10','15','30'];
+       // let indiceIntervalo = buttons.indexOf( this.state.intervaloDias );
+
+        if (sigla === 'D'){
             return (
-                <View>
-                    <Text style={EstilosComuns.corVerde} >Dias da semana do medicamento</Text>
-                    {this.renderButtonGroup(['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'], [2,3,4])}
-                    <Text>Horários</Text>
+                <View style={{flex: 1}}>
+                    <Label  style={[EstilosComuns.corVerde]} >Dias da semana do medicamento</Label>
+                    {this.renderButtonGroup(['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'], [])}
                     {this.renderRadioHorarios()}
                 </View>   
             )
         } else {
             return (
-                <View>
-                    <Text style={EstilosComuns.corVerde} >O medicamento será tomado a cada quantos dias?</Text>
-                    {this.renderButtonGroup(['2', '4', '6', '8', '10', '15', (<Icon name='calendar'/>) ], [3], false)}
+                <View style={{flex: 1}}>
+                    <Label style={[EstilosComuns.corVerde]}>O medicamento será tomado a cada quantos dias?</Label>
+                    {this.renderButtonGroup([...buttons, (<Icon name='calendar' onPress={() => alert('abrir tela com opção de incluir um novo intervalo')} />) ], [4], false)}
                 </View>   
             )
         }
     }
 
+    updateIndex(indice){
+        // let diasSemana = [...this.state.diasSemana];
+        // diasSemana[indice[0]] = diasSemana[indice[0]] === 'S' ? 'N':'S';
+        // this.setState({diasSemana: diasSemana});
+    }
+
     renderButtonGroup(buttons, selectedIndexes, selectMultiple=true) {
-        return <ButtonGroup style={{width: '100%'}}
-                //onPress={this.updateIndex}
+        return <ButtonGroup
+                onPress={this.updateIndex}
                 selectedIndexes={selectedIndexes}
                 buttons={buttons}
                 selectedTextStyle={color= VERDE}
@@ -67,12 +88,12 @@ export default class PrescricaoMedicamento extends React.Component {
         return (
             <View style={styles.containerPeriodicidade}>
                 <View style={styles.radioGroup}>
-                    <Text>Com Intervalos</Text>
+                    <Text>Intervalos de horários</Text>
                     <Radio selected={true} selectedColor={VERDE}/>
                 </View>
 
                 <View style={styles.radioGroup}>
-                    <Text>Livre</Text>
+                    <Text>Horário livre</Text>
                     <Radio selected={false} selectedColor={VERDE}/>
                 </View>
 
@@ -97,7 +118,7 @@ export default class PrescricaoMedicamento extends React.Component {
         return this.state.usoContinuo ? null:
           (
             <View style={{flexDirection: 'column', justifyContent: 'flex-start' }} >
-                <View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems:'stretch'}} >
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}} >
                     <Label style={EstilosComuns.corVerde} >Data início:</Label>
                     <DatePicker
                             defaultDate={new Date()}
@@ -113,7 +134,7 @@ export default class PrescricaoMedicamento extends React.Component {
     
                 </View>
 
-                <View style={{flexDirection: 'row', justifyContent: 'space-between'}} >
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}} >
                     <Label style={EstilosComuns.corVerde} >Data fim:</Label>
                     <DatePicker
                             defaultDate={new Date()}
@@ -132,10 +153,59 @@ export default class PrescricaoMedicamento extends React.Component {
           )
     }
 
+    adicionarHorarios(){
+        let horario = {hora: '12:00', qtd: Math.random() * 5, medida: Math.round(Math.random() * 3)};
+        this.setState({horarios: [...this.state.horarios, horario]});
+    }
+
+    renderRowHorarios(){
+        return this.state.horarios.map( (horario, index) => {
+            return (
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <View style={{flex: 2, marginRight: 5}}>
+                            <InputTextComMascara onChangeText={() => null}
+                                placeholder='Horário'
+                                mascara="99:99"
+                                type={InputTextComMascara.MASK_CUSTOMIZADO}
+                                value={horario.hora}/>
+                        </View>
+
+                        <View style={{flex: 1, marginRight: 5}}>
+                            <InputTexto onChangeInput={() => null}
+                                placeholder='Qtd'
+                                type={InputTexto.KEYBOARD_NUMBER}
+                                value={horario.qtd}/>
+                        </View>
+
+                        <View style={{flex: 3}}>
+                            <Picker selectedValue={horario.medida} onValueChange={() => null} >
+                                <Picker.Item value="0" label="Medida"/>
+                                <Picker.Item value="1" label="Comprimido"/>
+                                <Picker.Item value="2" label="Gota(s)"/>
+                                <Picker.Item value="3" label="Injeção"/>
+                            </Picker>
+                        </View>
+
+                        <View style={{flex: 1}}>
+                            <BotaoExcluir onPress={() => this.excluirHorario(index)}/>
+                        </View>    
+                   </View>
+            )
+        });
+
+    }
+
+    excluirHorario(index){
+        let horarios = [...this.state.horarios];
+        horarios.splice(index, 1);
+        this.setState({horarios: horarios});
+    }
+
     render() {
         let {medicamento} = this.props.navigation.state.params;
         return (
-            <KeyboardAvoidingView style={[EstilosComuns.container, {paddingTop: 5, paddingBottom: 5}]} keyboardVerticalOffset={70} behavior="padding" >
+           <KeyboardAvoidingView style={[EstilosComuns.container, {paddingTop: 5, paddingBottom: 5}]} keyboardVerticalOffset={70} behavior="padding" >
+           {/* <View style={[EstilosComuns.container, {paddingTop: 5, paddingBottom: 5}]}> */}
                 <ScrollView style={[styles.containerMain]}>
                         <Card>
                             <CardItem cardBody style={{flexDirection: 'row', padding: 5, justifyContent: 'flex-start'}} >
@@ -178,7 +248,7 @@ export default class PrescricaoMedicamento extends React.Component {
 
                         <Card>
                             <CardItem cardBody style={{flexDirection: 'column', padding: 3, justifyContent: 'flex-start'}}>
-                                <Label style={[EstilosComuns.corVerde, {textAlign: 'left'}]}>Prazo do tratamento</Label>
+                                <Label style={[EstilosComuns.corVerde]}>Prazo do tratamento</Label>
                                 <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                                     <Text style={styles.cardContinuoLeft} >Uso contínuo?</Text>
                                     <ConfirmacaoSwitch style={styles.cardContinuoRight} value={this.state.usoContinuo} toggleSwitch={this.toggleUsoContinuo}/>
@@ -189,27 +259,23 @@ export default class PrescricaoMedicamento extends React.Component {
                         </Card>
 
                         <Card>
-                            <CardItem cardBody style={{flexDirection: 'column', justifyContent: 'flex-start'}}>
+                            <CardItem cardBody style={{flexDirection: 'column', padding: 10}}>
                                 <Label style={[EstilosComuns.corVerde, {textAlign: 'left'}]}>Horários</Label>
-                                
-                                <View>
-                                    <Text>Horários....</Text>
-                                </View>
-                                 
-                                <View>
-                                    <BotaoOpacity tituloBotao="Adicionar" onClick={() => null} />
-                                </View>
+                                {this.renderRowHorarios()}         
 
+                                <View style={{padding: 10}}>
+                                    <Botao tituloBotao="Adicionar Horário"
+                                            onClick={() => this.adicionarHorarios() }/>    
+                                </View>
+                                
                             </CardItem>
+
                         </Card>
                 </ScrollView>
 
-                {/* <View style={[EstilosComuns.rodape, {backgroundColor:'black'}]}>
-                    <Botao style={styles.botaoEnviar} tituloBotao='Salvar medicamento' onClick={() =>  this.props.navigation.navigate(TELA_CADASTRO_MEDICAMENTO.name)}/>
-                </View> */}
             </KeyboardAvoidingView>
         )
-    };
+    }
 }
 
 const styles = StyleSheet.create({
@@ -235,14 +301,11 @@ const styles = StyleSheet.create({
 
     containerPeriodicidade: {
         flexDirection: 'row', 
-        justifyContent: 'flex-start',
-        padding: 3,
+        justifyContent: 'space-between',
         color: VERDE
     },
     radioGroup: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
         color: VERDE
 
     },

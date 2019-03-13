@@ -3,7 +3,7 @@ import React from 'react';
 import { Text, TouchableHighlight, View } from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import { TELA_ADD_COMPARTILHAMENTO_LIST, TELA_LISTA_COMPARTILHAMENTO } from '../../constants/AppScreenData';
-import { BotaoFecharHeader } from '../../components/botao/Botao';
+import { BotaoFecharHeader, BotaoExcluir } from '../../components/botao/Botao';
 
 const imgComparacao = require('../../assets/img/share/pessoa1.jpeg');
 const imgComparacao2 = require('../../assets/img/share/pessoa2.jpeg');
@@ -34,9 +34,7 @@ export default class ListaCompartilhamento extends React.Component {
                                 <Text note numberOfLines={1}>fulano@gmail.com</Text>
                             </Body>
                             <Right>
-                                <TouchableHighlight >
-                                    <Icon name="trash" active />
-                                </TouchableHighlight>
+                                <BotaoExcluir onPress={() => null} />
                             </Right>
                         </ListItem>
 
@@ -50,9 +48,7 @@ export default class ListaCompartilhamento extends React.Component {
                                 <Text note numberOfLines={1}>fulano@gmail.com</Text>
                             </Body>
                             <Right>
-                                <TouchableHighlight >
-                                    <Icon name="trash" active />
-                                </TouchableHighlight>
+                                <BotaoExcluir onPress={() => null} />
                             </Right>
                         </ListItem>
 
@@ -67,10 +63,8 @@ export default class ListaCompartilhamento extends React.Component {
                                 <Text note numberOfLines={1}>fulano@gmail.com</Text>
                             </Body>
                             <Right>
-                                <TouchableHighlight >
-                                    <Icon name="trash" active />
-                                </TouchableHighlight>
-                            </Right>
+                                <BotaoExcluir onPress={() => null} />
+                           </Right>
                         </ListItem>
 
                     </List>
