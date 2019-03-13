@@ -1,15 +1,17 @@
-import { Icon } from 'native-base';
+import { Icon, Container, List, ListItem, Left, Thumbnail, Body, Right } from 'native-base';
 import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View, ScrollView } from 'react-native';
 import EstilosComuns, { BRANCO, FUNDO_ESCURO } from '../../assets/estilos/estilos';
 import { BotaoFecharHeader, BotaoOpacity } from '../../components/botao/Botao';
 import { InputTexto } from "../../components/input/InputTexto";
-import { TELA_CADASTRO_MEDICAMENTO, TELA_PERIODICIDADE } from '../../constants/AppScreenData';
+import { TELA_PERIODICIDADE, TELA_LISTA_MEDICAMENTOS } from '../../constants/AppScreenData';
+ 
+const imgComparacao = require('../../assets/img/losartana.jpeg');
 
-export default class CadastroMedicamento extends React.Component {
+export default class ListaMedicamentos extends React.Component {
 
       static navigationOptions = ({ navigation }) => ({
-        title: TELA_CADASTRO_MEDICAMENTO.title,
+        title: TELA_LISTA_MEDICAMENTOS.title,
         headerLeft: (
             <BotaoFecharHeader navigation={navigation}/>
           )          
@@ -28,8 +30,27 @@ export default class CadastroMedicamento extends React.Component {
         ]
     }
 
-    gotoPrescricao(medicamento){
+    gotoPeriodicidade(medicamento){
        this.props.navigation.navigate(TELA_PERIODICIDADE.name, {medicamento: medicamento})
+    }
+
+    renderRemedios(){
+        let lista = this.getResultadoFiltro();
+
+        return lista.map(remedio => {
+            return (
+                <ListItem thumbnail selected button style={styles.containerRemedioResultado} onPress={() => this.gotoPeriodicidade(remedio)  } >
+                    <Left>
+                        <Thumbnail circular source={imgComparacao} />
+                    </Left>
+                    <Body>
+                        <Text style={[styles.dadosMedicamento, EstilosComuns.negrito]} >{remedio.nomeMedicamento}</Text>
+                        <Text note>{remedio.principioAtivo}</Text>
+                        <Text note>{remedio.laboratorio}</Text>
+                    </Body>
+                </ListItem> 
+            )
+        })
     }
 
     render() {
@@ -47,26 +68,14 @@ export default class CadastroMedicamento extends React.Component {
                     </View>
                 </View>
 
-                <View style={styles.containerResultado}>
-                    <FlatList
-                        data={this.getResultadoFiltro()}
-                        keyExtractor={item => item.id}
-                        renderItem={({ item }) => {
-                            return (
-                                <View style={styles.containerRemedioResultado}>
-                                    <BotaoOpacity onClick={()=> this.gotoPrescricao(item)} >
-                                        <Text style={styles.dadosMedicamento} >{item.nomeMedicamento}</Text>
-                                        <Text style={styles.dadosMedicamento} >{item.principioAtivo}</Text>
-                                        <Text style={styles.dadosMedicamento} >{item.laboratorio}</Text>
-                                        <Text style={styles.dadosMedicamentoItalico} >{item.detalhes}</Text>
-                                    </BotaoOpacity>
-                                </View>
-                            );                            
-                        }}/>
+                <Container style={styles.containerResultado}>
+                    <List>
+                        <ScrollView>
+                            {this.renderRemedios()}
+                        </ScrollView>
+                    </List>
 
-              
-
-                </View>
+                </Container>
 
                 <View style={styles.containerRodape}>
                     <Text style={[EstilosComuns.corVerde, EstilosComuns.textoCentralizado]}>
@@ -99,10 +108,8 @@ const styles= StyleSheet.create({
     },  
 
     containerRemedioResultado: {
-        flex: 1,
         borderBottomColor: FUNDO_ESCURO,
         borderBottomWidth:1,
-        padding: 3
     },
     
     containerRodape: {

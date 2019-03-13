@@ -1,24 +1,23 @@
-import { createStackNavigator } from 'react-navigation';
-import { PADRAO_NAVEGACAO } from "../../navigators/NavigatorConfigs";
-import CadastroMedicamento from './CadastroMedicamento';
-import PrescricaoMedicamento from './PrescricaoMedicamento';
-import { TELA_CADASTRO_MEDICAMENTO } from '../../constants/AppScreenData';
-import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
 import React from "react";
+import { createStackNavigator } from 'react-navigation';
+import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
 import { BotaoMicrofoneHeader } from '../../components/botao/Botao';
+import { TELA_LISTA_MEDICAMENTOS } from '../../constants/AppScreenData';
 import ComandoOuvindoVoz from '../voz/ComandoOuvindoVoz';
+import ListaMedicamentos from './ListaMedicamentos';
 import PeriodicidadeMedicamento from './PeriodicidadeMedicamento';
+import PrescricaoMedicamento from './PrescricaoMedicamento';
 
 const MedicamentosNavigator = createStackNavigator(
     {
-        cadastroMedicamento: CadastroMedicamento,
+       listaMedicamentos: ListaMedicamentos,
         prescricaoMedicamento: PrescricaoMedicamento,
-        periodicidadeMedicamento: PeriodicidadeMedicamento,
+       periodicidadeMedicamento: PeriodicidadeMedicamento,
         comandoVoz: ComandoOuvindoVoz
     },
     {
         defaultNavigationOptions: ({navigation}) => ({
-          title: TELA_CADASTRO_MEDICAMENTO.title,
+          title: TELA_LISTA_MEDICAMENTOS.title,
           headerStyle: [ EstilosComuns.backgroundToolbar],
           cardShadowEnabled: "true",
           headerTintColor: BRANCO,

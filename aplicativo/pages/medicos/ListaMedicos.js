@@ -5,7 +5,9 @@ import EstilosComuns from '../../assets/estilos/estilos';
 import { BotaoFecharHeader } from '../../components/botao/Botao';
 import { TELA_ADD_MEDICOS } from '../../constants/AppScreenData';
 
-const imgComparacao = require('../../assets/img/medicos/medico1.jpeg');
+const imgMedico1 = require('../../assets/img/medicos/medico1.jpeg');
+const imgMedico2 = require('../../assets/img/medicos/medico2.jpeg');
+const imgMedico3 = require('../../assets/img/medicos/medico3.jpeg');
 
 
 
@@ -27,7 +29,7 @@ export default class ListaMedicos extends React.Component {
                         <ScrollView>
                             <ListItem thumbnail selected button>
                                 <Left>
-                                    <Thumbnail square source={imgComparacao} />
+                                    <Thumbnail square source={imgMedico1} />
                                 </Left>
                                 <Body>
                                     <Text>Médico 1</Text>
@@ -40,6 +42,74 @@ export default class ListaMedicos extends React.Component {
                                     </TouchableHighlight>
                                 </Right>
                             </ListItem>
+
+                            <ListItem thumbnail selected button>
+                                <Left>
+                                    <Thumbnail square source={imgMedico2} />
+                                </Left>
+                                <Body>
+                                    <Text>Médico 2</Text>
+                                    <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
+                                    <Text note numberOfLines={1}>fulano@gmail.com</Text>
+                                </Body>
+                                <Right>
+                                    <TouchableHighlight >
+                                        <Icon name="trash" active />
+                                    </TouchableHighlight>
+                                </Right>
+                            </ListItem>
+
+                            <ListItem thumbnail selected button>
+                                <Left>
+                                    <Thumbnail square source={imgMedico3} />
+                                </Left>
+                                <Body>
+                                    <Text>Médico 3</Text>
+                                    <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
+                                    <Text note numberOfLines={1}>fulano@gmail.com</Text>
+                                </Body>
+                                <Right>
+                                    <TouchableHighlight >
+                                        <Icon name="trash" active />
+                                    </TouchableHighlight>
+                                </Right>
+                            </ListItem>
+
+                            <ListItem thumbnail selected button>
+                                <Left>
+                                    <Thumbnail square source={null} />
+                                </Left>
+                                <Body>
+                                    <Text>Médico 4</Text>
+                                    <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
+                                    <Text note numberOfLines={1}>fulano@gmail.com</Text>
+                                </Body>
+                                <Right>
+                                    <TouchableHighlight >
+                                        <Icon name="trash" active />
+                                    </TouchableHighlight>
+                                </Right>
+                            </ListItem>
+
+
+                            <ListItem thumbnail selected button>
+                                <Left>
+                                    <Thumbnail square source={imgMedico3} />
+                                </Left>
+                                <Body>
+                                    <Text>Médico 5</Text>
+                                    <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
+                                    <Text note numberOfLines={1}>fulano@gmail.com</Text>
+                                </Body>
+                                <Right>
+                                    <TouchableHighlight >
+                                        <Icon name="trash" active />
+                                    </TouchableHighlight>
+                                </Right>
+                            </ListItem>
+
+
+
                         </ScrollView>
                     </List>
 

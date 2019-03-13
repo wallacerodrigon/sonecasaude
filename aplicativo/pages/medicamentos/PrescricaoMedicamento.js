@@ -1,14 +1,16 @@
+import { Body, CardItem, Container, Left, List, ListItem, Thumbnail, Label, Icon, Radio, DatePicker } from 'native-base';
 import React from 'react';
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
-import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
-import Botao, { BotaoOpacity } from '../../components/botao/Botao';
-import {  TELA_PRESCRICAO, TELA_CADASTRO_MEDICAMENTO } from '../../constants/AppScreenData';
-import {InputTexto} from '../../components/input/InputTexto';
-import { Label, Icon, Switch, Picker, Left, Right, Radio } from 'native-base';
-import StatusBar from '../../components/statusBar/StatusBar';
-import { Input } from 'react-native-elements';
+import { View, KeyboardAvoidingView, ScrollView, StyleSheet, Text, Switch } from 'react-native';
+import { Card, ButtonGroup } from 'react-native-elements';
+import EstilosComuns, { BRANCO, FUNDO_ESCURO, FUNDO, VERDE } from '../../assets/estilos/estilos';
+import { TELA_PRESCRICAO } from '../../constants/AppScreenData';
 import PrescricaoAlternada from './PrescricaoAlternada';
 import PrescricaoDiaria from './PrescricaoDiaria';
+import {InputTexto} from "../../components/input/InputTexto";
+import { BotaoToggle, BotaoOpacity } from '../../components/botao/Botao';
+import ConfirmacaoSwitch from '../../components/radio/ConfirmacaoSwitch';
+
+const imgRemedio = require('../../assets/img/losartana.jpeg');
 
 export default class PrescricaoMedicamento extends React.Component {
     static navigationOptions = {
@@ -19,8 +21,8 @@ export default class PrescricaoMedicamento extends React.Component {
     constructor(props){
         super(props);
 
-        this.state = {email: ''}
-
+        this.state = {email: '', filtro: '', usoContinuo: true}
+        this.toggleUsoContinuo = this.toggleUsoContinuo.bind(this);
     }
 
 
@@ -31,146 +33,226 @@ export default class PrescricaoMedicamento extends React.Component {
     renderComponentePeriodo(){
         let {sigla} = this.props.navigation.state.params;
         if (sigla === 'A'){
-            return <PrescricaoAlternada/>
+            return (
+                <View>
+                    <Text style={EstilosComuns.corVerde} >Dias da semana do medicamento</Text>
+                    {this.renderButtonGroup(['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'], [2,3,4])}
+                    <Text>Horários</Text>
+                    {this.renderRadioHorarios()}
+                </View>   
+            )
         } else {
-            return <PrescricaoDiaria/>            
+            return (
+                <View>
+                    <Text style={EstilosComuns.corVerde} >O medicamento será tomado a cada quantos dias?</Text>
+                    {this.renderButtonGroup(['2', '4', '6', '8', '10', '15', (<Icon name='calendar'/>) ], [3], false)}
+                </View>   
+            )
         }
     }
 
+    renderButtonGroup(buttons, selectedIndexes, selectMultiple=true) {
+        return <ButtonGroup style={{width: '100%'}}
+                //onPress={this.updateIndex}
+                selectedIndexes={selectedIndexes}
+                buttons={buttons}
+                selectedTextStyle={color= VERDE}
+                //containerBorderRadius={6}
+                selectMultiple={selectMultiple}
+                
+    />
+    }
+
+    renderRadioHorarios() {
+        return (
+            <View style={styles.containerPeriodicidade}>
+                <View style={styles.radioGroup}>
+                    <Text>Com Intervalos</Text>
+                    <Radio selected={true} selectedColor={VERDE}/>
+                </View>
+
+                <View style={styles.radioGroup}>
+                    <Text>Livre</Text>
+                    <Radio selected={false} selectedColor={VERDE}/>
+                </View>
+
+            </View> 
+            )
+
+    }
+
+    tratarFiltro(text) {
+        this.setState({filtro: text})
+    }
+
+    toggleUsoContinuo(){
+        this.setState({usoContinuo: !this.state.usoContinuo});
+    }
+
+    onChangeDataNascimento(){
+
+    }
+
+    renderPeriodos(){
+        return this.state.usoContinuo ? null:
+          (
+            <View style={{flexDirection: 'column', justifyContent: 'flex-start' }} >
+                <View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems:'stretch'}} >
+                    <Label style={EstilosComuns.corVerde} >Data início:</Label>
+                    <DatePicker
+                            defaultDate={new Date()}
+                            minimumDate={new Date(1900, 1, 1)}
+                            locale={"pt-BR"} //ver em portugues
+                            modalTransparent={false}
+                            animationType={"fade"}
+                            androidMode={"default"}
+                            onDateChange={this.onChangeDataNascimento}
+                            disabled={false}
+                            textStyle={{ color: VERDE, borderWidth: 1, borderColor: FUNDO }}
+                            />                
+    
+                </View>
+
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}} >
+                    <Label style={EstilosComuns.corVerde} >Data fim:</Label>
+                    <DatePicker
+                            defaultDate={new Date()}
+                            minimumDate={new Date(1900, 1, 1)}
+                            locale={"pt-BR"} //ver em portugues
+                            modalTransparent={false}
+                            animationType={"fade"}
+                            androidMode={"default"}
+                            onDateChange={this.onChangeDataNascimento}
+                            disabled={false}
+                            textStyle={{ color: VERDE, borderWidth: 1, borderColor: FUNDO }}
+                            />                
+    
+                </View>
+            </View>
+          )
+    }
 
     render() {
         let {medicamento} = this.props.navigation.state.params;
         return (
-            <View style={[{flex: 1}, EstilosComuns.backgroundPadrao]}>
-                <View style={[EstilosComuns.bodyMain]}>
-                        <View style={[styles.containerDadosRemedio, EstilosComuns.bordaSeparacaoBlocos]}>
-                        {/* falta a foto */}
-                            <Text style={EstilosComuns.negrito}>Medicamento: {medicamento.nomeMedicamento} </Text>
-                            <Text  style={EstilosComuns.negrito}>Laboratório: {medicamento.laboratorio}</Text>
-                            {/* <Text  style={EstilosComuns.negrito}>Princípio ativo: {medicamento.principioAtivo}</Text>
-                            <Text  style={EstilosComuns.italico}>Detalhes: {medicamento.detalhes}</Text> */}
-                        </View>
+            <KeyboardAvoidingView style={[EstilosComuns.container, {paddingTop: 5, paddingBottom: 5}]} keyboardVerticalOffset={70} behavior="padding" >
+                <ScrollView style={[styles.containerMain]}>
+                        <Card>
+                            <CardItem cardBody style={{flexDirection: 'row', padding: 5, justifyContent: 'flex-start'}} >
+                                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} >
+                                    <Thumbnail circular source={imgRemedio} />
+                                </View>
 
-                        <View style={[styles.containerDadosConfiguracao, EstilosComuns.bordaSeparacaoBlocos]}>
-                            <View style={styles.containerConfiguracaoGrupo}>
-                                <Label style={EstilosComuns.corVerde}>Quantidade em estoque:</Label>
-                                <Label>10 comprimidos</Label>
-                            </View>
+                                <View style={{flex: 5, paddingLeft: 5}}>
+                                    <Text style={EstilosComuns.negrito}>{medicamento.nomeMedicamento}</Text>
+                                    <Text note numberOfLines={1} >{medicamento.principioAtivo}</Text>
+                                    <Text note numberOfLines={1}>{medicamento.detalhes}</Text>
+                                </View>
+                            </CardItem>
+                        </Card>
 
-                            <View style={styles.containerConfiguracaoGrupo}>
-                                <Label style={EstilosComuns.corVerde}>Avisar quando estoque estiver em:</Label>
-                                <InputTexto keyboardType={InputTexto.KEYBOARD_NUMBER} onChangeInput={value => this.onChangeInput(value)}/>
-                            </View>
+                        <Card>
+                            <CardItem cardBody style={{flexDirection: 'column', padding: 3}}>
+                                    {this.renderComponentePeriodo()}
+                            </CardItem>
+                        </Card>
 
-                        </View>
-
-                    <View style={[styles.containerDadosPrescricao, EstilosComuns.bordaSeparacaoBlocos]}>
-                            {/* <Label style={[EstilosComuns.corVerde, EstilosComuns.negrito]}>
-                            
-                            </Label> */}
-
-                            {this.renderComponentePeriodo()}
-
-                            {/* <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                                <BotaoOpacity onClick={()=> alert('clicou')}>
-                                    <Text>DOM</Text>
-                                </BotaoOpacity>
-                                <BotaoOpacity onClick={()=> alert('clicou')}>
-                                    <Text>SEG</Text>
-                                </BotaoOpacity>
-                                <BotaoOpacity onClick={()=> alert('clicou')}>
-                                    <Text>TER</Text>
-                                </BotaoOpacity>
-                                <BotaoOpacity onClick={()=> alert('clicou')}>
-                                    <Text>QUA</Text>
-                                </BotaoOpacity>
-                                <BotaoOpacity onClick={()=> alert('clicou')}>
-                                    <Text>QUI</Text>
-                                </BotaoOpacity>
-                                <BotaoOpacity onClick={()=> alert('clicou')}>
-                                    <Text>SEX</Text>
-                                </BotaoOpacity>
-                                <BotaoOpacity onClick={()=> alert('clicou')}>
-                                    <Text>SAB</Text>
-                                </BotaoOpacity>
-                            </View> */}
-                        </View>
-
-                        {/* <View style={[styles.containerDadosPrescricao, EstilosComuns.bordaSeparacaoBlocos]}>
-                            <Label style={[EstilosComuns.corVerde, EstilosComuns.negrito]}>Prazo do tratamento</Label>  
-                            <Text style={[EstilosComuns.corVerde]}>Uso contínuo?</Text> */}
-                            {/* <Switch value="Uso contínuo"/> */}
-
-                            {/*<Left>
-                                <Text>Intervalo de horários</Text>
-                            </Left>
-                            <Right>
-                                <Radio selected={true} />
-                            </Right> */}
-
-                        {/* </View>
-                        
-
-                        <View style={[styles.containerDadosPrescricao, EstilosComuns.bordaSeparacaoBlocos]}>
-                            <Label style={[EstilosComuns.corVerde, EstilosComuns.negrito]}>Horários</Label>                
-                            <Picker>
-                                <Picker.Item label="Tomar de 8 em 8 horas" value="1" />
-                                <Picker.Item label="Tomar de 12 em 12 horas" value="2" />
-                                <Picker.Item label="Tomar de 24 em 24 horas" value="3" />
-                            </Picker>
-                        </View>
+                        <Card>
+                            <CardItem cardBody>
+                                <View style={styles.containerBusca}>
+                                    <View style={{flex: 9}}>
+                                        <InputTexto placeholder="Pesquise por um médico" maxLength={40}
+                                            onChangeInput={texto => this.tratarFiltro(texto)}
+                                            autoCapitalize="none"
+                                        />                    
+                                    </View>
+                                    <View style={{flex: 1}}>
+                                        <Icon name="search" color={BRANCO} size={25} />
+                                    </View>
+                                </View>
 
 
+                            </CardItem>
+                        </Card>
 
-                        <View style={[styles.containerDadosMedico, EstilosComuns.bordaSeparacaoBlocos]}>
-                            <Label style={[EstilosComuns.corVerde, EstilosComuns.negrito]}>Médico desta prescrição</Label>                
-                            <Picker>
-                                <Picker.Item label="Médico 1" value="1" />
-                                <Picker.Item label="Médico 2" value="2" />
-                                <Picker.Item label="Médico 3" value="3" />
-                            </Picker>
 
-                        </View> */}
-                </View>
+                        <Card>
+                            <CardItem cardBody style={{flexDirection: 'column', padding: 3, justifyContent: 'flex-start'}}>
+                                <Label style={[EstilosComuns.corVerde, {textAlign: 'left'}]}>Prazo do tratamento</Label>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Text style={styles.cardContinuoLeft} >Uso contínuo?</Text>
+                                    <ConfirmacaoSwitch style={styles.cardContinuoRight} value={this.state.usoContinuo} toggleSwitch={this.toggleUsoContinuo}/>
+                                </View>
 
-                <View style={[EstilosComuns.rodape, styles.rodape]}>
+                                {this.renderPeriodos()}
+                            </CardItem>
+                        </Card>
+
+                        <Card>
+                            <CardItem cardBody style={{flexDirection: 'column', justifyContent: 'flex-start'}}>
+                                <Label style={[EstilosComuns.corVerde, {textAlign: 'left'}]}>Horários</Label>
+                                
+                                <View>
+                                    <Text>Horários....</Text>
+                                </View>
+                                 
+                                <View>
+                                    <BotaoOpacity tituloBotao="Adicionar" onClick={() => null} />
+                                </View>
+
+                            </CardItem>
+                        </Card>
+                </ScrollView>
+
+                {/* <View style={[EstilosComuns.rodape, {backgroundColor:'black'}]}>
                     <Botao style={styles.botaoEnviar} tituloBotao='Salvar medicamento' onClick={() =>  this.props.navigation.navigate(TELA_CADASTRO_MEDICAMENTO.name)}/>
-                </View>
-            </View>
+                </View> */}
+            </KeyboardAvoidingView>
         )
     };
 }
 
 const styles = StyleSheet.create({
-    containerStatusBar: {
-        flex: 1
-    },
-    containerDadosRemedio: {
-        flex: 2,
-        padding: 5
+    containerMain: {
+        flex: 9,
+        flexDirection: 'column',
     },
 
-    containerDadosConfiguracao: {
-        flex: 2,
-        padding: 3
+    containerBusca: {
+        flex: 1,
+        flexDirection:'row',
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderBottomColor: FUNDO_ESCURO
     },
 
-    containerConfiguracaoGrupo: {
+    card: {
+        borderColor: FUNDO,
+        backgroundColor: BRANCO,
+        borderBottomWidth: 1
+    },
+
+    containerPeriodicidade: {
+        flexDirection: 'row', 
+        justifyContent: 'flex-start',
+        padding: 3,
+        color: VERDE
+    },
+    radioGroup: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        padding: 8
+        justifyContent: 'space-between',
+        color: VERDE
+
+    },
+    cardContinuoLeft: {
+        flex: 8
     },
 
-    containerDadosPrescricao: {
-        flex: 1,
-        padding: 5
-    },
-
-    containerDadosMedico: {
-        flex: 1
-    },
+    cardContinuoRight: {
+        flex: 2
+    }
 
  
 

@@ -67,16 +67,3 @@ export const BotaoMenuHamburguer = (props) => {
   )
 };
 
-export const BotaoToggle = (props) => {
-
-  toggle= false;
-  
-  return (
-      <TouchableOpacity  onPress={() => toggle = !toggle }  style={{width: 50, height: 50, borderRadius: 50  }}  
-        color={ toggle ? VERDE:FUNDO }
-      >
-        <Text>{props.tituloBotao}</Text>    
-      </TouchableOpacity>
-      
-  )
-};

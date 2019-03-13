@@ -23,7 +23,7 @@ export const TELA_ESTATISTICA_MEDICACAO = {name:"estatisticaMedicacao", title: "
 export const TELA_HISTORICO_DIARIO = {name:"historicoUso", title: "Usos diários"};
 
 /**MEDICAMENTO */
-export const TELA_CADASTRO_MEDICAMENTO = {name:"cadastroMedicamento", title: "Adicionar medicamento"};
+export const TELA_LISTA_MEDICAMENTOS = {name:"listaMedicamentos", title: "Adicionar medicamento"};
 export const TELA_PRESCRICAO = {name:"prescricaoMedicamento", title: "Adicionar medicamento"};
 export const TELA_PERIODICIDADE = {name:"periodicidadeMedicamento", title: "Adicionar medicamento"};
 
