@@ -7,11 +7,13 @@ import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
 import React from "react";
 import { BotaoMicrofoneHeader } from '../../components/botao/Botao';
 import ComandoOuvindoVoz from '../voz/ComandoOuvindoVoz';
+import PeriodicidadeMedicamento from './PeriodicidadeMedicamento';
 
 const MedicamentosNavigator = createStackNavigator(
     {
         cadastroMedicamento: CadastroMedicamento,
         prescricaoMedicamento: PrescricaoMedicamento,
+        periodicidadeMedicamento: PeriodicidadeMedicamento,
         comandoVoz: ComandoOuvindoVoz
     },
     {

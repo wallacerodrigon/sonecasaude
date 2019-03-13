@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     labelRotaDestaque: {
         color: FUNDO_ESCURO,
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: 18,
     },    
 
     perfil: {

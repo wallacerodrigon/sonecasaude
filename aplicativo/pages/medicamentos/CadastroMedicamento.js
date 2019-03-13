@@ -2,9 +2,9 @@ import { Icon } from 'native-base';
 import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import EstilosComuns, { BRANCO, FUNDO_ESCURO } from '../../assets/estilos/estilos';
-import { BotaoOpacity, BotaoFecharHeader } from '../../components/botao/Botao';
+import { BotaoFecharHeader, BotaoOpacity } from '../../components/botao/Botao';
 import { InputTexto } from "../../components/input/InputTexto";
-import { TELA_CADASTRO_MEDICAMENTO, TELA_PRESCRICAO } from '../../constants/AppScreenData';
+import { TELA_CADASTRO_MEDICAMENTO, TELA_PERIODICIDADE } from '../../constants/AppScreenData';
 
 export default class CadastroMedicamento extends React.Component {
 
@@ -29,7 +29,7 @@ export default class CadastroMedicamento extends React.Component {
     }
 
     gotoPrescricao(medicamento){
-        this.props.navigation.navigate(TELA_PRESCRICAO.name, {medicamento: medicamento})
+       this.props.navigation.navigate(TELA_PERIODICIDADE.name, {medicamento: medicamento})
     }
 
     render() {

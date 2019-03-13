@@ -27,7 +27,8 @@ const NavigatorLoggedIn = createDrawerNavigator(
             cardShadowEnabled: "true",
             borderBottomColor: FUNDO_ESCURO,
             headerTitleStyle: {
-                color: BRANCO
+                color: BRANCO,
+                fontSize: 18
             },            
         },
         contentComponent      : props => 

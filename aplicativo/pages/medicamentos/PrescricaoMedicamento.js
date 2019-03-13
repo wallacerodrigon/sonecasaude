@@ -7,38 +7,48 @@ import {InputTexto} from '../../components/input/InputTexto';
 import { Label, Icon, Switch, Picker, Left, Right, Radio } from 'native-base';
 import StatusBar from '../../components/statusBar/StatusBar';
 import { Input } from 'react-native-elements';
+import PrescricaoAlternada from './PrescricaoAlternada';
+import PrescricaoDiaria from './PrescricaoDiaria';
 
 export default class PrescricaoMedicamento extends React.Component {
     static navigationOptions = {
         title: TELA_PRESCRICAO.title,
         headerRight: null
       };
-
-
+    
     constructor(props){
         super(props);
 
-        this.state = {email: '', medicamento: 'Xarope 1'}
+        this.state = {email: ''}
+
     }
 
-    componentWillMount(){
-       // this.setState({medicamento: this.props.navigation.state.medicamento.nomeMedicamento})
-    }
 
     onChangeInput(fieldname, text){
         this.setState({[fieldname]: text});
     }
 
+    renderComponentePeriodo(){
+        let {sigla} = this.props.navigation.state.params;
+        if (sigla === 'A'){
+            return <PrescricaoAlternada/>
+        } else {
+            return <PrescricaoDiaria/>            
+        }
+    }
+
 
     render() {
+        let {medicamento} = this.props.navigation.state.params;
         return (
             <View style={[{flex: 1}, EstilosComuns.backgroundPadrao]}>
                 <View style={[EstilosComuns.bodyMain]}>
                         <View style={[styles.containerDadosRemedio, EstilosComuns.bordaSeparacaoBlocos]}>
-                            <Text style={EstilosComuns.negrito}>Medicamento: {this.state.medicamento} </Text>
-                            <Text  style={EstilosComuns.negrito}>Laboratório: xxxxx</Text>
-                            <Text  style={EstilosComuns.negrito}>Princípio ativo: xxxxx</Text>
-                            <Text  style={EstilosComuns.italico}>Detalhes: caixa com 100 comprimidos</Text>
+                        {/* falta a foto */}
+                            <Text style={EstilosComuns.negrito}>Medicamento: {medicamento.nomeMedicamento} </Text>
+                            <Text  style={EstilosComuns.negrito}>Laboratório: {medicamento.laboratorio}</Text>
+                            {/* <Text  style={EstilosComuns.negrito}>Princípio ativo: {medicamento.principioAtivo}</Text>
+                            <Text  style={EstilosComuns.italico}>Detalhes: {medicamento.detalhes}</Text> */}
                         </View>
 
                         <View style={[styles.containerDadosConfiguracao, EstilosComuns.bordaSeparacaoBlocos]}>
@@ -55,9 +65,13 @@ export default class PrescricaoMedicamento extends React.Component {
                         </View>
 
                     <View style={[styles.containerDadosPrescricao, EstilosComuns.bordaSeparacaoBlocos]}>
-                            <Label style={[EstilosComuns.corVerde, EstilosComuns.negrito]}>Dias da semana do medicamento</Label>
+                            {/* <Label style={[EstilosComuns.corVerde, EstilosComuns.negrito]}>
+                            
+                            </Label> */}
 
-                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                            {this.renderComponentePeriodo()}
+
+                            {/* <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                                 <BotaoOpacity onClick={()=> alert('clicou')}>
                                     <Text>DOM</Text>
                                 </BotaoOpacity>
@@ -79,12 +93,12 @@ export default class PrescricaoMedicamento extends React.Component {
                                 <BotaoOpacity onClick={()=> alert('clicou')}>
                                     <Text>SAB</Text>
                                 </BotaoOpacity>
-                            </View>
+                            </View> */}
                         </View>
 
-                        <View style={[styles.containerDadosPrescricao, EstilosComuns.bordaSeparacaoBlocos]}>
+                        {/* <View style={[styles.containerDadosPrescricao, EstilosComuns.bordaSeparacaoBlocos]}>
                             <Label style={[EstilosComuns.corVerde, EstilosComuns.negrito]}>Prazo do tratamento</Label>  
-                            <Text style={[EstilosComuns.corVerde]}>Uso contínuo?</Text>
+                            <Text style={[EstilosComuns.corVerde]}>Uso contínuo?</Text> */}
                             {/* <Switch value="Uso contínuo"/> */}
 
                             {/*<Left>
@@ -94,7 +108,7 @@ export default class PrescricaoMedicamento extends React.Component {
                                 <Radio selected={true} />
                             </Right> */}
 
-                        </View>
+                        {/* </View>
                         
 
                         <View style={[styles.containerDadosPrescricao, EstilosComuns.bordaSeparacaoBlocos]}>
@@ -116,11 +130,11 @@ export default class PrescricaoMedicamento extends React.Component {
                                 <Picker.Item label="Médico 3" value="3" />
                             </Picker>
 
-                        </View>
+                        </View> */}
                 </View>
 
                 <View style={[EstilosComuns.rodape, styles.rodape]}>
-                    <Botao style={styles.botaoEnviar} tituloBotao='Adicionar' onClick={() =>  this.props.navigation.navigate(TELA_CADASTRO_MEDICAMENTO.name)}/>
+                    <Botao style={styles.botaoEnviar} tituloBotao='Salvar medicamento' onClick={() =>  this.props.navigation.navigate(TELA_CADASTRO_MEDICAMENTO.name)}/>
                 </View>
             </View>
         )

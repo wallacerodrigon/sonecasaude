@@ -25,8 +25,8 @@ class LoginComponent extends Component {
         super(props);
     }
 
-    efetuarLogin = () => {
-        let userDto = {login: this.props.login, senha: this.props.senha};
+    efetuarLogin() {
+        //let userDto = {login: this.props.login, senha: this.props.senha};
         // this.props.validarLoginAction(userDto);
         // if (! this.props.validos ){
         //     MensagemErro("Login e senha devem ser informados!");

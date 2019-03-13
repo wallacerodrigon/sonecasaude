@@ -35,10 +35,11 @@ const StackNotLoggedIn = createStackNavigator(
             cardShadowEnabled: "true",
             borderBottomColor: FUNDO_ESCURO,
             headerTitleStyle: {
-                color: BRANCO
+                color: BRANCO,
+                fontSize: 18
             },
             headerRight: (
-                <Text style={{paddingVertical: 10, paddingHorizontal: 10, color: BRANCO, fontSize: 20, fontWeight: 'bold' }} 
+                <Text style={{paddingVertical: 10, paddingHorizontal: 10, color: BRANCO, fontSize: 18, fontWeight:'bold' }} 
                     onPress={() => navigation.navigate(TELA_LOGIN.name)}>Sair</Text>
             )
         })
