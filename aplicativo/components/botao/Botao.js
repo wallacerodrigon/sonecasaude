@@ -73,3 +73,10 @@ export const BotaoExcluir = (props) => {
               onPress={() => props.onPress() }/>
   )
 };
+
+export const BotaoConfiguracoes = (props) => {
+  return (
+      <Icon name="options" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} 
+              onPress={() => props.onPress() }/>
+  )
+};

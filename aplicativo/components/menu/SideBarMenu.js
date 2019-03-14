@@ -1,4 +1,4 @@
-import { List, ListItem, Thumbnail } from "native-base";
+import { List, ListItem, Thumbnail, Icon } from "native-base";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Rating } from "react-native-ratings";
@@ -7,14 +7,14 @@ import { NAV_COMPARTILHAMENTOS, NAV_MEDICACOES, NAV_MEDICAMENTOS, NAV_MEDICOS, T
 import { MensagemInformativa } from "../mensagens/Mensagens";
 
 const routes = [
-    {label: 'Início', rota: TELA_HOME.name},
-    {label: 'Controle de medicação', rota: NAV_MEDICACOES.name},
-    {label: 'Meus médicos', rota: NAV_MEDICOS.name},
-    {label: 'Compartilhar informações', rota: NAV_COMPARTILHAMENTOS.name},
-    {label: 'Medicamentos', rota: NAV_MEDICAMENTOS.name},
-    // {label: 'Meus endereços', rota: ''},
-    // {label: 'Minhas configurações', rota: ''},
-    {label: 'Sair do aplicativo', rota: TELA_LOGIN.name},
+    {label: 'Início', rota: TELA_HOME.name, icon: 'home'},
+    {label: 'Controle de medicação', rota: NAV_MEDICACOES.name, icon: 'medkit'},
+    {label: 'Meus médicos', rota: NAV_MEDICOS.name, icon: 'pulse'},
+    {label: 'Compartilhar informações', rota: NAV_COMPARTILHAMENTOS.name, icon: 'share'},
+    {label: 'Medicamentos', rota: NAV_MEDICAMENTOS.name, icon: 'color-filter'},
+    {label: 'Configurações', rota: '', icon: 'options'},
+    {label: 'Meus endereços', rota: '', icon: 'business'},
+    {label: 'Sair do aplicativo', rota: TELA_LOGIN.name, icon: 'close-circle-outline'},
     
 ];
 
@@ -67,7 +67,8 @@ export default class SideBarMenu extends React.Component {
                         <ListItem
                                 button
                                 onPress={() => this.abrirTela(data)}>
-                            <Text style={styles.labelRotaDestaque}>{data.label}</Text>
+                                <Icon name={data.icon}/>
+                                <Text style={styles.labelRotaDestaque}> {data.label}</Text>
                         </ListItem>
                     );
                 }}
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'flex-start',
-        padding: 10
+        padding: 2
     },
 
     ratingPerfil: {

@@ -1,13 +1,13 @@
-import { CardItem, DatePicker, Icon, Label, Radio, Thumbnail, Picker } from 'native-base';
+import { DatePicker, Icon, Label, Picker, Radio, Thumbnail } from 'native-base';
 import React from 'react';
-import { FlatList, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { ButtonGroup, Card } from 'react-native-elements';
+import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ButtonGroup } from 'react-native-elements';
 import EstilosComuns, { BRANCO, FUNDO, FUNDO_ESCURO, VERDE } from '../../assets/estilos/estilos';
-import Botao, { BotaoOpacity, BotaoExcluir } from '../../components/botao/Botao';
-import { InputTexto, InputTextComMascara } from "../../components/input/InputTexto";
-import ConfirmacaoSwitch from '../../components/radio/ConfirmacaoSwitch';
-import { TELA_PRESCRICAO, TELA_CONTROLE_MEDICACAO } from '../../constants/AppScreenData';
+import Botao, { BotaoExcluir } from '../../components/botao/Botao';
+import { InputTextComMascara, InputTexto } from "../../components/input/InputTexto";
 import { MensagemInformativa } from '../../components/mensagens/Mensagens';
+import ConfirmacaoSwitch from '../../components/radio/ConfirmacaoSwitch';
+import { TELA_CONTROLE_MEDICACAO, TELA_PRESCRICAO, TELA_LISTA_MEDICAMENTOS } from '../../constants/AppScreenData';
 
 const imgRemedio = require('../../assets/img/losartana.jpeg');
 
@@ -18,7 +18,7 @@ export default class PrescricaoMedicamento extends React.Component {
             <Text style={{paddingVertical: 10, paddingHorizontal: 10, color: BRANCO, fontSize: 18, fontWeight:'bold' }} 
                 onPress={() => {
                     MensagemInformativa('Medicamento salvo com sucesso');
-                    navigation.navigate(TELA_CONTROLE_MEDICACAO.name);
+                    navigation.navigate(TELA_LISTA_MEDICAMENTOS.name);
                 } }>Salvar</Text>
 
         )
@@ -28,7 +28,9 @@ export default class PrescricaoMedicamento extends React.Component {
         super(props);
 
         this.state = {email: '', filtro: '', usoContinuo: true, diasSemana: ['N','S','N','N','N','N','N'], intervaloDias: '15', 
-                      horarios: [{hora: '08:00', qtd: 1.0, medida: '1'}]}
+                      horarios: [],
+                      intervaloHorarios: "0"
+                    }
         this.toggleUsoContinuo = this.toggleUsoContinuo.bind(this);
         this.salvar = this.salvar.bind(this);
     }
@@ -52,7 +54,7 @@ export default class PrescricaoMedicamento extends React.Component {
             return (
                 <View style={{flex: 1}}>
                     <Label  style={[EstilosComuns.corVerde]} >Dias da semana do medicamento</Label>
-                    {this.renderButtonGroup(['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'], [])}
+                    {this.renderButtonGroup(['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'], [1])}
                     {this.renderRadioHorarios()}
                 </View>   
             )
@@ -78,8 +80,10 @@ export default class PrescricaoMedicamento extends React.Component {
                 selectedIndexes={selectedIndexes}
                 buttons={buttons}
                 selectedTextStyle={color= VERDE}
-                //containerBorderRadius={6}
+                buttonStyle= {{backgroundColor: FUNDO}}
+                selectedButtonStyle={{backgroundColor: VERDE}}
                 selectMultiple={selectMultiple}
+                
                 
     />
     }
@@ -87,13 +91,13 @@ export default class PrescricaoMedicamento extends React.Component {
     renderRadioHorarios() {
         return (
             <View style={styles.containerPeriodicidade}>
-                <View style={styles.radioGroup}>
-                    <Text>Intervalos de horários</Text>
+                <View style={{flex: 3, flexDirection: 'row', justifyContent: 'space-between', padding: 10}}>
+                    <Text>Intervalo de horários</Text>
                     <Radio selected={true} selectedColor={VERDE}/>
                 </View>
 
-                <View style={styles.radioGroup}>
-                    <Text>Horário livre</Text>
+                <View style={{flex: 2, flexDirection: 'row', justifyContent: 'space-between', padding: 10}}>
+                    <Text>Horários livres</Text>
                     <Radio selected={false} selectedColor={VERDE}/>
                 </View>
 
@@ -153,16 +157,16 @@ export default class PrescricaoMedicamento extends React.Component {
           )
     }
 
-    adicionarHorarios(){
-        let horario = {hora: '12:00', qtd: Math.random() * 5, medida: Math.round(Math.random() * 3)};
+    adicionarHorarios(hora, qtd, medida){
+        let horario = {hora, qtd, medida};
         this.setState({horarios: [...this.state.horarios, horario]});
     }
 
     renderRowHorarios(){
         return this.state.horarios.map( (horario, index) => {
             return (
-                    <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-                        <View style={{flex: 2, marginRight: 5}}>
+                    <View style={{flexDirection: 'row', padding: 5, justifyContent: 'space-between', alignItems: 'center'}}>
+                        <View style={{flex: 2}}>
                             <InputTextComMascara onChangeText={() => null}
                                 placeholder='Horário'
                                 mascara="99:99"
@@ -170,7 +174,7 @@ export default class PrescricaoMedicamento extends React.Component {
                                 value={horario.hora}/>
                         </View>
 
-                        <View style={{flex: 1, marginRight: 5}}>
+                        <View style={{flex: 1}}>
                             <InputTexto onChangeInput={() => null}
                                 placeholder='Qtd'
                                 type={InputTexto.KEYBOARD_NUMBER}
@@ -201,14 +205,29 @@ export default class PrescricaoMedicamento extends React.Component {
         this.setState({horarios: horarios});
     }
 
+    atualizarIntervaloHorarios(intervaloHorarios, qtd, medida){
+        
+        let horario = '08:00';
+        let repeticoes = Math.round( 24 / intervaloHorarios);
+        let dadosHorario = horario.split(':');
+        let horarios = [];
+
+        for(let i = 0; i < repeticoes; i++){
+            horaAnterior = Number(dadosHorario[0]) + (intervaloHorarios * i);
+            horario = horaAnterior + ':' + dadosHorario[1];
+            horario = horaAnterior < 10 ? '0'+ horario : horario;
+            horarios.push({hora: horario, qtd, medida});
+        }
+        this.setState({ horarios: horarios });
+        this.setState({intervaloHorarios: intervaloHorarios});
+    }
+
     render() {
         let {medicamento} = this.props.navigation.state.params;
         return (
            <KeyboardAvoidingView style={[EstilosComuns.container, {paddingTop: 5, paddingBottom: 5}]} keyboardVerticalOffset={70} behavior="padding" >
-           {/* <View style={[EstilosComuns.container, {paddingTop: 5, paddingBottom: 5}]}> */}
                 <ScrollView style={[styles.containerMain]}>
-                        <Card>
-                            <CardItem cardBody style={{flexDirection: 'row', padding: 5, justifyContent: 'flex-start'}} >
+                        <View style={[EstilosComuns.card, {flexDirection: 'row', padding: 5}]}>
                                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} >
                                     <Thumbnail circular source={imgRemedio} />
                                 </View>
@@ -218,17 +237,13 @@ export default class PrescricaoMedicamento extends React.Component {
                                     <Text note numberOfLines={1} >{medicamento.principioAtivo}</Text>
                                     <Text note numberOfLines={1}>{medicamento.detalhes}</Text>
                                 </View>
-                            </CardItem>
-                        </Card>
+                        </View>
 
-                        <Card>
-                            <CardItem cardBody style={{flexDirection: 'column', padding: 3}}>
-                                    {this.renderComponentePeriodo()}
-                            </CardItem>
-                        </Card>
+                        <View style={EstilosComuns.card}>
+                            {this.renderComponentePeriodo()}
+                        </View>
 
-                        <Card>
-                            <CardItem cardBody>
+                        <View style={EstilosComuns.card}>
                                 <View style={styles.containerBusca}>
                                     <View style={{flex: 9}}>
                                         <InputTexto placeholder="Pesquise por um médico" maxLength={40}
@@ -240,14 +255,10 @@ export default class PrescricaoMedicamento extends React.Component {
                                         <Icon name="search" color={BRANCO} size={25} />
                                     </View>
                                 </View>
+                        </View>
 
 
-                            </CardItem>
-                        </Card>
-
-
-                        <Card>
-                            <CardItem cardBody style={{flexDirection: 'column', padding: 3, justifyContent: 'flex-start'}}>
+                        <View style={[EstilosComuns.card, {flexDirection: 'column', padding: 3}]}>
                                 <Label style={[EstilosComuns.corVerde]}>Prazo do tratamento</Label>
                                 <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                                     <Text style={styles.cardContinuoLeft} >Uso contínuo?</Text>
@@ -255,22 +266,34 @@ export default class PrescricaoMedicamento extends React.Component {
                                 </View>
 
                                 {this.renderPeriodos()}
-                            </CardItem>
-                        </Card>
+                        </View>
 
-                        <Card>
-                            <CardItem cardBody style={{flexDirection: 'column', padding: 10}}>
-                                <Label style={[EstilosComuns.corVerde, {textAlign: 'left'}]}>Horários</Label>
-                                {this.renderRowHorarios()}         
+                        <View  style={[{flexDirection: 'column'}, EstilosComuns.card]}>
+                            <Label style={[EstilosComuns.corVerde, {textAlign: 'left'}]}>Horários</Label>
 
-                                <View style={{padding: 10}}>
-                                    <Botao tituloBotao="Adicionar Horário"
-                                            onClick={() => this.adicionarHorarios() }/>    
-                                </View>
-                                
-                            </CardItem>
+                            <View style={{flex: 1}}>
+                                <Picker onValueChange={(itemValue) => this.atualizarIntervaloHorarios(itemValue, medicamento.qtd, medicamento.medida)} 
+                                    selectedValue={this.state.intervaloHorarios}>
+                                    <Picker.Item label="Selecione o intervalo" value="0"/>
+                                    <Picker.Item label="2 em 2 horas" value="2"/>
+                                    <Picker.Item label="5 em 5 horas" value="5"/>
+                                    <Picker.Item label="6 em 6 horas" value="6"/>
+                                    <Picker.Item label="8 em 8 horas" value="8"/>
+                                    <Picker.Item label="12 em 12 horas" value="12"/>
+                                </Picker>
+                            </View> 
 
-                        </Card>
+                            {this.renderRowHorarios()}         
+
+                            <View style={{padding: 10}}>
+                                <Botao tituloBotao="Adicionar Horário"
+                                        onClick={() => this.adicionarHorarios() }/>    
+                            </View>
+                            
+                        </View>
+
+                        <View style={{flex: 1}}/>
+
                 </ScrollView>
 
             </KeyboardAvoidingView>
@@ -290,7 +313,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between', 
         alignItems: 'center',
         borderBottomWidth: 1,
-        borderBottomColor: FUNDO_ESCURO
+        borderBottomColor: FUNDO
     },
 
     card: {

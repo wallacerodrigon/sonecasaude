@@ -4,6 +4,8 @@ import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import EstilosComuns, { FUNDO } from '../../assets/estilos/estilos';
 import { NAV_MEDICACOES, NAV_MEDICOS, TELA_COMANDO_VOZ, TELA_LOGIN } from '../../constants/AppScreenData';
+import { BotaoConfiguracoes } from '../../components/botao/Botao';
+import { MensagemInformativa } from '../../components/mensagens/Mensagens';
 
 const imgMicrophone = require('../../assets/img/microphone_green.png');
 
@@ -20,7 +22,12 @@ export default class HomeScreen extends React.Component {
 
         
     }
-
+ 
+    // static navigationOptions = ({ navigation }) => ({
+    //     headerRight: (
+    //         <BotaoConfiguracoes onPress={() => MensagemInformativa('Tela de configurações') } />
+    //       )          
+    // });    
       
 
     retornarLogin = () => {

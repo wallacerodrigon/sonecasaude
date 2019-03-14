@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {View, KeyboardAvoidingView, StyleSheet, Image} from 'react-native';
+import {View, KeyboardAvoidingView, StyleSheet, Image, Text} from 'react-native';
 
 import Botao from '../../components/botao/Botao';
-import EstilosComuns from '../../assets/estilos/estilos';
+import EstilosComuns, { FUNDO, VERDE } from '../../assets/estilos/estilos';
 import {TELA_PADRAO, TELA_HOME, TELA_ESQUECI_SENHA, TELA_CADASTRO_PERFIL} from '../../constants/AppScreenData';
 import CommandLink from '../../components/botao/CommandLink';
 import {InputTexto} from '../../components/input/InputTexto';
@@ -11,6 +11,8 @@ import { connect } from "react-redux";
 
 import { efetuarLoginAction, validarLoginAction, onChangeLogin, onChangeSenha } from "../../actions";
 import { MensagemErro } from "../../components/mensagens/Mensagens";
+import { Card, CardItem } from 'native-base';
+import { ButtonGroup } from 'react-native-elements';
 
 const imgLogo = require('../../assets/img/logo-login.jpeg');
  
@@ -102,6 +104,8 @@ export default connect(mapStateToProps, { efetuarLoginAction, validarLoginAction
 
 
 const styles = StyleSheet.create({
+   
+
     header: {
         flex: 3,
         flexDirection: 'column',
