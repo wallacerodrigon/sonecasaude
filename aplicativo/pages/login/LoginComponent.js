@@ -9,7 +9,7 @@ import {InputTexto} from '../../components/input/InputTexto';
 
 import { connect } from "react-redux";
 
-import { efetuarLoginAction, validarLoginAction, onChangeLogin, onChangeSenha } from "../../actions";
+import { efetuarLoginAction, validarLoginAction, onChangeField } from "../../actions/LoginAction";
 import { MensagemErro } from "../../components/mensagens/Mensagens";
 import { Card, CardItem } from 'native-base';
 import { ButtonGroup } from 'react-native-elements';
@@ -65,7 +65,7 @@ class LoginComponent extends Component {
 
             <View style={styles.central}>
                 <InputTexto placeholder="E-mail ou telefone" maxLength={40}
-                    onChangeInput={texto => this.props.onChangeLogin(texto)}
+                    onChangeInput={texto => this.props.onChangeField('login', texto)}
                     autoCapitalize="none"
                     fieldName="login"
                     keyboardType={InputTexto.KEYBOARD_EMAIL}
@@ -74,7 +74,7 @@ class LoginComponent extends Component {
 
 
                 <InputTexto placeholder="Senha" maxLength={10} secureTextEntry
-                    onChangeInput={texto => this.props.onChangeSenha(texto)}
+                    onChangeInput={texto => this.props.onChangeField('senha', texto)}
                     autoCapitalize="none"
                     value={this.props.senha}
                     textcontextType="password"/>
@@ -100,7 +100,7 @@ const mapStateToProps = state => ({
     validos: state.loginReducer.validos
 })
 
-export default connect(mapStateToProps, { efetuarLoginAction, validarLoginAction, onChangeLogin, onChangeSenha })(LoginComponent);
+export default connect(mapStateToProps, { efetuarLoginAction, validarLoginAction, onChangeField })(LoginComponent);
 
 
 const styles = StyleSheet.create({

@@ -10,6 +10,18 @@ export const CADASTRO_DESAFIOS = "cadastroDesafios";
 export const CADASTRO_COMPARTILHAMENTO = "cadastroCompartilhamento";
 export const FINALIZA_CADASTRO = "finalizaCadastro";
 
+
+export const BUSCA_CEP = "buscaCep";
+export const BUSCA_LOGRADOURO = "buscaLogradouro";
+export const BUSCA_DESAFIO = "buscaDesafio";
+
+
+export const START_CADASTRO ="iniciandoCadastro";
+export const END_CADASTRO ="finalizandoCadastro";
+
+export const ERRO_CADASTRO ="erroCadastro";
+//INTERNET_INOPERANTE
+
 export const cadastrarDadosPessoais = (user) => ({
     type: CADASTRO_DADOS_PESSOAIS,
     user

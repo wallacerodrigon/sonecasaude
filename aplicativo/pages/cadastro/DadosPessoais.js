@@ -46,7 +46,7 @@ class DadosPessoais extends React.Component {
                 
                 <View style={EstilosComuns.bodyMain}>
                     <InputTextComMascara  style={[EstilosComuns.inputText]} 
-                       // onChangeText={text =>this.onChangeCpf(text)}
+                        onChangeText={text =>this.onChangeCpf(text)}
                         placeholder="Digite seu CPF"
                         type={InputTextComMascara.MASK_CPF}
                         value={this.state.cpf}

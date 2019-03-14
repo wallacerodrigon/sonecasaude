@@ -1,4 +1,4 @@
-import { EFETUAR_LOGIN, EFETUAR_LOGOUT, VALIDAR, CHANGE_FIELD, CHANGE_LOGIN } from "../actions";
+import { EFETUAR_LOGIN, EFETUAR_LOGOUT, VALIDAR, CHANGE_FIELD } from "../actions/LoginAction";
 import axios  from "axios";
 
 const INITIAL_STATE = {
@@ -6,10 +6,9 @@ const INITIAL_STATE = {
 }
 
 export default (state = INITIAL_STATE, action) => {
-//    console.log(state, action);
     switch(action.type){
         case CHANGE_FIELD: {
-            return onChangeField(state, action.field, action.value);
+            return alterarState(state, action.field, action.value);
         }
 
         case VALIDAR: {
@@ -23,9 +22,7 @@ export default (state = INITIAL_STATE, action) => {
            // if (action.user.login === 'wal' && action.user.senha === 'digo'){
                 //state = {...state, senha: null};
                 //return action.user;
-                console.log('consegui efetuar login com axios');
                 const retorno = efetuarLogin(action)
-                console.log('código depois do axios');
                 return action.user;
            // } else {
                 return state;
@@ -40,12 +37,6 @@ export default (state = INITIAL_STATE, action) => {
             return state;
         }
     }
-}
-
-const onChangeField = (state, fieldName, valor)=> {
-    let newState = {...state};
-    newState[fieldName] = valor;
-    return newState;
 }
 
 const dadosEstaoInformados = (action) => {
