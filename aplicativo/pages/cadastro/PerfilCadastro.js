@@ -8,8 +8,8 @@ import { PERFIL_CUIDADOR, PERFIL_PACIENTE } from '../../constants/ConstantesInte
 class PerfilCadastro extends React.Component {
 
     perfisVisiveis = [
-        {id: 1, nome: 'Paciente', ordem: 1},
-        {id: 2, nome: 'Cuidador', ordem: 2}
+        {id: 2, nome: 'Paciente', ordem: 1},
+        {id: 3, nome: 'Cuidador', ordem: 2}
     ];
 
     constructor(props){

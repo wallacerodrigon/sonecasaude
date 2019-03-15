@@ -1,7 +1,11 @@
 import axios from "axios";
 
-export const PERFIL_PACIENTE = 'P';
-export const PERFIL_CUIDADOR = 'C';
+export const PERFIL_PACIENTE = '2';
+export const PERFIL_CUIDADOR = '3';
+
+export const TIPO_COMPARTILHAMENTO_MEDICACAO = 'CM';
+export const TIPO_COMPARTILHAMENTO_MEDICAMENTOS = 'RM';
+export const TIPO_COMPARTILHAMENTO_TRANSPORTE = 'TR';
 
 export const URL_BACKEND = "http://192.168.0.11:8080";
 export const URL_BACKEND_PRD = "http://sonecasaude.com.br";

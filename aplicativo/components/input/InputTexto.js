@@ -69,6 +69,7 @@ export class InputTextComMascara extends React.Component {
         return (    
            <TextInputMask  style={[EstilosComuns.inputText]} 
                 onChangeText={text => this.props.onChangeText(text) }
+                onBlur={text=> this.props.onBlur}
                 placeholder={this.props.placeholder}
                 placeholderTextColor={this.props.placeholderTextColor || PLACE_HOLDER_COLOR}
                 type={this.props.type}

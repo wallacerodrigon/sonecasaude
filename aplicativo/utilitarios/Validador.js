@@ -336,7 +336,31 @@ export default class Validador {
         return dataValidar && dataBase && dataValidar > dataBase;
     }
     
+    isEmailValido(email){
+        let dados = email.split('@');
 
+        if (dados.length != 2){
+            return false;
+        }
+
+        if (email.trim().indexOf(' ') > -1){
+            return false;
+        }
+
+        if (dados[1].indexOf('.') === -1){
+            return false;
+        }
+
+        return true;
+
+    }
   
+    isTelefoneValido(numero){
+        let numeros = this.mantemSomenteNumeros(numero);
+        if (numeros.length === 10 || numeros.length === 11){
+            return true;
+        }
+        return false;
+    }
 
 }

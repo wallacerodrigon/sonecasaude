@@ -1,48 +1,25 @@
-export const DADOS_PESSOAIS_INVALIDOS= "DADOS_PESSOAIS_INVALIDOS";
-export const DADOS_ENDERECOS_INVALIDOS= "DADOS_ENDERECOS_INVALIDOS";
-export const DADOS_DESAFIOS_INVALIDOS= "DADOS_DESAFIOS_INVALIDOS";
-export const DADOS_COMPARTILHAMENTO_INVALIDOS= "DADOS_COMPARTILHAMENTO_INVALIDOS";
-export const DADOS_FINALIZACAO_INVALIDOS= "DADOS_FINALIZACAO_INVALIDOS";
+export const CADASTRAR_USUARIO = "cadastrarUsuario";
 
-export const CADASTRO_DADOS_PESSOAIS ="cadastroDadosPessoais";
-export const CADASTRO_ENDERECO ="cadastroDadosEndereco";
-export const CADASTRO_DESAFIOS = "cadastroDesafios";
-export const CADASTRO_COMPARTILHAMENTO = "cadastroCompartilhamento";
-export const FINALIZA_CADASTRO = "finalizaCadastro";
-
+export const CHANGE_FIELD = "changeField";
 
 export const BUSCA_CEP = "buscaCep";
 export const BUSCA_LOGRADOURO = "buscaLogradouro";
 export const BUSCA_DESAFIO = "buscaDesafio";
 
+export const START_CADASTRO ="iniciandoCadastro";  //deixar genérico
+export const END_CADASTRO ="finalizandoCadastro";  //deixar genérico
+export const ERRO_CADASTRO = "erroCadastro";  //deixar genérico
 
-export const START_CADASTRO ="iniciandoCadastro";
-export const END_CADASTRO ="finalizandoCadastro";
+export const INTERNET_INOPERANTE = "erroInternet"; //deixar genérico
 
-export const ERRO_CADASTRO ="erroCadastro";
-//INTERNET_INOPERANTE
 
-export const cadastrarDadosPessoais = (user) => ({
-    type: CADASTRO_DADOS_PESSOAIS,
+export const cadastrarUsuario = (user) => ({
+    type: CADASTRAR_USUARIO,
     user
 });
 
-export const cadastrarDadosEndereco = (user) => ({
-    type: CADASTRO_ENDERECO,
-    user
-});
-
-export const cadastrarDesafios = (user) => ({
-    type: CADASTRO_DESAFIOS,
-    user
-});
-
-export const cadastrarCompartilhamento = (user) => ({
-    type: CADASTRO_COMPARTILHAMENTO,
-    user
-});
-
-export const cadastrarDadosFinais = (user) => ({
-    type: FINALIZA_CADASTRO,
-    user
-});
+export const onChangeField = (fieldName, value) => ({
+    type: CHANGE_FIELD, 
+    fieldName,
+    value
+})
