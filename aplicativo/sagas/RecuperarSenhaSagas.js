@@ -5,6 +5,7 @@ import {
 
 import { START_RECUPERACAO, END_RECUPERACAO, EMAIL_INVALIDO, EMAIL_INEXISTENTE, ERRO_INESPERADO, INTERNET_INOPERANTE } from "../actions/EsqueciSenhaAction";
 import UsuarioServico from "../servicos/UsuarioServico";
+import { NETWORK_ERROR } from "../constants/ConstantesInternas";
 
 export function* recuperarSenha(action){
  //   console.log('recuperando senha pela saga:', UsuarioServico.recuperarSenha);
@@ -19,12 +20,12 @@ export function* recuperarSenha(action){
             yield put({type: ERRO_INESPERADO, mensagem: retorno.mensagem});
         }
     } catch(error){
-        console.log('erro:',error);
-        if (error == 'Error: Network Error') {
+        if (error == NETWORK_ERROR) {
             yield put({type: INTERNET_INOPERANTE});
+        } else {
+            yield put({type: ERRO_INESPERADO, mensagem: error});
         }
 
-        yield put({type: ERRO_INESPERADO, mensagem: error});
 
     }
 

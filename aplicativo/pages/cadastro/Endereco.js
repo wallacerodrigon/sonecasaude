@@ -1,84 +1,155 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import EstilosComuns from '../../assets/estilos/estilos';
-import {TELA_ENDERECO, TELA_DESAFIOS} from '../../constants/AppScreenData';
-import Botao from '../../components/botao/Botao';
-import {InputTexto, InputTextComMascara} from '../../components/input/InputTexto';
-
+import { ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView } from 'react-native';
 import { connect } from "react-redux";
-import { onChangeField } from "../../actions/CadastroAction";
+import { buscarCep, onChangeField } from "../../actions/CadastroAction";
+import EstilosComuns, { VERDE } from '../../assets/estilos/estilos';
+import Botao from '../../components/botao/Botao';
+import { InputTextComMascara, InputTexto } from '../../components/input/InputTexto';
+import { MensagemInformativa } from "../../components/mensagens/Mensagens";
+import { TELA_ENDERECO, TELA_DESAFIOS } from '../../constants/AppScreenData';
+import Validador from '../../utilitarios/Validador';
 
 class Endereco extends React.Component {
     static navigationOptions = {
         title: TELA_ENDERECO.title,
       };
 
+    constructor(props){
+        super(props);
+    }
+
     buscarCep(){
-        this.props.estado = "teste";
+
+       if (new Validador().validaCEP(this.props.numCep)){
+           this.props.buscarCep(this.props.numCep);
+       }  else {
+           MensagemInformativa('CEP inválido. CEP deve ter 8 dígitos!');
+       }
+    }
+
+    componentDidMount(){
+        if (this.isPreencheLogradouro()){
+            MensagemInformativa('Dados de endereço não encontrados com este CEP.\nFavor preencher as informações do seu endereço.');
+        } 
+    }
+
+    isPreencheLogradouro(){
+        return this.props.bolExecutado && this.props.idLogradouro === null;
+    }
+
+    dadosValidos(){
+        if (this.props.idLogradouro > 0 && this.props.numCep != ''){
+            return true;
+        } else if (this.props.idLogradouro === null && 
+                   this.props.estado.trim() != '' && 
+                   this.props.cidade.trim() != '' && 
+                   this.props.bairro.trim() != '' &&
+                   this.props.logradouro.trim() != ''){
+            return true;
+        } else {
+            return false;
+        }
+
+
+    }
+
+    salvarEndereco(){
+        let cepValido = new Validador().validaCEP(this.props.numCep);
+        if (this.dadosValidos() && cepValido){
+            this.props.navigation.navigate(TELA_DESAFIOS.name);        
+        } else if (! cepValido){
+            MensagemInformativa('CEP inválido. CEP deve ter 8 dígitos!');
+        } else {
+            MensagemInformativa('Preencha corretamente os dados do seu endereço!');
+        }
+    }
+
+    renderIndicator(){
+        if (this.props.loading){
+            return <ActivityIndicator style={styles.loading} />
+        } else {
+            return <Botao tituloBotao="Buscar CEP"  onClick={()=>this.buscarCep()}/>
+        }
     }
 
     render() {
         return (
-            <View style={EstilosComuns.container}>
+        <View style={EstilosComuns.container}>
             <Text style={EstilosComuns.tituloJanelas}>Endereço</Text>
             
             <View style={styles.inputs}>
-                <InputTextComMascara placeholder="CEP"
-                    type={InputTextComMascara.MASK_CEP}
-                    value={this.props.numCep}
-                    onChangeText={text =>this.props.onChangeField('numCep', text)}
-                    onBlur={this.buscarCep}
-                    />
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 5, alignItems: 'center'}}>
+                    <View style={{flex: 8}}>
+                        <InputTextComMascara placeholder="CEP"
+                            type={InputTextComMascara.MASK_CEP}
+                            value={this.props.numCep}
+                            onChangeText={text =>this.props.onChangeField('numCep', text)}
+                            />
+                    </View>
+
+                    <View style={{flex: 2}}>
+                        {this.renderIndicator()}
+                        
+                    </View>
+                </View>
+
                 <InputTexto placeholder="Estado" maxLength={40}
                     onChangeInput={text =>this.props.onChangeField('estado', text)}
-                    value={this.props.nomeUsuario}
+                    value={this.props.estado}
+                    editable={this.isPreencheLogradouro()}
                     />
                 <InputTexto placeholder="Cidade" maxLength={40}
                     onChangeInput={value => this.onChangeInput(value)}
                     onChangeInput={text =>this.props.onChangeField('cidade', text)}
-                        value={this.props.nomeUsuario}
+                    editable={this.isPreencheLogradouro()}
+                        value={this.props.cidade}
                     />
                 <InputTexto placeholder="Bairro" maxLength={40}
                     onChangeInput={value => this.onChangeInput(value)}
                     onChangeInput={text =>this.props.onChangeField('bairro', text)}
-                        value={this.props.nomeUsuario}
+                    editable={this.isPreencheLogradouro()}
+                        value={this.props.bairro}
                     />
                 <InputTexto placeholder="Logradouro" maxLength={40}
                     onChangeInput={value => this.onChangeInput(value)}
                     onChangeInput={text =>this.props.onChangeField('logradouro', text)}
-                        value={this.props.nomeUsuario}
+                    editable={this.isPreencheLogradouro()}
+                        value={this.props.logradouro}
                     />
                 <InputTexto placeholder="Número" maxLength={60}
                     keyboardType={InputTexto.KEYBOARD_NUMBER}
                     onChangeInput={text =>this.props.onChangeField('numero', text)}
-                        value={this.props.nomeUsuario}
+                        value={this.props.numero}
                     />
                 <InputTexto placeholder="Complemento" maxLength={40}
                     onChangeInput={text =>this.props.onChangeField('complemento', text)}
-                    value={this.props.nomeUsuario}
+                    value={this.props.complemento}
                     />
 
             </View>
             
             <View style={styles.rodape}>
-                <Botao tituloBotao='Próximo' onClick={() =>  this.props.navigation.navigate(TELA_DESAFIOS.name)}/>    
+                <Botao tituloBotao='Próximo' onClick={() => this.salvarEndereco()}/>    
             </View>
-        </View>            
+        </View>
         )
     };
 }
 
 const mapStateToProps = state => ({
-    numCep: state.cadastroReducer.user.cep,
+    numCep: state.cadastroReducer.user.numCep,
+    estado:  state.cadastroReducer.user.estado,
+    cidade:  state.cadastroReducer.user.cidade,
+    bairro:  state.cadastroReducer.user.bairro,
+    idLogradouro:  state.cadastroReducer.user.idLogradouro,
+    logradouro:  state.cadastroReducer.user.logradouro,
     numero: state.cadastroReducer.user.numero,
     complemento: state.cadastroReducer.user.complemento,
-    estado:  state.cadastroReducer.user.complemento.estado,
-    cidade:  state.cadastroReducer.user.complemento.cidade,
-    bairro:  state.cadastroReducer.user.complemento.bairro,
-    logradouro:  state.cadastroReducer.user.complemento.logradouro
+    bolExecutado: state.cadastroReducer.bolExecutado,
+    loading: state.cadastroReducer.loading
 })
 
-export default connect(mapStateToProps, {onChangeField})(Endereco);
+export default connect(mapStateToProps, {onChangeField, buscarCep})(Endereco);
 
 const styles= StyleSheet.create({
     inputs : {
@@ -87,5 +158,9 @@ const styles= StyleSheet.create({
     },
     rodape: {
         flex: 1
+    },
+    loading: {
+        color: VERDE,
+        
     }
 })

@@ -18,13 +18,13 @@ import EstilosComuns, { BRANCO, FUNDO_ESCURO } from '../assets/estilos/estilos';
 
 const StackNotLoggedIn = createStackNavigator(
     {
-        login: {screen: LoginComponent},
-        cadastroPerfil: PerfilCadastro,
-        esqueciSenha: {screen: EsqueciSenha},
-        dadosPessoais: DadosPessoais,
+      //  login: {screen: LoginComponent},
+       // cadastroPerfil: PerfilCadastro,
+       // esqueciSenha: {screen: EsqueciSenha},
+        //dadosPessoais: DadosPessoais,
         endereco: Endereco,
         desafios: Desafios,
-        cadastroCompartilhamento: CadastroCompartilhamento,
+       // cadastroCompartilhamento: CadastroCompartilhamento,
         finalizaCadastro: FinalizaCadastro,         
     },
     {

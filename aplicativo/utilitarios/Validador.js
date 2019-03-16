@@ -363,4 +363,9 @@ export default class Validador {
         return false;
     }
 
+    validaCEP(numero){
+        let somenteNumeros = this.mantemSomenteNumeros(numero);
+        return somenteNumeros.length === 8;
+    }
+
 }

@@ -1,4 +1,4 @@
-import { RECUPERAR_SENHA, CHANGE_FIELD, START_RECUPERACAO, END_RECUPERACAO, INTERNET_INOPERANTE, EMAIL_INEXISTENTE, ERRO_INESPERADO, EMAIL_INVALIDO,  } from "../actions/EsqueciSenhaAction";
+import { CHANGE_FIELD, END_RECUPERACAO, ERRO_INESPERADO, INTERNET_INOPERANTE, RECUPERAR_SENHA, START_RECUPERACAO } from "../actions/EsqueciSenhaAction";
 import { alterarState } from "./FuncoesGenericas";
 
 const INITIAL_STATE = {email: '', loading: false, sucesso: true, mensagemFalha: '', executado: false};

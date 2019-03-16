@@ -1,11 +1,9 @@
-import {
-    call,
-    put, delay
-  } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
+import { BUSCA_CEP_FALHA, BUSCA_CEP_SUCESSO, INICIA_BUSCA_CEP, INTERNET_INOPERANTE } from "../actions/CadastroAction";
+import { NETWORK_ERROR } from "../constants/ConstantesInternas";
+import EnderecoServico from "../servicos/EnderecoServico";
 
-import { START_CADASTRO, END_CADASTRO, ERRO_CADASTRO, INTERNET_INOPERANTE } from "../actions/CadastroAction";
 
-import UsuarioServico from "../servicos/UsuarioServico";
 
 export function* salvarCadastro(action){
     console.log('recuperando senha pela saga:', action);
@@ -31,3 +29,34 @@ export function* salvarCadastro(action){
 
 }
 
+export function* buscarDadosEndereco(action){
+
+  yield put({type: INICIA_BUSCA_CEP});
+
+  try {
+    const dadosEndereco = yield call(EnderecoServico.buscarCep, action.numCep);
+    // if (action.numCep == '00000-000'){
+    //   yield put({type: BUSCA_CEP_FALHA, mensagemFalha: 'Cep não encontrado' })
+    // } else {
+    //   const dadosEndereco = {
+    //     numCep: action.numCep,
+    //     estado: 'Distrito Federal',
+    //     cidade: 'Ceilândia',
+    //     bairro: 'Ceilândia Sul',
+    //     idLogradouro: 10,
+    //     logradouro: 'QNM 33 AE H'
+    //   };
+    // }
+    yield put({type: BUSCA_CEP_SUCESSO, dadosEndereco })
+
+  } catch(error){
+      if (error == NETWORK_ERROR) {
+        yield put({type: INTERNET_INOPERANTE});
+      }
+      else {
+        yield put({type: BUSCA_CEP_FALHA, mensagemFalha: error })
+      } 
+  }
+
+
+}

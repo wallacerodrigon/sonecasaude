@@ -1,5 +1,5 @@
 import { 
-    CHANGE_FIELD, CADASTRAR_USUARIO
+    CHANGE_FIELD, CADASTRAR_USUARIO, INICIA_BUSCA_CEP, BUSCA_CEP_SUCESSO, BUSCA_CEP_FALHA
 } from "../actions/CadastroAction";
 
 import { PERFIL_PACIENTE } from "../constants/ConstantesInternas";
@@ -13,10 +13,11 @@ const INITIAL_STATE = {
         dataNascimento: '',
         numCelular: '',
         sexo: '',
-        cep: '',
+        numCep: '',
         estado: '', 
         cidade: '',
         bairro: '',
+        idLogradouro: null,
         logradouro: '', 
         numero: '',
         complemento: '',
@@ -36,7 +37,9 @@ const INITIAL_STATE = {
         bolConcordouTermo: false,
     },
     bolSalvo: false,
-    descMensagemFalha: ''
+    descMensagemFalha: '',
+    bolExecutado: false,
+    loading: false
 }
 
 
@@ -53,6 +56,40 @@ export default (state = INITIAL_STATE, action) => {
             console.log('state no reducer:', state);
             return state;
         }
+
+        case INICIA_BUSCA_CEP: {
+            return {
+                ...state, loading: true
+            }
+        }
+
+        case BUSCA_CEP_SUCESSO: {
+            let newState = {
+                ...state,
+                bolExecutado: true,
+                loading: false
+            };
+            newState.user["estado"]= action.dadosEndereco.estado,
+            newState.user["cidade"]= action.dadosEndereco.cidade,
+            newState.user["bairro"]= action.dadosEndereco.bairro,
+            newState.user["idLogradouro"]= action.dadosEndereco.idLogradouro,
+            newState.user["logradouro"]= action.dadosEndereco.logradouro
+            return newState;
+        }
+
+        case BUSCA_CEP_FALHA: {
+            let newState = {
+                ...state,
+                bolExecutado: true,
+                loading: false
+            };
+            newState.user["estado"]= "";
+            newState.user["cidade"]= "";
+            newState.user["bairro"]= "";
+            newState.user["idLogradouro"]= null;
+            newState.user["logradouro"]= "";
+            return newState;
+        }        
 
         default: {
             return state;
