@@ -14,6 +14,9 @@ export const TELA_FINALIZA_CADASTRO = {name:"finalizaCadastro", title: "Cadastro
 
 /**compartilhamentos */
 export const TELA_ADD_COMPARTILHAMENTO = {name:"cadastroCompartilhamento", title: "Cadastro"};
+export const TELA_ADD_COMPARTILHAMENTO_LOGGED = {name:"cadastroCompartilhamentoLogado", title: "Cadastro"};
+
+
 export const TELA_ADD_COMPARTILHAMENTO_LIST = {name: 'cadastroCompartilhamentoFromList', title: 'Compartilhar informações'};
 export const TELA_LISTA_COMPARTILHAMENTO = {name: 'listaCompartilhamento', title: 'Compartilhamentos'};
 

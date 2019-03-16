@@ -1,11 +1,11 @@
 import {Alert} from 'react-native';
 
-export const MensagemInformativa = (mensagem) => {
+export const MensagemInformativa = (mensagem, callBack = null) => {
   Alert.alert(
     'Atenção!',
     mensagem,
     [
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
+        {text: 'OK', onPress: () => callBack != null ? callBack() : null},
     ],
  );
 }

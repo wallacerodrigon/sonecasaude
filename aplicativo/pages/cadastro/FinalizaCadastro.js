@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator} from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator, KeyboardAvoidingView} from 'react-native';
 import EstilosComuns, { FUNDO, VERDE } from '../../assets/estilos/estilos';
 import Botao from '../../components/botao/Botao';
 import { InputTexto } from '../../components/input/InputTexto';
@@ -8,7 +8,8 @@ import { TELA_FINALIZA_CADASTRO, TELA_LOGIN } from '../../constants/AppScreenDat
 
 import { cadastrarUsuario, onChangeField, onToggleField } from "../../actions/CadastroAction";
 import { connect } from "react-redux";
-import { MensagemErro } from "../../components/mensagens/Mensagens";
+import { MensagemErro, MensagemInformativa } from "../../components/mensagens/Mensagens";
+import { PERFIL_PACIENTE, PERFIL_CUIDADOR } from "../../constants/ConstantesInternas";
 
 class FinalizaCadastro extends React.Component {
     static navigationOptions = {
@@ -17,6 +18,16 @@ class FinalizaCadastro extends React.Component {
 
     constructor(props){
         super(props);
+    }
+
+    componentDidMount(){
+        if (this.isCuidador()){
+            this.props.onChangeField('descTransporte', '');
+            this.props.onChangeField('nomePlanoSaude', '');
+            this.props.onChangeField('bolPlanoSaude', false);
+            this.props.onChangeField('bolTransporte', false);
+        }
+
     }
 
     togglePlanoSaude(){
@@ -29,9 +40,22 @@ class FinalizaCadastro extends React.Component {
         this.props.onToggleField('bolConcordouTermo');
     }
 
+
+
+    componentDidUpdate(){
+        if (this.props.bolExecutado && this.props.bolSalvo){
+            MensagemInformativa('Cadastro salvo com sucesso. Enviamos a você um e-mail de ativação para acesso ao aplicativo!'
+            , () => {
+               this.props.navigation.navigate(TELA_LOGIN.name)   
+            });
+        } else if (this.props.bolExecutado && this.props.descMensagemFalha != '') {
+            MensagemErro(this.props.descMensagemFalha);
+        }
+    }
+
     salvarCadastro(){
         if (this.props.bolPlanoSaude && this.props.nomePlanoSaude.trim() == ""){
-            MensagemErro('Favor informar o nome da operadora do plano de saúde!');
+            MensagemInformativa('Favor informar o nome da operadora do plano de saúde!');
             return;
         }
         if (this.props.bolTransporte && this.props.descTransporte.trim() == ""){
@@ -39,8 +63,12 @@ class FinalizaCadastro extends React.Component {
             return;
         }
 
-        this.props.cadastrarUsuario();
-        //this.props.navigation.navigate(TELA_LOGIN.name)        
+
+        this.props.cadastrarUsuario(this.props.user);
+    }
+
+    isCuidador(){
+        return this.props.codPerfil === PERFIL_CUIDADOR;
     }
 
     renderBotao(){
@@ -53,48 +81,59 @@ class FinalizaCadastro extends React.Component {
         }
     }
 
+    renderPlanoSaude(){
+        return this.props.codPerfil === PERFIL_PACIENTE &&
+                <View style={styles.card}>
+                    <View style={styles.cardItem}>
+                        <Text style={styles.cardItemLeft}>Possui plano de saúde?</Text>
+                        <ConfirmacaoSwitch style={styles.cardItemRight} value={this.props.bolPlanoSaude} 
+                            toggleSwitch={()=>this.togglePlanoSaude()}></ConfirmacaoSwitch>
+                    </View>
+                    <View>
+                        <InputTexto  onChangeInput={value => this.props.onChangeField('nomePlanoSaude', value) }
+                            maxLength={50} 
+                            value={this.props.nomePlanoSaude}
+                            placeholder="Se sim, informe o nome da operadora" 
+                            autoCapitalize="words"
+                            editable={this.props.bolPlanoSaude}
+                        />
+                    </View>
+                </View>         
+
+    }
+
+    renderTransporte(){
+        return this.props.codPerfil === PERFIL_PACIENTE &&
+                <View style={styles.card}>
+                    <View style={styles.cardItem}>
+                        <Text style={styles.cardItemLeft}>Tem necessidade de transporte especial?</Text>
+                        <ConfirmacaoSwitch style={styles.cardItemRight} value={this.props.bolTransporte} 
+                        toggleSwitch={()=>this.toggleTransporte()}></ConfirmacaoSwitch>
+                    </View>
+                    <View>
+                        <InputTexto onChangeInput={value => this.props.onChangeField('descTransporte', value)}
+                            maxLength={100} 
+                            placeholder="Se sim, descreva a necessidade (máx. 100)"
+                            autoCapitalize="words"
+                            multiline={true}
+                            numberOfLines={2}
+                            value={this.props.descTransporte}
+                            editable={this.props.bolTransporte}
+                        />
+                    </View>
+            
+                </View>        
+    }
+
     render() {
         return (
-            <View style={EstilosComuns.container}>
+            <KeyboardAvoidingView style={[EstilosComuns.container]} keyboardVerticalOffset={100} behavior="padding" >
                  <View style={[EstilosComuns.bodyMain]}>
                     {/* criar uma classe do tipo groupfield e um componente com texto e  */}
                     {/**usar o multiline para a escrita com 2 linhas no máximo */}
-                    <View style={styles.card}>
-                        <View style={styles.cardItem}>
-                            <Text style={styles.cardItemLeft}>Possui plano de saúde?</Text>
-                            <ConfirmacaoSwitch style={styles.cardItemRight} value={this.props.bolPlanoSaude} 
-                                toggleSwitch={()=>this.togglePlanoSaude()}></ConfirmacaoSwitch>
-                        </View>
-                        <View>
-                            <InputTexto  onChangeInput={value => this.props.onChangeField('nomePlanoSaude', value) }
-                                maxLength={50} 
-                                value={this.props.nomePlanoSaude}
-                                placeholder="Se sim, informe o nome da operadora" 
-                                autoCapitalize="words"
-                                editable={this.props.bolPlanoSaude}
-                            />
-                        </View>
-                    </View>
 
-                    <View style={styles.card}>
-                        <View style={styles.cardItem}>
-                            <Text style={styles.cardItemLeft}>Tem necessidade de transporte especial?</Text>
-                            <ConfirmacaoSwitch style={styles.cardItemRight} value={this.props.bolTransporte} 
-                             toggleSwitch={()=>this.toggleTransporte()}></ConfirmacaoSwitch>
-                        </View>
-                        <View>
-                            <InputTexto onChangeInput={value => this.props.onChangeField('descTransporte', value)}
-                                maxLength={100} 
-                                placeholder="Se sim, descreva a necessidade (máx. 100)"
-                                autoCapitalize="words"
-                                multiline={true}
-                                numberOfLines={2}
-                                value={this.props.descTransporte}
-                                editable={this.props.bolTransporte}
-                            />
-                        </View>
-
-                    </View>
+                    { this.renderPlanoSaude() }
+                    { this.renderTransporte() }     
 
                     <View style={styles.card}>
                         <View style={styles.cardItem}>
@@ -110,7 +149,7 @@ class FinalizaCadastro extends React.Component {
                     {this.renderBotao()}               
                     <Text style={styles.mensagemRodape}>Você receberá no seu e-mail orientações para ativar o seu usuário e cadastrar senha.</Text>
                 </View>                
-            </View>
+            </KeyboardAvoidingView>
         )
     };
 }
@@ -124,7 +163,9 @@ const mapStateToProps = state => ({
     loading: state.cadastroReducer.loading,
     bolSalvo: state.cadastroReducer.bolSalvo,
     descMensagemFalha: state.cadastroReducer.descMensagemFalha,
-    bolExecutado: state.cadastroReducer.bolExecutado 
+    bolExecutado: state.cadastroReducer.bolExecutado,
+    user: state.cadastroReducer.user,
+    codPerfil: state.cadastroReducer.user.codPerfil
 })
 
 export default connect(mapStateToProps, {cadastrarUsuario, onChangeField, onToggleField})(FinalizaCadastro);

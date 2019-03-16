@@ -7,7 +7,7 @@ import { NAV_MEDICACOES, NAV_MEDICOS, TELA_COMANDO_VOZ, TELA_LOGIN } from '../..
 import { BotaoConfiguracoes } from '../../components/botao/Botao';
 import { MensagemInformativa } from '../../components/mensagens/Mensagens';
 
-const imgMicrophone = require('../../assets/img/microphone_green.png');
+const imgMicrophone = require('../../assets/img/microphone-64x64.png');
 
 const imgTransporte = require('../../assets/icons/home/transporte.png');
 const imgConsulta   = require('../../assets/icons/home/consulta.png');

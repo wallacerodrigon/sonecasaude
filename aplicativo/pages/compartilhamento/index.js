@@ -1,16 +1,17 @@
-import { createStackNavigator } from 'react-navigation';
-import { BotaoMenuHamburguer, BotaoMicrofoneHeader } from '../../components/botao/Botao';
-import CadastroCompartilhamento from '../compartilhamento/CadastroCompartilhamento';
-import ListaCompartilhamento from './ListaCompartilhamento';
-import { TELA_PADRAO } from '../../constants/AppScreenData';
-import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
 import React from "react";
+import { createStackNavigator } from 'react-navigation';
+import EstilosComuns, { BRANCO } from '../../assets/estilos/estilos';
+import { BotaoMicrofoneHeader } from '../../components/botao/Botao';
+import { TELA_PADRAO } from '../../constants/AppScreenData';
+import CadastroCompartilhamento from '../compartilhamento/CadastroCompartilhamento';
 import ComandoOuvindoVoz from '../voz/ComandoOuvindoVoz';
+import CadastroCompartilhamentoLogado from './CadastroCompartilhamentoLogado';
+import ListaCompartilhamento from './ListaCompartilhamento';
 
 const CompartilhamentoNavigator = createStackNavigator(
     {
         listaCompartilhamento: ListaCompartilhamento,
-        cadastroCompartilhamento: CadastroCompartilhamento,
+        cadastroCompartilhamento: CadastroCompartilhamentoLogado,
         cadastroCompartilhamentoFromList: CadastroCompartilhamento,
         comandoVoz: ComandoOuvindoVoz
     },

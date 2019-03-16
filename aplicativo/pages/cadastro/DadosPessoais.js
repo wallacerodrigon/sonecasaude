@@ -32,6 +32,8 @@ class DadosPessoais extends React.Component {
     }
 
     gotoNextScreen(){
+        this.props.onChangeField('codPerfil', this.tipoPerfil);
+        
         if (this.isPerfilPaciente()){
             this.props.navigation.navigate(TELA_ENDERECO.name);        
         } else {
@@ -42,7 +44,6 @@ class DadosPessoais extends React.Component {
     validarCampos(){
 
         let dadosInvalidos = '';
-        let bolValido = false;
         let validador = new Validador();
 
         if (this.props.numCpf.trim() === '') dadosInvalidos = '- Cpf não informado!\n';
@@ -69,7 +70,7 @@ class DadosPessoais extends React.Component {
 
         //validar telefone
         if (! validador.isTelefoneValido(this.props.numCelular)){
-            dadosInvalidos += "- O telefone está incompleto!";
+            dadosInvalidos += "- O telefone está inválido!";
         }
 
         return {
@@ -86,11 +87,7 @@ class DadosPessoais extends React.Component {
         }
 
         //tratar quando o perfil for de cuidador para enviar para a saga fazer o que tiver que fazer
-        if (this.isPerfilPaciente()){
-            this.gotoNextScreen();
-        } else {
-            console.log('cadastrar perfil cuidador...')
-        }
+        this.gotoNextScreen();
     }
 
     render() {

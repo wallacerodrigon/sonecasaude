@@ -12,7 +12,7 @@ const recuperarSenha = email => {
 };
 
 const cadastrarUsuario = (usrDto) => {
-    return axios.post(`resultURL_BACKEND result );}/${URI}`,JSON.stringify(usrDto))
+    return axios.post(`${URL_BACKEND}/${URI}/cadastroInicial`, JSON.stringify(usrDto))
                 .then( result => result )
                 .catch(error => Erro.getDetalhesErro(error));
 

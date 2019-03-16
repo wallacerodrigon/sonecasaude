@@ -356,6 +356,9 @@ export default class Validador {
     }
   
     isTelefoneValido(numero){
+        if (numero == null || numero == undefined || numero == ""){
+            return false;
+        }
         let numeros = this.mantemSomenteNumeros(numero);
         if (numeros.length === 10 || numeros.length === 11){
             return true;
@@ -364,6 +367,9 @@ export default class Validador {
     }
 
     validaCEP(numero){
+        if (numero == null || numero == undefined || numero == ""){
+            return false;
+        }
         let somenteNumeros = this.mantemSomenteNumeros(numero);
         return somenteNumeros.length === 8;
     }

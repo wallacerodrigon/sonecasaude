@@ -1,76 +1,93 @@
-import { 
-    CHANGE_FIELD, CADASTRAR_USUARIO_SUCESSO, CADASTRAR_USUARIO_FALHA, INICIA_BUSCA_CEP, BUSCA_CEP_SUCESSO, BUSCA_CEP_FALHA,
-    START_CADASTRO, END_CADASTRO, TOGGLE_FIELD
-} from "../actions/CadastroAction";
-
+import { BUSCA_CEP_FALHA, BUSCA_CEP_SUCESSO, CADASTRAR_USUARIO_FALHA, CADASTRAR_USUARIO_SUCESSO, CHANGE_FIELD, INICIA_BUSCA_CEP, 
+    START_CADASTRO, TOGGLE_FIELD, CHANGE_FIELD_SHARING, TOGGLE_FIELD_SHARING } from "../actions/CadastroAction";
 import { PERFIL_PACIENTE } from "../constants/ConstantesInternas";
+
 
 const INITIAL_STATE = {
     user: {
         codPerfil: PERFIL_PACIENTE,
-        numCpf: '',
-        descEmail: '',
-        nomeUsuario: '',
-        dataNascimento: '',
-        numCelular: '',
-        sexo: '',
-        numCep: '',
+        numCpf: '705.893.801-68',
+        descEmail: 'wallacerodrigon@gmail.com',
+        nomeUsuario: 'walace',
+        dataNascimento: '13/06/1980',
+        numCelular: '(61)98153-7048',
+        sexo: 'M',
+        numCep: '72215-338',
         estado: '', 
         cidade: '',
         bairro: '',
-        idLogradouro: null,
+        idLogradouro: 10,
         logradouro: '', 
         numero: '',
         complemento: '',
 
         desafios: [],
+
         compartilhamento: { 
             numCpf: '', 
             descEmail: '',
             nomePessoa: '',
             grauParentesco: '', 
-            tipoCompartilhamento: '' 
+            compartilhouMedicacao: false,
+            compartilhouTransporte: false,
+            numCelular: '' 
         },
         bolPlanoSaude: false,
         nomePlanoSaude: '',
         bolTransporte: false,
         descTransporte: '',
-        bolConcordouTermo: false,
+        bolConcordouTermo: true, //default false
     },
     bolSalvo: false,
     descMensagemFalha: '',
     bolExecutado: false,
-    loading: false
+    loading: false,
+
 }
 
 
 export default (state = INITIAL_STATE, action) => {
     switch(action.type){
         case CHANGE_FIELD: {
-            let newState = {...state, descMensagemFalha: ''};
+            let newState = {...state, descMensagemFalha: '', bolExecutado: false, bolSalvo: false};
             newState.user[action.fieldName]= action.value;
             return newState;
         }
 
         case TOGGLE_FIELD: {
-            let newState = {...state};
+            let newState = {...state, bolExecutado: false, bolSalvo: false};
             newState.user[action.fieldName]= !newState.user[action.fieldName];
             return newState;
         }
+
+        case CHANGE_FIELD_SHARING: {
+            let newState = {...state, descMensagemFalha: '', bolExecutado: false, bolSalvo: false};
+            newState.user.compartilhamento[action.fieldName]= action.value;
+            return newState;
+        }        
+
+
+        case TOGGLE_FIELD_SHARING: {
+            let newState = {...state, bolExecutado: false, bolSalvo: false};
+            newState.user.compartilhamento[action.fieldName]= !newState.user.compartilhamento[action.fieldName];
+            return newState;
+        }        
 
         case START_CADASTRO: {
             return {
                 ...state,
                 bolExecutado: false,
-                loading: true
+                loading: true,
+                bolSalvo: false
             };
         }        
 
         case CADASTRAR_USUARIO_SUCESSO: {
-            return {
-                ...INITIAL_STATE,
-                bolExecutado: true,
-            };
+            let newState = INITIAL_STATE;
+            return {...newState, 
+                    bolExecutado: true,
+                    bolSalvo: true}
+            
         }
 
         case CADASTRAR_USUARIO_FALHA: {
@@ -78,18 +95,12 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 bolExecutado: true,
                 loading: false,
+                bolSalvo: false,
                 descMensagemFalha: action.mensagemFalha
             };
             return newState;        
         }
-
-        case END_CADASTRO: {
-            return {
-                ...state,
-                bolExecutado: true,
-                loading: false
-            };
-        }            
+      
 
         case INICIA_BUSCA_CEP: {
             return {
