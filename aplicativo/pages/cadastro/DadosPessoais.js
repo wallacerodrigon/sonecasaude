@@ -3,7 +3,7 @@ import { Picker, Text, View } from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import Botao from '../../components/botao/Botao';
 import { InputTextComMascara, InputTexto } from '../../components/input/InputTexto';
-import { TELA_ENDERECO, TELA_LOGIN } from '../../constants/AppScreenData';
+import { TELA_ENDERECO, TELA_LOGIN, TELA_FINALIZA_CADASTRO } from '../../constants/AppScreenData';
 import { PERFIL_CUIDADOR, PERFIL_PACIENTE } from '../../constants/ConstantesInternas';
 
 import { connect } from "react-redux";
@@ -35,7 +35,7 @@ class DadosPessoais extends React.Component {
         if (this.isPerfilPaciente()){
             this.props.navigation.navigate(TELA_ENDERECO.name);        
         } else {
-            this.props.navigation.navigate(TELA_LOGIN.name);        
+            this.props.navigation.navigate(TELA_FINALIZA_CADASTRO.name);        
         } 
     }
 

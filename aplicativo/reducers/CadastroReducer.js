@@ -1,5 +1,6 @@
 import { 
-    CHANGE_FIELD, CADASTRAR_USUARIO, INICIA_BUSCA_CEP, BUSCA_CEP_SUCESSO, BUSCA_CEP_FALHA
+    CHANGE_FIELD, CADASTRAR_USUARIO_SUCESSO, CADASTRAR_USUARIO_FALHA, INICIA_BUSCA_CEP, BUSCA_CEP_SUCESSO, BUSCA_CEP_FALHA,
+    START_CADASTRO, END_CADASTRO, TOGGLE_FIELD
 } from "../actions/CadastroAction";
 
 import { PERFIL_PACIENTE } from "../constants/ConstantesInternas";
@@ -51,11 +52,44 @@ export default (state = INITIAL_STATE, action) => {
             return newState;
         }
 
-        case CADASTRAR_USUARIO: {
-            //ponto final..
-            console.log('state no reducer:', state);
-            return state;
+        case TOGGLE_FIELD: {
+            let newState = {...state};
+            newState.user[action.fieldName]= !newState.user[action.fieldName];
+            return newState;
         }
+
+        case START_CADASTRO: {
+            return {
+                ...state,
+                bolExecutado: false,
+                loading: true
+            };
+        }        
+
+        case CADASTRAR_USUARIO_SUCESSO: {
+            return {
+                ...INITIAL_STATE,
+                bolExecutado: true,
+            };
+        }
+
+        case CADASTRAR_USUARIO_FALHA: {
+            let newState = {
+                ...state,
+                bolExecutado: true,
+                loading: false,
+                descMensagemFalha: action.mensagemFalha
+            };
+            return newState;        
+        }
+
+        case END_CADASTRO: {
+            return {
+                ...state,
+                bolExecutado: true,
+                loading: false
+            };
+        }            
 
         case INICIA_BUSCA_CEP: {
             return {
