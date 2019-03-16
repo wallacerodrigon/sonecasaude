@@ -22,7 +22,7 @@ export default class AlertaEstoque extends React.Component {
 
     async componentWillMount() {
         Tts.setDefaultLanguage('pt-BR');
-        Tts.setDefaultRate(0.6);
+        Tts.setDefaultRate(1.0);
 
         this.falarAlerta();
     }  
