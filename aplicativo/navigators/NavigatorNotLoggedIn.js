@@ -20,10 +20,10 @@ const StackNotLoggedIn = createStackNavigator(
     {
       //  login: {screen: LoginComponent},
        // cadastroPerfil: PerfilCadastro,
-       // esqueciSenha: {screen: EsqueciSenha},
+        esqueciSenha: {screen: EsqueciSenha},
         //dadosPessoais: DadosPessoais,
-        endereco: Endereco,
-        desafios: Desafios,
+       // endereco: Endereco,
+       // desafios: Desafios,
        // cadastroCompartilhamento: CadastroCompartilhamento,
         finalizaCadastro: FinalizaCadastro,         
     },

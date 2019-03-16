@@ -46,7 +46,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch(action.type){
         case CHANGE_FIELD: {
-            let newState = {...state};
+            let newState = {...state, descMensagemFalha: ''};
             newState.user[action.fieldName]= action.value;
             return newState;
         }
@@ -69,11 +69,11 @@ export default (state = INITIAL_STATE, action) => {
                 bolExecutado: true,
                 loading: false
             };
-            newState.user["estado"]= action.dadosEndereco.estado,
-            newState.user["cidade"]= action.dadosEndereco.cidade,
-            newState.user["bairro"]= action.dadosEndereco.bairro,
-            newState.user["idLogradouro"]= action.dadosEndereco.idLogradouro,
-            newState.user["logradouro"]= action.dadosEndereco.logradouro
+            newState.user["estado"]= action.dadosEndereco.estado;
+            newState.user["cidade"]= action.dadosEndereco.cidade;
+            newState.user["bairro"]= action.dadosEndereco.bairro;
+            newState.user["idLogradouro"]= action.dadosEndereco.idLogradouro;
+            newState.user["logradouro"]= action.dadosEndereco.logradouro;
             return newState;
         }
 
@@ -81,13 +81,17 @@ export default (state = INITIAL_STATE, action) => {
             let newState = {
                 ...state,
                 bolExecutado: true,
-                loading: false
+                loading: false,
+                descMensagemFalha:  action.mensagemFalha
             };
             newState.user["estado"]= "";
             newState.user["cidade"]= "";
             newState.user["bairro"]= "";
             newState.user["idLogradouro"]= null;
             newState.user["logradouro"]= "";
+
+            //console.log('Erro:', newState);
+
             return newState;
         }        
 

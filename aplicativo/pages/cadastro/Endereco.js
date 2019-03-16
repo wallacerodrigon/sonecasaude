@@ -5,7 +5,7 @@ import { buscarCep, onChangeField } from "../../actions/CadastroAction";
 import EstilosComuns, { VERDE } from '../../assets/estilos/estilos';
 import Botao from '../../components/botao/Botao';
 import { InputTextComMascara, InputTexto } from '../../components/input/InputTexto';
-import { MensagemInformativa } from "../../components/mensagens/Mensagens";
+import { MensagemInformativa, MensagemErro } from "../../components/mensagens/Mensagens";
 import { TELA_ENDERECO, TELA_DESAFIOS } from '../../constants/AppScreenData';
 import Validador from '../../utilitarios/Validador';
 
@@ -27,10 +27,10 @@ class Endereco extends React.Component {
        }
     }
 
-    componentDidMount(){
-        if (this.isPreencheLogradouro()){
-            MensagemInformativa('Dados de endereço não encontrados com este CEP.\nFavor preencher as informações do seu endereço.');
-        } 
+    componentDidUpdate(){
+        if (this.props.descMensagemFalha){
+            MensagemErro(this.props.descMensagemFalha);
+        }
     }
 
     isPreencheLogradouro(){
@@ -146,7 +146,8 @@ const mapStateToProps = state => ({
     numero: state.cadastroReducer.user.numero,
     complemento: state.cadastroReducer.user.complemento,
     bolExecutado: state.cadastroReducer.bolExecutado,
-    loading: state.cadastroReducer.loading
+    loading: state.cadastroReducer.loading,
+    descMensagemFalha: state.cadastroReducer.descMensagemFalha
 })
 
 export default connect(mapStateToProps, {onChangeField, buscarCep})(Endereco);

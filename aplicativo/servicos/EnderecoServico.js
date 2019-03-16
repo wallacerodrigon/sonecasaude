@@ -1,15 +1,16 @@
 import axios from "axios";
 import { URL_BACKEND, tratarTextoCodRetorno } from "../constants/ConstantesInternas";
 
-const URI = "endereco-api/son-rest/logradouros/";
+const URI = "endereco-api/son-rest/logradouros";
+import Erro from "../components/comuns/Erro";
 
 const buscarCep = numCep => {
-    return axios.post(`${URL_BACKEND}/${URI}/recuperaEndereco`, {"numCep": numCep})
-                .then( () => {
+    return axios.get(`${URL_BACKEND}/${URI}/buscarCep?numCep=${numCep}`)
+                .then( result => {
                     return result
                 })
                 .catch(error => {
-                    return {result: false, mensagem: tratarTextoCodRetorno(error)}
+                    return Erro.getDetalhesErro(error);
                 } );
 
 };

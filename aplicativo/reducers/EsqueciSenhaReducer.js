@@ -44,7 +44,7 @@ export default (state = INITIAL_STATE, action) => {
                 loading: false, 
                 executado: true,
                 sucesso: false,
-                mensagemFalha: "Ocorreu um erro na sua solicitação. Tente mais tarde!"
+                mensagemFalha: action.mensagemFalha
             }
 
         }

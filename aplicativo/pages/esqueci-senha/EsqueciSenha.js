@@ -8,6 +8,7 @@ import {InputTexto} from '../../components/input/InputTexto';
 import {connect} from "react-redux";
 import { recuperarSenha, onChangeEmail } from "../../actions/EsqueciSenhaAction";
 import { MensagemErro, MensagemInformativa } from "../../components/mensagens/Mensagens";
+import Validador from "../../utilitarios/Validador";
 
 class EsqueciSenha extends React.Component {
     static navigationOptions = {
@@ -20,8 +21,6 @@ class EsqueciSenha extends React.Component {
     }
 
     componentDidUpdate(){
-       // console.log('did update - ok', this.props);
-        
         if (this.props.executado && this.props.sucesso){
             MensagemInformativa("Encaminhamos um e-mail com um link para ativação da sua nova senha!"); 
             this.props.navigation.navigate(TELA_LOGIN.name);   
@@ -33,6 +32,11 @@ class EsqueciSenha extends React.Component {
     onRecuperarSenha(){
         if (this.props.email.trim() === ''){
             MensagemErro('Favor informar o e-mail para recuperar a senha!');
+            return false;
+        }
+
+        if (! new Validador().isEmailValido(this.props.email)){
+            MensagemErro('Favor informar um e-mail válido!');
             return false;
         }
 

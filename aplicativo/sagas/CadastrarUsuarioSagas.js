@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { BUSCA_CEP_FALHA, BUSCA_CEP_SUCESSO, INICIA_BUSCA_CEP, INTERNET_INOPERANTE } from "../actions/CadastroAction";
-import { NETWORK_ERROR } from "../constants/ConstantesInternas";
+import { NETWORK_ERROR, RETORNO_SUCESSO } from "../constants/ConstantesInternas";
 import EnderecoServico from "../servicos/EnderecoServico";
 
 
@@ -35,21 +35,25 @@ export function* buscarDadosEndereco(action){
 
   try {
     const dadosEndereco = yield call(EnderecoServico.buscarCep, action.numCep);
-    // if (action.numCep == '00000-000'){
-    //   yield put({type: BUSCA_CEP_FALHA, mensagemFalha: 'Cep não encontrado' })
-    // } else {
-    //   const dadosEndereco = {
-    //     numCep: action.numCep,
-    //     estado: 'Distrito Federal',
-    //     cidade: 'Ceilândia',
-    //     bairro: 'Ceilândia Sul',
-    //     idLogradouro: 10,
-    //     logradouro: 'QNM 33 AE H'
-    //   };
-    // }
-    yield put({type: BUSCA_CEP_SUCESSO, dadosEndereco })
+    //console.log(dadosEndereco.status);
+     if (dadosEndereco.status === RETORNO_SUCESSO ){
+       const {retorno} = dadosEndereco.data;
+       
+       const retornoEndereco = {
+         numCep: action.numCep,
+         estado:  retorno.bairro.cidade.estado.nomeEstado,
+         cidade: retorno.bairro.cidade.nomeCidade,
+         bairro: retorno.bairro.nomeBairro,
+         idLogradouro: retorno.idLogradouro,
+         logradouro: retorno.nomeLogradouro + (retorno.descComplemento != null ? ` (${retorno.descComplemento})`: '')
+       };
+       yield put({type: BUSCA_CEP_SUCESSO, dadosEndereco: retornoEndereco })
+     } else {
+        yield put({type: BUSCA_CEP_FALHA, mensagemFalha: dadosEndereco.mensagemErro });
+     }
 
   } catch(error){
+      //console.log(error);
       if (error == NETWORK_ERROR) {
         yield put({type: INTERNET_INOPERANTE});
       }
