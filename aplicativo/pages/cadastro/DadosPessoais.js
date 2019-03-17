@@ -134,9 +134,10 @@ class DadosPessoais extends React.Component {
                     />                        
                     <Text style={EstilosComuns.corBranca}>Sexo</Text>
                     <Picker 
+                        style={EstilosComuns.corVerde}
                         selectedValue={this.props.sexo}
                         onValueChange={(itemValue) => this.props.onChangeField('sexo', itemValue)}>
-                        <Picker.Item label="Selecione" value=""  />
+                        <Picker.Item label="Sexo" value=""  />
                         <Picker.Item label="Masculino" value="M" />
                         <Picker.Item label="Feminino" value="F" />
                     </Picker>                                       

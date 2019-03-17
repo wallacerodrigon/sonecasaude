@@ -89,12 +89,27 @@ class CadastroCompartilhamento extends React.Component {
 
     renderGrausParentesco(){
         let arrayGrausParentesco = [
-            {idGrauParentesco: 1, nomeGrauParentesco: 'Mãe'},
-            {idGrauParentesco: 2, nomeGrauParentesco: 'Pai'},
-            {idGrauParentesco: 3, nomeGrauParentesco: 'Tio'},
-            {idGrauParentesco: 4, nomeGrauParentesco: 'Sobrinho'},
-            {idGrauParentesco: 5, nomeGrauParentesco: 'Avô'},
-        ];
+            {idGrauParentesco:2, nomeGrauParentesco: "avô(ó)"},
+            {idGrauParentesco:3, nomeGrauParentesco: "bisavô(ó)"},
+            {idGrauParentesco:4, nomeGrauParentesco: "bisneto(a)"},
+            {idGrauParentesco:33, nomeGrauParentesco: "cuidador"},
+            {idGrauParentesco:5, nomeGrauParentesco: "cunhado(a)"},
+            {idGrauParentesco:6, nomeGrauParentesco: "enteado(a)"},
+            {idGrauParentesco:7, nomeGrauParentesco: "filho(a)"},
+            {idGrauParentesco:8, nomeGrauParentesco: "genro"},
+            {idGrauParentesco:9, nomeGrauParentesco: "irmão/irmã"},
+            {idGrauParentesco:10, nomeGrauParentesco: "madrasta"},
+            {idGrauParentesco:11, nomeGrauParentesco: "mãe"},
+            {idGrauParentesco:12, nomeGrauParentesco: "neto(a)"},
+            {idGrauParentesco:13, nomeGrauParentesco: "nora"},
+            {idGrauParentesco:14, nomeGrauParentesco: "padrasto"},
+            {idGrauParentesco:15, nomeGrauParentesco: "pai"},
+            {idGrauParentesco:28, nomeGrauParentesco: "parente do cônjuge"},
+            {idGrauParentesco:20, nomeGrauParentesco: "primo(a)"},
+            {idGrauParentesco:23, nomeGrauParentesco: "sobrinho(a)"},
+            {idGrauParentesco:26, nomeGrauParentesco: "sogro(a)"},
+            {idGrauParentesco:27, nomeGrauParentesco: "tio(a)"},
+                   ]
 
         return arrayGrausParentesco.map(grauParentesco => <Picker.Item label={grauParentesco.nomeGrauParentesco} value={grauParentesco.idGrauParentesco} />)
     }
