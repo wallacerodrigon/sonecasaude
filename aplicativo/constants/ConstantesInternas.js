@@ -7,8 +7,8 @@ export const TIPO_COMPARTILHAMENTO_MEDICACAO = 'CM';
 export const TIPO_COMPARTILHAMENTO_MEDICAMENTOS = 'RM';
 export const TIPO_COMPARTILHAMENTO_TRANSPORTE = 'TR';
 
-export const URL_BACKEND = "http://192.168.0.11:8080";
-export const URL_BACKEND_PRD = "http://sonecasaude.com.br";
+export const URL_BACKEND_DSV = "http://192.168.0.11:8080";
+export const URL_BACKEND = "http://walltec.net.br";
 export const NETWORK_ERROR = 'Error: Network Error';
 
 export const RETORNO_SUCESSO = 200;
