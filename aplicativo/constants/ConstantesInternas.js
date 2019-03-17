@@ -19,7 +19,7 @@ axios.defaults.headers.common['Authorization'] = 'Bearer ';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.responseEncoding = 'utf-8';
 
-
+//tirar isto daqui....
 export const tratarTextoCodRetorno = retorno => {
     console.log('retorno: ',retorno);
     switch(retorno.status){

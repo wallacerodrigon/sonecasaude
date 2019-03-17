@@ -13,9 +13,9 @@ export const BUSCA_CEP_SUCESSO = "buscaCepSucesso";
 export const BUSCA_CEP_FALHA = "buscaCepFalha";
 export const INICIA_BUSCA_CEP = "iniciandoBuscaCep";
 
-export const BUSCA_GRAU_PARENTESCO = "buscaGrauParentesco";
+export const BUSCA_GRAU_PARENTESCO_STORAGE = "buscaGrauParentescoStorage";
 
-export const BUSCA_DESAFIO = "buscaDesafio";
+export const BUSCA_DESAFIO_STORAGE = "buscaDesafioStorage";
 
 export const START_CADASTRO ="iniciandoCadastro";  //deixar genérico
 export const END_CADASTRO ="finalizandoCadastro";  //deixar genérico
@@ -41,9 +41,7 @@ export const onChangeFieldSharing = (fieldName, value) => ({
     value
 })
 
-export const buscarGrausParentesco=() => ({
-    type: BUSCA_GRAU_PARENTESCO
-})
+
 
 export const onToggleField = (fieldName) => ({
     type: TOGGLE_FIELD,
@@ -60,3 +58,10 @@ export const buscarCep = (numCep) => ({
     numCep   
 })
 
+export const buscarGrausParentesco=() => ({
+    type: BUSCA_GRAU_PARENTESCO_STORAGE
+})
+
+export const buscarDesafios=() => ({
+    type: BUSCA_DESAFIO_STORAGE
+})

@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 10093,
-  "expoServerNgrokUrl": "https://hs-xsc.wallacerodrigon.aplicativo.exp.direct",
-  "packagerNgrokUrl": "https://packager.hs-xsc.wallacerodrigon.aplicativo.exp.direct",
-  "ngrokPid": 10149
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

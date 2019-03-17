@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import {View, KeyboardAvoidingView, StyleSheet, Image, Text} from 'react-native';
-
-import Botao from '../../components/botao/Botao';
-import EstilosComuns, { FUNDO, VERDE } from '../../assets/estilos/estilos';
-import {TELA_PADRAO, TELA_HOME, TELA_ESQUECI_SENHA, TELA_CADASTRO_PERFIL} from '../../constants/AppScreenData';
-import CommandLink from '../../components/botao/CommandLink';
-import {InputTexto} from '../../components/input/InputTexto';
-
+import { Image, KeyboardAvoidingView, StyleSheet, View } from 'react-native';
 import { connect } from "react-redux";
+import { buscarDesafios, buscarGrausParentesco, efetuarLoginAction, onChangeField } from "../../actions/LoginAction";
+import EstilosComuns from '../../assets/estilos/estilos';
+import Botao from '../../components/botao/Botao';
+import CommandLink from '../../components/botao/CommandLink';
+import { InputTexto } from '../../components/input/InputTexto';
+import { TELA_CADASTRO_PERFIL, TELA_ESQUECI_SENHA, TELA_HOME, TELA_PADRAO } from '../../constants/AppScreenData';
 
-import { efetuarLoginAction, validarLoginAction, onChangeField } from "../../actions/LoginAction";
-import { MensagemErro } from "../../components/mensagens/Mensagens";
-import { Card, CardItem } from 'native-base';
-import { ButtonGroup } from 'react-native-elements';
+
+
+//import { MensagemErro } from "../../components/mensagens/Mensagens";
+
 
 const imgLogo = require('../../assets/img/logo-login.jpeg');
  
@@ -27,23 +26,13 @@ class LoginComponent extends Component {
         super(props);
     }
 
-    efetuarLogin() {
-        //let userDto = {login: this.props.login, senha: this.props.senha};
-        // this.props.validarLoginAction(userDto);
-        // if (! this.props.validos ){
-        //     MensagemErro("Login e senha devem ser informados!");
-        //     return;
-        // }
-       //this.props.navigation.navigate(TELA_HOME.name);
-       
-//       let retorno = this.props.efetuarLoginAction(userDto);
-  //     console.log('ok, efetuando login agora...', retorno);
+    componentDidMount(){
+       // this.props.buscarDesafios();
+       // this.props.buscarGrausParentesco();
+    }
 
-    //    if (retorno != null){
+    efetuarLogin() {
             this.props.navigation.navigate(TELA_HOME.name);
-    //    } else {
-    //         MensagemErro("Login ou senha devem estar inválidos!");
-    //    }
     }
 
     executarNovoCadastro= () => {
@@ -100,7 +89,10 @@ const mapStateToProps = state => ({
     validos: state.loginReducer.validos
 })
 
-export default connect(mapStateToProps, { efetuarLoginAction, validarLoginAction, onChangeField })(LoginComponent);
+export default connect(
+    mapStateToProps, 
+    { efetuarLoginAction, onChangeField, buscarDesafios, buscarGrausParentesco })
+(LoginComponent);
 
 
 const styles = StyleSheet.create({
