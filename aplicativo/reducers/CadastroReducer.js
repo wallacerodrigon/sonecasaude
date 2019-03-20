@@ -16,7 +16,7 @@ const INITIAL_STATE = {
         estado: '', 
         cidade: '',
         bairro: '',
-        idLogradouro: 1,
+        idLogradouro: null,
         logradouro: '', 
         numero: '',
         complemento: '',
