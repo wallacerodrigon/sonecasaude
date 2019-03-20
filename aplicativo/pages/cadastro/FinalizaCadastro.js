@@ -127,7 +127,7 @@ class FinalizaCadastro extends React.Component {
 
     render() {
         return (
-            <KeyboardAvoidingView style={[EstilosComuns.container]} keyboardVerticalOffset={100} behavior="padding" >
+            <KeyboardAvoidingView style={[EstilosComuns.container]} keyboardVerticalOffset={100} behavior="padding" enabled>
                  <View style={[EstilosComuns.bodyMain]}>
                     {/* criar uma classe do tipo groupfield e um componente com texto e  */}
                     {/**usar o multiline para a escrita com 2 linhas no máximo */}

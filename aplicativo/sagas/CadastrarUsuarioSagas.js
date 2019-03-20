@@ -1,9 +1,9 @@
 import { call, put, delay } from 'redux-saga/effects';
-import { BUSCA_CEP_FALHA, BUSCA_CEP_SUCESSO, INICIA_BUSCA_CEP, INTERNET_INOPERANTE, START_CADASTRO, END_CADASTRO, CADASTRAR_USUARIO_SUCESSO, CADASTRAR_USUARIO_FALHA } from "../actions/CadastroAction";
+import { BUSCA_CEP_FALHA, BUSCA_CEP_SUCESSO, INICIA_BUSCA_CEP, INTERNET_INOPERANTE, START_CADASTRO, END_CADASTRO, CADASTRAR_USUARIO_SUCESSO, CADASTRAR_USUARIO_FALHA, RESULT_LISTA_GRAUS_PARENTESCO } from "../actions/CadastroAction";
 import { NETWORK_ERROR, RETORNO_SUCESSO } from "../constants/ConstantesInternas";
 import EnderecoServico from "../servicos/EnderecoServico";
 import UsuarioServico from '../servicos/UsuarioServico';
-
+import GrausParentescoServico from '../servicos/GrausParentescoServico';
 
 
 export function* salvarCadastro(action){
@@ -66,4 +66,25 @@ export function* buscarDadosEndereco(action){
   }
 
 
+}
+
+export function* recuperarGrausParentesco(){
+
+    try {
+      const listaGrausParentesco = yield call(GrausParentescoServico.recuperarGrausParentesco);
+     // yield call(atualizarValoresNaStorage('desafios', '[{id: 1, nome: doença 1}, {id: 2, nome: doença 2}]'));
+ 
+      yield put ({type: RESULT_LISTA_GRAUS_PARENTESCO, listaGrausParentesco})
+
+    } catch(error){
+      console.log('Error: ', error);
+      if (error == NETWORK_ERROR) {
+        yield put({type: INTERNET_INOPERANTE});
+      }
+      else {
+        
+        yield put ({type: ERRO_RESULT_LISTA_GRAUS_PARENTESCO, mensagemFalha: error.message})
+      } 
+
+    }
 }

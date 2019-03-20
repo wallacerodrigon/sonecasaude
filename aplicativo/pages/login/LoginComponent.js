@@ -46,7 +46,7 @@ class LoginComponent extends Component {
     render() {
 
         return (
-          <KeyboardAvoidingView style={[EstilosComuns.container]} keyboardVerticalOffset={70} behavior="padding" >
+          <KeyboardAvoidingView style={[EstilosComuns.container]} keyboardVerticalOffset={70} behavior="padding" enabled>
             <View style={styles.header}>
                 <Image source={imgLogo}/>
             </View>

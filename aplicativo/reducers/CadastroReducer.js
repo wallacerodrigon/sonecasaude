@@ -1,5 +1,5 @@
 import { BUSCA_CEP_FALHA, BUSCA_CEP_SUCESSO, CADASTRAR_USUARIO_FALHA, CADASTRAR_USUARIO_SUCESSO, CHANGE_FIELD, INICIA_BUSCA_CEP, 
-    START_CADASTRO, TOGGLE_FIELD, CHANGE_FIELD_SHARING, TOGGLE_FIELD_SHARING } from "../actions/CadastroAction";
+    START_CADASTRO, TOGGLE_FIELD, CHANGE_FIELD_SHARING, TOGGLE_FIELD_SHARING, RESULT_LISTA_GRAUS_PARENTESCO, ERRO_RESULT_LISTA_GRAUS_PARENTESCO } from "../actions/CadastroAction";
 import { PERFIL_PACIENTE } from "../constants/ConstantesInternas";
 
 
@@ -16,13 +16,11 @@ const INITIAL_STATE = {
         estado: '', 
         cidade: '',
         bairro: '',
-        idLogradouro: null,
+        idLogradouro: 1,
         logradouro: '', 
         numero: '',
         complemento: '',
-
         desafios: [],
-
         compartilhamento: { 
             numCpf: '', 
             descEmail: '',
@@ -36,12 +34,13 @@ const INITIAL_STATE = {
         nomePlanoSaude: '',
         bolTransporte: false,
         descTransporte: '',
-        bolConcordouTermo: false, //default false
+        bolConcordouTermo: false
     },
     bolSalvo: false,
     descMensagemFalha: '',
     bolExecutado: false,
     loading: false,
+    listaGrausParentesco: []
 
 }
 
@@ -83,9 +82,7 @@ export default (state = INITIAL_STATE, action) => {
         }        
 
         case CADASTRAR_USUARIO_SUCESSO: {
-            let newState = INITIAL_STATE;
-            return {...newState, 
-                    bolExecutado: true,
+            return {...INITIAL_STATE, 
                     bolSalvo: true}
             
         }
@@ -138,7 +135,24 @@ export default (state = INITIAL_STATE, action) => {
             //console.log('Erro:', newState);
 
             return newState;
-        }        
+        }     
+        
+        case RESULT_LISTA_GRAUS_PARENTESCO: {
+            return {
+                ...state,
+                bolExecutado: true,
+                listaGrausParentesco: action.listaGrausParentesco
+            }
+        }
+
+        case ERRO_RESULT_LISTA_GRAUS_PARENTESCO: {
+            return {
+                ...state,
+                bolExecutado: true,
+                descMensagemFalha: action.mensagemFalha,
+                listaGrausParentesco: []
+            }
+        }
 
         default: {
             return state;

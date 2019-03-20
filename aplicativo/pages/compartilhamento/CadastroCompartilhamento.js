@@ -23,6 +23,10 @@ class CadastroCompartilhamento extends React.Component {
         super(props);
     }
 
+    componentWillMount(){
+        this.props.buscarGrausParentesco();
+    }
+
     toggleTransporte(){
         this.props.onToggleFieldSharing('compartilhouTransporte');
     }
@@ -88,30 +92,15 @@ class CadastroCompartilhamento extends React.Component {
 
 
     renderGrausParentesco(){
-        let arrayGrausParentesco = [
-            {idGrauParentesco:2, nomeGrauParentesco: "avô(ó)"},
-            {idGrauParentesco:3, nomeGrauParentesco: "bisavô(ó)"},
-            {idGrauParentesco:4, nomeGrauParentesco: "bisneto(a)"},
-            {idGrauParentesco:33, nomeGrauParentesco: "cuidador"},
-            {idGrauParentesco:5, nomeGrauParentesco: "cunhado(a)"},
-            {idGrauParentesco:6, nomeGrauParentesco: "enteado(a)"},
-            {idGrauParentesco:7, nomeGrauParentesco: "filho(a)"},
-            {idGrauParentesco:8, nomeGrauParentesco: "genro"},
-            {idGrauParentesco:9, nomeGrauParentesco: "irmão/irmã"},
-            {idGrauParentesco:10, nomeGrauParentesco: "madrasta"},
-            {idGrauParentesco:11, nomeGrauParentesco: "mãe"},
-            {idGrauParentesco:12, nomeGrauParentesco: "neto(a)"},
-            {idGrauParentesco:13, nomeGrauParentesco: "nora"},
-            {idGrauParentesco:14, nomeGrauParentesco: "padrasto"},
-            {idGrauParentesco:15, nomeGrauParentesco: "pai"},
-            {idGrauParentesco:28, nomeGrauParentesco: "parente do cônjuge"},
-            {idGrauParentesco:20, nomeGrauParentesco: "primo(a)"},
-            {idGrauParentesco:23, nomeGrauParentesco: "sobrinho(a)"},
-            {idGrauParentesco:26, nomeGrauParentesco: "sogro(a)"},
-            {idGrauParentesco:27, nomeGrauParentesco: "tio(a)"},
-                   ]
+        return this.props.listaGrausParentesco ?
+             this.props.listaGrausParentesco.map(grauParentesco => <Picker.Item label={grauParentesco.nomeGrauParentesco} value={grauParentesco.idGrauParentesco} />)
+             : null;
+    }
 
-        return arrayGrausParentesco.map(grauParentesco => <Picker.Item label={grauParentesco.nomeGrauParentesco} value={grauParentesco.idGrauParentesco} />)
+    componentWillReceiveProps(nextProps){
+        if (this.props.bolExecutado && nextProps.descMensagemFalha != ''){
+            MensagemErro(nextProps.descMensagemFalha);
+        }
     }
 
     render() {
@@ -176,19 +165,23 @@ class CadastroCompartilhamento extends React.Component {
     };
 }
 
-const mapStateToProps = state => ({
-    numCpf: state.cadastroReducer.user.compartilhamento.numCpf,
-    descEmail: state.cadastroReducer.user.compartilhamento.descEmail,
-    nomePessoa: state.cadastroReducer.user.compartilhamento.nomePessoa,
-    grauParentesco: state.cadastroReducer.user.compartilhamento.grauParentesco,
-    numCelular: state.cadastroReducer.user.compartilhamento.numCelular,
-    compartilhouTransporte: state.cadastroReducer.user.compartilhamento.compartilhouTransporte,
-    compartilhouMedicacao: state.cadastroReducer.user.compartilhamento.compartilhouMedicacao,
+const mapStateToProps = state => {
+    return {
+        numCpf: state.cadastroReducer.user.compartilhamento.numCpf,
+        descEmail: state.cadastroReducer.user.compartilhamento.descEmail,
+        nomePessoa: state.cadastroReducer.user.compartilhamento.nomePessoa,
+        grauParentesco: state.cadastroReducer.user.compartilhamento.grauParentesco,
+        numCelular: state.cadastroReducer.user.compartilhamento.numCelular,
+        compartilhouTransporte: state.cadastroReducer.user.compartilhamento.compartilhouTransporte,
+        compartilhouMedicacao: state.cadastroReducer.user.compartilhamento.compartilhouMedicacao,
 
-    sharing: state.cadastroReducer.user.compartilhamento,
+        sharing: state.cadastroReducer.user.compartilhamento,
 
-    loading: state.cadastroReducer.loading,
-})
+        loading: state.cadastroReducer.loading,
+        listaGrausParentesco: state.cadastroReducer.listaGrausParentesco
+
+    }
+}
 
 export default connect(mapStateToProps, { buscarGrausParentesco, onChangeFieldSharing, onToggleFieldSharing })(CadastroCompartilhamento);
 

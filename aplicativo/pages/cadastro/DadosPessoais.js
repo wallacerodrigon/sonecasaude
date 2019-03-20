@@ -12,10 +12,12 @@ import { MensagemErro } from "../../components/mensagens/Mensagens";
 import { cadastrarUsuario, onChangeField } from "../../actions/CadastroAction";
 import Validador from '../../utilitarios/Validador';
 
+//import { KeepAwake } from "expo";
+
 class DadosPessoais extends React.Component {
 
-    tipoPerfil = 'P';
-    labelBotao = 'Próximo';
+  //  tipoPerfil = 'P';
+   // labelBotao = 'Próximo';
 
     constructor(props){
         super(props); 
@@ -145,7 +147,7 @@ class DadosPessoais extends React.Component {
                 </View>
                 
                 <View style={EstilosComuns.rodape}>
-                    <Botao tituloBotao={this.labelBotao} onClick={() =>  this.cadastrarDadosPessoais()}/>
+                    <Botao tituloBotao='Próximo' onClick={() =>  this.cadastrarDadosPessoais()}/>
                 </View>
             </View>
         )

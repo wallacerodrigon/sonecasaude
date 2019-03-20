@@ -1,12 +1,12 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, KeyboardAvoidingView } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { connect } from "react-redux";
 import { buscarCep, onChangeField } from "../../actions/CadastroAction";
 import EstilosComuns, { VERDE } from '../../assets/estilos/estilos';
 import Botao from '../../components/botao/Botao';
 import { InputTextComMascara, InputTexto } from '../../components/input/InputTexto';
-import { MensagemInformativa, MensagemErro } from "../../components/mensagens/Mensagens";
-import { TELA_ENDERECO, TELA_DESAFIOS } from '../../constants/AppScreenData';
+import { MensagemErro, MensagemInformativa } from "../../components/mensagens/Mensagens";
+import { TELA_ADD_COMPARTILHAMENTO, TELA_ENDERECO } from '../../constants/AppScreenData';
 import Validador from '../../utilitarios/Validador';
 
 class Endereco extends React.Component {
@@ -38,6 +38,10 @@ class Endereco extends React.Component {
     }
 
     dadosValidos(){
+        if (this.props.complemento.trim() != ''){
+            return true;
+        }
+
         if (this.props.idLogradouro > 0 && this.props.numCep != ''){
             return true;
         } else if (this.props.idLogradouro === null && 
@@ -56,11 +60,11 @@ class Endereco extends React.Component {
     salvarEndereco(){
         let cepValido = new Validador().validaCEP(this.props.numCep);
         if (this.dadosValidos() && cepValido){
-            this.props.navigation.navigate(TELA_DESAFIOS.name);        
+            this.props.navigation.navigate(TELA_ADD_COMPARTILHAMENTO.name);        
         } else if (! cepValido){
             MensagemInformativa('CEP inválido. CEP deve ter 8 dígitos!');
         } else {
-            MensagemInformativa('Preencha corretamente os dados do seu endereço!');
+            MensagemInformativa('Preencha corretamente os dados do seu endereço e também o complemento!');
         }
     }
 

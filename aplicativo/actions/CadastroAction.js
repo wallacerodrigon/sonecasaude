@@ -13,7 +13,7 @@ export const BUSCA_CEP_SUCESSO = "buscaCepSucesso";
 export const BUSCA_CEP_FALHA = "buscaCepFalha";
 export const INICIA_BUSCA_CEP = "iniciandoBuscaCep";
 
-export const BUSCA_GRAU_PARENTESCO_STORAGE = "buscaGrauParentescoStorage";
+export const BUSCA_GRAU_PARENTESCO = "buscaGrauParentescoStorage";
 
 export const BUSCA_DESAFIO_STORAGE = "buscaDesafioStorage";
 
@@ -23,6 +23,8 @@ export const ERRO_CADASTRO = "erroCadastro";  //deixar genérico
 
 export const INTERNET_INOPERANTE = "erroInternet"; //deixar genérico
 
+export const RESULT_LISTA_GRAUS_PARENTESCO = "listaGrausParentesco";
+export const ERRO_RESULT_LISTA_GRAUS_PARENTESCO = "erroListaGrausParentesco";
 
 export const cadastrarUsuario = (user) => ({
     type: CADASTRAR_USUARIO,
@@ -59,7 +61,7 @@ export const buscarCep = (numCep) => ({
 })
 
 export const buscarGrausParentesco=() => ({
-    type: BUSCA_GRAU_PARENTESCO_STORAGE
+    type: BUSCA_GRAU_PARENTESCO
 })
 
 export const buscarDesafios=() => ({
