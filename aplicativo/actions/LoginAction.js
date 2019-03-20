@@ -1,10 +1,12 @@
-export const VALIDAR = "validarPreenchimento";
 export const EFETUAR_LOGIN ="efetuarLogin";
 export const CHANGE_FIELD = "onChangeField";
 
 export const BUSCA_GRAUS_PARENTESCO = "buscaGrauParentesco";
 
-export const BUSCA_DESAFIOS = "buscaDesafio";
+export const LOGIN_SUCESSO = "loginSucesso";
+export const LOGIN_FALHA = "loginFalha";
+
+export const LOGIN_START ="startLogin";
 
 export const efetuarLoginAction = (user) => ({
     type: EFETUAR_LOGIN,
@@ -20,12 +22,4 @@ export const onChangeField = (fieldName, value) => ({
     type: CHANGE_FIELD, 
     fieldName,
     value
-})
-
-export const buscarGrausParentesco=() => ({
-    type: BUSCA_GRAUS_PARENTESCO
-})
-
-export const buscarDesafios=() => ({
-    type: BUSCA_DESAFIOS
 })

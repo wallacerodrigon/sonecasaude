@@ -1,43 +1,52 @@
-import {AsyncStorage} from 'react-native';
 import {
-    call, delay
+    call, put, delay
   } from 'redux-saga/effects';
-import DesafiosServico from '../servicos/DesafiosServico';
-import GrausParentescoServico from '../servicos/GrausParentescoServico';
+import UsuarioServico from '../servicos/UsuarioServico';
+import { LOGIN_SUCESSO, LOGIN_FALHA, LOGIN_START } from '../actions/LoginAction';
+import { NETWORK_ERROR } from '../constants/ConstantesInternas';
+import { INTERNET_INOPERANTE } from '../actions/CadastroAction';
 
-export function* recuperarDesafios(){
-
-    //const listaDesafios = yield call(DesafiosServico.recuperarDesafios);
-
-  //  atualizarValoresNaStorage('desafios',listaDesafios );
-
-  //  console.log(listaDesafios);
-}
-
-export function* recuperarGrausParentesco(){
-
-   // const listaGrausParentesco = yield call(GrausParentescoServico.recuperarGrausParentesco);
-   // yield call(atualizarValoresNaStorage('desafios', '[{id: 1, nome: doença 1}, {id: 2, nome: doença 2}]'));
-
-    //console.log(listaGrausParentesco);
-}
-
-function atualizarDataCarregamento(){
-
-}
-
-const atualizarValoresNaStorage = async (key, valores) => {
+export function* efetuarLogin(action){
+    //  console.log(action.user);
+    yield put({type: LOGIN_START});
+    
     try {
-        await AsyncStorage.setItem(key, valores);
-    } catch (error) {
-        console.log(error)
+        const result = yield call(UsuarioServico.efetuarLogin, action);
+        console.log('status cadastro:', result.status);
+        if (result.status === RETORNO_SUCESSO ){
+            //gravar na storage...
+            //console.log: 
+            console.log(result);
+            yield put({type: LOGIN_SUCESSO})
+        } else {
+            yield put({type: LOGIN_FALHA, mensagemFalha: result.mensagemErro });
+        }
+    
+    } catch(error){
+        if (error == NETWORK_ERROR) {
+            yield put({type: INTERNET_INOPERANTE});
+        }
+        else {
+            yield put({type: LOGIN_FALHA, mensagemFalha: error || 'Erro genérico, sem detalhes. Favor comunicar à Soneca Saúde!' });
+        }  
     }
+
+
+
 }
 
-const getValoresStorage = async (key) => {
-    try {
-        return await AsyncStorage.getItem(key);
-    } catch (error) {
-        console.log(error)
-    }
-}
+// const atualizarValoresNaStorage = async (key, valores) => {
+//     try {
+//         await AsyncStorage.setItem(key, valores);
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
+// const getValoresStorage = async (key) => {
+//     try {
+//         return await AsyncStorage.getItem(key);
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }

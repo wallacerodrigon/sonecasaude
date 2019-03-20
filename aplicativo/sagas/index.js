@@ -4,9 +4,12 @@ import {
 
 import { RECUPERAR_SENHA } from '../actions/EsqueciSenhaAction';
 import { CADASTRAR_USUARIO, BUSCA_CEP, BUSCA_GRAU_PARENTESCO  } from '../actions/CadastroAction';
+import { EFETUAR_LOGIN } from '../actions/LoginAction';
   
+
 import { recuperarSenha } from './RecuperarSenhaSagas';
 import { salvarCadastro, buscarDadosEndereco, recuperarGrausParentesco } from './CadastrarUsuarioSagas';
+import { efetuarLogin } from "./LoginSagas";
     
   
  function* rootSaga() {
@@ -15,7 +18,7 @@ import { salvarCadastro, buscarDadosEndereco, recuperarGrausParentesco } from '.
     yield takeLatest(CADASTRAR_USUARIO, salvarCadastro);
 
     yield takeLatest(BUSCA_GRAU_PARENTESCO, recuperarGrausParentesco);
-    //yield takeLatest(BUSCA_DESAFIOS, recuperarDesafios);
+    yield takeLatest(EFETUAR_LOGIN, efetuarLogin);
   }
   
   export default rootSaga;

@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { Image, KeyboardAvoidingView, StyleSheet, View } from 'react-native';
+import { Image, KeyboardAvoidingView, StyleSheet, View, ActivityIndicator } from 'react-native';
 import { connect } from "react-redux";
-import { buscarDesafios, buscarGrausParentesco, efetuarLoginAction, onChangeField } from "../../actions/LoginAction";
-import EstilosComuns from '../../assets/estilos/estilos';
+import { efetuarLoginAction, onChangeField } from "../../actions/LoginAction";
+import EstilosComuns, { VERDE } from '../../assets/estilos/estilos';
 import Botao from '../../components/botao/Botao';
 import CommandLink from '../../components/botao/CommandLink';
 import { InputTexto } from '../../components/input/InputTexto';
 import { TELA_CADASTRO_PERFIL, TELA_ESQUECI_SENHA, TELA_HOME, TELA_PADRAO } from '../../constants/AppScreenData';
 
-
-
-//import { MensagemErro } from "../../components/mensagens/Mensagens";
+import { MensagemErro } from "../../components/mensagens/Mensagens";
 
 
 const imgLogo = require('../../assets/img/logo-login.jpeg');
@@ -27,12 +25,33 @@ class LoginComponent extends Component {
     }
 
     componentDidMount(){
-       // this.props.buscarDesafios();
-       // this.props.buscarGrausParentesco();
+    }
+    
+    componentDidUpdate(){
+        if (this.props.bolSucesso){
+            this.props.onChangeField('bolSucesso', false);
+            this.props.navigation.navigate(TELA_HOME.name);
+        } else if (this.props.mensagemFalha != ''){
+            MensagemErro(this.props.mensagemFalha);
+            this.props.onChangeField('mensagemFalha', '');
+        }
     }
 
     efetuarLogin() {
-            this.props.navigation.navigate(TELA_HOME.name);
+        if (this.props.login == null || this.props.login.trim() === ''){
+            MensagemErro('Favor informar o seu login');
+            return false;
+        }
+
+        if (this.props.senha == null || this.props.senha.trim() === ''){
+            MensagemErro('Favor informar a sua senha de acesso');
+            return false;
+        }
+
+        this.props.efetuarLoginAction({
+            login: this.props.login, 
+            senha: this.props.senha
+        })
     }
 
     executarNovoCadastro= () => {
@@ -41,6 +60,15 @@ class LoginComponent extends Component {
 
     executarEsqueciSenha = ()=> {
         this.props.navigation.navigate(TELA_ESQUECI_SENHA.name);
+    }
+
+    renderBotao(){
+        if (this.props.loading){
+            return <ActivityIndicator size="small" color={VERDE}/>
+        } else {
+            return <Botao tituloBotao='Entrar'  onClick={()=>this.efetuarLogin()}/>
+        }
+
     }
 
     render() {
@@ -70,7 +98,7 @@ class LoginComponent extends Component {
 
                 <CommandLink styles={styles.esqueceuSenha} tituloBotao="Não sabe sua senha? Clique aqui para recuperá-la." onClick={() => this.executarEsqueciSenha()}/>
 
-                <Botao tituloBotao='Entrar'  onClick={()=>this.efetuarLogin()}/>
+                {this.renderBotao()}
 
                 <View style={styles.commandLinks}>
                     <CommandLink styles={EstilosComuns.negrito} tituloBotao="Ainda não tem uma conta? Cadastre-se" onClick={() => this.executarNovoCadastro()}/>
@@ -86,12 +114,17 @@ class LoginComponent extends Component {
 const mapStateToProps = state => ({
     login: state.loginReducer.login,
     senha: state.loginReducer.senha,
-    validos: state.loginReducer.validos
+    validos: state.loginReducer.validos,
+
+    mensagemFalha: state.loginReducer.mensagemFalha,
+    loading: state.loginReducer.loading,
+    bolSucesso: state.loginReducer.bolSucesso    
+
 })
 
 export default connect(
     mapStateToProps, 
-    { efetuarLoginAction, onChangeField, buscarDesafios, buscarGrausParentesco })
+    {efetuarLoginAction, onChangeField })
 (LoginComponent);
 
 

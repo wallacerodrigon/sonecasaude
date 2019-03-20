@@ -82,8 +82,43 @@ export default (state = INITIAL_STATE, action) => {
         }        
 
         case CADASTRAR_USUARIO_SUCESSO: {
-            return {...INITIAL_STATE, 
-                    bolSalvo: true}
+            let newState = {...state, bolExecutado: true, bolSalvo: true,
+                user: {
+                    codPerfil: PERFIL_PACIENTE,
+                    numCpf: '',
+                    descEmail: '',
+                    nomeUsuario: '',
+                    dataNascimento: '',
+                    numCelular: '',
+                    sexo: '',
+                    numCep: '',
+                    estado: '', 
+                    cidade: '',
+                    bairro: '',
+                    idLogradouro: null,
+                    logradouro: '', 
+                    numero: '',
+                    complemento: '',
+                    desafios: [],
+                    compartilhamento: { 
+                        numCpf: '', 
+                        descEmail: '',
+                        nomePessoa: '',
+                        grauParentesco: '', 
+                        compartilhouMedicacao: false,
+                        compartilhouTransporte: false,
+                        numCelular: '' 
+                    },
+                    bolPlanoSaude: false,
+                    nomePlanoSaude: '',
+                    bolTransporte: false,
+                    descTransporte: '',
+                    bolConcordouTermo: false
+                },
+            
+            }            
+            console.log('cadastro sucesso:', newState);
+            return newState;
             
         }
 
@@ -155,6 +190,7 @@ export default (state = INITIAL_STATE, action) => {
         }
 
         default: {
+            console.log('default');
             return state;
         }
     }

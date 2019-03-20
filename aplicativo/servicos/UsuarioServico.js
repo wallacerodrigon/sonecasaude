@@ -11,6 +11,15 @@ const recuperarSenha = email => {
 
 };
 
+const efetuarLogin = user => {
+    console.log('login: ', user);
+    return axios.post(`${URL_BACKEND}/${URI}/efetuarLogin`, {"login": user.login, "senha": user.senha})
+        .then( result => result )
+        .catch(error => Erro.getDetalhesErro(error));
+
+};
+
+
 const cadastrarUsuario = (usrDto) => {
     return axios.post(`${URL_BACKEND}/${URI}/cadastroInicial`, JSON.stringify(usrDto))
                 .then( result => result )
@@ -20,5 +29,6 @@ const cadastrarUsuario = (usrDto) => {
 
 export default {
     recuperarSenha,
-    cadastrarUsuario
+    cadastrarUsuario,
+    efetuarLogin
 }

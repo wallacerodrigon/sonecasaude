@@ -13,7 +13,7 @@ export function* salvarCadastro(action){
 
   try {
     const result = yield call(UsuarioServico.cadastrarUsuario, action.user);
-    //console.log(dadosEndereco.status);
+    console.log('status cadastro:', result.status);
     if (result.status === RETORNO_SUCESSO ){
       yield put({type: CADASTRAR_USUARIO_SUCESSO})
     } else {
@@ -26,10 +26,9 @@ export function* salvarCadastro(action){
       yield put({type: INTERNET_INOPERANTE});
     }
     else {
-      yield put({type: CADASTRAR_USUARIO_FALHA, mensagemFalha: error});
-        } 
+      yield put({type: CADASTRAR_USUARIO_FALHA, mensagemFalha: error || 'Erro genérico, sem detalhes. Favor comunicar à Soneca Saúde!' });
     }  
-
+  }
 }
 
 export function* buscarDadosEndereco(action){
