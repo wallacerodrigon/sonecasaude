@@ -22,7 +22,13 @@ export default class AlertaEstoque extends React.Component {
 
     async componentWillMount() {
         Tts.setDefaultLanguage('pt-BR');
-        Tts.setDefaultRate(1.0);
+        Tts.setDefaultRate(1.0, true);
+        Tts.setDucking(true);
+        Tts.setDefaultPitch(1.0);
+
+        Tts.addEventListener('tts-start', (event) => console.log("start", event));
+        Tts.addEventListener('tts-finish', (event) => console.log("finish", event));
+        Tts.addEventListener('tts-cancel', (event) => console.log("cancel", event));        
 
         this.falarAlerta();
     }  
@@ -39,7 +45,7 @@ export default class AlertaEstoque extends React.Component {
         let indice = Math.random() * 5;
         
         indice= Math.round(indice,0);
-        remedio = 'Você tem somente 10 comprimidos de ' + remedios[indice];
+        remedio = 'Você tem somente 11 comprimidos de ' + remedios[indice];
         return remedio;
 
     }

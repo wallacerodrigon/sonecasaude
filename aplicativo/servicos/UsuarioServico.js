@@ -11,9 +11,8 @@ const recuperarSenha = email => {
 
 };
 
-const efetuarLogin = user => {
-    console.log('login: ', user);
-    return axios.post(`${URL_BACKEND}/${URI}/efetuarLogin`, {"login": user.login, "senha": user.senha})
+const efetuarLogin = action => {
+    return axios.post(`${URL_BACKEND}/${URI}/efetuarLogin`, {"login": action.user.login, "senha": action.user.senha})
         .then( result => result )
         .catch(error => Erro.getDetalhesErro(error));
 

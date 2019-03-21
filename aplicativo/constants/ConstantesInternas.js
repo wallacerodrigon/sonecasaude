@@ -18,6 +18,7 @@ axios.defaults.baseURL = URL_BACKEND
 axios.defaults.headers.common['Authorization'] = 'Bearer ';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.responseEncoding = 'utf-8';
+//axios.defaults.timeout = 3000; //verificar se é isto mesmo....
 
 //tirar isto daqui....
 export const tratarTextoCodRetorno = retorno => {

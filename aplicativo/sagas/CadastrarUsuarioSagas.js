@@ -13,7 +13,7 @@ export function* salvarCadastro(action){
 
   try {
     const result = yield call(UsuarioServico.cadastrarUsuario, action.user);
-    console.log('status cadastro:', result.status);
+
     if (result.status === RETORNO_SUCESSO ){
       yield put({type: CADASTRAR_USUARIO_SUCESSO})
     } else {

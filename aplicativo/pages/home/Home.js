@@ -17,10 +17,17 @@ const imgMedicacao  = require('../../assets/icons/home/medicacao.png');
 //https://react-native-training.github.io/react-native-elements/docs/avatar.html
 export default class HomeScreen extends React.Component {
    
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
 
-        
+        //this.nomeUsuario = this.props.navigation.state.params.dadosUsuario;
+        //bolCuidador
+        //bolPaciente
+        //dadosImagemFoto
+        //nomePerfil
+        //nomeUsuario
+        //token
+        //xsrf        
     }
  
     // static navigationOptions = ({ navigation }) => ({

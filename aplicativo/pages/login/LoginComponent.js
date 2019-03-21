@@ -29,11 +29,19 @@ class LoginComponent extends Component {
     
     componentDidUpdate(){
         if (this.props.bolSucesso){
-            this.props.onChangeField('bolSucesso', false);
-            this.props.navigation.navigate(TELA_HOME.name);
+            // dados do usuário logado: Object {
+            //     "bolCuidador": false,
+            //     "bolPaciente": true,
+            //     "dadosImagemFoto": "dados da foto",
+            //     "nomePerfil": "Paciente",
+            //     "nomeUsuario": "Francisco Camilo de Sousa",
+            //     "token": "eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE1NTMxODc1NTgsInN1YiI6InRydWVAMTAwMEBmYWxzZUAiLCJqdGkiOiIzIiwiZXhwIjoxNTUzMTg5MzU4fQ.CNVPXeeQIuhBE-dUlEixGIKC_I5i3d446sYGS2bglNMJlebn3bkQihDtin9SvYzKe4StuElO46oL2VirIReEgQ",
+            //     "xsrf": "F73AC862D70C9AFFD20FF210FED127153B7D54C106D8901FAAC6FCFFDB3ED9D7",
+            //   }
+              
+            this.props.navigation.navigate(TELA_HOME.name, {dadosUsuario: this.props.dadosUsuario});
         } else if (this.props.mensagemFalha != ''){
             MensagemErro(this.props.mensagemFalha);
-            this.props.onChangeField('mensagemFalha', '');
         }
     }
 
@@ -81,7 +89,7 @@ class LoginComponent extends Component {
 
 
             <View style={styles.central}>
-                <InputTexto placeholder="E-mail ou telefone" maxLength={40}
+                <InputTexto placeholder="E-mail, CPF ou telefone" maxLength={50}
                     onChangeInput={texto => this.props.onChangeField('login', texto)}
                     autoCapitalize="none"
                     fieldName="login"
@@ -90,7 +98,7 @@ class LoginComponent extends Component {
                     />
 
 
-                <InputTexto placeholder="Senha" maxLength={10} secureTextEntry
+                <InputTexto placeholder="Senha" maxLength={20} secureTextEntry
                     onChangeInput={texto => this.props.onChangeField('senha', texto)}
                     autoCapitalize="none"
                     value={this.props.senha}
@@ -111,16 +119,20 @@ class LoginComponent extends Component {
 };
 
 /**aqui estou fazendo um de-para de uma variavel interna com a action*/
-const mapStateToProps = state => ({
-    login: state.loginReducer.login,
-    senha: state.loginReducer.senha,
-    validos: state.loginReducer.validos,
+const mapStateToProps = state => {
+    const dadosUsuario = state.loginReducer.dadosUsuario;
 
-    mensagemFalha: state.loginReducer.mensagemFalha,
-    loading: state.loginReducer.loading,
-    bolSucesso: state.loginReducer.bolSucesso    
+    return {
+        login: state.loginReducer.login,
+        senha: state.loginReducer.senha,
+        validos: state.loginReducer.validos,
 
-})
+        mensagemFalha: state.loginReducer.mensagemFalha,
+        loading: state.loginReducer.loading,
+        bolSucesso: state.loginReducer.bolSucesso,
+        dadosUsuario: dadosUsuario
+    }
+}
 
 export default connect(
     mapStateToProps, 

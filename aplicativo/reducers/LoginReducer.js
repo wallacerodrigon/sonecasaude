@@ -21,7 +21,7 @@ export default (state = INITIAL_STATE, action) => {
         }
 
         case LOGIN_SUCESSO: {
-            return {...INITIAL_STATE, bolSucesso: true};
+            return {...INITIAL_STATE, bolSucesso: true, dadosUsuario: action.user};
         }
 
         case LOGIN_FALHA: {

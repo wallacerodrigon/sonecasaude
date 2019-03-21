@@ -21,8 +21,12 @@ const routes = [
 
 export default class SideBarMenu extends React.Component {
 
+  constructor(props){
+    super(props);
+    this.dadosUsuario = props.items[0].routes.filter(rota => rota.routeName === 'home')[0].params.dadosUsuario;
+  }
+ 
   abrirTela(route){
-      console.log(route);
     if (route.rota == ''){
         MensagemInformativa('Desculpe. Esta tela ainda está em construção!');
     } else {
@@ -31,6 +35,9 @@ export default class SideBarMenu extends React.Component {
   }
 
   render() {
+    let {nomeUsuario} = this.dadosUsuario;
+    nomeUsuario = nomeUsuario.split(' ')[0];
+
     return (
       <View style={EstilosComuns.container}>
           <View style={[EstilosComuns.backgroundToolbar, styles.containerProfile]} >
@@ -43,7 +50,7 @@ export default class SideBarMenu extends React.Component {
             </View>
 
             <View style={styles.perfil}>
-                <Text style={[EstilosComuns.corBranca, EstilosComuns.negrito, {fontSize: 20}]}>Nome do Usuário</Text>
+                <Text style={[EstilosComuns.corBranca, EstilosComuns.negrito, {fontSize: 20}]}>{nomeUsuario} </Text>
 
                 <View style={styles.ratingPerfil}>
                     <Text style={EstilosComuns.corBranca}>4.7</Text>
