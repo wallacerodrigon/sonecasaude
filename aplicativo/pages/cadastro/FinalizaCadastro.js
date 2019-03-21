@@ -43,20 +43,13 @@ class FinalizaCadastro extends React.Component {
 
 
     componentDidUpdate(){
-       // console.log('Did update: ', this.props.bolExecutado, this.props.bolSalvo, this.props.user);
 
         if (this.props.bolExecutado && this.props.bolSalvo){
-            MensagemInformativa('Cadastro salvo com sucesso. Enviamos a você um e-mail de ativação para acesso ao aplicativo!'
-            , () => {
-              this.props.navigation.navigate(TELA_LOGIN.name);
-              this.props.onChangeField('bolSalvo', false);   
-              this.props.onChangeField('bolExecutado', false);
-            });
+            this.props.navigation.navigate(TELA_LOGIN.name);
+            MensagemInformativa('Cadastro salvo com sucesso. Enviamos a você um e-mail de ativação para acesso ao aplicativo!');
         } else if (this.props.bolExecutado && this.props.descMensagemFalha != '') {
             MensagemErro(this.props.descMensagemFalha);
-            this.props.onChangeField('bolExecutado', false);
-            this.props.onChangeField('descMensagemFalha', '');   
-      }
+        }
     }
 
     salvarCadastro(){
@@ -68,7 +61,6 @@ class FinalizaCadastro extends React.Component {
             MensagemErro('Favor descrever as necessidades que você tem com transporte!');
             return;
         }
-
 
         this.props.cadastrarUsuario(this.props.user);
     }

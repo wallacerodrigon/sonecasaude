@@ -77,14 +77,15 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 bolExecutado: false,
                 loading: true,
-                bolSalvo: false
+                bolSalvo: false,
+                descMensagemFalha: ''
             };
         }        
 
         case CADASTRAR_USUARIO_SUCESSO: {
-            let newState = {...state, bolExecutado: true, bolSalvo: true,
+            let newState = {
                 user: {
-                    codPerfil: PERFIL_PACIENTE,
+                    codPerfil: null,
                     numCpf: '',
                     descEmail: '',
                     nomeUsuario: '',
@@ -115,9 +116,9 @@ export default (state = INITIAL_STATE, action) => {
                     descTransporte: '',
                     bolConcordouTermo: false
                 },
+               bolExecutado: true, bolSalvo: true, loading: false, descMensagemFalha: ''                
             
-            }            
-            console.log('cadastro sucesso:', newState);
+            }    
             return newState;
             
         }
@@ -190,7 +191,7 @@ export default (state = INITIAL_STATE, action) => {
         }
 
         default: {
-            console.log('default');
+          //  console.log('default');
             return state;
         }
     }

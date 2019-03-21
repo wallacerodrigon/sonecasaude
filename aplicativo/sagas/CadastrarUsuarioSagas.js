@@ -8,12 +8,10 @@ import GrausParentescoServico from '../servicos/GrausParentescoServico';
 
 export function* salvarCadastro(action){
 
-//  console.log(action.user);
   yield put({type: START_CADASTRO});
 
   try {
     const result = yield call(UsuarioServico.cadastrarUsuario, action.user);
-
     if (result.status === RETORNO_SUCESSO ){
       yield put({type: CADASTRAR_USUARIO_SUCESSO})
     } else {
@@ -21,7 +19,6 @@ export function* salvarCadastro(action){
     }
     
   } catch(error){
-    //console.log(error);
     if (error == NETWORK_ERROR) {
       yield put({type: INTERNET_INOPERANTE});
     }
@@ -55,7 +52,7 @@ export function* buscarDadosEndereco(action){
      }
 
   } catch(error){
-      //console.log(error);
+     
       if (error == NETWORK_ERROR) {
         yield put({type: INTERNET_INOPERANTE});
       }
@@ -86,4 +83,8 @@ export function* recuperarGrausParentesco(){
       } 
 
     }
+}
+
+export function* verificarExistenciaCpf(action){
+  
 }
