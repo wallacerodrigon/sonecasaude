@@ -54,7 +54,7 @@ export default (state = INITIAL_STATE, action) => {
         }
 
         case TOGGLE_FIELD: {
-            let newState = {...state, bolExecutado: false, bolSalvo: false};
+            let newState = {...state, bolExecutado: false, bolSalvo: false,  descMensagemFalha: ''};
             newState.user[action.fieldName]= !newState.user[action.fieldName];
             return newState;
         }
@@ -67,7 +67,7 @@ export default (state = INITIAL_STATE, action) => {
 
 
         case TOGGLE_FIELD_SHARING: {
-            let newState = {...state, bolExecutado: false, bolSalvo: false};
+            let newState = {...state, bolExecutado: false, bolSalvo: false,  descMensagemFalha: ''};
             newState.user.compartilhamento[action.fieldName]= !newState.user.compartilhamento[action.fieldName];
             return newState;
         }        

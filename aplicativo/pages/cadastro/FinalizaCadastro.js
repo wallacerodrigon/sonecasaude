@@ -40,13 +40,15 @@ class FinalizaCadastro extends React.Component {
         this.props.onToggleField('bolConcordouTermo');
     }
 
-
+    encaminharParaHome(){
+        this.props.navigation.navigate(TELA_LOGIN.name);
+    }
 
     componentDidUpdate(){
 
         if (this.props.bolExecutado && this.props.bolSalvo){
-            this.props.navigation.navigate(TELA_LOGIN.name);
-            MensagemInformativa('Cadastro salvo com sucesso. Enviamos a você um e-mail de ativação para acesso ao aplicativo!');
+            MensagemInformativa('Cadastro salvo com sucesso. Enviamos a você um e-mail de ativação para acesso ao aplicativo!', 
+                this.encaminharParaHome());
         } else if (this.props.bolExecutado && this.props.descMensagemFalha != '') {
             MensagemErro(this.props.descMensagemFalha);
         }

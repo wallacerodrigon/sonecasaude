@@ -34,20 +34,17 @@ class Endereco extends React.Component {
     }
 
     isPreencheLogradouro(){
-        return this.props.bolExecutado && this.props.idLogradouro === null;
+        return this.props.idLogradouro === null;
     }
 
     dadosValidos(){
-        if (this.props.complemento.trim() != ''){
-            return true;
-        }
-
-        if (this.props.idLogradouro > 0 && this.props.numCep != ''){
+        if (this.props.idLogradouro > 0 && this.props.numCep != '' &&  this.props.complemento.trim() != ''){
             return true;
         } else if (this.props.idLogradouro === null && 
                    this.props.estado.trim() != '' && 
                    this.props.cidade.trim() != '' && 
                    this.props.bairro.trim() != '' &&
+                   this.props.complemento.trim() != '' &&
                    this.props.logradouro.trim() != ''){
             return true;
         } else {

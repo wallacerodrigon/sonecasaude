@@ -16,7 +16,9 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_START: {
             return {
                 ...state,
-                loading: true
+                loading: true,
+                mensagemFalha: '',
+                bolSucesso: false
             }
         }
 
