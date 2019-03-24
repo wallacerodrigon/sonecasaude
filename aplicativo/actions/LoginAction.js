@@ -3,6 +3,7 @@ export const CHANGE_FIELD = "onChangeField";
 
 export const BUSCA_GRAUS_PARENTESCO = "buscaGrauParentesco";
 
+
 export const LOGIN_SUCESSO = "loginSucesso";
 export const LOGIN_FALHA = "loginFalha";
 
@@ -23,3 +24,4 @@ export const onChangeField = (fieldName, value) => ({
     fieldName,
     value
 })
+

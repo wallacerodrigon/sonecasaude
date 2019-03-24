@@ -9,7 +9,7 @@ import { PERFIL_CUIDADOR, PERFIL_PACIENTE } from '../../constants/ConstantesInte
 import { connect } from "react-redux";
 import { MensagemErro } from "../../components/mensagens/Mensagens";
 
-import { cadastrarUsuario, onChangeField } from "../../actions/CadastroAction";
+import { cadastrarUsuario, onChangeField, verificarCadastro } from "../../actions/CadastroAction";
 import Validador from '../../utilitarios/Validador';
 
 //import { KeepAwake } from "expo";
@@ -29,6 +29,10 @@ class DadosPessoais extends React.Component {
         this.labelBotao= this.isPerfilPaciente ? 'Próximo': 'Finalizar';
     }
 
+    componentDidMount(){
+        
+    }
+
     isPerfilPaciente(){
         return (this.tipoPerfil === PERFIL_PACIENTE);
     }
@@ -36,6 +40,8 @@ class DadosPessoais extends React.Component {
     gotoNextScreen(){
         this.props.onChangeField('codPerfil', this.tipoPerfil);
         
+        
+
         if (this.isPerfilPaciente()){
             this.props.navigation.navigate(TELA_ENDERECO.name);        
         } else {
@@ -88,6 +94,8 @@ class DadosPessoais extends React.Component {
             return false;
         }
 
+        //tratar para que ao receber o retorno ou mude de tela ou mostre a mensagem de erros...
+        //this.verificarCadastro(this.props.numCpf);
         //tratar quando o perfil for de cuidador para enviar para a saga fazer o que tiver que fazer
         this.gotoNextScreen();
     }
@@ -164,4 +172,4 @@ const mapStateToProps = state => ({
     sexo: state.cadastroReducer.user.sexo
 })
 
-export default connect(mapStateToProps, {cadastrarUsuario, onChangeField})(DadosPessoais);
+export default connect(mapStateToProps, {cadastrarUsuario, onChangeField, verificarCadastro})(DadosPessoais);

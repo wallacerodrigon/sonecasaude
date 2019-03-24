@@ -3,12 +3,13 @@ import { Image, KeyboardAvoidingView, StyleSheet, View, ActivityIndicator } from
 import { connect } from "react-redux";
 import { efetuarLoginAction, onChangeField } from "../../actions/LoginAction";
 import EstilosComuns, { VERDE } from '../../assets/estilos/estilos';
-import Botao from '../../components/botao/Botao';
+import Botao, {BotaoLoading} from '../../components/botao/Botao';
 import CommandLink from '../../components/botao/CommandLink';
-import { InputTexto } from '../../components/input/InputTexto';
+import { InputTexto, InputTextComMascara } from '../../components/input/InputTexto';
 import { TELA_CADASTRO_PERFIL, TELA_ESQUECI_SENHA, TELA_HOME, TELA_PADRAO } from '../../constants/AppScreenData';
 
 import { MensagemErro } from "../../components/mensagens/Mensagens";
+import Validador from '../../utilitarios/Validador';
 
 
 const imgLogo = require('../../assets/img/logo-login.jpeg');
@@ -34,6 +35,7 @@ class LoginComponent extends Component {
             //     "bolPaciente": true,
             //     "dadosImagemFoto": "dados da foto",
             //     "nomePerfil": "Paciente",
+            //     bolTrocaSenha: true
             //     "nomeUsuario": "Francisco Camilo de Sousa",
             //     "token": "eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE1NTMxODc1NTgsInN1YiI6InRydWVAMTAwMEBmYWxzZUAiLCJqdGkiOiIzIiwiZXhwIjoxNTUzMTg5MzU4fQ.CNVPXeeQIuhBE-dUlEixGIKC_I5i3d446sYGS2bglNMJlebn3bkQihDtin9SvYzKe4StuElO46oL2VirIReEgQ",
             //     "xsrf": "F73AC862D70C9AFFD20FF210FED127153B7D54C106D8901FAAC6FCFFDB3ED9D7",
@@ -53,6 +55,11 @@ class LoginComponent extends Component {
 
         if (this.props.senha == null || this.props.senha.trim() === ''){
             MensagemErro('Favor informar a sua senha de acesso');
+            return false;
+        }
+
+        if (! new Validador().validaCPF(this.props.login)){
+            MensagemErro('Informe um CPF válido!');
             return false;
         }
 
@@ -89,14 +96,12 @@ class LoginComponent extends Component {
 
 
             <View style={styles.central}>
-                <InputTexto placeholder="E-mail, CPF ou telefone" maxLength={50}
-                    onChangeInput={texto => this.props.onChangeField('login', texto)}
-                    autoCapitalize="none"
-                    fieldName="login"
-                    keyboardType={InputTexto.KEYBOARD_EMAIL}
-                    value={this.props.login}
+                <InputTextComMascara  style={[EstilosComuns.inputText]} 
+                        onChangeText={text =>this.props.onChangeField('login', text)}
+                        value={this.props.login}
+                        placeholder="Informe seu CPF"
+                        type={InputTextComMascara.MASK_CPF}
                     />
-
 
                 <InputTexto placeholder="Senha" maxLength={20} secureTextEntry
                     onChangeInput={texto => this.props.onChangeField('senha', texto)}
@@ -106,7 +111,7 @@ class LoginComponent extends Component {
 
                 <CommandLink styles={styles.esqueceuSenha} tituloBotao="Não sabe sua senha? Clique aqui para recuperá-la." onClick={() => this.executarEsqueciSenha()}/>
 
-                {this.renderBotao()}
+                <BotaoLoading onClick={() => this.efetuarLogin()} carregaLoading={this.props.loading} tituloBotao="Enviar"/>
 
                 <View style={styles.commandLinks}>
                     <CommandLink styles={EstilosComuns.negrito} tituloBotao="Ainda não tem uma conta? Cadastre-se" onClick={() => this.executarNovoCadastro()}/>

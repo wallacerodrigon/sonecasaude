@@ -20,16 +20,6 @@ class FinalizaCadastro extends React.Component {
         super(props);
     }
 
-    componentDidMount(){
-        if (this.isCuidador()){
-            this.props.onChangeField('descTransporte', '');
-            this.props.onChangeField('nomePlanoSaude', '');
-            this.props.onChangeField('bolPlanoSaude', false);
-            this.props.onChangeField('bolTransporte', false);
-        }
-
-    }
-
     togglePlanoSaude(){
         this.props.onToggleField('bolPlanoSaude');
     }
@@ -40,15 +30,15 @@ class FinalizaCadastro extends React.Component {
         this.props.onToggleField('bolConcordouTermo');
     }
 
-    encaminharParaHome(){
+    finalizarCadastro(){
         this.props.navigation.navigate(TELA_LOGIN.name);
     }
 
     componentDidUpdate(){
-
+     //   console.log('finalizando cadastro:', this.props.bolExecutado, this.props.bolSalvo);
         if (this.props.bolExecutado && this.props.bolSalvo){
             MensagemInformativa('Cadastro salvo com sucesso. Enviamos a você um e-mail de ativação para acesso ao aplicativo!', 
-                this.encaminharParaHome());
+                this.finalizarCadastro());
         } else if (this.props.bolExecutado && this.props.descMensagemFalha != '') {
             MensagemErro(this.props.descMensagemFalha);
         }

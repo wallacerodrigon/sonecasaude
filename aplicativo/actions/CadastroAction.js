@@ -26,6 +26,8 @@ export const INTERNET_INOPERANTE = "erroInternet"; //deixar genérico
 export const RESULT_LISTA_GRAUS_PARENTESCO = "listaGrausParentesco";
 export const ERRO_RESULT_LISTA_GRAUS_PARENTESCO = "erroListaGrausParentesco";
 
+export const VERIFICA_CADASTRO = "verificaCadastro";
+
 export const cadastrarUsuario = (user) => ({
     type: CADASTRAR_USUARIO,
     user
@@ -66,4 +68,9 @@ export const buscarGrausParentesco=() => ({
 
 export const buscarDesafios=() => ({
     type: BUSCA_DESAFIO_STORAGE
+})
+
+export const verificarCadastro = numCpf => ({
+    type: VERIFICA_CADASTRO,
+    numCpf
 })

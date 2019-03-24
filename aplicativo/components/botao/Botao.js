@@ -1,7 +1,7 @@
 import { Icon } from 'native-base';
 import React from 'react';
-import { Button, TouchableOpacity, View, Text } from 'react-native';
-import { BRANCO, FUNDO, VERDE, DESMARCADO } from '../../assets/estilos/estilos';
+import { ActivityIndicator, Button, TouchableOpacity, View } from 'react-native';
+import { BRANCO, DESMARCADO, VERDE } from '../../assets/estilos/estilos';
 import { TELA_COMANDO_VOZ } from '../../constants/AppScreenData';
 
 export default class Botao extends React.Component {
@@ -80,3 +80,13 @@ export const BotaoConfiguracoes = (props) => {
               onPress={() => props.onPress() }/>
   )
 };
+
+
+export const BotaoLoading = (props) => {
+    if (props.carregaLoading){
+      return <ActivityIndicator size="small" color={VERDE}/>
+    } else {
+      return <Botao tituloBotao={props.tituloBotao}  onClick={()=>props.onClick()}/>
+    }    
+  
+}

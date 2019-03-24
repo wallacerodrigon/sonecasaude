@@ -32,14 +32,6 @@ export default class ControleMedicacao extends React.Component {
 
                     <Container>
                         <Medicacao />
-                        {/* <Tabs> 
-                            <Tab heading="Medicação">
-                                <Medicacao />
-                            </Tab>
-                            <Tab heading="Seus usos">
-                                <HistoricoUsoPorData />
-                            </Tab>
-                        </Tabs>                     */}
                     </Container>
 
                                   

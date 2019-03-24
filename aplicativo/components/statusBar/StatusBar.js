@@ -1,17 +1,16 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
-import EstilosComuns, { BRANCO } from "../../assets/estilos/estilos";
-import { Icon } from "native-base";
-import { TELA_PADRAO, TELA_COMANDO_VOZ } from "../../constants/AppScreenData";
-import { BotaoOpacity } from '../../components/botao/Botao';
+import { StyleSheet, Text, View } from "react-native";
+import EstilosComuns from "../../assets/estilos/estilos";
+import { BotaoFecharHeader, BotaoMicrofoneHeader } from '../../components/botao/Botao';
+import { TELA_PADRAO } from "../../constants/AppScreenData";
 
 export default class StatusBar extends React.Component {
   render() {
     return (
       <View style={[EstilosComuns.backgroundToolbar, styles.containerStatus]}>
-            <Icon name="menu" onPress={()=> this.props.navigation.openDrawer()} style={[ EstilosComuns.corBranca, styles.fonteStatusBar ]} />
+            <BotaoFecharHeader  navigation={this.props.navigation}/>
             <Text style={[ EstilosComuns.corBranca, EstilosComuns.negrito, styles.fonteStatusBar ]}>{ TELA_PADRAO.title }</Text>
-            <Icon name="mic" style={[ EstilosComuns.corBranca, styles.fonteStatusBar ]} onPress={() => this.props.navigation.navigate(TELA_COMANDO_VOZ.name)}/>
+            <BotaoMicrofoneHeader  navigation={this.props.navigation}/>
       </View>
     );
   }

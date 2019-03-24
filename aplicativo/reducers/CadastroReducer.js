@@ -20,16 +20,16 @@ const INITIAL_STATE = {
         logradouro: '', 
         numero: '',
         complemento: '',
-        desafios: [],
-        compartilhamento: { 
-            numCpf: '', 
-            descEmail: '',
-            nomePessoa: '',
-            grauParentesco: '', 
-            compartilhouMedicacao: false,
-            compartilhouTransporte: false,
-            numCelular: '' 
-        },
+        // desafios: [],
+        // compartilhamento: { 
+        //     numCpf: '', 
+        //     descEmail: '',
+        //     nomePessoa: '',
+        //     grauParentesco: '', 
+        //     compartilhouMedicacao: false,
+        //     compartilhouTransporte: false,
+        //     numCelular: '' 
+        // },
         bolPlanoSaude: false,
         nomePlanoSaude: '',
         bolTransporte: false,
@@ -59,18 +59,18 @@ export default (state = INITIAL_STATE, action) => {
             return newState;
         }
 
-        case CHANGE_FIELD_SHARING: {
-            let newState = {...state, descMensagemFalha: '', bolExecutado: false, bolSalvo: false};
-            newState.user.compartilhamento[action.fieldName]= action.value;
-            return newState;
-        }        
+        // case CHANGE_FIELD_SHARING: {
+        //     let newState = {...state, descMensagemFalha: '', bolExecutado: false, bolSalvo: false};
+        //     newState.user.compartilhamento[action.fieldName]= action.value;
+        //     return newState;
+        // }        
 
 
-        case TOGGLE_FIELD_SHARING: {
-            let newState = {...state, bolExecutado: false, bolSalvo: false,  descMensagemFalha: ''};
-            newState.user.compartilhamento[action.fieldName]= !newState.user.compartilhamento[action.fieldName];
-            return newState;
-        }        
+        // case TOGGLE_FIELD_SHARING: {
+        //     let newState = {...state, bolExecutado: false, bolSalvo: false,  descMensagemFalha: ''};
+        //     newState.user.compartilhamento[action.fieldName]= !newState.user.compartilhamento[action.fieldName];
+        //     return newState;
+        // }        
 
         case START_CADASTRO: {
             return {
@@ -100,16 +100,6 @@ export default (state = INITIAL_STATE, action) => {
                     logradouro: '', 
                     numero: '',
                     complemento: '',
-                    desafios: [],
-                    compartilhamento: { 
-                        numCpf: '', 
-                        descEmail: '',
-                        nomePessoa: '',
-                        grauParentesco: '', 
-                        compartilhouMedicacao: false,
-                        compartilhouTransporte: false,
-                        numCelular: '' 
-                    },
                     bolPlanoSaude: false,
                     nomePlanoSaude: '',
                     bolTransporte: false,
@@ -167,9 +157,6 @@ export default (state = INITIAL_STATE, action) => {
             newState.user["bairro"]= "";
             newState.user["idLogradouro"]= null;
             newState.user["logradouro"]= "";
-
-            //console.log('Erro:', newState);
-
             return newState;
         }     
         
@@ -177,7 +164,6 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 bolExecutado: true,
-                listaGrausParentesco: action.listaGrausParentesco
             }
         }
 

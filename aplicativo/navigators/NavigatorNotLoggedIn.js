@@ -1,24 +1,22 @@
-import {createStackNavigator} from 'react-navigation';
 import React from "react";
-import PADRAO_NAVEGACAO from "./NavigatorConfigs";
-
-import LoginComponent from "../pages/login/LoginComponent";
-import PerfilCadastro from '../pages/cadastro/PerfilCadastro';
-import EsqueciSenha from "../pages/esqueci-senha/EsqueciSenha";
-import DadosPessoais from "../pages/cadastro/DadosPessoais";
-import Endereco from "../pages/cadastro/Endereco";
-import Desafios from "../pages/cadastro/Desafios";
-import CadastroCompartilhamento from "../pages/compartilhamento/CadastroCompartilhamento";
-import FinalizaCadastro from "../pages/cadastro/FinalizaCadastro";
-
 import { Text } from "react-native";
-import Botao from '../components/botao/Botao';
-import { TELA_PADRAO, TELA_LOGIN } from '../constants/AppScreenData';
+import { createStackNavigator } from 'react-navigation';
 import EstilosComuns, { BRANCO, FUNDO_ESCURO } from '../assets/estilos/estilos';
+import { TELA_LOGIN, TELA_PADRAO } from '../constants/AppScreenData';
+import DadosPessoais from "../pages/cadastro/DadosPessoais";
+import Desafios from "../pages/cadastro/Desafios";
+import Endereco from "../pages/cadastro/Endereco";
+import FinalizaCadastro from "../pages/cadastro/FinalizaCadastro";
+import PerfilCadastro from '../pages/cadastro/PerfilCadastro';
+import CadastroCompartilhamento from "../pages/compartilhamento/CadastroCompartilhamento";
+import EsqueciSenha from "../pages/esqueci-senha/EsqueciSenha";
+import LoginComponent from "../pages/login/LoginComponent";
+
+
 
 const StackNotLoggedIn = createStackNavigator(
     {
-       login: {screen: LoginComponent},
+        login: {screen: LoginComponent},
         cadastroPerfil: PerfilCadastro,
         esqueciSenha: {screen: EsqueciSenha},
         dadosPessoais: DadosPessoais,

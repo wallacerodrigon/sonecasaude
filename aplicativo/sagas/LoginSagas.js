@@ -28,10 +28,8 @@ export function* efetuarLogin(action){
             yield put({type: LOGIN_FALHA, mensagemFalha: 'Erro ao efetuar login. \nDetalhes:\n' + error });
         }  
     }
-
-
-
 }
+
 
 const atualizarValoresNaStorage = async (key, valores) => {
     try {
