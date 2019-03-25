@@ -26,8 +26,16 @@ const cadastrarUsuario = (usrDto) => {
 
 }
 
+const existeCadastroComEsteCpf = (numCpf) => {
+    return axios.get(`${URL_BACKEND}/${URI}/existeUsuarioByCpf?numCpf=${numCpf}`)
+                .then( result => result )
+                .catch(error => Erro.getDetalhesErro(error));
+
+}
+
 export default {
     recuperarSenha,
     cadastrarUsuario,
-    efetuarLogin
+    efetuarLogin,
+    existeCadastroComEsteCpf
 }

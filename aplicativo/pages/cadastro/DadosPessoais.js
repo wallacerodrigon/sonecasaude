@@ -1,7 +1,7 @@
 import React from 'react';
 import { Picker, Text, View } from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
-import Botao from '../../components/botao/Botao';
+import Botao, { BotaoLoading } from '../../components/botao/Botao';
 import { InputTextComMascara, InputTexto } from '../../components/input/InputTexto';
 import { TELA_ENDERECO, TELA_LOGIN, TELA_FINALIZA_CADASTRO } from '../../constants/AppScreenData';
 import { PERFIL_CUIDADOR, PERFIL_PACIENTE } from '../../constants/ConstantesInternas';
@@ -29,8 +29,13 @@ class DadosPessoais extends React.Component {
         this.labelBotao= this.isPerfilPaciente ? 'Próximo': 'Finalizar';
     }
 
-    componentDidMount(){
-        
+    componentDidUpdate(){
+        let bolConsultouCpf = this.props.bolExecutado && this.props.bolVerificouCpf;
+        if (bolConsultouCpf && this.props.bolProibeCadastro){
+            MensagemErro('Já existe um cadastro com este CPF!');
+        } else if (this.props.bolExecutado && !this.props.bolProibeCadastro) {
+            this.gotoNextScreen();
+        }
     }
 
     isPerfilPaciente(){
@@ -97,7 +102,7 @@ class DadosPessoais extends React.Component {
         //tratar para que ao receber o retorno ou mude de tela ou mostre a mensagem de erros...
         //this.verificarCadastro(this.props.numCpf);
         //tratar quando o perfil for de cuidador para enviar para a saga fazer o que tiver que fazer
-        this.gotoNextScreen();
+        this.props.verificarCadastro(this.props.numCpf);
     }
 
     render() {
@@ -155,7 +160,9 @@ class DadosPessoais extends React.Component {
                 </View>
                 
                 <View style={EstilosComuns.rodape}>
-                    <Botao tituloBotao='Próximo' onClick={() =>  this.cadastrarDadosPessoais()}/>
+                    <BotaoLoading carregaLoading={this.props.loading}
+                            tituloBotao='Próximo' 
+                            onClick={() =>  this.cadastrarDadosPessoais()}/>
                 </View>
             </View>
         )
@@ -169,7 +176,12 @@ const mapStateToProps = state => ({
     nomeUsuario: state.cadastroReducer.user.nomeUsuario,
     dataNascimento: state.cadastroReducer.user.dataNascimento,
     numCelular: state.cadastroReducer.user.numCelular,
-    sexo: state.cadastroReducer.user.sexo
+    sexo: state.cadastroReducer.user.sexo,
+    loading: state.cadastroReducer.loading,
+    bolVerificouCpf: state.cadastroReducer.bolVerificouCpf,
+    descMensagemFalha: state.cadastroReducer.descMensagemFalha,
+    bolExecutado: state.cadastroReducer.bolExecutado,
+    bolProibeCadastro: state.cadastroReducer.bolProibeCadastro
 })
 
 export default connect(mapStateToProps, {cadastrarUsuario, onChangeField, verificarCadastro})(DadosPessoais);

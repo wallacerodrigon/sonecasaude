@@ -1,5 +1,5 @@
 import { call, put, delay } from 'redux-saga/effects';
-import { BUSCA_CEP_FALHA, BUSCA_CEP_SUCESSO, INICIA_BUSCA_CEP, INTERNET_INOPERANTE, START_CADASTRO, END_CADASTRO, CADASTRAR_USUARIO_SUCESSO, CADASTRAR_USUARIO_FALHA, RESULT_LISTA_GRAUS_PARENTESCO } from "../actions/CadastroAction";
+import { BUSCA_CEP_FALHA, BUSCA_CEP_SUCESSO, INICIA_BUSCA_CEP, INTERNET_INOPERANTE, START_CADASTRO, END_CADASTRO, CADASTRAR_USUARIO_SUCESSO, CADASTRAR_USUARIO_FALHA, RESULT_LISTA_GRAUS_PARENTESCO, VERIFICA_CADASTRO_FALHA, VERIFICA_CADASTRO_SUCESSO } from "../actions/CadastroAction";
 import { NETWORK_ERROR, RETORNO_SUCESSO } from "../constants/ConstantesInternas";
 import EnderecoServico from "../servicos/EnderecoServico";
 import UsuarioServico from '../servicos/UsuarioServico';
@@ -86,5 +86,23 @@ export function* recuperarGrausParentesco(){
 }
 
 export function* verificarExistenciaCpf(action){
-  
+  yield put({type: START_CADASTRO});
+
+  try {
+    const result = yield call(UsuarioServico.existeCadastroComEsteCpf, action.numCpf);
+    console.log('verifica existencia:',result);
+    if (result.status === RETORNO_SUCESSO ){
+      yield put({type: VERIFICA_CADASTRO_SUCESSO})
+    } else {
+      yield put({type: VERIFICA_CADASTRO_FALHA });
+    }
+    
+  } catch(error){
+    if (error == NETWORK_ERROR) {
+      yield put({type: INTERNET_INOPERANTE});
+    }
+    else {
+      yield put({type: VERIFICA_CADASTRO_FALHA, mensagemFalha: error || 'Erro genérico, sem detalhes. Favor comunicar à Soneca Saúde!' });
+    }  
+  }
 }

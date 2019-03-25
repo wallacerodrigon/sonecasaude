@@ -1,5 +1,7 @@
 import { BUSCA_CEP_FALHA, BUSCA_CEP_SUCESSO, CADASTRAR_USUARIO_FALHA, CADASTRAR_USUARIO_SUCESSO, CHANGE_FIELD, INICIA_BUSCA_CEP, 
-    START_CADASTRO, TOGGLE_FIELD, CHANGE_FIELD_SHARING, TOGGLE_FIELD_SHARING, RESULT_LISTA_GRAUS_PARENTESCO, ERRO_RESULT_LISTA_GRAUS_PARENTESCO } from "../actions/CadastroAction";
+    START_CADASTRO, TOGGLE_FIELD, CHANGE_FIELD_SHARING, TOGGLE_FIELD_SHARING, RESULT_LISTA_GRAUS_PARENTESCO, ERRO_RESULT_LISTA_GRAUS_PARENTESCO, 
+    VERIFICA_CADASTRO_SUCESSO,
+    VERIFICA_CADASTRO_FALHA } from "../actions/CadastroAction";
 import { PERFIL_PACIENTE } from "../constants/ConstantesInternas";
 
 
@@ -20,16 +22,6 @@ const INITIAL_STATE = {
         logradouro: '', 
         numero: '',
         complemento: '',
-        // desafios: [],
-        // compartilhamento: { 
-        //     numCpf: '', 
-        //     descEmail: '',
-        //     nomePessoa: '',
-        //     grauParentesco: '', 
-        //     compartilhouMedicacao: false,
-        //     compartilhouTransporte: false,
-        //     numCelular: '' 
-        // },
         bolPlanoSaude: false,
         nomePlanoSaude: '',
         bolTransporte: false,
@@ -40,7 +32,9 @@ const INITIAL_STATE = {
     descMensagemFalha: '',
     bolExecutado: false,
     loading: false,
-    listaGrausParentesco: []
+    listaGrausParentesco: [],
+    bolVerificouCpf: false,
+    bolProibeCadastro: false
 
 }
 
@@ -48,7 +42,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch(action.type){
         case CHANGE_FIELD: {
-            let newState = {...state, descMensagemFalha: '', bolExecutado: false, bolSalvo: false};
+            let newState = {...state, descMensagemFalha: '', bolExecutado: false, bolSalvo: false, bolVerificouCpf: false, bolProibeCadastro: false};
             newState.user[action.fieldName]= action.value;
             return newState;
         }
@@ -59,26 +53,14 @@ export default (state = INITIAL_STATE, action) => {
             return newState;
         }
 
-        // case CHANGE_FIELD_SHARING: {
-        //     let newState = {...state, descMensagemFalha: '', bolExecutado: false, bolSalvo: false};
-        //     newState.user.compartilhamento[action.fieldName]= action.value;
-        //     return newState;
-        // }        
-
-
-        // case TOGGLE_FIELD_SHARING: {
-        //     let newState = {...state, bolExecutado: false, bolSalvo: false,  descMensagemFalha: ''};
-        //     newState.user.compartilhamento[action.fieldName]= !newState.user.compartilhamento[action.fieldName];
-        //     return newState;
-        // }        
-
         case START_CADASTRO: {
             return {
                 ...state,
                 bolExecutado: false,
                 loading: true,
                 bolSalvo: false,
-                descMensagemFalha: ''
+                descMensagemFalha: '',
+                bolVerificouCpf: false
             };
         }        
 
@@ -106,7 +88,8 @@ export default (state = INITIAL_STATE, action) => {
                     descTransporte: '',
                     bolConcordouTermo: false
                 },
-               bolExecutado: true, bolSalvo: true, loading: false, descMensagemFalha: ''                
+               bolExecutado: true, bolSalvo: true, loading: false, descMensagemFalha: '', bolVerificouCpf: false,
+               bolProibeCadastro: false                
             
             }    
             return newState;
@@ -119,6 +102,8 @@ export default (state = INITIAL_STATE, action) => {
                 bolExecutado: true,
                 loading: false,
                 bolSalvo: false,
+                bolVerificouCpf: false,
+                bolProibeCadastro: false,
                 descMensagemFalha: action.mensagemFalha
             };
             return newState;        
@@ -127,7 +112,7 @@ export default (state = INITIAL_STATE, action) => {
 
         case INICIA_BUSCA_CEP: {
             return {
-                ...state, loading: true
+                ...state, loading: true, bolVerificouCpf: false
             }
         }
 
@@ -175,6 +160,30 @@ export default (state = INITIAL_STATE, action) => {
                 listaGrausParentesco: []
             }
         }
+
+        case VERIFICA_CADASTRO_FALHA: {
+            return {
+                ...state,
+                bolVerificouCpf: true,
+                loading: false,
+                bolExecutado: true,
+                bolProibeCadastro: true,
+                descMensagemFalha: action.mensagemFalha
+            }
+        }
+
+        case VERIFICA_CADASTRO_SUCESSO: {
+            return {
+                ...state,
+                loading: false,
+                bolExecutado: true,
+                bolVerificouCpf: true,
+                bolProibeCadastro: false,
+                descMensagemFalha: action.mensagemFalha
+            }
+        }
+
+        
 
         default: {
           //  console.log('default');

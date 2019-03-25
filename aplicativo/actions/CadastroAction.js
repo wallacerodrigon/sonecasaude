@@ -27,6 +27,9 @@ export const RESULT_LISTA_GRAUS_PARENTESCO = "listaGrausParentesco";
 export const ERRO_RESULT_LISTA_GRAUS_PARENTESCO = "erroListaGrausParentesco";
 
 export const VERIFICA_CADASTRO = "verificaCadastro";
+export const VERIFICA_CADASTRO_SUCESSO = "existeCadastroCpf";
+export const VERIFICA_CADASTRO_FALHA = "naoExisteCadastroCpf";
+
 
 export const cadastrarUsuario = (user) => ({
     type: CADASTRAR_USUARIO,
