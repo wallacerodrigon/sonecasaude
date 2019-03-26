@@ -22,7 +22,7 @@ import com.android.build.OutputFile
  *   bundleInDebug: false,
  *
  *   // whether to bundle JS and assets in release mode
- *   bundleInRelease: true,
+    bundleInRelease: true,
  *
  *   // whether to bundle JS and assets in another build variant (if configured).
  *   // See http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Build-Variants
@@ -91,7 +91,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = false
+def enableProguardInReleaseBuilds = true
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -104,6 +104,16 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+                storeFile file(MYAPP_RELEASE_STORE_FILE)
+                storePassword MYAPP_RELEASE_STORE_PASSWORD
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            }
+        }
+    }
     splits {
         abi {
             reset()
@@ -112,10 +122,30 @@ android {
             include "armeabi-v7a", "x86", "arm64-v8a"
         }
     }
+	subprojects {
+	  project.configurations.all {
+	      afterEvaluate {project ->
+		if (project.hasProperty("android")) {
+		    android {
+		        compileSdkVersion 26
+		        buildToolsVersion '26.0.2'
+		    }
+		}
+	    }
+	     resolutionStrategy.eachDependency { details ->
+		if (details.requested.group == 'com.android.support'
+		      && !details.requested.name.contains('multidex') ) {
+		   details.useVersion "26.0.2"
+		}
+	     }
+	  }
+	}
+
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+	    signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
