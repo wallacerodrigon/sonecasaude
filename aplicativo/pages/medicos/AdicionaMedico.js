@@ -2,9 +2,9 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import { TELA_ADD_MEDICOS, TELA_LISTA_MEDICOS } from '../../constants/AppScreenData';
-import { InputTexto } from '../../components/input/InputTexto';
+import { InputTexto, InputTextComMascara } from '../../components/input/InputTexto';
 import Botao from '../../components/botao/Botao';
-import { Container, Tabs, Tab, Segment, Button } from 'native-base';
+import { Container, Tabs, Tab, Segment, Button, Picker } from 'native-base';
 import ListaClinicas from './ListaClinicas';
 
 export default class AdicionaMedico extends React.Component {
@@ -31,6 +31,9 @@ export default class AdicionaMedico extends React.Component {
                 <View style={EstilosComuns.bodyMain}>
                     <View style={styles.containerBusca}>
                         {/* 7 digitos + uf */}
+                        <InputTexto placeholder="Nome do médico" maxLength={7}
+                            onChangeInput={value => this.onChangeInput(value)}
+                            />
                         <InputTexto placeholder="Número do CRM" maxLength={7}
                             keyboardType={InputTexto.KEYBOARD_NUMBER}
                             onChangeInput={value => this.onChangeInput(value)}
@@ -60,14 +63,25 @@ export const DadosMedico = ({navigation}) => (
     <View style={[styles.tabDadosMedico, EstilosComuns.backgroundPadrao]}>
         <View style={styles.tabDadosMedicoCadastro}>
             <InputTexto placeholder="Nome" maxLength={40}
-                onChangeInput={value => this.onChangeInput(value)}
+                onChangeInput={value => null}
                 />
-            <InputTexto placeholder="Especialidade" maxLength={40}
-                onChangeInput={value => this.onChangeInput(value)}
-                />
+            <Picker
+                style={EstilosComuns.corVerde}
+                //selectedValue={this.props.sexo}
+                onValueChange={(itemValue) => null}>            
+                <Picker.Item label="Especialidade" value=""/>/
+                <Picker.Item label="Cardiologia" value="1"/>
+                <Picker.Item label="Cardiologia 2" value="11"/>
+                <Picker.Item label="Cardiologi1a" value="113"/>
+                <Picker.Item label="Cardiolog2ia" value="12"/>
+            </Picker>
+
             <InputTexto placeholder="E-mail" maxLength={50}
                 keyboardType={InputTexto.KEYBOARD_EMAIL}
-                onChangeInput={value => this.onChangeInput(value)}
+                onChangeInput={value => null}
+                />
+            <InputTextComMascara placeholder="Telefone (xx)xxxxx-xxxx" maxLength={14}
+                onChangeInput={value => null}
                 />
         
         </View>

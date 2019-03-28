@@ -28,9 +28,6 @@ export default class ListaMedicos extends React.Component {
                     <List>
                         <ScrollView>
                             <ListItem thumbnail selected button>
-                                <Left>
-                                    <Thumbnail square source={imgMedico1} />
-                                </Left>
                                 <Body>
                                     <Text>Médico 1</Text>
                                     <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
@@ -42,9 +39,6 @@ export default class ListaMedicos extends React.Component {
                             </ListItem>
 
                             <ListItem thumbnail selected button>
-                                <Left>
-                                    <Thumbnail square source={imgMedico2} />
-                                </Left>
                                 <Body>
                                     <Text>Médico 2</Text>
                                     <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
@@ -56,9 +50,6 @@ export default class ListaMedicos extends React.Component {
                             </ListItem>
 
                             <ListItem thumbnail selected button>
-                                <Left>
-                                    <Thumbnail square source={imgMedico3} />
-                                </Left>
                                 <Body>
                                     <Text>Médico 3</Text>
                                     <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
@@ -68,38 +59,6 @@ export default class ListaMedicos extends React.Component {
                                     <BotaoExcluir onPress={() => null} />
                                 </Right>
                             </ListItem>
-
-                            <ListItem thumbnail selected button>
-                                <Left>
-                                    <Thumbnail square source={null} />
-                                </Left>
-                                <Body>
-                                    <Text>Médico 4</Text>
-                                    <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
-                                    <Text note numberOfLines={1}>fulano@gmail.com</Text>
-                                </Body>
-                                <Right>
-                                    <BotaoExcluir onPress={() => null} />
-                                </Right>
-                            </ListItem>
-
-
-                            <ListItem thumbnail selected button>
-                                <Left>
-                                    <Thumbnail square source={imgMedico3} />
-                                </Left>
-                                <Body>
-                                    <Text>Médico 5</Text>
-                                    <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
-                                    <Text note numberOfLines={1}>fulano@gmail.com</Text>
-                                </Body>
-                                <Right>
-                                    <BotaoExcluir onPress={() => null} />
-                                </Right>
-                            </ListItem>
-
-
-
                         </ScrollView>
                     </List>
 

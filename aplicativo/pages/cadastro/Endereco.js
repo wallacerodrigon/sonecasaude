@@ -38,13 +38,13 @@ class Endereco extends React.Component {
     }
 
     dadosValidos(){
-        if (this.props.idLogradouro > 0 && this.props.numCep != '' &&  this.props.complemento.trim() != ''){
+        if (this.props.idLogradouro > 0 && this.props.numCep != ''){
             return true;
         } else if (this.props.idLogradouro === null && 
                    this.props.estado.trim() != '' && 
                    this.props.cidade.trim() != '' && 
                    this.props.bairro.trim() != '' &&
-                   this.props.complemento.trim() != '' &&
+                   //this.props.complemento.trim() != '' &&
                    this.props.logradouro.trim() != ''){
             return true;
         } else {
@@ -55,6 +55,13 @@ class Endereco extends React.Component {
     }
 
     salvarEndereco(){
+        if (this.props.numero != null && this.props.numero.trim() != ''){
+            if (this.props.numero.replace(/[0-9]/g, '') != ''){
+                MensagemInformativa('O campo número deve conter somente números!');
+                return false;
+            }
+        }
+
         let cepValido = new Validador().validaCEP(this.props.numCep);
         if (this.dadosValidos() && cepValido){
             this.props.navigation.navigate(TELA_FINALIZA_CADASTRO.name);        

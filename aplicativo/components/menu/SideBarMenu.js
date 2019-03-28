@@ -5,16 +5,17 @@ import { Rating } from "react-native-ratings";
 import EstilosComuns, { FUNDO_ESCURO } from "../../assets/estilos/estilos";
 import { NAV_COMPARTILHAMENTOS, NAV_MEDICACOES, NAV_MEDICAMENTOS, NAV_MEDICOS, TELA_HOME, TELA_LOGIN } from "../../constants/AppScreenData";
 import { MensagemInformativa } from "../mensagens/Mensagens";
+import { limparStorage } from "../comuns/UtilStorage";
 
 const routes = [
-    {label: 'Início', rota: TELA_HOME.name, icon: 'home'},
-    {label: 'Controle de medicação', rota: NAV_MEDICACOES.name, icon: 'medkit'},
-    {label: 'Meus médicos', rota: NAV_MEDICOS.name, icon: 'pulse'},
-    {label: 'Compartilhar informações', rota: NAV_COMPARTILHAMENTOS.name, icon: 'share'},
-    {label: 'Medicamentos', rota: NAV_MEDICAMENTOS.name, icon: 'color-filter'},
-    {label: 'Configurações', rota: '', icon: 'options'},
-    {label: 'Meus endereços', rota: '', icon: 'business'},
-    {label: 'Sair do aplicativo', rota: TELA_LOGIN.name, icon: 'close-circle-outline'},
+    {label: 'Início', rota: TELA_HOME.name, icon: 'home', logout: false},
+    {label: 'Controle de medicação', rota: NAV_MEDICACOES.name, icon: 'medkit', logout: false},
+    {label: 'Meus médicos', rota: NAV_MEDICOS.name, icon: 'pulse', logout: false},
+    {label: 'Compartilhar informações', rota: NAV_COMPARTILHAMENTOS.name, icon: 'share', logout: false},
+    {label: 'Medicamentos', rota: NAV_MEDICAMENTOS.name, icon: 'color-filter', logout: false},
+    {label: 'Configurações', rota: '', icon: 'options', logout: false},
+    {label: 'Meus endereços', rota: '', icon: 'business', logout: false},
+    {label: 'Sair do aplicativo', rota: TELA_LOGIN.name, icon: 'close-circle-outline', logout: true},
     
 ];
 
@@ -29,8 +30,11 @@ export default class SideBarMenu extends React.Component {
   abrirTela(route){
     if (route.rota == ''){
         MensagemInformativa('Desculpe. Esta tela ainda está em construção!');
+    } else if (route.logout){
+        limparStorage();
+        this.props.navigation.navigate(route.rota, route.params);
     } else {
-        this.props.navigation.navigate(route.rota, route.params)      
+        this.props.navigation.navigate(route.rota, route.params);
     }
   }
 

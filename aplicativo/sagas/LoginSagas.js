@@ -5,6 +5,7 @@ import UsuarioServico from '../servicos/UsuarioServico';
 import { LOGIN_SUCESSO, LOGIN_FALHA, LOGIN_START } from '../actions/LoginAction';
 import { NETWORK_ERROR, RETORNO_SUCESSO } from '../constants/ConstantesInternas';
 import { INTERNET_INOPERANTE } from '../actions/CadastroAction';
+import { atualizarValoresNaStorage, getValoresStorage } from "../components/comuns/UtilStorage";
 
 export function* efetuarLogin(action){
     //  console.log(action.user);
@@ -12,9 +13,11 @@ export function* efetuarLogin(action){
     
     try {
         const result = yield call(UsuarioServico.efetuarLogin, action);
-        // console.log('status cadastro:', result, result.status);
         if (result.status === RETORNO_SUCESSO ){
-            //yield call(atualizarValoresNaStorage('usuario', result.data.retorno));
+            atualizarValoresNaStorage('usuario', result.data.retorno);
+            //console.log('usuario gravado')
+            //ler a storage
+            const valorGravado = getValoresStorage('usuario');
             yield put({type: LOGIN_SUCESSO, user: result.data.retorno})
         } else {
             yield put({type: LOGIN_FALHA, mensagemFalha: result.mensagemErro });
@@ -31,18 +34,3 @@ export function* efetuarLogin(action){
 }
 
 
-const atualizarValoresNaStorage = async (key, valores) => {
-    try {
-        await AsyncStorage.setItem(key, valores);
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-// const getValoresStorage = async (key) => {
-//     try {
-//         return await AsyncStorage.getItem(key);
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }

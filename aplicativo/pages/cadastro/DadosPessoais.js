@@ -144,7 +144,7 @@ class DadosPessoais extends React.Component {
                     <InputTextComMascara  style={[EstilosComuns.inputText]} 
                         onChangeText={text =>this.props.onChangeField('numCelular', text)}
                         value={this.props.numCelular}
-                        placeholder="Digite seu celular (ddd)xxxx-xxxx"
+                        placeholder="Digite seu celular (xx)xxxxx-xxxx"
                         type={InputTextComMascara.MASK_CELULAR}
                     />                        
                     <Text style={EstilosComuns.corBranca}>Sexo</Text>
