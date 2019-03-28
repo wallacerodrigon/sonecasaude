@@ -7,30 +7,13 @@ export const TIPO_COMPARTILHAMENTO_MEDICACAO = 'CM';
 export const TIPO_COMPARTILHAMENTO_MEDICAMENTOS = 'RM';
 export const TIPO_COMPARTILHAMENTO_TRANSPORTE = 'TR';
 
-export const URL_BACKEND_ = "http://192.168.0.11:8080";
-export const URL_BACKEND = "http://walltec.net.br";
+export const URL_BACKEND = "http://192.168.0.11:8080/";
+export const URL_BACKEND_ = "http://walltec.net.br/";
 export const NETWORK_ERROR = 'Error: Network Error';
 
 export const RETORNO_SUCESSO = 200;
 export const RETORNO_SERVER_ERROR = 500;
+//INTERNET_INOPERANTE
+//ERRO_INESPERADO
 
-axios.defaults.baseURL = URL_BACKEND
-axios.defaults.headers.common['Authorization'] = 'Bearer ';
-axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.responseEncoding = 'utf-8';
-//axios.defaults.timeout = 3000; //verificar se é isto mesmo....
-
-//tirar isto daqui....
-export const tratarTextoCodRetorno = retorno => {
-    console.log('retorno: ',retorno);
-    switch(retorno.status){
-        case 400: {return "Dados informados estão inválidos ou incompletos";} //colocar numa constante
-        case 404: {return "Recurso não encontrado"; }//colocar numa constante
-        case 403: {return "Você não tem acesso a este recurso"; }//colocar numa constante
-        case 500: {return "Ocorreu um erro interno. Detalhe: " + retorno.statusText;}
-        default: {
-            return "Erro genérico sem detalhes";
-        }
-        
-    }    
-}
+export const TAG_USUARIO_STORAGE = "usuario";

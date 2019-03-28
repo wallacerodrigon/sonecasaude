@@ -19,11 +19,11 @@ export default class App extends React.Component {
   }
 
   mostraState(){
-    alert('mostra:' + AppState.currentState);
+   // alert('mostra:' + AppState.currentState);
   }
 
   componentWillUnmount(){
-    alert('unmount:' +AppState.currentState);
+    //alert('unmount:' +AppState.currentState);
   }
 
   encaminharRota(){

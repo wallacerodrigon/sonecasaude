@@ -4,7 +4,7 @@ export const atualizarValoresNaStorage = async (key, valores) => {
     try {
         await AsyncStorage.setItem(key, valores);
     } catch (error) {
-        console.log(error)
+        console.log('erro set valor:', error)
     }
 }
 
@@ -13,7 +13,7 @@ export const getValoresStorage = async (key) => {
         const dadosStorage = await AsyncStorage.getItem(key);
         return dadosStorage;
     } catch (error) {
-        console.log(error)
+        console.log('erro get valor:', error)
     }
 }
 

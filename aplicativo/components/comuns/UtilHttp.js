@@ -1,7 +1,24 @@
 import axios from "axios";
-import URL_BACKEND  from "../../constants/ConstantesInternas";
+import URL_BACKEND, { TAG_USUARIO_STORAGE }  from "../../constants/ConstantesInternas";
+import { getValoresStorage } from "../comuns/UtilStorage";
 
-axios.defaults.baseURL = URL_BACKEND
-axios.defaults.headers.common['Authorization'] = 'Bearer ';
-axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.responseEncoding = 'utf-8';
+const axiosApi = axios.create({
+    baseURL: URL_BACKEND,
+})
+
+export const setAuthHeader = async () => {
+    const dadosUsuario = await getValoresStorage(TAG_USUARIO_STORAGE);
+    if (dadosUsuario != null){
+        let usuario = JSON.parse( dadosUsuario );
+        axiosApi.defaults.headers.common['Authorization'] = `Bearer ${usuario.token}`;
+        axiosApi.defaults.headers.common['X-CSRF'] = `${usuario.xsrf}`;
+
+    }
+    axiosApi.defaults.headers.post['Content-Type'] = 'application/json';
+    axiosApi.defaults.responseEncoding = 'utf-8';
+
+}
+
+setAuthHeader()
+
+export default axiosApi;

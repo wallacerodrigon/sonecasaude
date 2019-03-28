@@ -20,7 +20,6 @@ const NavigatorLoggedIn = createDrawerNavigator(
         medicamentosNavigator: MedicamentosNavigator
     },
     {
-       // initialRouteName: 'medicosNavigator',
         defaultNavigationOptions: {
             title: TELA_PADRAO.title,
             headerStyle: [ EstilosComuns.backgroundToolbar],

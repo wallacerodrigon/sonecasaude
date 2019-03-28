@@ -28,6 +28,7 @@ class LoginComponent extends Component {
     componentDidMount(){
     }
     
+    //mudar para o receive props
     componentDidUpdate(){
         if (this.props.bolSucesso){
             // dados do usuário logado: Object {

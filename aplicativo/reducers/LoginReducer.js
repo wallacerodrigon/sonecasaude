@@ -2,7 +2,7 @@ import { LOGIN_SUCESSO, LOGIN_FALHA, CHANGE_FIELD, EFETUAR_LOGOUT, LOGIN_START }
 import { alterarState } from "./FuncoesGenericas";
 
 const INITIAL_STATE = {
-    login: '', senha: '', mensagemFalha: '', loading: false, bolSucesso: false
+    login: '705.893.801-68', senha: '123456', mensagemFalha: '', loading: false, bolSucesso: false
 }
 
 export default (state = INITIAL_STATE, action) => {

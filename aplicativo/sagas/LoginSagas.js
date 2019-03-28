@@ -3,21 +3,17 @@ import {
   } from 'redux-saga/effects';
 import UsuarioServico from '../servicos/UsuarioServico';
 import { LOGIN_SUCESSO, LOGIN_FALHA, LOGIN_START } from '../actions/LoginAction';
-import { NETWORK_ERROR, RETORNO_SUCESSO } from '../constants/ConstantesInternas';
+import { NETWORK_ERROR, RETORNO_SUCESSO, TAG_USUARIO_STORAGE } from '../constants/ConstantesInternas';
 import { INTERNET_INOPERANTE } from '../actions/CadastroAction';
-import { atualizarValoresNaStorage, getValoresStorage } from "../components/comuns/UtilStorage";
+import { atualizarValoresNaStorage } from "../components/comuns/UtilStorage";
 
 export function* efetuarLogin(action){
-    //  console.log(action.user);
     yield put({type: LOGIN_START});
     
     try {
         const result = yield call(UsuarioServico.efetuarLogin, action);
         if (result.status === RETORNO_SUCESSO ){
-            atualizarValoresNaStorage('usuario', result.data.retorno);
-            //console.log('usuario gravado')
-            //ler a storage
-            const valorGravado = getValoresStorage('usuario');
+            atualizarValoresNaStorage(TAG_USUARIO_STORAGE, JSON.stringify(result.data.retorno) );
             yield put({type: LOGIN_SUCESSO, user: result.data.retorno})
         } else {
             yield put({type: LOGIN_FALHA, mensagemFalha: result.mensagemErro });

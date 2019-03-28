@@ -24,6 +24,7 @@ export default class SideBarMenu extends React.Component {
 
   constructor(props){
     super(props);
+    //ler esses dados da storage
     this.dadosUsuario = props.items[0].routes.filter(rota => rota.routeName === 'home')[0].params.dadosUsuario;
   }
  
