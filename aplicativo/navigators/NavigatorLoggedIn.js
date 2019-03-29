@@ -13,8 +13,8 @@ import { TELA_PADRAO } from "../constants/AppScreenData";
 
 const NavigatorLoggedIn = createDrawerNavigator(
     {
-        home: HomeScreenNavigator,
         medicosNavigator: MedicosNavigator,                                  
+        home: HomeScreenNavigator,
         medicacoesNavigator:MedicacoesNavigator,                                         
         compartilhamentosNavigator: CompartilhamentoNavigator,
         medicamentosNavigator: MedicamentosNavigator

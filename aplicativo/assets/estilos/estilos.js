@@ -6,6 +6,7 @@ export const VERDE = "#04B486";
 export const BRANCO = "#fff";
 export const FUNDO = "#fff";
 export const FUNDO_ESCURO = "#666"
+export const FUNDO_CINZA_CLARO = "#ddd"
 export const DESMARCADO = "#f00";
 export const MARCADO = "#00f";
 export const PRETO = "#000";

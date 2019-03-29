@@ -1,8 +1,9 @@
 import { INICIANDO, FINALIZANDO_BUSCA_SUCESSO, FINALIZANDO_BUSCA_FALHA, SALVAR_MEDICOS, CHANGE_FIELD, EXCLUIR_MEDICO, FINALIZANDO_DESVINCULO } from "../actions/MedicosAction";
+import { alterarState } from "./FuncoesGenericas";
 
 const INITIAL_STATE = {
     medico: {},
-    mensagemFalha: '', loading: false, bolSucesso: false, listaMedicos: [], bolExecutado: false
+    mensagemFalha: '', loading: false, bolSucesso: false, listaMedicos: [], bolExecutado: false, bolDesvinculo: false
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -24,7 +25,7 @@ export default (state = INITIAL_STATE, action) => {
         }
 
         case FINALIZANDO_BUSCA_SUCESSO: {
-            return {...INITIAL_STATE, bolSucesso: true, listaMedicos: action.listaMedicos, bolExecutado:true};
+            return {...INITIAL_STATE, bolSucesso: true, listaMedicos: action.listaMedicos, bolExecutado:true, bolDesvinculo: false};
         }
 
         case FINALIZANDO_BUSCA_FALHA: {
@@ -45,7 +46,8 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...newState,
                 loading: false,
-                bolExecutado:true,
+                bolDesvinculo:true,
+                bolExecutado: true,
                 bolSucesso: action.idMedico != null,
                 mensagemFalha: action.mensagemFalha
             }

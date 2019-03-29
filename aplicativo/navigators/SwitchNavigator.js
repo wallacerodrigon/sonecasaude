@@ -8,8 +8,8 @@ import { getValoresStorage } from '../components/comuns/UtilStorage';
 
 const SwitchNavigator = createSwitchNavigator(
   {
-    navigatorNotLoggedIn: NavigatorNotLoggedIn,
     navigatorLoggedIn: NavigatorLoggedIn,
+    navigatorNotLoggedIn: NavigatorNotLoggedIn,
 
   },
 );

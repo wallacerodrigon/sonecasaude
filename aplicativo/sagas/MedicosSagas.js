@@ -11,7 +11,6 @@ export function* recuperarMedicos(action){
     yield put({type: INICIANDO});
     try {
         const retorno = yield call(MedicosServico.recuperarMedicos);
-        console.log('retorno busca:',retorno);
         if (retorno.status === RETORNO_SUCESSO){
             yield put({type: FINALIZANDO_BUSCA_SUCESSO,  listaMedicos: retorno.data.retorno});
         } else {

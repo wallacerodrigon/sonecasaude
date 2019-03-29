@@ -1,11 +1,12 @@
-import {  Fab, Icon } from 'native-base';
+import { Fab, Icon } from 'native-base';
 import React from 'react';
-import { FlatList,  Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { buscarMeusMedicos, desvinculaMedico } from "../../actions/MedicosAction";
-import EstilosComuns from '../../assets/estilos/estilos';
+import { buscarMeusMedicos, desvinculaMedico, onChangeField } from "../../actions/MedicosAction";
+import EstilosComuns, { FUNDO_CINZA_CLARO, VERDE } from '../../assets/estilos/estilos';
 import { BotaoExcluir, BotaoFecharHeader, BotaoOpacity } from '../../components/botao/Botao';
-
+import { MensagemConfirmacao, MensagemInformativa } from "../../components/mensagens/Mensagens";
+import { TELA_ADD_MEDICOS } from '../../constants/AppScreenData';
 
 
 class ListaMedicos extends React.Component {
@@ -23,14 +24,35 @@ class ListaMedicos extends React.Component {
         this.props.buscarMeusMedicos();
     }    
 
-    componentWillUpdate(state){
-     //   if (this.props.mensagemFalha && this.props.bolExecutado){
-            console.log(this.props.mensagemFalha, this.props.bolSucesso, this.props.bolExecutado);
-       // }
+    componentDidUpdate(){
+        if (this.props.bolDesvinculo && this.props.bolExecutado){
+            MensagemInformativa(this.props.mensagemFalha ? this.props.mensagemFalha: 'Médico retirado com sucesso!');
+            this.props.onChangeField('bolDesvinculo', false);
+        }
+            
     }
 
     confirmarDesvinculo(medico){
-        this.props.desvinculaMedico(medico);        
+        // text?: string;
+        // onPress?: () => void;
+        // style?: "default" | "cancel" | "destructive";        
+        let botaoConfirma= {
+            text: 'SIM',
+            onPress: () =>  {
+                this.props.desvinculaMedico(medico);        
+            },
+            style: 'destructive'
+        };
+
+        let botaoDescarta= {
+            text: 'NÃO',
+            style: 'cancel'
+        };
+
+        MensagemConfirmacao('Deseja realmente retirar esse médico da sua lista de médicos?', 
+            [botaoConfirma, botaoDescarta]
+        );
+        
     }
 
     render() {
@@ -45,7 +67,7 @@ class ListaMedicos extends React.Component {
                                 renderItem = {medico => {
                                     return (
                                         <BotaoOpacity onClick={() =>  this.props.navigation.navigate(TELA_ADD_MEDICOS.name, {medico}) }>
-                                            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', padding: 6}}>
+                                            <View style={styles.containerMedico}>
                                                 <View style={{flex: 9, flexDirection: 'column'}}>
                                                     <Text  style={EstilosComuns.negrito}>{medico.item.nomeMedico}</Text>
                                                     <Text  style={EstilosComuns.italico}>{medico.item.nomeEspecialidade}</Text>
@@ -60,10 +82,11 @@ class ListaMedicos extends React.Component {
                                     )
                                 }}
                             />
+                            {this.props.loading && <ActivityIndicator size="small" color={VERDE}/>}
                 </View>
                 <Fab
                     containerStyle={{ }}
-                    style={EstilosComuns.backgroundPadrao}
+                    style={{ backgroundColor: VERDE }}
                     position="bottomRight"
                     onPress={() => this.props.navigation.navigate(TELA_ADD_MEDICOS.name)}>
                     
@@ -75,12 +98,24 @@ class ListaMedicos extends React.Component {
 }
 
 const mapStateToProps = state => {
-   console.log('medicos reducer:',state.medicosReducer);
    return {
     listaMedicos: state.medicosReducer.listaMedicos,
     mensagemFalha: state.medicosReducer.mensagemFalha,
     bolExecutado: state.medicosReducer.bolExecutado,
+    bolDesvinculo: state.medicosReducer.bolDesvinculo,
     loading: state.medicosReducer.loading
 }}
 
-export default connect(mapStateToProps, {desvinculaMedico, buscarMeusMedicos})(ListaMedicos);
+export default connect(mapStateToProps, {desvinculaMedico, buscarMeusMedicos, onChangeField})(ListaMedicos);
+
+
+const styles = StyleSheet.create({
+    containerMedico: {
+        flex: 1, 
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        padding: 6,
+        borderBottomWidth: 1,
+        borderBottomColor: FUNDO_CINZA_CLARO
+    }
+})

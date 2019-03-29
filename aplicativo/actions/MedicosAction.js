@@ -22,3 +22,8 @@ export const vinculaMedicos = (medico) =>({
 export const desvinculaMedico = (medico) =>({
     type: DESVINCULAR_MEDICO, medico
 });
+
+export const onChangeField = (fieldName, value) => ({
+    type: CHANGE_FIELD,
+    fieldName, value
+})

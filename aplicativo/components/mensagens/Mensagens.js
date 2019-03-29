@@ -20,13 +20,11 @@ export const MensagemErro= (mensagem) => {
      );
 }
 
-export const MensagemConfirmacao= (pergunta, opcoes) => {
-    let botoes = opcoes || {text: 'Ok'};
+export const MensagemConfirmacao= (pergunta, buttons) => {
+    let botoes = buttons == null ? {text: 'Ok'} : buttons;
     Alert.alert(
         'Confirmação',
         pergunta,
-        [
-            botoes
-        ],
+        botoes
      );
 }
