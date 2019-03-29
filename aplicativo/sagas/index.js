@@ -5,8 +5,8 @@ import { EFETUAR_LOGIN } from '../actions/LoginAction';
 import { buscarDadosEndereco, recuperarGrausParentesco, salvarCadastro, verificarExistenciaCpf } from './CadastrarUsuarioSagas';
 import { efetuarLogin } from "./LoginSagas";
 import { recuperarSenha } from './RecuperarSenhaSagas';
-import { recuperarMedicos } from './MedicosSagas';
-import { BUSCAR_MEDICOS } from '../actions/MedicosAction';
+import { recuperarMedicos, desvincularMedico } from './MedicosSagas';
+import { BUSCAR_MEDICOS, DESVINCULAR_MEDICO } from '../actions/MedicosAction';
 
   
  function* rootSaga() {
@@ -22,6 +22,7 @@ import { BUSCAR_MEDICOS } from '../actions/MedicosAction';
 
     //medicos
     yield takeLatest(BUSCAR_MEDICOS, recuperarMedicos);
+    yield takeLatest(DESVINCULAR_MEDICO, desvincularMedico);
   }
   
   export default rootSaga;

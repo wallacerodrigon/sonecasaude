@@ -15,8 +15,19 @@ const filtrar = (nomeMedico, numCrmUF) => {
 
 const recuperarMedicos = async () => {
     const usuario = await recuperarDadosUsuario();
-    console.log('usuario:',usuario);
     return axiosApi.get(`${URL_BACKEND}${URI}/filtrar?codUsuario=${usuario.idUsuario}`)
+        .then( result => result )
+        .catch(error => Erro.getDetalhesErro(error));
+
+};
+
+const desvincularMedico = async (medico) => {
+    const usuario = await recuperarDadosUsuario();
+    let obj = {
+        codUsuario: usuario.idUsuario,
+        codMedico: medico.idMedico
+    };
+    return axiosApi.post(`${URL_BACKEND}${URI}/desvincularMedico`, JSON.stringify(obj))
         .then( result => result )
         .catch(error => Erro.getDetalhesErro(error));
 
@@ -30,5 +41,6 @@ const recuperarDadosUsuario = async () => {
 
 export default {
     filtrar,
-    recuperarMedicos
+    recuperarMedicos,
+    desvincularMedico
 }

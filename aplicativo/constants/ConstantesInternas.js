@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const PERFIL_PACIENTE = '2';
 export const PERFIL_CUIDADOR = '3';
 
@@ -13,7 +11,10 @@ export const NETWORK_ERROR = 'Error: Network Error';
 
 export const RETORNO_SUCESSO = 200;
 export const RETORNO_SERVER_ERROR = 500;
-//INTERNET_INOPERANTE
-//ERRO_INESPERADO
+
+export const INTERNET_INOPERANTE = "INTERNET_INOPERANTE";
+export const ERRO_INESPERADO = "ERRO_INESPERADO";
 
 export const TAG_USUARIO_STORAGE = "usuario";
+export const TAG_USUARIO_LOGADO = "logado";
+

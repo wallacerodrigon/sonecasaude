@@ -1,18 +1,10 @@
-import { Body, Container, Fab, Icon, Left, List, ListItem, Right, Thumbnail } from 'native-base';
+import {  Fab, Icon } from 'native-base';
 import React from 'react';
-import {connect} from 'react-redux';
-
-
-import { ScrollView, Text, TouchableHighlight, View } from 'react-native';
+import { FlatList,  Text, View } from 'react-native';
+import { connect } from 'react-redux';
+import { buscarMeusMedicos, desvinculaMedico } from "../../actions/MedicosAction";
 import EstilosComuns from '../../assets/estilos/estilos';
-import { BotaoFecharHeader, BotaoExcluir } from '../../components/botao/Botao';
-import { TELA_ADD_MEDICOS } from '../../constants/AppScreenData';
-import { buscarMeusMedicos, desvinculaMedicos } from "../../actions/MedicosAction";
-
-
-const imgMedico1 = require('../../assets/img/medicos/medico1.jpeg');
-const imgMedico2 = require('../../assets/img/medicos/medico2.jpeg');
-const imgMedico3 = require('../../assets/img/medicos/medico3.jpeg');
+import { BotaoExcluir, BotaoFecharHeader, BotaoOpacity } from '../../components/botao/Botao';
 
 
 
@@ -27,12 +19,18 @@ class ListaMedicos extends React.Component {
         super(props);
     }
     
-    compoonentDidMount(){
+    componentWillMount(){
         this.props.buscarMeusMedicos();
+    }    
+
+    componentWillUpdate(state){
+     //   if (this.props.mensagemFalha && this.props.bolExecutado){
+            console.log(this.props.mensagemFalha, this.props.bolSucesso, this.props.bolExecutado);
+       // }
     }
 
-    componentDidUpdate(state){
-        console.log('did update', state);
+    confirmarDesvinculo(medico){
+        this.props.desvinculaMedico(medico);        
     }
 
     render() {
@@ -40,51 +38,34 @@ class ListaMedicos extends React.Component {
             <View style={EstilosComuns.container}>
                 <Text style={EstilosComuns.tituloJanelas}>Seus médicos cadastrados</Text>
 
-                <Container style={[EstilosComuns.backgroundPadrao, EstilosComuns.bodyMain]}>
-                    <List>
-                        <ScrollView>
-                            <ListItem thumbnail selected button>
-                                <Body>
-                                    <Text>Médico 1</Text>
-                                    <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
-                                    <Text note numberOfLines={1}>fulano@gmail.com</Text>
-                                </Body>
-                                <Right>
-                                    <BotaoExcluir onPress={() => null} />
-                                </Right>
-                            </ListItem>
+                <View style={[EstilosComuns.backgroundPadrao, EstilosComuns.bodyMain]}>
+                             <FlatList  
+                                data= {this.props.listaMedicos}
+                                keyExtractor={medico => new String(medico.idMedico)}
+                                renderItem = {medico => {
+                                    return (
+                                        <BotaoOpacity onClick={() =>  this.props.navigation.navigate(TELA_ADD_MEDICOS.name, {medico}) }>
+                                            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', padding: 6}}>
+                                                <View style={{flex: 9, flexDirection: 'column'}}>
+                                                    <Text  style={EstilosComuns.negrito}>{medico.item.nomeMedico}</Text>
+                                                    <Text  style={EstilosComuns.italico}>{medico.item.nomeEspecialidade}</Text>
+                                                    <Text style={EstilosComuns.italico}>{medico.item.descEmail != null ? medico.item.descEmail : ''}</Text>
+                                                </View>
 
-                            <ListItem thumbnail selected button>
-                                <Body>
-                                    <Text>Médico 2</Text>
-                                    <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
-                                    <Text note numberOfLines={1}>fulano@gmail.com</Text>
-                                </Body>
-                                <Right>
-                                    <BotaoExcluir onPress={() => null} />
-                                </Right>
-                            </ListItem>
-
-                            <ListItem thumbnail selected button>
-                                <Body>
-                                    <Text>Médico 3</Text>
-                                    <Text note numberOfLines={1} style={EstilosComuns.negrito}>Especialidade</Text>
-                                    <Text note numberOfLines={1}>fulano@gmail.com</Text>
-                                </Body>
-                                <Right>
-                                    <BotaoExcluir onPress={() => null} />
-                                </Right>
-                            </ListItem>
-                        </ScrollView>
-                    </List>
-
-                </Container>
-                {/* navigation.navigate(TELA_ADD_MEDICOS.name)}> */}
+                                                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                                                    <BotaoExcluir onPress={() => this.confirmarDesvinculo(medico.item)} />        
+                                                </View>
+                                            </View>                                    
+                                        </BotaoOpacity>
+                                    )
+                                }}
+                            />
+                </View>
                 <Fab
                     containerStyle={{ }}
-                    style={{ backgroundColor: "#04B486" }}
+                    style={EstilosComuns.backgroundPadrao}
                     position="bottomRight"
-                    onPress={() => this.props.buscarMeusMedicos()}>
+                    onPress={() => this.props.navigation.navigate(TELA_ADD_MEDICOS.name)}>
                     
                      <Icon name="add" />
                 </Fab>                   
@@ -93,8 +74,13 @@ class ListaMedicos extends React.Component {
     };
 }
 
-const mapStateToProps = state => ({
-    listaMedicos: state.medicosReducer.listaMedicos
-})
+const mapStateToProps = state => {
+   console.log('medicos reducer:',state.medicosReducer);
+   return {
+    listaMedicos: state.medicosReducer.listaMedicos,
+    mensagemFalha: state.medicosReducer.mensagemFalha,
+    bolExecutado: state.medicosReducer.bolExecutado,
+    loading: state.medicosReducer.loading
+}}
 
-export default connect(mapStateToProps, {desvinculaMedicos, buscarMeusMedicos})(ListaMedicos);
+export default connect(mapStateToProps, {desvinculaMedico, buscarMeusMedicos})(ListaMedicos);

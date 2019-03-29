@@ -3,9 +3,9 @@ import {
   } from 'redux-saga/effects';
 import UsuarioServico from '../servicos/UsuarioServico';
 import { LOGIN_SUCESSO, LOGIN_FALHA, LOGIN_START } from '../actions/LoginAction';
-import { NETWORK_ERROR, RETORNO_SUCESSO, TAG_USUARIO_STORAGE } from '../constants/ConstantesInternas';
+import { NETWORK_ERROR, RETORNO_SUCESSO, TAG_USUARIO_STORAGE, TAG_USUARIO_LOGADO } from '../constants/ConstantesInternas';
 import { INTERNET_INOPERANTE } from '../actions/CadastroAction';
-import { atualizarValoresNaStorage } from "../components/comuns/UtilStorage";
+import { atualizarValoresNaStorage, limparStorage } from "../components/comuns/UtilStorage";
 
 export function* efetuarLogin(action){
     yield put({type: LOGIN_START});
@@ -14,12 +14,14 @@ export function* efetuarLogin(action){
         const result = yield call(UsuarioServico.efetuarLogin, action);
         if (result.status === RETORNO_SUCESSO ){
             atualizarValoresNaStorage(TAG_USUARIO_STORAGE, JSON.stringify(result.data.retorno) );
+            atualizarValoresNaStorage(TAG_USUARIO_LOGADO, JSON.stringify("true") );
             yield put({type: LOGIN_SUCESSO, user: result.data.retorno})
         } else {
             yield put({type: LOGIN_FALHA, mensagemFalha: result.mensagemErro });
         }
     
     } catch(error){
+        limparStorage();
         if (error == NETWORK_ERROR) {
             yield put({type: INTERNET_INOPERANTE});
         }

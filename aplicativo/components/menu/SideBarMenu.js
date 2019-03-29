@@ -5,7 +5,8 @@ import { Rating } from "react-native-ratings";
 import EstilosComuns, { FUNDO_ESCURO } from "../../assets/estilos/estilos";
 import { NAV_COMPARTILHAMENTOS, NAV_MEDICACOES, NAV_MEDICAMENTOS, NAV_MEDICOS, TELA_HOME, TELA_LOGIN } from "../../constants/AppScreenData";
 import { MensagemInformativa } from "../mensagens/Mensagens";
-import { limparStorage } from "../comuns/UtilStorage";
+import { limparStorage, getValoresStorage } from "../comuns/UtilStorage";
+import { TAG_USUARIO_STORAGE } from "../../constants/ConstantesInternas";
 
 const routes = [
     {label: 'Início', rota: TELA_HOME.name, icon: 'home', logout: false},
@@ -25,8 +26,20 @@ export default class SideBarMenu extends React.Component {
   constructor(props){
     super(props);
     //ler esses dados da storage
-    this.dadosUsuario = props.items[0].routes.filter(rota => rota.routeName === 'home')[0].params.dadosUsuario;
   }
+
+  componentDidMount(){
+      this.configuraUsuario();
+  }
+
+configuraUsuario = async () => { 
+    const usuario = await getValoresStorage(TAG_USUARIO_STORAGE);
+    if (usuario){
+        const userObjeto = JSON.parse(usuario);
+        this.nomeUsuario = userObjeto.nomeUsuario;
+    }
+  }  
+
  
   abrirTela(route){
     if (route.rota == ''){
@@ -40,8 +53,8 @@ export default class SideBarMenu extends React.Component {
   }
 
   render() {
-    let {nomeUsuario} = this.dadosUsuario;
-    nomeUsuario = nomeUsuario.split(' ')[0];
+   // let {nomeUsuario} = this.dadosUsuario;
+   // nomeUsuario = "teste";
 
     return (
       <View style={EstilosComuns.container}>
@@ -55,7 +68,7 @@ export default class SideBarMenu extends React.Component {
             </View>
 
             <View style={styles.perfil}>
-                <Text style={[EstilosComuns.corBranca, EstilosComuns.negrito, {fontSize: 20}]}>{nomeUsuario} </Text>
+                <Text style={[EstilosComuns.corBranca, EstilosComuns.negrito, {fontSize: 20}]}>{this.nomeUsuario} </Text>
 
                 <View style={styles.ratingPerfil}>
                     <Text style={EstilosComuns.corBranca}>4.7</Text>
