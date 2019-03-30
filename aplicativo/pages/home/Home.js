@@ -6,6 +6,8 @@ import EstilosComuns, { FUNDO } from '../../assets/estilos/estilos';
 import { NAV_MEDICACOES, NAV_MEDICOS, TELA_COMANDO_VOZ, TELA_LOGIN } from '../../constants/AppScreenData';
 import { BotaoConfiguracoes } from '../../components/botao/Botao';
 import { MensagemInformativa } from '../../components/mensagens/Mensagens';
+import { salvarRotaAtual } from '../../components/comuns/UtilRotas';
+import { limparStorage } from '../../components/comuns/UtilStorage';
 
 const imgMicrophone = require('../../assets/img/microphone-64x64.png');
 
@@ -19,15 +21,6 @@ export default class HomeScreen extends React.Component {
    
     constructor(props){
         super(props);
-
-        //this.nomeUsuario = this.props.navigation.state.params.dadosUsuario;
-        //bolCuidador
-        //bolPaciente
-        //dadosImagemFoto
-        //nomePerfil
-        //nomeUsuario
-        //token
-        //xsrf        
     }
  
     // static navigationOptions = ({ navigation }) => ({
@@ -38,10 +31,12 @@ export default class HomeScreen extends React.Component {
       
 
     retornarLogin = () => {
+        limparStorage();
         this.abrirTela(TELA_LOGIN.name);
     }
 
     abrirTela(item){
+       salvarRotaAtual(item, null);        
        this.props.navigation.navigate(item);
     }
 
@@ -84,7 +79,7 @@ export default class HomeScreen extends React.Component {
 
                         <Card style={styles.card}>
                             <CardItem cardBody>
-                                <TouchableOpacity  onPress={() => this.abrirTela(NAV_MEDICACOES.name)}>
+                                <TouchableOpacity  onPress={() => this.abrirTela( NAV_MEDICACOES.name )}>
                                    <Image style={styles.imgWidget} aspectRadio={1} source={imgMedicacao} resizeMode="cover"/>
                                 </TouchableOpacity>                            
                             </CardItem>

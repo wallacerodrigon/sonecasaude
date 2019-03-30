@@ -13,14 +13,13 @@ import { TELA_PADRAO } from "../constants/AppScreenData";
 
 const NavigatorLoggedIn = createDrawerNavigator(
     {
-        medicosNavigator: MedicosNavigator,                                  
         home: HomeScreenNavigator,
+        medicosNavigator: MedicosNavigator,                                  
         medicacoesNavigator:MedicacoesNavigator,                                         
         compartilhamentosNavigator: CompartilhamentoNavigator,
         medicamentosNavigator: MedicamentosNavigator
     },
     {
-        //initialRouteName: 'medicacoesNavigator',
         defaultNavigationOptions: {
             title: TELA_PADRAO.title,
             headerStyle: [ EstilosComuns.backgroundToolbar],
@@ -33,6 +32,8 @@ const NavigatorLoggedIn = createDrawerNavigator(
             },            
             
         },
+
+    
         
         contentComponent      : props => 
              <SideBarMenu {...props}/>

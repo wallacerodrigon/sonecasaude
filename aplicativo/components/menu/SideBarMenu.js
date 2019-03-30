@@ -5,7 +5,8 @@ import { Rating } from "react-native-ratings";
 import EstilosComuns, { FUNDO_ESCURO } from "../../assets/estilos/estilos";
 import { NAV_COMPARTILHAMENTOS, NAV_MEDICACOES, NAV_MEDICAMENTOS, NAV_MEDICOS, TELA_HOME, TELA_LOGIN } from "../../constants/AppScreenData";
 import { MensagemInformativa } from "../mensagens/Mensagens";
-import { limparStorage, getValoresStorage } from "../comuns/UtilStorage";
+import { salvarRotaAtual } from "../comuns/UtilRotas";
+import { getValoresStorage, limparStorage } from "../comuns/UtilStorage";
 import { TAG_USUARIO_STORAGE } from "../../constants/ConstantesInternas";
 
 const routes = [
@@ -48,14 +49,13 @@ configuraUsuario = async () => {
         limparStorage();
         this.props.navigation.navigate(route.rota, route.params);
     } else {
+        //gravar a rota na storage
+        salvarRotaAtual(route.rota, route.params);
         this.props.navigation.navigate(route.rota, route.params);
     }
   }
 
   render() {
-   // let {nomeUsuario} = this.dadosUsuario;
-   // nomeUsuario = "teste";
-
     return (
       <View style={EstilosComuns.container}>
           <View style={[EstilosComuns.backgroundToolbar, styles.containerProfile]} >
