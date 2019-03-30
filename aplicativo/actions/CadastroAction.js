@@ -1,79 +1,47 @@
-export const CADASTRAR_USUARIO_SUCESSO = "cadastrarUsuarioSucesso";
-export const CADASTRAR_USUARIO_FALHA = "cadastroUsuarioFalha";
-export const CADASTRAR_USUARIO = "cadastroUsuario";
+export const CADUSU_SUCESSO = "CADUSU_SUCESSO";
+export const CADUSU_FALHA = "CADUSU_FALHA";
+export const CADUSU_CADASTRAR_USUARIO = "CADUSU_CADASTRAR_USUARIO";
 
-export const CHANGE_FIELD = "changeField";
-export const CHANGE_FIELD_SHARING = "changeFieldSharing";
+export const CADUSU_CHANGE_FIELD = "CADUSU_CHANGE_FIELD";
+export const CADUSU_TOGGLE_FIELD = "CADUSU_TOGGLE_FIELD";
 
-export const TOGGLE_FIELD = "onToggle";
-export const TOGGLE_FIELD_SHARING = "onToggleSharing"
+export const CADUSU_BUSCA_CEP = "CADUSU_BUSCA_CEP";
+export const CADUSU_BUSCA_CEP_SUCESSO = "CADUSU_BUSCA_CEP_SUCESSO";
+export const CADUSU_BUSCA_CEP_FALHA = "CADUSU_BUSCA_CEP_FALHA";
+export const CADUSU_INICIA_BUSCA_CEP = "CADUSU_INICIA_BUSCA_CEP";
 
-export const BUSCA_CEP = "buscaCep";
-export const BUSCA_CEP_SUCESSO = "buscaCepSucesso";
-export const BUSCA_CEP_FALHA = "buscaCepFalha";
-export const INICIA_BUSCA_CEP = "iniciandoBuscaCep";
+export const CADUSU_START_CADASTRO ="CADUSU_START_CADASTRO";
+export const CADUSU_END_CADASTRO ="CADUSU_END_CADASTRO";  
 
-export const BUSCA_GRAU_PARENTESCO = "buscaGrauParentescoStorage";
+export const CADUSU_INTERNET_INOPERANTE = "CADUSU_INTERNET_INOPERANTE"; //deixar genérico
 
-export const BUSCA_DESAFIO_STORAGE = "buscaDesafioStorage";
-
-export const START_CADASTRO ="iniciandoCadastro";  //deixar genérico
-export const END_CADASTRO ="finalizandoCadastro";  //deixar genérico
-export const ERRO_CADASTRO = "erroCadastro";  //deixar genérico
-
-export const INTERNET_INOPERANTE = "erroInternet"; //deixar genérico
-
-export const RESULT_LISTA_GRAUS_PARENTESCO = "listaGrausParentesco";
-export const ERRO_RESULT_LISTA_GRAUS_PARENTESCO = "erroListaGrausParentesco";
-
-export const VERIFICA_CADASTRO = "verificaCadastro";
-export const VERIFICA_CADASTRO_SUCESSO = "existeCadastroCpf";
-export const VERIFICA_CADASTRO_FALHA = "naoExisteCadastroCpf";
+export const CADUSU_VERIFICA_CPF = "CADUSU_VERIFICA_CPF";
+export const CADUSU_VERIFICA_CPF_SUCESSO = "CADUSU_VERIFICA_CPF_SUCESSO";
+export const CADUSU_VERIFICA_CPF_FALHA = "CADUSU_VERIFICA_CPF_FALHA";
 
 
 export const cadastrarUsuario = (user) => ({
-    type: CADASTRAR_USUARIO,
+    type: CADUSU_CADASTRAR_USUARIO,
     user
 });
 
 export const onChangeField = (fieldName, value) => ({
-    type: CHANGE_FIELD, 
+    type: CADUSU_CHANGE_FIELD, 
     fieldName,
     value
 })
-
-export const onChangeFieldSharing = (fieldName, value) => ({
-    type: CHANGE_FIELD_SHARING, 
-    fieldName,
-    value
-})
-
-
 
 export const onToggleField = (fieldName) => ({
-    type: TOGGLE_FIELD,
-    fieldName
-})
-
-export const onToggleFieldSharing = (fieldName) => ({
-    type: TOGGLE_FIELD_SHARING,
+    type: CADUSU_TOGGLE_FIELD,
     fieldName
 })
 
 export const buscarCep = (numCep) => ({
-    type: BUSCA_CEP,
+    type: CADUSU_BUSCA_CEP,
     numCep   
 })
 
-export const buscarGrausParentesco=() => ({
-    type: BUSCA_GRAU_PARENTESCO
-})
-
-export const buscarDesafios=() => ({
-    type: BUSCA_DESAFIO_STORAGE
-})
-
 export const verificarCadastro = numCpf => ({
-    type: VERIFICA_CADASTRO,
+    type: CADUSU_VERIFICA_CPF,
     numCpf
 })

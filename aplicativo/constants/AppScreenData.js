@@ -35,8 +35,9 @@ export const TELA_ALARME = {name:"alarme", title: ""};
 export const TELA_COMANDO_VOZ = {name:"comandoVoz", title: ""};
 
     /**médicos */
-export const TELA_ADD_MEDICOS = {name:"adicionaMedicos", title: "Médico"};
+export const TELA_ADD_MEDICOS = {name:"adicionaMedicos", title: "Novo médico"};
 export const TELA_LISTA_MEDICOS = {name:"listaMedicos", title: "Médicos"};
+export const TELA_BUSCA_MEDICOS = {name:"procuraMedicos", title: "Busca médicos"};
 
     /**perfil */
 export const TELA_MEU_PERFIL = {name:"meuPerfil", title: "Meus dados"};
@@ -52,5 +53,7 @@ export const NAV_MEDICAMENTOS = {name: 'medicamentosNavigator', title:"Medicamen
 export const NAV_MEDICACOES = {name: 'medicacoesNavigator', title:"Medicações"}
 export const NAV_COMPARTILHAMENTOS = {name: 'compartilhamentosNavigator', title:"Compartilhamentos"}
 
+export const NAV_LOGGED = {name: 'navigatorLoggedIn', title:"Compartilhamentos"}
+export const NAV_NOT_LOGGED = {name: 'navigatorNotLoggedIn', title:"Compartilhamentos"}
 
 

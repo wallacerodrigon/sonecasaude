@@ -2,11 +2,11 @@ import { Fab, Icon } from 'native-base';
 import React from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { buscarMeusMedicos, desvinculaMedico, onChangeField } from "../../actions/MedicosAction";
+import { buscarMeusMedicos, desvinculaMedico, onChangeField } from "../../actions/MeusMedicosAction";
 import EstilosComuns, { FUNDO_CINZA_CLARO, VERDE } from '../../assets/estilos/estilos';
 import { BotaoExcluir, BotaoFecharHeader, BotaoOpacity } from '../../components/botao/Botao';
 import { MensagemConfirmacao, MensagemInformativa } from "../../components/mensagens/Mensagens";
-import { TELA_ADD_MEDICOS } from '../../constants/AppScreenData';
+import { TELA_ADD_MEDICOS, TELA_BUSCA_MEDICOS } from '../../constants/AppScreenData';
 
 
 class ListaMedicos extends React.Component {
@@ -85,10 +85,9 @@ class ListaMedicos extends React.Component {
                             {this.props.loading && <ActivityIndicator size="small" color={VERDE}/>}
                 </View>
                 <Fab
-                    containerStyle={{ }}
                     style={{ backgroundColor: VERDE }}
                     position="bottomRight"
-                    onPress={() => this.props.navigation.navigate(TELA_ADD_MEDICOS.name)}>
+                    onPress={() => this.props.navigation.navigate(TELA_BUSCA_MEDICOS.name)}>
                     
                      <Icon name="add" />
                 </Fab>                   

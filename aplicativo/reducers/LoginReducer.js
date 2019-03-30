@@ -1,13 +1,13 @@
-import { LOGIN_SUCESSO, LOGIN_FALHA, CHANGE_FIELD, EFETUAR_LOGOUT, LOGIN_START } from "../actions/LoginAction";
+import { LOGIN_CHANGE_FIELD, LOGIN_FALHA, LOGIN_START, LOGIN_SUCESSO } from "../actions/LoginAction";
 import { alterarState } from "./FuncoesGenericas";
 
 const INITIAL_STATE = {
-    login: '705.893.801-68', senha: '123456', mensagemFalha: '', loading: false, bolSucesso: false
+    login: '', senha: '', mensagemFalha: '', loading: false, bolSucesso: false
 }
 
 export default (state = INITIAL_STATE, action) => {
     switch(action.type){
-        case CHANGE_FIELD: {
+        case LOGIN_CHANGE_FIELD: {
             let newState = alterarState(state, action.fieldName, action.value);
             newState = {...newState, bolSucesso: false, mensagemFalha: ''}
             return newState;
@@ -28,10 +28,6 @@ export default (state = INITIAL_STATE, action) => {
 
         case LOGIN_FALHA: {
             return {...state, loading: false, bolSucesso: false, mensagemFalha: action.mensagemFalha};
-        }
-
-        case EFETUAR_LOGOUT: {
-            return INITIAL_STATE;
         }
 
         default: {

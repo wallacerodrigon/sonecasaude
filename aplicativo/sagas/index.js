@@ -1,28 +1,39 @@
 import { takeLatest } from 'redux-saga/effects';
-import { BUSCA_CEP, BUSCA_GRAU_PARENTESCO, CADASTRAR_USUARIO, VERIFICA_CADASTRO } from '../actions/CadastroAction';
-import { RECUPERAR_SENHA } from '../actions/EsqueciSenhaAction';
-import { EFETUAR_LOGIN } from '../actions/LoginAction';
-import { buscarDadosEndereco, recuperarGrausParentesco, salvarCadastro, verificarExistenciaCpf } from './CadastrarUsuarioSagas';
+import { CADUSU_BUSCA_CEP, CADUSU_CADASTRAR_USUARIO, CADUSU_VERIFICA_CPF } from '../actions/CadastroAction';
+import { RECSEN_RECUPERAR } from '../actions/EsqueciSenhaAction';
+import { BUSMED_CONSULTAR_MEDICOS } from '../actions/medicos/ProcuraMedicosAction';
+//actions
+import { MEUMED_CONSULTAR, MEUMED_DESVINCULAR } from '../actions/MeusMedicosAction';
+import { LOGIN_EFETUAR_LOGIN } from '../actions/LoginAction';
+
+//sagas
+import { buscarDadosEndereco, salvarCadastro, verificarExistenciaCpf } from './CadastrarUsuarioSagas';
 import { efetuarLogin } from "./LoginSagas";
+import { desvincularMedico, recuperarMedicos } from './medicos/MeusMedicosSagas';
+import { filtrarMedicos } from './medicos/ProcuraMedicosSagas';
 import { recuperarSenha } from './RecuperarSenhaSagas';
-import { recuperarMedicos, desvincularMedico } from './MedicosSagas';
-import { BUSCAR_MEDICOS, DESVINCULAR_MEDICO } from '../actions/MedicosAction';
+
+
+
 
   
  function* rootSaga() {
-    yield takeLatest(RECUPERAR_SENHA, recuperarSenha);
+    yield takeLatest(RECSEN_RECUPERAR, recuperarSenha);
 
     //cadastro
-    yield takeLatest(BUSCA_CEP, buscarDadosEndereco);
-    yield takeLatest(CADASTRAR_USUARIO, salvarCadastro);
-    yield takeLatest(VERIFICA_CADASTRO, verificarExistenciaCpf);
+    yield takeLatest(CADUSU_BUSCA_CEP, buscarDadosEndereco);
+    yield takeLatest(CADUSU_CADASTRAR_USUARIO, salvarCadastro);
+    yield takeLatest(CADUSU_VERIFICA_CPF, verificarExistenciaCpf);
 
     //login
-    yield takeLatest(EFETUAR_LOGIN, efetuarLogin);
+    yield takeLatest(LOGIN_EFETUAR_LOGIN, efetuarLogin);
 
     //medicos
-    yield takeLatest(BUSCAR_MEDICOS, recuperarMedicos);
-    yield takeLatest(DESVINCULAR_MEDICO, desvincularMedico);
+    yield takeLatest(MEUMED_CONSULTAR, recuperarMedicos);
+    yield takeLatest(MEUMED_DESVINCULAR, desvincularMedico);
+    yield takeLatest(BUSMED_CONSULTAR_MEDICOS, filtrarMedicos);
+
+    
   }
   
   export default rootSaga;

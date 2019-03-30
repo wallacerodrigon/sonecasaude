@@ -1,26 +1,18 @@
-export const EFETUAR_LOGIN ="efetuarLogin";
-export const CHANGE_FIELD = "onChangeField";
+export const LOGIN_EFETUAR_LOGIN ="LOGIN_EFETUAR_LOGIN";
+export const LOGIN_CHANGE_FIELD = "LOGIN_CHANGE_FIELD";
 
-export const BUSCA_GRAUS_PARENTESCO = "buscaGrauParentesco";
+export const LOGIN_SUCESSO = "LOGIN_SUCESSO";
+export const LOGIN_FALHA = "LOGIN_FALHA";
 
-
-export const LOGIN_SUCESSO = "loginSucesso";
-export const LOGIN_FALHA = "loginFalha";
-
-export const LOGIN_START ="startLogin";
+export const LOGIN_START ="LOGIN_START";
 
 export const efetuarLoginAction = (user) => ({
-    type: EFETUAR_LOGIN,
+    type: LOGIN_EFETUAR_LOGIN,
     user
 });
 
-export const efetuarLogoutAction = () => ({
-    type: EFETUAR_LOGOUT,
-    
-});
-
 export const onChangeField = (fieldName, value) => ({
-    type: CHANGE_FIELD, 
+    type: LOGIN_CHANGE_FIELD, 
     fieldName,
     value
 })

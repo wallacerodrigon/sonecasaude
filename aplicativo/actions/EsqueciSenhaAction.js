@@ -1,21 +1,21 @@
-export const RECUPERAR_SENHA = "recuperarSenha";
-export const CHANGE_FIELD = "changeEmail";
-export const INTERNET_INOPERANTE ="internetInoperante";
-export const START_RECUPERACAO ="iniciando";
-export const END_RECUPERACAO = "finalizando";
-export const ERRO_INESPERADO = "erroInesperado";
+export const RECSEN_RECUPERAR = "RECSEN_RECUPERAR";
+export const RECSEN_CHANGE_FIELD = "RECSEN_CHANGE_FIELD";
+export const RECSEN_INTERNET_INOPERANTE ="RECSEN_INTERNET_INOPERANTE";
+export const RECSEN_START_RECUPERACAO ="RECSEN_START_RECUPERACAO";
+export const RECSEN_END_RECUPERACAO = "RECSEN_END_RECUPERACAO";
+export const RECSEN_ERRO_INESPERADO = "RECSEN_ERRO_INESPERADO";
 
 export const recuperarSenha =(email) => ({
-    type: RECUPERAR_SENHA,
+    type: RECSEN_RECUPERAR,
     email
 });
     
 export const onChangeEmail = (value) => ({
-    type: CHANGE_FIELD, 
+    type: RECSEN_CHANGE_FIELD, 
     value
 })
 
 export const erroInesperado = (mensagem) => ({
-    type: ERRO_INESPERADO, 
+    type: RECSEN_ERRO_INESPERADO, 
     mensagem
 })

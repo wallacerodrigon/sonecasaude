@@ -1,4 +1,4 @@
-import { CHANGE_FIELD, END_RECUPERACAO, ERRO_INESPERADO, INTERNET_INOPERANTE, RECUPERAR_SENHA, START_RECUPERACAO } from "../actions/EsqueciSenhaAction";
+import { RECSEN_ERRO_INESPERADO, RECSEN_INTERNET_INOPERANTE, RECSEN_END_RECUPERACAO, RECSEN_START_RECUPERACAO, RECSEN_CHANGE_FIELD, RECSEN_RECUPERAR } from "../actions/EsqueciSenhaAction";
 import { alterarState } from "./FuncoesGenericas";
 
 const INITIAL_STATE = {email: '', loading: false, sucesso: true, mensagemFalha: '', executado: false};
@@ -7,24 +7,24 @@ const INITIAL_STATE = {email: '', loading: false, sucesso: true, mensagemFalha: 
 export default (state = INITIAL_STATE, action) => {
 
     switch(action.type){
-        case CHANGE_FIELD: {
+        case RECSEN_CHANGE_FIELD: {
             let newState = alterarState(state, 'email', action.value);
             return alterarState(newState, 'executado', false);
         }
 
-        case START_RECUPERACAO: {
+        case RECSEN_START_RECUPERACAO: {
             return {
                 ...state, loading: true
             }
         }
 
-        case END_RECUPERACAO: {
+        case RECSEN_END_RECUPERACAO: {
             return {
                 ...state, loading: false, sucesso: true, executado: true
             }
         }
 
-        case INTERNET_INOPERANTE: {
+        case RECSEN_INTERNET_INOPERANTE: {
           //  console.log('erro de internet...');
             let newState = {
                 ...state, 
@@ -38,7 +38,7 @@ export default (state = INITIAL_STATE, action) => {
 
         }
         
-        case ERRO_INESPERADO: {
+        case RECSEN_ERRO_INESPERADO: {
             return {
                 ...state, 
                 loading: false, 
@@ -49,7 +49,7 @@ export default (state = INITIAL_STATE, action) => {
 
         }
 
-        case RECUPERAR_SENHA: {
+        case RECSEN_RECUPERAR: {
             return state;
         }
 

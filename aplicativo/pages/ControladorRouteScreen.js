@@ -4,7 +4,7 @@ import React from "react";
 import {ActivityIndicator, View} from "react-native";
 import { VERDE } from '../assets/estilos/estilos';
 import { obterUltimaRota } from '../components/comuns/UtilRotas';
-import { TELA_HOME } from '../constants/AppScreenData';
+import { TELA_HOME, NAV_LOGGED, NAV_NOT_LOGGED } from '../constants/AppScreenData';
 
 export default class ControladorRouteScreen extends React.Component {
 
@@ -17,7 +17,7 @@ export default class ControladorRouteScreen extends React.Component {
                     //pegar a rota da storage
                     this.encaminharUltimaRota();
                 } else {
-                    this.props.navigation.navigate('navigatorNotLoggedIn')
+                    this.props.navigation.navigate(NAV_NOT_LOGGED.name)
                 }
             })
         }
@@ -25,9 +25,9 @@ export default class ControladorRouteScreen extends React.Component {
     encaminharUltimaRota(){
         obterUltimaRota()
         .then(rota=> {
-            this.props.navigation.navigate(rota || 'navigatorLoggedIn' )
+            this.props.navigation.navigate(rota ? rota : NAV_LOGGED.name )
         })
-        .catch(error => this.props.navigation.navigate(TELA_HOME))
+        .catch(error => this.props.navigation.navigate(TELA_HOME.name))
 
 
         

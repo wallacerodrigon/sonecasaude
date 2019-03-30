@@ -5,9 +5,8 @@ import { getValoresStorage } from "../components/comuns/UtilStorage";
 
 const URI = "medico-api/son-rest/medicos";
 
-const filtrar = (nomeMedico, numCrmUF) => {
-    let codUsuario = 1;
-    return axiosApi.post(`${URL_BACKEND}/${URI}/filtrar`, {"nomeMedico": nomeMedico, "numCrmUF":numCrmUF, "codUsuario":codUsuario})
+const filtrarMedicos = (nomeMedico, numCrmUF) => {
+    return axiosApi.get(`${URL_BACKEND}${URI}/filtrar?nomeMedico=${nomeMedico}&numCrm=${numCrmUF}`)
         .then( result => result )
         .catch(error => Erro.getDetalhesErro(error));
 
@@ -40,7 +39,7 @@ const recuperarDadosUsuario = async () => {
 }
 
 export default {
-    filtrar,
+    filtrarMedicos,
     recuperarMedicos,
     desvincularMedico
 }
