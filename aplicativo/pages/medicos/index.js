@@ -7,12 +7,13 @@ import AdicionaClinica from "../../pages/medicos/AdicionaClinica";
 import ListaMedicos from "../../pages/medicos/ListaMedicos";
 import ComandoOuvindoVoz from "../voz/ComandoOuvindoVoz";
 import AdicionaMedicoTab from "./AdicionaMedicoTab";
+import ProcuraMedico from "./ProcuraMedico";
 
 const MedicosNavigator = createStackNavigator(
     {
         listaMedicos: {screen: ListaMedicos},                                     
-        adicionaMedicos: {screen: AdicionaMedicoTab},
-
+        procuraMedicos: ProcuraMedico,
+        adicionaMedicosTab: {screen: AdicionaMedicoTab},
         adicionaClinica: {screen: AdicionaClinica},                                    
 
         comandoVoz: ComandoOuvindoVoz,

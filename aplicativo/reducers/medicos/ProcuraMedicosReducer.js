@@ -1,9 +1,9 @@
-import { BUSMED_CHANGE_FIELD, BUSMED_CONSULTA_SUCESSO, BUSMED_INICIANDO, BUSMED_CONSULTA_FALHA } from "../../actions/medicos/ProcuraMedicosAction";
+import { BUSMED_CHANGE_FIELD, BUSMED_CONSULTA_SUCESSO, BUSMED_INICIANDO, BUSMED_CONSULTA_FALHA, BUSMED_VINCULAR_SUCESSO, BUSMED_VINCULAR_FALHA } from "../../actions/medicos/ProcuraMedicosAction";
 import { alterarState } from "../FuncoesGenericas";
 
 
 const INITIAL_STATE = {
-    nomeMedico: '', numeroCrm: '', loading: false, buscaSucesso: false, mensagemFalha: '', buscaFalha: false
+    nomeMedico: '', numeroCrm: '', loading: false, buscaSucesso: false, mensagemFalha: '', buscaFalha: false, bolVinculo: false
 }
 
 
@@ -20,7 +20,8 @@ export default (state = INITIAL_STATE, action) => {
         case BUSMED_INICIANDO: {
             return {
                 ...state,
-                loading: true
+                loading: true,
+                bolVinculo: false
             }
         }
 
@@ -30,10 +31,11 @@ export default (state = INITIAL_STATE, action) => {
                 loading: false,
                 buscaSucesso: true,
                 buscaFalha: false,
-                listaMedicos: action.listaMedicos
+                listaMedicosBusca: action.listaMedicos
             }
         }
 
+        case BUSMED_VINCULAR_FALHA:
         case BUSMED_CONSULTA_FALHA: {
             return {
                 ...state,
@@ -44,6 +46,16 @@ export default (state = INITIAL_STATE, action) => {
             }
         }
 
+        case BUSMED_VINCULAR_SUCESSO: {
+            let novaListaMedicos = state.listaMedicosBusca.filter(medico => medico.idMedico != action.medicoVinculado.idMedico);
+            return {
+                ...state,
+                listaMedicosBusca: novaListaMedicos,
+                loading: false,
+                bolVinculo: true
+            }
+
+        }
 
         default: return state;
     }

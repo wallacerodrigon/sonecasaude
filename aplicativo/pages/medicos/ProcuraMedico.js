@@ -1,14 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View,FlatList } from 'react-native';
 import { connect } from "react-redux";
-import { buscaPorMedico, onChangeField } from "../../actions/medicos/ProcuraMedicosAction";
-import EstilosComuns from '../../assets/estilos/estilos';
-import { BotaoLoading } from '../../components/botao/Botao';
+import { buscaPorMedico, onChangeField, vincularMedico } from "../../actions/medicos/ProcuraMedicosAction";
+import EstilosComuns, { FUNDO_CINZA_CLARO, VERDE } from '../../assets/estilos/estilos';
+import { BotaoLoading, BotaoOpacity, BotaoExcluir, BotaoConfigIcon } from '../../components/botao/Botao';
 import { InputTexto } from '../../components/input/InputTexto';
-import { MensagemErro } from "../../components/mensagens/Mensagens";
-import { TELA_BUSCA_MEDICOS } from '../../constants/AppScreenData';
+import { MensagemErro, MensagemConfirmacao, MensagemInformativa } from "../../components/mensagens/Mensagens";
+import { TELA_BUSCA_MEDICOS, TELA_ADD_MEDICOS } from '../../constants/AppScreenData';
+import Validador from '../../utilitarios/Validador';
+import { Fab, Icon } from 'native-base';
 
-export default class ProcuraMedico extends React.Component {
+class ProcuraMedico extends React.Component {
     static navigationOptions = {
         title: TELA_BUSCA_MEDICOS.title,
       };
@@ -18,6 +20,22 @@ export default class ProcuraMedico extends React.Component {
     }
 
     isCrmValido(){
+        let uf = this.props.numeroCrm.slice(0,2);
+        if (new Validador().temAlgumNumero(uf) || uf.length != 2){
+            return false
+        }
+
+
+        let numeroCrm = this.props.numeroCrm.slice(2);
+        //não tem nada após as duas letras
+        if (numeroCrm == null){
+            return false;
+        }
+
+        let numCrmSoNumeros = new Validador().mantemSomenteNumeros(numeroCrm);
+        if (numCrmSoNumeros == null || numeroCrm.length != numCrmSoNumeros.length){
+            return false;
+        }
         return true;
     }
 
@@ -29,37 +47,92 @@ export default class ProcuraMedico extends React.Component {
             return false;
         }
 
-        if (! bolCrmVazio && this.isCrmValido() ){
-            MensagemErro('O número do CRM deve estar no formato: DF1234');
+        if (! bolCrmVazio && !this.isCrmValido() ){
+            MensagemErro('O número do CRM deve estar no formato: UF+NÚMERO');
             return false;
         }
 
-        MensagemErro('Buscsando por médico: ' + this.props.nomeMedico + ' ' + this.props.numeroCrm);
-       // this.props.buscaPorMedico(this.props.nomeMedico, this.props.numeroCrm);
+        this.props.buscaPorMedico(this.props.nomeMedico, this.props.numeroCrm);
     }
 
-    shouldComponentUpdate(){
-        return this.props.buscaSucesso || this.props.buscaFalha;
+    confirmarVinculo(medico){
+        let botaoConfirma= {
+            text: 'SIM',
+            onPress: () =>  {
+                this.props.vincularMedico(medico);        
+            },
+            style: 'destructive'
+        };
+
+        let botaoDescarta= {
+            text: 'NÃO',
+            style: 'cancel'
+        };
+
+        MensagemConfirmacao(`Você realmente deseja vincular o(a) Dr(a) ${medico.nomeMedico} na sua lista de médicos?`, 
+            [botaoConfirma, botaoDescarta]
+        );        
+    }
+
+    componentDidUpdate(){
+          if (this.props.bolVinculo || this.props.mensagemFalha != ''){
+              MensagemInformativa(this.props.bolVinculo ? 'Vínculo efetuado com sucesso!' : this.props.mensagemFalha);
+          }
     }
 
     render() {
         return (
             <View style={EstilosComuns.container}>
-                <Text style={EstilosComuns.tituloJanelas}>Adicionar Médico</Text>
-            
+                <Text style={EstilosComuns.tituloJanelas}>Vincular Médico à conta</Text>
+                <Text style={[styles.nota, EstilosComuns.italico]}>Antes de incluir, verifique se seu médico já existe no aplicativo</Text>
                 <View style={EstilosComuns.bodyMain}>
+                    
                     <View style={styles.containerBusca}>
                         <InputTexto placeholder="Nome do médico" maxLength={50}
+                            autoCapitalize="characters"
+                            keyboardType={InputTexto.KEYBOARD_DEFAULT}
                             onChangeInput={value => this.props.onChangeField('nomeMedico', value)}
                             />
                         {/* 7 digitos + uf */}
-                        <InputTexto placeholder="Número do CRM ()" maxLength={10}
+                        <InputTexto placeholder="Número do CRM (AAXXXXXXXX)" maxLength={10}
+                            keyboardType={InputTexto.KEYBOARD_DEFAULT}
+                            autoCapitalize="characters"
                             onChangeInput={value => this.props.onChangeField('numeroCrm', value)}
                             />
-                        <BotaoLoading tituloBotao="Procurar" onClick={() => this.buscaPorMedico()}/>
+                        <BotaoLoading carregaLoading={this.props.loading}  tituloBotao="Procurar" onClick={() => this.buscaPorMedico()}/>
                     </View>
 
-                                       
+                    <View style={[styles.containerResultado]}>
+                           <Text style={styles.tituloResultado} >Resultado da consulta</Text>
+                           <FlatList  
+                                data= {this.props.listaMedicosBusca}
+                                keyExtractor={medico => new String(medico.idMedico)}
+                                renderItem = {medico => {
+                                    return (
+                                        <BotaoOpacity onClick={() =>  this.props.navigation.navigate(TELA_ADD_MEDICOS.name, {medico}) }>
+                                            <View style={styles.containerMedico}>
+                                                <View style={{flex: 9, flexDirection: 'column'}}>
+                                                    <Text  style={EstilosComuns.negrito}>{medico.item.nomeMedico}</Text>
+                                                    <Text  style={EstilosComuns.italico}>{medico.item.nomeEspecialidade}</Text>
+                                                    <Text style={EstilosComuns.italico}>{medico.item.descEmail != null ? medico.item.descEmail : ''}</Text>
+                                                </View>
+
+                                                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                                                    <Icon name="link" style={{color: 'blue'}} onPress={() => this.confirmarVinculo(medico.item)} />        
+                                                </View>                                                
+                                            </View>                                    
+                                        </BotaoOpacity>
+                                    )
+                                }}
+                            />                           
+                    </View>
+
+                 <Fab
+                    style={{ backgroundColor: VERDE }}
+                    position="bottomRight"
+                    onPress={() => this.props.navigation.navigate(TELA_ADD_MEDICOS.name)}>
+                     <Icon name="add" />
+                </Fab>                                         
 
                 </View>
             </View>
@@ -74,17 +147,41 @@ const mapStateToProps = state => ({
     buscaSucesso: state.procuraMedicosReducer.buscaSucesso,
     mensagemFalha: state.procuraMedicosReducer.mensagemFalha,
     buscaFalha: state.procuraMedicosReducer.buscaFalha,
-    listaMedicos: state.procuraMedicosReducer.listaMedicos
+    listaMedicosBusca: state.procuraMedicosReducer.listaMedicosBusca,
+    bolVinculo: state.procuraMedicosReducer.bolVinculo
 })
 
-export default connect( mapStateToProps, {buscaPorMedico, onChangeField});
 
 const styles= StyleSheet.create({
     containerBusca: {
         flex: 2,
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         padding: 5 ,
     },
-   
+    
+    containerResultado: {
+        flex: 6,
+    },
+    containerMedico: {
+        flex: 1, 
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        padding: 6,
+        borderBottomWidth: 1,
+        borderBottomColor: FUNDO_CINZA_CLARO        
+    },
+    tituloResultado: {
+        borderBottomColor: FUNDO_CINZA_CLARO,
+        borderBottomWidth: 1
+    },
+    nota: {
+        fontSize: 15,
+        textAlign: 'center'
+        
+    }
+
+    
 })
+
+export default connect( mapStateToProps, {buscaPorMedico, onChangeField, vincularMedico})(ProcuraMedico);

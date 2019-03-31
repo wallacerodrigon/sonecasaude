@@ -48,36 +48,40 @@ export class BotaoOpacity extends React.Component  {
 
 export const BotaoFecharHeader = (props) => {
       return (
-          <Icon name="close" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} 
-                  onPress={() => props.navigation.dismiss() }/>
+          // <Icon name="close" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} 
+          //         onPress={() => props.navigation.dismiss() }/>
+          <BotaoConfigIcon onPress={() => props.navigation.dismiss() } icone="close"/>                    
       )
 };
 
 export const BotaoMicrofoneHeader = (props) => {
   return (
-      <Icon name="mic" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} 
-              onPress={() => props.navigation.navigate(TELA_COMANDO_VOZ.name) }/>
+    <BotaoConfigIcon onPress={() => props.navigation.navigate(TELA_COMANDO_VOZ.name) } icone="mic"/> 
+      // <Icon name="mic" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} 
+      //         onPress={() => props.navigation.navigate(TELA_COMANDO_VOZ.name) }/>
   )
 };
 
 export const BotaoMenuHamburguer = (props) => {
   return (
-      <Icon name="menu" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} 
-              onPress={() => props.navigation.toggleDrawer() }/>
+    <BotaoConfigIcon onPress={() => props.navigation.toggleDrawer() } icone="menu"/>        
+      // <Icon name="menu" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} 
+      //         onPress={() => props.navigation.toggleDrawer() }/>
   )
 };
 
 export const BotaoExcluir = (props) => {
   return (
-      <Icon name="trash" style={{color: DESMARCADO}} 
-              onPress={() => props.onPress() }/>
+    <BotaoConfigIcon onPress={props.onPress} icone="trash" style={{color: DESMARCADO}} />
+
+      // <Icon name="trash" style={{color: DESMARCADO}} 
+      //         onPress={() => props.onPress() }/>
   )
 };
 
 export const BotaoConfiguracoes = (props) => {
   return (
-      <Icon name="options" style={{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}} 
-              onPress={() => props.onPress() }/>
+    <BotaoConfigIcon onPress={props.onPress} icone="options"/>    
   )
 };
 
@@ -89,4 +93,11 @@ export const BotaoLoading = (props) => {
       return <Botao tituloBotao={props.tituloBotao}  onClick={()=>props.onClick()}/>
     }    
   
+}
+
+export const BotaoConfigIcon = (props) => {
+  return (
+    <Icon name={props.icone} style={[{color: BRANCO, paddingVertical: 10, paddingHorizontal: 10}, props.style]} 
+            onPress={() => props.onPress() }/>
+  )
 }

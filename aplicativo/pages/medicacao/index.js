@@ -9,7 +9,7 @@ import { Icon } from 'native-base';
 import { BotaoFecharHeader } from '../../components/botao/Botao';
 import HistoricoUsoPorData from './HistoricoUsoPorData';
 import Medicacao from './Medicacao';
-import IconeTabBar from './IconeTabBar';
+import IconeTabBar from '../../components/comuns/IconeTabBar';
 
 const MedicacoesNavigator = createBottomTabNavigator(
     {

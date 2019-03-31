@@ -35,9 +35,9 @@ export const TELA_ALARME = {name:"alarme", title: ""};
 export const TELA_COMANDO_VOZ = {name:"comandoVoz", title: ""};
 
     /**médicos */
-export const TELA_ADD_MEDICOS = {name:"adicionaMedicos", title: "Novo médico"};
+export const TELA_ADD_MEDICOS = {name:"adicionaMedicosTab", title: "Novo médico"};
 export const TELA_LISTA_MEDICOS = {name:"listaMedicos", title: "Médicos"};
-export const TELA_BUSCA_MEDICOS = {name:"procuraMedicos", title: "Busca médicos"};
+export const TELA_BUSCA_MEDICOS = {name:"procuraMedicos", title: "Médicos"};
 
     /**perfil */
 export const TELA_MEU_PERFIL = {name:"meuPerfil", title: "Meus dados"};

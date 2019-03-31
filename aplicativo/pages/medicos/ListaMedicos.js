@@ -26,7 +26,7 @@ class ListaMedicos extends React.Component {
 
     componentDidUpdate(){
         if (this.props.bolDesvinculo && this.props.bolExecutado){
-            MensagemInformativa(this.props.mensagemFalha ? this.props.mensagemFalha: 'Médico retirado com sucesso!');
+            MensagemInformativa(this.props.mensagemFalha ? this.props.mensagemFalha: 'Médico desvinculado da sua lista com sucesso!');
             this.props.onChangeField('bolDesvinculo', false);
         }
             
@@ -49,7 +49,7 @@ class ListaMedicos extends React.Component {
             style: 'cancel'
         };
 
-        MensagemConfirmacao('Deseja realmente retirar esse médico da sua lista de médicos?', 
+        MensagemConfirmacao(`Você realmente deseja desvincular o(a) Dr(a) ${medico.nomeMedico} da sua lista de médicos?`, 
             [botaoConfirma, botaoDescarta]
         );
         
@@ -58,7 +58,7 @@ class ListaMedicos extends React.Component {
     render() {
         return (
             <View style={EstilosComuns.container}>
-                <Text style={EstilosComuns.tituloJanelas}>Seus médicos cadastrados</Text>
+                <Text style={EstilosComuns.tituloJanelas}>Meus médicos</Text>
 
                 <View style={[EstilosComuns.backgroundPadrao, EstilosComuns.bodyMain]}>
                              <FlatList  
@@ -82,7 +82,7 @@ class ListaMedicos extends React.Component {
                                     )
                                 }}
                             />
-                            {this.props.loading && <ActivityIndicator size="small" color={VERDE}/>}
+                            {this.props.loading && <ActivityIndicator size="large" color={VERDE} style={styles.loadingStyle} />}
                 </View>
                 <Fab
                     style={{ backgroundColor: VERDE }}
@@ -116,5 +116,13 @@ const styles = StyleSheet.create({
         padding: 6,
         borderBottomWidth: 1,
         borderBottomColor: FUNDO_CINZA_CLARO
+    },
+
+    loadingStyle: {
+        flex: 1, 
+        flexDirection:'column', 
+        justifyContent: 'center', 
+        alignItems:'center' ,
+        backgroundColor: EstilosComuns.FUNDO_CINZA_CLARO
     }
 })

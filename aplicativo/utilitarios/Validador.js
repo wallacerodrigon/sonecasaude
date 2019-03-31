@@ -277,6 +277,14 @@ export default class Validador {
         }
     }
 
+    temAlgumNumero(texto) {
+        if (texto && texto.trim().length > 0){
+            let textoSoComNumeros = this.mantemSomenteNumeros(texto);
+            return textoSoComNumeros != null && textoSoComNumeros.length > 0;
+        } else {
+            return false;
+        }
+    }    
 
 
      isDataValida(dataString) {

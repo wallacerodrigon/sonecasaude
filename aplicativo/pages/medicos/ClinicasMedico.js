@@ -5,7 +5,7 @@ import { TELA_LISTA_MEDICOS, TELA_ADD_MEDICOS, TELA_LISTA_CLINICAS, TELA_ADD_CLI
 import { List, ListItem, Left, Thumbnail, Body, Button, Right, Container, Fab, Icon } from 'native-base';
 import Botao from '../../components/botao/Botao';
 
-export default class ListaClinicas extends React.Component {
+export default class ClinicasMedico extends React.Component {
     static navigationOptions = {
         title: TELA_LISTA_CLINICAS.title
         /* No more header config here! */
