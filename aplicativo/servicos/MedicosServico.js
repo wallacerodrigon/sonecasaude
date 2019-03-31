@@ -16,7 +16,7 @@ const filtrarMedicos = async (nomeMedico, numCrmUF) => {
 const recuperarMedicos = async () => {
     const usuario = await recuperarDadosUsuario();
 
-    console.log('token:', usuario.token)
+    //console.log('token:', usuario.token)
 
     return axiosApi.get(`${URL_BACKEND}${URI}/filtrar?codUsuario=${usuario.idUsuario}`)
         .then( result => result )
@@ -49,6 +49,27 @@ const vincularMedico = async (medico) => {
 
 };
 
+const salvarMedico = async (medico) => {
+    const usuario = await recuperarDadosUsuario();
+    //nomemedico, codespecialidade, codusuariocadastro, numregistrocrm descemail, numcelular
+    // let obj = {
+    //     codUsuario: usuario.idUsuario,
+    //     codMedico: medico.idMedico,
+    //     mobile: true
+    // };
+    return axiosApi.post(`${URL_BACKEND}${URI}`, JSON.stringify(medico))
+        .then( result => result )
+        .catch(error => Erro.getDetalhesErro(error));
+
+};
+
+const obterEspecialidades = async () => {
+    return axiosApi.get(`${URL_BACKEND}especialidades`)
+        .then( result => result )
+        .catch(error => Erro.getDetalhesErro(error));
+
+};
+
 const recuperarDadosUsuario = async () => {
     const dadosUsuario = await getValoresStorage(TAG_USUARIO_STORAGE);
     let usuario = JSON.parse( dadosUsuario );
@@ -59,5 +80,7 @@ export default {
     filtrarMedicos,
     recuperarMedicos,
     desvincularMedico,
-    vincularMedico
+    vincularMedico,
+    obterEspecialidades,
+    salvarMedico
 }

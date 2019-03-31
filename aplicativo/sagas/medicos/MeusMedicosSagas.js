@@ -42,3 +42,23 @@ export function* desvincularMedico(action){
 
     }
 }
+
+export function* salvarMedico(action){
+    yield put({type: MEUMED_INICIANDO});
+    try {
+        const retorno = yield call(MedicosServico.salvarMedico, action.medico);
+        if (retorno.status === RETORNO_SUCESSO){
+            yield put({type: MEUMED_RETORNO_SUCESSO});
+        } else {
+            yield put({type: MEUMED_RETORNO_FALHA, mensagemFalha: retorno.mensagemErro});
+        }
+    } catch(error){
+        if (error == NETWORK_ERROR) {
+            yield put({type: INTERNET_INOPERANTE});
+        } else {
+            yield put({type: MEUMED_RETORNO_FALHA, mensagemFalha: error});
+        }
+
+
+    }
+}

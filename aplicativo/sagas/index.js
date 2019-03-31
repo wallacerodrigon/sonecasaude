@@ -3,13 +3,13 @@ import { CADUSU_BUSCA_CEP, CADUSU_CADASTRAR_USUARIO, CADUSU_VERIFICA_CPF } from 
 import { RECSEN_RECUPERAR } from '../actions/EsqueciSenhaAction';
 import { BUSMED_CONSULTAR_MEDICOS, BUSMED_VINCULAR } from '../actions/medicos/ProcuraMedicosAction';
 //actions
-import { MEUMED_CONSULTAR, MEUMED_DESVINCULAR } from '../actions/MeusMedicosAction';
+import { MEUMED_CONSULTAR, MEUMED_DESVINCULAR, MEUMED_SALVAR } from '../actions/MeusMedicosAction';
 import { LOGIN_EFETUAR_LOGIN } from '../actions/LoginAction';
 
 //sagas
 import { buscarDadosEndereco, salvarCadastro, verificarExistenciaCpf } from './CadastrarUsuarioSagas';
 import { efetuarLogin } from "./LoginSagas";
-import { desvincularMedico, recuperarMedicos } from './medicos/MeusMedicosSagas';
+import { desvincularMedico, recuperarMedicos, salvarMedico } from './medicos/MeusMedicosSagas';
 import { filtrarMedicos, vincularMedico } from './medicos/ProcuraMedicosSagas';
 import { recuperarSenha } from './RecuperarSenhaSagas';
 
@@ -33,6 +33,7 @@ import { recuperarSenha } from './RecuperarSenhaSagas';
     yield takeLatest(MEUMED_DESVINCULAR, desvincularMedico);
     yield takeLatest(BUSMED_CONSULTAR_MEDICOS, filtrarMedicos);
     yield takeLatest(BUSMED_VINCULAR, vincularMedico);
+    yield takeLatest(MEUMED_SALVAR, salvarMedico);
 
     
   }

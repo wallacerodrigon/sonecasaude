@@ -11,8 +11,8 @@ import ProcuraMedico from "./ProcuraMedico";
 
 const MedicosNavigator = createStackNavigator(
     {
-        listaMedicos: {screen: ListaMedicos},                                     
-        procuraMedicos: ProcuraMedico,
+        // listaMedicos: {screen: ListaMedicos},                                     
+        // procuraMedicos: ProcuraMedico,
         adicionaMedicosTab: {screen: AdicionaMedicoTab},
         adicionaClinica: {screen: AdicionaClinica},                                    
 

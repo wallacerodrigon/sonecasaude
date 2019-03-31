@@ -20,26 +20,6 @@ class ProcuraMedico extends React.Component {
         super(props);
     }
 
-    isCrmValido(){
-        let uf = this.props.numeroCrm.slice(0,2);
-        if (new Validador().temAlgumNumero(uf) || uf.length != 2){
-            return false
-        }
-
-
-        let numeroCrm = this.props.numeroCrm.slice(2);
-        //não tem nada após as duas letras
-        if (numeroCrm == null){
-            return false;
-        }
-
-        let numCrmSoNumeros = new Validador().mantemSomenteNumeros(numeroCrm);
-        if (numCrmSoNumeros == null || numeroCrm.length != numCrmSoNumeros.length){
-            return false;
-        }
-        return true;
-    }
-
     buscaPorMedico(){
         let bolNomeVazio = this.props.nomeMedico == null || this.props.nomeMedico == '';
         let bolCrmVazio =  this.props.numeroCrm == null || this.props.numeroCrm == '';
@@ -48,7 +28,7 @@ class ProcuraMedico extends React.Component {
             return false;
         }
 
-        if (! bolCrmVazio && !this.isCrmValido() ){
+        if (! bolCrmVazio && !new Validador().isCrmValido(this.props.numeroCrm) ){
             MensagemErro('O número do CRM deve estar no formato: UF+NÚMERO');
             return false;
         }

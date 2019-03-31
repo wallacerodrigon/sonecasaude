@@ -382,4 +382,23 @@ export default class Validador {
         return somenteNumeros.length === 8;
     }
 
+    isCrmValido(numeroCrm){
+        let uf = numeroCrm.slice(0,2);
+        if (this.temAlgumNumero(uf) || uf.length != 2){
+            return false
+        }
+        
+        
+        let numeroCrmPosUf = numeroCrm.slice(2);
+        //não tem nada após as duas letras
+        if (numeroCrmPosUf == null){
+            return false;
+        }
+        let numCrmSoNumeros = this.mantemSomenteNumeros(numeroCrmPosUf);
+        if (numCrmSoNumeros == null || numeroCrmPosUf.length != numCrmSoNumeros.length){
+            return false;
+        }
+        return true;
+    }
+
 }
