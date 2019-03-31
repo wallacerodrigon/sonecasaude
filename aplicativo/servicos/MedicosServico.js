@@ -15,6 +15,9 @@ const filtrarMedicos = async (nomeMedico, numCrmUF) => {
 
 const recuperarMedicos = async () => {
     const usuario = await recuperarDadosUsuario();
+
+    console.log('token:', usuario.token)
+
     return axiosApi.get(`${URL_BACKEND}${URI}/filtrar?codUsuario=${usuario.idUsuario}`)
         .then( result => result )
         .catch(error => Erro.getDetalhesErro(error));

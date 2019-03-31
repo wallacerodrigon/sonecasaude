@@ -8,6 +8,7 @@ import MedicosNavigator from "../pages/medicos";
 import MedicamentosNavigator from "../pages/medicamentos";
 import EstilosComuns, { FUNDO_ESCURO, BRANCO } from "../assets/estilos/estilos";
 import { TELA_PADRAO } from "../constants/AppScreenData";
+import MedicacaoHome from "../pages/medicamentos/MedicacaoHome";
 
 
 

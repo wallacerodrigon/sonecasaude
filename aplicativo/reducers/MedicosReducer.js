@@ -1,4 +1,4 @@
-import { INTERNET_INOPERANTE, MEUMED_CHANGE_FIELD, MEUMED_DESVINCULAR_FALHA, MEUMED_DESVINCULAR_SUCESSO, MEUMED_INICIANDO, MEUMED_RETORNO_FALHA, MEUMED_RETORNO_SUCESSO } from "../actions/MeusMedicosAction";
+import { INTERNET_INOPERANTE, MEUMED_CHANGE_FIELD, MEUMED_DESVINCULAR_FALHA, MEUMED_DESVINCULAR_SUCESSO, MEUMED_INICIANDO, MEUMED_RETORNO_FALHA, MEUMED_RETORNO_SUCESSO, MEUMED_VINCULAR } from "../actions/MeusMedicosAction";
 import { alterarState } from "./FuncoesGenericas";
 
 const INITIAL_STATE = {
@@ -39,6 +39,15 @@ export default (state = INITIAL_STATE, action) => {
                 bolExecutado: true,
                 
             };
+        }
+
+        case MEUMED_VINCULAR: {
+            let newState = {...state};
+            let listaMedicos = newState.listaMedicos.concat(action.medico);
+            return {
+                ...state,
+                listaMedicos
+            }
         }
 
         case MEUMED_DESVINCULAR_SUCESSO: {

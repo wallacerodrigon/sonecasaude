@@ -14,6 +14,8 @@ export default (state = INITIAL_STATE, action) => {
         case BUSMED_CHANGE_FIELD: {
             let newState = alterarState(state, action.fieldName, action.value);
             newState.buscaSucesso = false;
+            newState.bolVinculo = false;
+            newState.mensagemFalha = '';
             return newState;
         }
 

@@ -64,6 +64,12 @@ class ListaMedicos extends React.Component {
                              <FlatList  
                                 data= {this.props.listaMedicos}
                                 keyExtractor={medico => new String(medico.idMedico)}
+                                ListEmptyComponent= {
+                                    <Text style={[{padding: 20}, EstilosComuns.corVerde, EstilosComuns.textoCentralizado]}>
+                                        Você ainda não tem médicos cadastrados clique no botão abaixo para cadastrar.
+                                    </Text>
+
+                                }
                                 renderItem = {medico => {
                                     return (
                                         <BotaoOpacity onClick={() =>  this.props.navigation.navigate(TELA_ADD_MEDICOS.name, {medico}) }>
@@ -74,7 +80,7 @@ class ListaMedicos extends React.Component {
                                                     <Text style={EstilosComuns.italico}>{medico.item.descEmail != null ? medico.item.descEmail : ''}</Text>
                                                 </View>
 
-                                                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                                                <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
                                                     <BotaoExcluir onPress={() => this.confirmarDesvinculo(medico.item)} />        
                                                 </View>
                                             </View>                                    

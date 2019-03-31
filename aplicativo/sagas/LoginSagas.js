@@ -13,6 +13,7 @@ export function* efetuarLogin(action){
     try {
         const result = yield call(UsuarioServico.efetuarLogin, action);
         if (result.status === RETORNO_SUCESSO ){
+            //pegar o token e retirar os dados do usuário e depois armazenar no storage...
             atualizarValoresNaStorage(TAG_USUARIO_STORAGE, JSON.stringify(result.data.retorno) );
             atualizarValoresNaStorage(TAG_USUARIO_LOGADO, JSON.stringify("true") );
             yield put({type: LOGIN_SUCESSO, user: result.data.retorno})

@@ -9,7 +9,6 @@ export function* filtrarMedicos(action){
     yield put({type: BUSMED_INICIANDO});
     try {
         const retorno = yield call(MedicosServico.filtrarMedicos, action.nomeMedico, action.numCrm);
-        console.log('retorno:', retorno.data.retorno);
         if (retorno.status === RETORNO_SUCESSO){
             yield put({type: BUSMED_CONSULTA_SUCESSO,  listaMedicos: retorno.data.retorno});
         } else {

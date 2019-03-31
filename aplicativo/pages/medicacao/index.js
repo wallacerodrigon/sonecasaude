@@ -1,15 +1,13 @@
+import React from "react";
 import { createBottomTabNavigator } from 'react-navigation';
-import EstilosComuns, { VERDE, BRANCO, FUNDO, FUNDO_ESCURO, MARCADO, PRETO } from '../../assets/estilos/estilos';
+import EstilosComuns, { BRANCO, MARCADO, PRETO, VERDE } from '../../assets/estilos/estilos';
+import { BotaoFecharHeader } from '../../components/botao/Botao';
+import IconeTabBar from '../../components/comuns/IconeTabBar';
 import { TELA_CONTROLE_MEDICACAO } from '../../constants/AppScreenData';
 import ListaCompartilhamento from '../compartilhamento/ListaCompartilhamento';
-import ControleMedicacao from "./ControleMedicacao";
 import EstatisticaHistoricoUso from './EstatisticaHistoricoUso';
-import React from "react";
-import { Icon } from 'native-base';
-import { BotaoFecharHeader } from '../../components/botao/Botao';
 import HistoricoUsoPorData from './HistoricoUsoPorData';
 import Medicacao from './Medicacao';
-import IconeTabBar from '../../components/comuns/IconeTabBar';
 
 const MedicacoesNavigator = createBottomTabNavigator(
     {

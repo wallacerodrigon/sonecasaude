@@ -24,15 +24,15 @@ class CadastroCompartilhamento extends React.Component {
     }
 
     componentWillMount(){
-        this.props.buscarGrausParentesco();
+        //this.props.buscarGrausParentesco();
     }
 
     toggleTransporte(){
-        this.props.onToggleFieldSharing('compartilhouTransporte');
+        //this.props.onToggleFieldSharing('compartilhouTransporte');
     }
 
     toggleMedicacao(){
-        this.props.onToggleFieldSharing('compartilhouMedicacao');
+        //this.props.onToggleFieldSharing('compartilhouMedicacao');
     }    
 
     algumCamposObrigatorioEstaPreenchido(){

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View,FlatList } from 'react-native';
 import { connect } from "react-redux";
 import { buscaPorMedico, onChangeField, vincularMedico } from "../../actions/medicos/ProcuraMedicosAction";
+import { vinculaMedicoLocal } from "../../actions/MeusMedicosAction";
 import EstilosComuns, { FUNDO_CINZA_CLARO, VERDE } from '../../assets/estilos/estilos';
 import { BotaoLoading, BotaoOpacity, BotaoExcluir, BotaoConfigIcon } from '../../components/botao/Botao';
 import { InputTexto } from '../../components/input/InputTexto';
@@ -59,7 +60,8 @@ class ProcuraMedico extends React.Component {
         let botaoConfirma= {
             text: 'SIM',
             onPress: () =>  {
-                this.props.vincularMedico(medico);        
+                this.props.vincularMedico(medico);  
+                this.medicoVinculado = medico;      
             },
             style: 'destructive'
         };
@@ -77,6 +79,13 @@ class ProcuraMedico extends React.Component {
     componentDidUpdate(){
           if (this.props.bolVinculo || this.props.mensagemFalha != ''){
               MensagemInformativa(this.props.bolVinculo ? 'Vínculo efetuado com sucesso!' : this.props.mensagemFalha);
+
+              if (this.props.bolVinculo){
+                 // this.props.listaMedicosVinculados.push( this.medicoVinculado );
+                  //console.log(this.props.listaMedicosVinculados);
+                  this.props.vinculaMedicoLocal(this.medicoVinculado);
+              } 
+
           }
     }
 
@@ -84,7 +93,7 @@ class ProcuraMedico extends React.Component {
         return (
             <View style={EstilosComuns.container}>
                 <Text style={EstilosComuns.tituloJanelas}>Vincular Médico à conta</Text>
-                <Text style={[styles.nota, EstilosComuns.italico]}>Antes de incluir, verifique se seu médico já existe no aplicativo</Text>
+                <Text style={[styles.nota, EstilosComuns.italico]}>Antes de incluir, verifique se seu médico já existe no aplicativo buscando pelo nome ou CRM</Text>
                 <View style={EstilosComuns.bodyMain}>
                     
                     <View style={styles.containerBusca}>
@@ -94,19 +103,21 @@ class ProcuraMedico extends React.Component {
                             onChangeInput={value => this.props.onChangeField('nomeMedico', value)}
                             />
                         {/* 7 digitos + uf */}
-                        <InputTexto placeholder="Número do CRM (AAXXXXXXXX)" maxLength={10}
+                        <InputTexto placeholder="Número do CRM (UF + Número)" maxLength={10}
                             keyboardType={InputTexto.KEYBOARD_DEFAULT}
                             autoCapitalize="characters"
                             onChangeInput={value => this.props.onChangeField('numeroCrm', value)}
                             />
-                        <BotaoLoading carregaLoading={this.props.loading}  tituloBotao="Procurar" onClick={() => this.buscaPorMedico()}/>
+                        <BotaoLoading carregaLoading={this.props.loading}  tituloBotao="Consultar" onClick={() => this.buscaPorMedico()}/>
                     </View>
 
                     <View style={[styles.containerResultado]}>
-                           <Text style={styles.tituloResultado} >Resultado da consulta</Text>
                            <FlatList  
                                 data= {this.props.listaMedicosBusca}
                                 keyExtractor={medico => new String(medico.idMedico)}
+                                ListEmptyComponent= {
+                                    <Text style={[EstilosComuns.textoCentralizado, EstilosComuns.corVerde, styles.emptyResult]} >Nenhum resultado encontrado, informe os filtros e consulte!</Text>
+                                }
                                 renderItem = {medico => {
                                     return (
                                         <BotaoOpacity onClick={() =>  this.props.navigation.navigate(TELA_ADD_MEDICOS.name, {medico}) }>
@@ -179,9 +190,14 @@ const styles= StyleSheet.create({
         fontSize: 15,
         textAlign: 'center'
         
+    },
+
+    emptyResult: {
+        padding: 20,
+
     }
 
     
 })
 
-export default connect( mapStateToProps, {buscaPorMedico, onChangeField, vincularMedico})(ProcuraMedico);
+export default connect( mapStateToProps, {buscaPorMedico, onChangeField, vincularMedico, vinculaMedicoLocal})(ProcuraMedico);
