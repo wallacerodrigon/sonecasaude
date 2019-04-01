@@ -9,9 +9,10 @@ import { LOGIN_EFETUAR_LOGIN } from '../actions/LoginAction';
 //sagas
 import { buscarDadosEndereco, salvarCadastro, verificarExistenciaCpf } from './CadastrarUsuarioSagas';
 import { efetuarLogin } from "./LoginSagas";
-import { desvincularMedico, recuperarMedicos, salvarMedico } from './medicos/MeusMedicosSagas';
+import { desvincularMedico, recuperarMedicos, salvarMedico, buscarEspecialidades } from './medicos/MeusMedicosSagas';
 import { filtrarMedicos, vincularMedico } from './medicos/ProcuraMedicosSagas';
 import { recuperarSenha } from './RecuperarSenhaSagas';
+import { CADMED_SALVAR_MEDICOS, CADMED_BUSCAR_ESPECIALIDADES } from '../actions/medicos/CadastroMedicosAction';
 
 
 
@@ -33,7 +34,9 @@ import { recuperarSenha } from './RecuperarSenhaSagas';
     yield takeLatest(MEUMED_DESVINCULAR, desvincularMedico);
     yield takeLatest(BUSMED_CONSULTAR_MEDICOS, filtrarMedicos);
     yield takeLatest(BUSMED_VINCULAR, vincularMedico);
-    yield takeLatest(MEUMED_SALVAR, salvarMedico);
+    yield takeLatest(CADMED_SALVAR_MEDICOS, salvarMedico);
+    yield takeLatest(CADMED_BUSCAR_ESPECIALIDADES, buscarEspecialidades);
+    
 
     
   }

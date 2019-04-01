@@ -115,7 +115,7 @@ const EstilosComuns = StyleSheet.create({
     },
     bordaSeparacaoBlocos: {
         borderBottomWidth: 1,
-        borderBottomColor: BRANCO
+        borderBottomColor: FUNDO_CINZA_CLARO
     },
     card: {
         borderWidth: 1,

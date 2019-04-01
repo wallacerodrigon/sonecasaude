@@ -1,12 +1,15 @@
 import React from "react";
-import { View, Text, Picker, StyleSheet} from "react-native";
-import Botao from "../../components/botao/Botao";
+import { ActivityIndicator, View, Text, Picker, StyleSheet} from "react-native";
+import Botao, { BotaoLoading } from "../../components/botao/Botao";
 import {InputTextComMascara, InputTexto} from "../../components/input/InputTexto";
-import EstilosComuns from "../../assets/estilos/estilos";
-import { salvarMedico, onChangeField } from "../../actions/MeusMedicosAction";
+import EstilosComuns, { VERDE } from "../../assets/estilos/estilos";
+import { salvarMedico, onChangeField, buscarEspecialidades,resetarDados } from "../../actions/medicos/CadastroMedicosAction";
+import { buscarMeusMedicos } from "../../actions/MeusMedicosAction";
+
 import { connect } from "react-redux";
 import Validador from '../../utilitarios/Validador';
-import { MensagemErro } from "../../components/mensagens/Mensagens";
+import { MensagemErro, MensagemInformativa, MensagemCustomizada } from "../../components/mensagens/Mensagens";
+import { TELA_LISTA_MEDICOS } from "../../constants/AppScreenData";
 
 class AdicionaMedico extends React.Component {
 
@@ -20,7 +23,7 @@ class AdicionaMedico extends React.Component {
         let validador = new Validador();
 
         if (this.props.nomeMedico.trim() === '') dadosInvalidos += '- Nome do médico não informado!\n';
-        //if (this.props.codEspecialidade === null) dadosInvalidos += '- Especialidade não informada!\n';
+        if (this.props.codEspecialidade === null || this.props.codEspecialidade === -1) dadosInvalidos += '- Especialidade não informada!\n';
 
         //validar número do CRM
         if (this.props.numRegistroCrm != '' && ! validador.isCrmValido(this.props.numRegistroCrm)){
@@ -43,14 +46,67 @@ class AdicionaMedico extends React.Component {
         }
     }
 
+    componentDidMount(){
+        this.props.buscarEspecialidades();
+        const {state} = this.props.navigation.state;
+
+        if (state && state.params && state.params.medico){
+            console.log('alterando médico', medico);
+        }
+        //console.log('state:',state);
+    }
+
     salvarMedico(){
         let retornoValidacao = this.validarCampos();
         if (!retornoValidacao.bolValido){
             MensagemErro('Favor corrigir os dados inválidos: \n' + retornoValidacao.camposInvalidos);
             return false;
         }
-        //navigation.navigate(TELA_LISTA_MEDICOS.name)
-        console.log(this.props);
+        //
+        this.props.salvarMedico(this.props.medico);        
+    } 
+
+    componentDidUpdate(){
+        if (this.props.bolExecutado && this.props.bolSucesso){
+
+            let botaoOk= {
+                text: 'Ok',
+                onPress: () =>  {
+                    this.props.navigation.navigate(TELA_LISTA_MEDICOS.name);
+                    this.props.resetarDados();
+                    this.props.buscarMeusMedicos();
+                }
+            };
+    
+            MensagemCustomizada('Médico salvo com sucesso!', [botaoOk]);
+            return true;
+        }
+
+        if (this.props.bolExecutado && this.props.mensagemFalha && this.props.mensagemFalha != ''){
+            MensagemInformativa(this.props.mensagemFalha);
+        }
+    }
+
+    renderComboEspecialidades(){
+        if (this.props.listaEspecialidades){
+            let especialidades = [
+                {idEspecialidade: -1, nomeEspecialidade: 'Selecione uma especialidade'},
+                ...this.props.listaEspecialidades
+            ];
+
+
+            return <Picker
+                        mode="dialog"
+                        style={[EstilosComuns.corVerde, EstilosComuns.bordaSeparacaoBlocos]}
+                        onValueChange={value => this.props.onChangeField('codEspecialidade', value)}
+                        selectedValue={this.props.codEspecialidade}
+                    >
+                        {especialidades.map((especialidade, index) => {
+                            return <Picker.Item label={especialidade.nomeEspecialidade} value={especialidade.idEspecialidade}/>
+                        })  
+                        }
+                   </Picker>        
+        }
     }
 
     render(){
@@ -61,7 +117,9 @@ class AdicionaMedico extends React.Component {
                         value={this.props.nomeMedico}
                         onChangeInput={value => this.props.onChangeField('nomeMedico', value) }
                         />
-                    {/* <ComboEspecialidades {...this.props}/> */}
+                    {
+                        this.renderComboEspecialidades()
+                    }
 
                     <InputTexto placeholder="Número CRM (UF+Número)" maxLength={10}
                         value={this.props.numRegistroCrm}
@@ -85,29 +143,13 @@ class AdicionaMedico extends React.Component {
                 </View>
 
                 <View style={styles.tabDadosMedicoRodape}>
-                    <Botao tituloBotao='Adicionar' onClick={() =>  this.salvarMedico()}/>    
+                    <BotaoLoading carregaLoading={this.props.loading} tituloBotao='Salvar' onClick={() =>  this.salvarMedico()}
+                    />    
                 </View>
             </View>
         )
     }
 };
-
-const ComboEspecialidades = (props) => {
-    
-    const mapPicker = this.props.listaEspecialidades
-                .map(item => <Picker.Item label={item.nomeEspecialidade} value={item.idEspecialidade} />)
-
-    return (
-        <Picker
-            selectedValue={this.props.codEspecialidade}
-            mode="dialog"
-            style={EstilosComuns.corVerde}        
-            onValueChange={value => this.onChangeField('codEspecialidade', value)}
-        >
-            {mapPicker}
-        </Picker>
-    )
-}
 
 const styles= StyleSheet.create({
     containerBusca: {
@@ -137,16 +179,18 @@ const styles= StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    nomeMedico: state.medicosReducer.medico.nomeMedico, 
-    codEspecialidade: state.medicosReducer.medico.codEspecialidade,
-    numRegistroCrm: state.medicosReducer.medico.numRegistroCrm,
-    descEmail: state.medicosReducer.medico.descEmail,
-    numCelular:state.medicosReducer.medico.numCelular,
-    loading: state.medicosReducer.loading,
-    bolExecutado: state.medicosReducer.bolExecutado,
-    bolSucesso: state.medicosReducer.bolSucesso,
-    mensagemFalha: state.medicosReducer.mensagemFalha,
-    listaEspecialidades: state.medicosReducer.listaEspecialidades
+    medico: state.cadastroMedicosReducer.medico,
+    nomeMedico: state.cadastroMedicosReducer.medico.nomeMedico, 
+    codEspecialidade: state.cadastroMedicosReducer.medico.codEspecialidade,
+    numRegistroCrm: state.cadastroMedicosReducer.medico.numRegistroCrm,
+    descEmail: state.cadastroMedicosReducer.medico.descEmail,
+    numCelular:state.cadastroMedicosReducer.medico.numCelular,
+    loading: state.cadastroMedicosReducer.loading,
+    bolExecutado: state.cadastroMedicosReducer.bolExecutado,
+    bolSucesso: state.cadastroMedicosReducer.bolSucesso,
+    mensagemFalha: state.cadastroMedicosReducer.mensagemFalha,
+    listaEspecialidades: state.cadastroMedicosReducer.listaEspecialidades,
+    loadingEspecialidades: state.cadastroMedicosReducer.loadingEspecialidades
 })
 
-export default connect(mapStateToProps, {onChangeField, salvarMedico})(AdicionaMedico);
+export default connect(mapStateToProps, {onChangeField, buscarMeusMedicos, salvarMedico, buscarEspecialidades,resetarDados})(AdicionaMedico);

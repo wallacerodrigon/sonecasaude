@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableHighlight, ScrollView} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
-import { TELA_LISTA_MEDICOS, TELA_ADD_MEDICOS, TELA_LISTA_CLINICAS, TELA_ADD_CLINICA } from '../../constants/AppScreenData';
+import { TELA_LISTA_MEDICOS, TELA_ADD_MEDICOS, TELA_LISTA_CLINICAS, TELA_ADD_CLINICA, TELA_BUSCA_CLINICA } from '../../constants/AppScreenData';
 import { List, ListItem, Left, Thumbnail, Body, Button, Right, Container, Fab, Icon } from 'native-base';
 import Botao from '../../components/botao/Botao';
 
@@ -61,8 +61,8 @@ export default class ClinicasMedico extends React.Component {
                     containerStyle={{ }}
                     style={{ backgroundColor: "#04B486" }}
                     position="bottomRight"
-                    onPress={() => this.props.navigation.navigate(TELA_ADD_CLINICA.name) }>
-                     <Icon name="add" />
+                    onPress={() => this.props.navigation.navigate(TELA_BUSCA_CLINICA.name) }>
+                     <Icon name="search" />
                 </Fab>                   
             </View>
         )

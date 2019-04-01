@@ -55,6 +55,10 @@ class ListaMedicos extends React.Component {
         
     }
 
+    buscarDadosMedico(){
+        
+    }
+
     render() {
         return (
             <View style={EstilosComuns.container}>
@@ -72,7 +76,7 @@ class ListaMedicos extends React.Component {
                                 }
                                 renderItem = {medico => {
                                     return (
-                                        <BotaoOpacity onClick={() =>  this.props.navigation.navigate(TELA_ADD_MEDICOS.name, {medico}) }>
+                                        <BotaoOpacity onClick={() =>  this.buscarDadosMedico(medico)}>
                                             <View style={styles.containerMedico}>
                                                 <View style={{flex: 9, flexDirection: 'column'}}>
                                                     <Text  style={EstilosComuns.negrito}>{medico.item.nomeMedico}</Text>
@@ -95,7 +99,7 @@ class ListaMedicos extends React.Component {
                     position="bottomRight"
                     onPress={() => this.props.navigation.navigate(TELA_BUSCA_MEDICOS.name)}>
                     
-                     <Icon name="add" />
+                     <Icon name="search" />
                 </Fab>                   
             </View>
         )

@@ -28,3 +28,11 @@ export const MensagemConfirmacao= (pergunta, buttons) => {
         botoes
      );
 }
+
+export const MensagemCustomizada= (mensagem, buttons) => {
+    Alert.alert(
+        'Confirmação',
+        mensagem,
+        buttons
+     );
+}
