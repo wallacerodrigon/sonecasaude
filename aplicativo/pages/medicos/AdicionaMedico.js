@@ -112,6 +112,7 @@ class AdicionaMedico extends React.Component {
     render(){
         return (
             <View style={[styles.tabDadosMedico, EstilosComuns.backgroundPadrao]}>
+                <Text style={EstilosComuns.tituloJanelas}>Adicionar médico</Text>
                 <View style={styles.tabDadosMedicoCadastro}>
                     <InputTexto placeholder="Nome do médico" maxLength={50}
                         value={this.props.nomeMedico}

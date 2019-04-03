@@ -44,7 +44,6 @@ class Endereco extends React.Component {
                    this.props.estado.trim() != '' && 
                    this.props.cidade.trim() != '' && 
                    this.props.bairro.trim() != '' &&
-                   //this.props.complemento.trim() != '' &&
                    this.props.logradouro.trim() != ''){
             return true;
         } else {

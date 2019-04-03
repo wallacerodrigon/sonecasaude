@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableHighlight, ScrollView} from 'react-native';
+import {View, Text, TouchableHighlight, ScrollView, StyleSheet} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import { TELA_LISTA_MEDICOS, TELA_ADD_MEDICOS, TELA_LISTA_CLINICAS, TELA_ADD_CLINICA, TELA_BUSCA_CLINICA } from '../../constants/AppScreenData';
 import { List, ListItem, Left, Thumbnail, Body, Button, Right, Container, Fab, Icon } from 'native-base';
@@ -19,43 +19,10 @@ export default class ClinicasMedico extends React.Component {
 
     render() {
         return (
-            <View style={EstilosComuns.container}>
-                <Container style={[EstilosComuns.backgroundPadrao, EstilosComuns.bodyMain]}>
-                    <List>
-                        <ScrollView>
-                            <ListItem button>
-                                <Body>
-                                    <Text>Clínica da Família</Text>
-                                    <Text note numberOfLines={1} style={EstilosComuns.negrito}>UPA Ceilândia</Text>
-                                    <Text note numberOfLines={1}>
-                                        (61) 99999-9999
-                                        (61) 99999-9999
-                                    </Text>
-                                </Body>
-                                <Right>
-                                    <TouchableHighlight >
-                                        <Icon name="trash" active />
-                                    </TouchableHighlight>
-                                </Right>
-                            </ListItem>
-
-                            <ListItem button>
-                                <Body>
-                                    <Text>Clínica Redecor</Text>
-                                    <Text note numberOfLines={1} style={EstilosComuns.negrito}>Águas Claras</Text>
-                                    <Text note numberOfLines={1}>(61) 99999-9999</Text>
-                                </Body>
-                                <Right>
-                                    <TouchableHighlight >
-                                        <Icon name="trash" active />
-                                    </TouchableHighlight>
-                                </Right>
-                            </ListItem>
-
-                        </ScrollView>
-                    </List>
-
-                </Container>
+            <View style={[styles.tabDadosMedico, EstilosComuns.backgroundPadrao]}>
+                <Text style={EstilosComuns.tituloJanelas}>Clínicas do médico</Text>
+                <View style={styles.tabDadosMedicoCadastro}>
+                </View>
 
                 <Fab
                     containerStyle={{ }}
@@ -69,3 +36,29 @@ export default class ClinicasMedico extends React.Component {
     };
 }
 
+const styles= StyleSheet.create({
+    containerBusca: {
+        flex: 2,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: 5 ,
+    },
+    containerTabsMedico: {
+        flex: 8,
+        borderWidth: 1
+    },
+    tabDadosMedico: {
+        flex: 1, 
+        flexDirection: 'column',
+        justifyContent: 'space-between'
+    },
+    tabDadosMedicoCadastro: {
+        flex: 9,
+        flexDirection: 'column'
+    },
+    tabDadosMedicoRodape: {
+        flex: 1,
+        padding: 5,
+        marginBottom: 5
+    }
+})

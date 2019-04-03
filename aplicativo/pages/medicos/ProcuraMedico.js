@@ -73,19 +73,20 @@ class ProcuraMedico extends React.Component {
         return (
             <View style={EstilosComuns.container}>
                 <Text style={EstilosComuns.tituloJanelas}>Vincular Médico à conta</Text>
-                <Text style={[styles.nota, EstilosComuns.italico]}>Antes de incluir, verifique se seu médico já existe no aplicativo buscando pelo nome ou CRM</Text>
-                <View style={EstilosComuns.bodyMain}>
+                {/* <Text style={[styles.nota, EstilosComuns.italico]}>Antes de incluir, verifique se seu médico já existe no aplicativo buscando pelo nome ou CRM</Text>*/}
+                <View style={EstilosComuns.bodyMain}> 
                     
                     <View style={styles.containerBusca}>
-                        <InputTexto placeholder="Nome do médico" maxLength={50}
+                         <InputTexto placeholder="Nome do médico" maxLength={50}
                             autoCapitalize="characters"
+                            value={this.props.nomeMedico}
                             keyboardType={InputTexto.KEYBOARD_DEFAULT}
                             onChangeInput={value => this.props.onChangeField('nomeMedico', value)}
                             />
-                        {/* 7 digitos + uf */}
                         <InputTexto placeholder="Número do CRM (UF + Número)" maxLength={10}
                             keyboardType={InputTexto.KEYBOARD_DEFAULT}
                             autoCapitalize="characters"
+                            value={this.props.numeroCrm}                            
                             onChangeInput={value => this.props.onChangeField('numeroCrm', value)}
                             />
                         <BotaoLoading carregaLoading={this.props.loading}  tituloBotao="Consultar" onClick={() => this.buscaPorMedico()}/>
@@ -116,14 +117,14 @@ class ProcuraMedico extends React.Component {
                                     )
                                 }}
                             />                           
-                    </View>
+                    </View> 
 
-                 <Fab
-                    style={{ backgroundColor: VERDE }}
-                    position="bottomRight"
-                    onPress={() => this.props.navigation.navigate(TELA_ADD_MEDICOS.name)}>
-                     <Icon name="add" />
-                </Fab>                                         
+                    <Fab
+                        style={{ backgroundColor: VERDE }}
+                        position="bottomRight"
+                        onPress={() => this.props.navigation.navigate(TELA_ADD_MEDICOS.name)}>
+                        <Icon name="add" />
+                    </Fab>                                         
 
                 </View>
             </View>
@@ -148,11 +149,12 @@ const styles= StyleSheet.create({
         flex: 2,
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        padding: 5 ,
+        padding: 10
     },
     
     containerResultado: {
-        flex: 6,
+        flex: 5,
+        //padding: 10
     },
     containerMedico: {
         flex: 1, 

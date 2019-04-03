@@ -12,6 +12,7 @@ const AdicionaMedicoTab  = createBottomTabNavigator(
         adicionarMedico: {
             screen: AdicionaMedico,
             navigationOptions: () => ({
+                title: 'Novo médico',
                 tabBarIcon: () => (
                     <IconeTabBar iconName="medkit"/>
                 )
@@ -19,6 +20,7 @@ const AdicionaMedicoTab  = createBottomTabNavigator(
         },   
         clinicasMedico: {
             screen: ClinicasMedico,
+            title: 'Clínicas do médico',
             navigationOptions: () => ({
                 tabBarIcon: () => (
                     <IconeTabBar iconName="business"/>

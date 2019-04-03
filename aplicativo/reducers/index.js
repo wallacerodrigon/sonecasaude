@@ -6,6 +6,9 @@ import CadastroReducer from "./CadastroReducer";
 import MedicosReducer from "./MedicosReducer";
 import ProcuraMedicosReducer from "./medicos/ProcuraMedicosReducer";
 import CadastroMedicosReducer from "./medicos/CadastroMedicosReducer";
+import ClinicasReducer from "./clinicas/ClinicasReducer";
+import ProcuraClinica from "../pages/medicos/ProcuraClinica";
+import ProcuraClinicaReducer from "./clinicas/ProcuraClinicaReducer";
 
 export default combineReducers({
     esqueciSenhaReducer: EsqueciSenhaReducer,
@@ -13,5 +16,7 @@ export default combineReducers({
     cadastroReducer: CadastroReducer,
     medicosReducer: MedicosReducer,
     procuraMedicosReducer: ProcuraMedicosReducer,
-    cadastroMedicosReducer: CadastroMedicosReducer
+    cadastroMedicosReducer: CadastroMedicosReducer,
+    clinicaReducer: ClinicasReducer,
+    procuraClinicaReducer: ProcuraClinicaReducer
 })

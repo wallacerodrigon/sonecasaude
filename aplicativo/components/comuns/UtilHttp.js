@@ -16,7 +16,7 @@ export const setAuthHeader = async () => {
     }
     axiosApi.defaults.headers.post['Content-Type'] = 'application/json';
     axiosApi.defaults.responseEncoding = 'utf-8';
-
+    //axiosApi.timeout=5000;
 }
 
 setAuthHeader()

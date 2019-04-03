@@ -1,17 +1,15 @@
-import React from 'react';
-import { StyleSheet, Text, View,FlatList } from 'react-native';
-import { connect } from "react-redux";
-import { buscaPorMedico, onChangeField, vincularMedico } from "../../actions/medicos/ProcuraMedicosAction";
-import { vinculaMedicoLocal } from "../../actions/MeusMedicosAction";
-import EstilosComuns, { FUNDO_CINZA_CLARO, VERDE } from '../../assets/estilos/estilos';
-import { BotaoLoading, BotaoOpacity, BotaoExcluir, BotaoConfigIcon } from '../../components/botao/Botao';
-import { InputTexto } from '../../components/input/InputTexto';
-import { MensagemErro, MensagemConfirmacao, MensagemInformativa } from "../../components/mensagens/Mensagens";
-import { TELA_BUSCA_MEDICOS, TELA_ADD_MEDICOS, TELA_ADD_CLINICA, TELA_BUSCA_CLINICA } from '../../constants/AppScreenData';
-import Validador from '../../utilitarios/Validador';
 import { Fab, Icon } from 'native-base';
+import React from 'react';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { connect } from "react-redux";
+import EstilosComuns, { FUNDO_CINZA_CLARO, VERDE } from '../../assets/estilos/estilos';
+import { BotaoLoading, BotaoOpacity } from '../../components/botao/Botao';
+import { InputTexto } from '../../components/input/InputTexto';
+import { MensagemConfirmacao, MensagemInformativa } from "../../components/mensagens/Mensagens";
+import { TELA_ADD_CLINICA, TELA_BUSCA_CLINICA } from '../../constants/AppScreenData';
+import { onChangeFieldBusca, buscarClinica, vincularClinica, desvincularClinica } from "../../actions/clinicas/CadastroClinicasAction";
 
-class ProcuraMedico extends React.Component {
+class ProcuraClinica extends React.Component {
     static navigationOptions = {
         title: TELA_BUSCA_CLINICA.title,
       };
@@ -19,29 +17,22 @@ class ProcuraMedico extends React.Component {
     constructor(props){
         super(props);
     }
-
-    buscaPorClinica(){
-        // let bolNomeVazio = this.props.nomeMedico == null || this.props.nomeMedico == '';
-        // let bolCrmVazio =  this.props.numeroCrm == null || this.props.numeroCrm == '';
-        // if (bolNomeVazio && bolCrmVazio){
-        //     MensagemErro('Nome da clínica e da cidade devem ser informadas para buscar por uma clínica.');
-        //     return false;
-        // }
-
-        // if (! bolCrmVazio && !new Validador().isCrmValido(this.props.numeroCrm) ){
-        //     MensagemErro('O número do CRM deve estar no formato: UF+NÚMERO');
-        //     return false;
-        // }
-
-        // this.props.buscaPorMedico(this.props.nomeMedico, this.props.numeroCrm);
+    
+    buscarClinicas(){
+        if (this.props.nomeClinica.trim() == ''){
+            MensagemInformativa('Informe o nome da clínica para filtrar');
+            return false;
+        }
+        this.props.buscarClinica(this.props.nomeClinica);
     }
 
-    confirmarVinculo(medico){
+    confirmarVinculo(clinica){
         let botaoConfirma= {
             text: 'SIM',
             onPress: () =>  {
-              //  this.props.vincularMedico(medico);  
-              //  this.medicoVinculado = medico;      
+                //todo: falta pegar o código do médico
+                this.props.vincularClinica(clinica.idClinica, 1);
+                this.clinicaVinculada = clinica;      
             },
             style: 'destructive'
         };
@@ -51,67 +42,62 @@ class ProcuraMedico extends React.Component {
             style: 'cancel'
         };
 
-        MensagemConfirmacao(`Você realmente deseja vincular esta clinica ao Dr(a) ${medico.nomeMedico}?`, 
+        MensagemConfirmacao(`Você realmente deseja vincular esta clinica ao Dr(a)?`, 
             [botaoConfirma, botaoDescarta]
         );        
     }
 
     componentDidUpdate(){
-          if (this.props.bolVinculo || this.props.mensagemFalha != ''){
-              MensagemInformativa(this.props.bolVinculo ? 'Vínculo efetuado com sucesso!' : this.props.mensagemFalha);
+          if (this.props.bolVinculado || this.props.mensagemFalha != ''){
+              MensagemInformativa(this.props.bolVinculado ? 'Ação efetuada com sucesso!' : this.props.mensagemFalha);
 
             //   if (this.props.bolVinculo){
             //       this.props.vinculaMedicoLocal(this.medicoVinculado);
             //   } 
 
-          }
+         }
     }
 
     onChangeField(field,value){
-        //this.props.onChangeField(field, value);
+        this.props.onChangeFieldBusca(field, value);
     }
 
     render() {
         return (
             <View style={EstilosComuns.container}>
                 <Text style={EstilosComuns.tituloJanelas}>Vincular clínica à médico</Text>
-                <Text style={[styles.nota, EstilosComuns.italico]}>Antes de incluir, verifique se a clínica já existe no aplicativo efetuando a busca pelos dados abaixo</Text>
+                {/* <Text style={[styles.nota, EstilosComuns.italico]}>Antes de incluir, verifique se a clínica já existe no aplicativo efetuando a busca pelos dados abaixo</Text> */}
                 <View style={EstilosComuns.bodyMain}>
                     
                     <View style={styles.containerBusca}>
                         <InputTexto placeholder="Nome da clínica" maxLength={50}
                             autoCapitalize="characters"
+                            value={this.props.nomeClinica}
                             keyboardType={InputTexto.KEYBOARD_DEFAULT}
                             onChangeInput={value => this.onChangeField('nomeClinica', value)}
-                            />
-                        {/* 7 digitos + uf */}
-                        <InputTexto placeholder="Nome da cidade" maxLength={50}
-                            autoCapitalize="characters"
-                            keyboardType={InputTexto.KEYBOARD_DEFAULT}
-                            onChangeInput={value => this.onChangeField('nomeCidade', value)}
                             />
                         <BotaoLoading carregaLoading={this.props.loading}  tituloBotao="Consultar" onClick={() => this.buscarClinicas()}/>
                     </View>
 
                     <View style={[styles.containerResultado]}>
                            <FlatList  
-                                data= {this.props.listaMedicosBusca}
-                                keyExtractor={medico => new String(medico.idMedico)}
+                                data= {this.props.listaClinicas}
+                                keyExtractor={clinica => new String(clinica.idClinica)}
                                 ListEmptyComponent= {
-                                    <Text style={[EstilosComuns.textoCentralizado, EstilosComuns.corVerde, styles.emptyResult]} >Nenhum resultado encontrado, informe os filtros e consulte!</Text>
+                                    <Text style={[EstilosComuns.textoCentralizado, EstilosComuns.corVerde, styles.emptyResult]} >Nenhum resultado encontrado, informe os filtros para consultar!</Text>
                                 }
-                                renderItem = {medico => {
+                                renderItem = {clinica => {
                                     return (
                                         <BotaoOpacity>
                                             <View style={styles.containerMedico}>
                                                 <View style={{flex: 9, flexDirection: 'column'}}>
-                                                    <Text  style={EstilosComuns.negrito}>{medico.item.nomeMedico}</Text>
-                                                    <Text  style={EstilosComuns.italico}>{medico.item.nomeEspecialidade}</Text>
-                                                    <Text style={EstilosComuns.italico}>{medico.item.descEmail != null ? medico.item.descEmail : ''}</Text>
+                                                    <Text  style={EstilosComuns.negrito}>{clinica.item.nomeClinica}</Text>
+                                                    <Text  style={EstilosComuns.italico}>{clinica.item.numTelefone}</Text>
+                                                    <Text style={EstilosComuns.italico}>{clinica.item.nomeCidade != null ? clinica.item.nomeCidade : ''}</Text>
                                                 </View>
 
                                                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                                                    <Icon name="link" style={{color: 'blue'}} onPress={() => this.confirmarVinculo(medico.item)} />        
+                                                    <Icon name="link" style={{color: 'blue'}} onPress={() => this.confirmarVinculo(clinica.item)} />        
                                                 </View>                                                
                                             </View>                                    
                                         </BotaoOpacity>
@@ -134,14 +120,12 @@ class ProcuraMedico extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    nomeMedico: state.procuraMedicosReducer.nomeMedico,
-    numeroCrm: state.procuraMedicosReducer.numeroCrm,
-    loading: state.procuraMedicosReducer.loading,
-    buscaSucesso: state.procuraMedicosReducer.buscaSucesso,
-    mensagemFalha: state.procuraMedicosReducer.mensagemFalha,
-    buscaFalha: state.procuraMedicosReducer.buscaFalha,
-    listaMedicosBusca: state.procuraMedicosReducer.listaMedicosBusca,
-    bolVinculo: state.procuraMedicosReducer.bolVinculo
+    nomeClinica: state.procuraClinicaReducer.nomeClinica,
+    loading: state.procuraClinicaReducer.loading,
+    buscaSucesso: state.procuraClinicaReducer.buscaSucesso,
+    bolVinculado: state.procuraClinicaReducer.bolVinculado,
+    mensagemFalha: state.procuraClinicaReducer.mensagemFalha,
+    listaClinicas: state.procuraClinicaReducer.listaClinicas
 })
 
 
@@ -149,12 +133,12 @@ const styles= StyleSheet.create({
     containerBusca: {
         flex: 2,
         flexDirection: 'column',
-        justifyContent: 'flex-start',
-        padding: 5 ,
+        padding: 8
+
     },
     
     containerResultado: {
-        flex: 6,
+        flex: 5,
     },
     containerMedico: {
         flex: 1, 
@@ -182,4 +166,7 @@ const styles= StyleSheet.create({
     
 })
 
-export default connect( mapStateToProps, {buscaPorMedico, onChangeField, vincularMedico, vinculaMedicoLocal})(ProcuraMedico);
+export default connect( mapStateToProps, 
+    {onChangeFieldBusca, buscarClinica,vincularClinica, desvincularClinica}
+    )
+(ProcuraClinica);

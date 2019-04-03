@@ -98,7 +98,6 @@ class ListaMedicos extends React.Component {
                     style={{ backgroundColor: VERDE }}
                     position="bottomRight"
                     onPress={() => this.props.navigation.navigate(TELA_BUSCA_MEDICOS.name)}>
-                    
                      <Icon name="search" />
                 </Fab>                   
             </View>

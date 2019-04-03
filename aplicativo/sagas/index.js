@@ -1,20 +1,19 @@
 import { takeLatest } from 'redux-saga/effects';
 import { CADUSU_BUSCA_CEP, CADUSU_CADASTRAR_USUARIO, CADUSU_VERIFICA_CPF } from '../actions/CadastroAction';
+import { CADCLI_BUSCA_CLINICA, CADCLI_DESVINCULAR_CLINICA, CADCLI_SALVAR_CLINICA, CADCLI_VINCULAR_CLINICA } from '../actions/clinicas/CadastroClinicasAction';
 import { RECSEN_RECUPERAR } from '../actions/EsqueciSenhaAction';
+import { LOGIN_EFETUAR_LOGIN } from '../actions/LoginAction';
+import { CADMED_BUSCAR_ESPECIALIDADES, CADMED_SALVAR_MEDICOS } from '../actions/medicos/CadastroMedicosAction';
 import { BUSMED_CONSULTAR_MEDICOS, BUSMED_VINCULAR } from '../actions/medicos/ProcuraMedicosAction';
 //actions
-import { MEUMED_CONSULTAR, MEUMED_DESVINCULAR, MEUMED_SALVAR } from '../actions/MeusMedicosAction';
-import { LOGIN_EFETUAR_LOGIN } from '../actions/LoginAction';
-
+import { MEUMED_CONSULTAR, MEUMED_DESVINCULAR } from '../actions/MeusMedicosAction';
 //sagas
 import { buscarDadosEndereco, salvarCadastro, verificarExistenciaCpf } from './CadastrarUsuarioSagas';
+import { buscarClinicas, salvarClinica, vincularDesvincularClinica } from './clinicas/ClinicasSagas';
 import { efetuarLogin } from "./LoginSagas";
-import { desvincularMedico, recuperarMedicos, salvarMedico, buscarEspecialidades } from './medicos/MeusMedicosSagas';
+import { buscarEspecialidades, desvincularMedico, recuperarMedicos, salvarMedico } from './medicos/MeusMedicosSagas';
 import { filtrarMedicos, vincularMedico } from './medicos/ProcuraMedicosSagas';
 import { recuperarSenha } from './RecuperarSenhaSagas';
-import { CADMED_SALVAR_MEDICOS, CADMED_BUSCAR_ESPECIALIDADES } from '../actions/medicos/CadastroMedicosAction';
-
-
 
 
   
@@ -38,7 +37,12 @@ import { CADMED_SALVAR_MEDICOS, CADMED_BUSCAR_ESPECIALIDADES } from '../actions/
     yield takeLatest(CADMED_BUSCAR_ESPECIALIDADES, buscarEspecialidades);
     
 
-    
+    //clinicas
+     yield takeLatest(CADCLI_SALVAR_CLINICA, salvarClinica);
+     yield takeLatest(CADCLI_VINCULAR_CLINICA, vincularDesvincularClinica);
+     yield takeLatest(CADCLI_DESVINCULAR_CLINICA, vincularDesvincularClinica);
+     yield takeLatest(CADCLI_BUSCA_CLINICA, buscarClinicas);
+
   }
   
   export default rootSaga;
