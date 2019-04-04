@@ -2,7 +2,7 @@ import { Fab, Icon } from 'native-base';
 import React from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { buscarMeusMedicos, desvinculaMedico, onChangeField } from "../../actions/MeusMedicosAction";
+import { buscarMeusMedicos, desvinculaMedico, onChangeField, buscarMedicoEdicao } from "../../actions/MeusMedicosAction";
 import EstilosComuns, { FUNDO_CINZA_CLARO, VERDE } from '../../assets/estilos/estilos';
 import { BotaoExcluir, BotaoFecharHeader, BotaoOpacity } from '../../components/botao/Botao';
 import { MensagemConfirmacao, MensagemInformativa } from "../../components/mensagens/Mensagens";
@@ -24,24 +24,28 @@ class ListaMedicos extends React.Component {
         this.props.buscarMeusMedicos();
     }    
 
-    componentDidUpdate(){
+    componentDidUpdate(prevProps, prevState){
         if (this.props.bolDesvinculo && this.props.bolExecutado){
             MensagemInformativa(this.props.mensagemFalha ? this.props.mensagemFalha: 'Médico desvinculado da sua lista com sucesso!');
             this.props.onChangeField('bolDesvinculo', false);
         }
             
+        let bolEditando = !prevProps.bolEdita && this.props.bolEdita;
+        let bolTemMensagem = this.props.mensagemFalha != '';
+
+        if (bolEditando && !bolTemMensagem){
+            this.props.navigation.navigate(TELA_ADD_MEDICOS.name);
+        } else if (bolEditando && bolTemMensagem){
+            MensagemInformativa(this.props.mensagemFalha);
+        }
     }
 
     confirmarDesvinculo(medico){
-        // text?: string;
-        // onPress?: () => void;
-        // style?: "default" | "cancel" | "destructive";        
         let botaoConfirma= {
             text: 'SIM',
             onPress: () =>  {
                 this.props.desvinculaMedico(medico);        
-            },
-            style: 'destructive'
+            }
         };
 
         let botaoDescarta= {
@@ -55,8 +59,10 @@ class ListaMedicos extends React.Component {
         
     }
 
-    buscarDadosMedico(){
-        
+    buscarDadosMedico(medico){
+        //vai buscar no endPoint e carregar as clínicas do médico e o que mais para mostrar na tela de forma
+        //a buscar os dados atualizados
+       this.props.buscarMedicoEdicao(medico.idMedico);
     }
 
     render() {
@@ -76,7 +82,7 @@ class ListaMedicos extends React.Component {
                                 }
                                 renderItem = {medico => {
                                     return (
-                                        <BotaoOpacity onClick={() =>  this.buscarDadosMedico(medico)}>
+                                        <BotaoOpacity onClick={() =>  this.buscarDadosMedico(medico.item)}>
                                             <View style={styles.containerMedico}>
                                                 <View style={{flex: 9, flexDirection: 'column'}}>
                                                     <Text  style={EstilosComuns.negrito}>{medico.item.nomeMedico}</Text>
@@ -111,10 +117,14 @@ const mapStateToProps = state => {
     mensagemFalha: state.medicosReducer.mensagemFalha,
     bolExecutado: state.medicosReducer.bolExecutado,
     bolDesvinculo: state.medicosReducer.bolDesvinculo,
-    loading: state.medicosReducer.loading
+    loading: state.medicosReducer.loading,
+    bolEdita: state.medicosReducer.bolEdita 
 }}
 
-export default connect(mapStateToProps, {desvinculaMedico, buscarMeusMedicos, onChangeField})(ListaMedicos);
+export default connect(
+    mapStateToProps, 
+    {desvinculaMedico, buscarMeusMedicos, onChangeField, buscarMedicoEdicao})
+(ListaMedicos);
 
 
 const styles = StyleSheet.create({

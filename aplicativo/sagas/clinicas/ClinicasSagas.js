@@ -22,7 +22,7 @@ export function* salvarClinica(action){
 
     }}
 
-export function* vincularDesvincularClinica(action){
+export function* vincularClinica(action){
     yield put({type: CADCLI_BUSCA_CLINICA_INICIANDO});
     try {
         const retorno = yield call(ClinicaServico.vincularClinicaMedico, action.codClinica, action.codMedico);
@@ -40,7 +40,8 @@ export function* vincularDesvincularClinica(action){
         }
 
 
-    }}
+    }
+}
 
 export function* buscarClinicas(action){
     yield put({type: CADCLI_BUSCA_CLINICA_INICIANDO});

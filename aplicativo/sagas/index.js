@@ -3,15 +3,15 @@ import { CADUSU_BUSCA_CEP, CADUSU_CADASTRAR_USUARIO, CADUSU_VERIFICA_CPF } from 
 import { CADCLI_BUSCA_CLINICA, CADCLI_DESVINCULAR_CLINICA, CADCLI_SALVAR_CLINICA, CADCLI_VINCULAR_CLINICA } from '../actions/clinicas/CadastroClinicasAction';
 import { RECSEN_RECUPERAR } from '../actions/EsqueciSenhaAction';
 import { LOGIN_EFETUAR_LOGIN } from '../actions/LoginAction';
-import { CADMED_BUSCAR_ESPECIALIDADES, CADMED_SALVAR_MEDICOS } from '../actions/medicos/CadastroMedicosAction';
+import { CADMED_BUSCAR_ESPECIALIDADES, CADMED_SALVAR_MEDICOS, CADMED_DESVINCULAR_CLINICA } from '../actions/medicos/CadastroMedicosAction';
 import { BUSMED_CONSULTAR_MEDICOS, BUSMED_VINCULAR } from '../actions/medicos/ProcuraMedicosAction';
 //actions
-import { MEUMED_CONSULTAR, MEUMED_DESVINCULAR } from '../actions/MeusMedicosAction';
+import { MEUMED_CONSULTAR, MEUMED_DESVINCULAR, MEUMED_EDITAR_MEDICO } from '../actions/MeusMedicosAction';
 //sagas
 import { buscarDadosEndereco, salvarCadastro, verificarExistenciaCpf } from './CadastrarUsuarioSagas';
-import { buscarClinicas, salvarClinica, vincularDesvincularClinica } from './clinicas/ClinicasSagas';
+import { buscarClinicas, salvarClinica, vincularClinica } from './clinicas/ClinicasSagas';
 import { efetuarLogin } from "./LoginSagas";
-import { buscarEspecialidades, desvincularMedico, recuperarMedicos, salvarMedico } from './medicos/MeusMedicosSagas';
+import { buscarEspecialidades, desvincularMedico, recuperarMedicos, salvarMedico, buscarMedicoEdicao, desvincularClinica } from './medicos/MeusMedicosSagas';
 import { filtrarMedicos, vincularMedico } from './medicos/ProcuraMedicosSagas';
 import { recuperarSenha } from './RecuperarSenhaSagas';
 
@@ -31,16 +31,20 @@ import { recuperarSenha } from './RecuperarSenhaSagas';
     //medicos
     yield takeLatest(MEUMED_CONSULTAR, recuperarMedicos);
     yield takeLatest(MEUMED_DESVINCULAR, desvincularMedico);
+    yield takeLatest(MEUMED_EDITAR_MEDICO, buscarMedicoEdicao);
+
     yield takeLatest(BUSMED_CONSULTAR_MEDICOS, filtrarMedicos);
     yield takeLatest(BUSMED_VINCULAR, vincularMedico);
+
+    //cadastro de médicos
     yield takeLatest(CADMED_SALVAR_MEDICOS, salvarMedico);
     yield takeLatest(CADMED_BUSCAR_ESPECIALIDADES, buscarEspecialidades);
+    yield takeLatest(CADMED_DESVINCULAR_CLINICA, desvincularClinica);
     
 
     //clinicas
      yield takeLatest(CADCLI_SALVAR_CLINICA, salvarClinica);
-     yield takeLatest(CADCLI_VINCULAR_CLINICA, vincularDesvincularClinica);
-     yield takeLatest(CADCLI_DESVINCULAR_CLINICA, vincularDesvincularClinica);
+     yield takeLatest(CADCLI_VINCULAR_CLINICA, vincularClinica);
      yield takeLatest(CADCLI_BUSCA_CLINICA, buscarClinicas);
 
   }

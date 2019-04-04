@@ -66,6 +66,13 @@ const alterarMedico = async (medico) => {
 
 };
 
+const buscarMedico = (codMedico) => {
+    console.log(codMedico);
+    return axiosApi.get(`${URL_BACKEND}${URI}/medico?codMedico=${codMedico}`)
+        .then( result => result )
+        .catch(error => Erro.getDetalhesErro(error));
+
+}
 
 const obterEspecialidades = async () => {
     return axiosApi.get(`${URL_BACKEND}${URI_ESPECIALIDADES}`)
@@ -87,5 +94,6 @@ export default {
     vincularMedico,
     obterEspecialidades,
     salvarMedico,
-    alterarMedico
+    alterarMedico,
+    buscarMedico
 }

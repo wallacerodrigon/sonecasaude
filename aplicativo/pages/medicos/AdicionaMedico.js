@@ -17,6 +17,12 @@ class AdicionaMedico extends React.Component {
         super(props);
     }
 
+    //só para documentar
+    componentWillMount(){
+        this.props.buscarEspecialidades();
+    } //antes do render
+
+
     validarCampos(){
 
         let dadosInvalidos = '';
@@ -46,13 +52,30 @@ class AdicionaMedico extends React.Component {
         }
     }
 
+    //executado com o setProps
+    // componentWillReceiveProps(nextProps){
+
+    // }
+
+    //se deve ou não renderizar a tela
+  //  shouldComponentUpdate(nextProps, nextState){}
+
+
+    //apos sofrer uma alteração de pros ou state: força update e render depois
+    //componentWillUpdate(nextProps, nextState){}
+
+    //após chegar a alteração: idem do acima
+    //componentDidUpdate(prevProps, prevState){}
+
+    //antes de finalizar o app
+    //componentWillUnmount(){}
+
+    //executado depois do render
     componentDidMount(){
-        this.props.buscarEspecialidades();
+        //console.log('did mount:',this.props);
         const {state} = this.props.navigation.state;
 
-        if (state && state.params && state.params.medico){
-            console.log('alterando médico', medico);
-        }
+        console.log('alterando médico', this.props.nomeMedico, this.props.idEspecialidade);
         //console.log('state:',state);
     }
 
@@ -72,13 +95,13 @@ class AdicionaMedico extends React.Component {
             let botaoOk= {
                 text: 'Ok',
                 onPress: () =>  {
-                    this.props.navigation.navigate(TELA_LISTA_MEDICOS.name);
-                    this.props.resetarDados();
+                    //this.props.navigation.navigate(TELA_LISTA_MEDICOS.name);
+                    //this.props.resetarDados();
                     this.props.buscarMeusMedicos();
                 }
             };
     
-            MensagemCustomizada('Médico salvo com sucesso!', [botaoOk]);
+            MensagemCustomizada('Médico salvo com sucesso. Caso deseje vincular clínicas a este médico, selecionie a próxima aba!', [botaoOk]);
             return true;
         }
 
@@ -113,6 +136,8 @@ class AdicionaMedico extends React.Component {
         return (
             <View style={[styles.tabDadosMedico, EstilosComuns.backgroundPadrao]}>
                 <Text style={EstilosComuns.tituloJanelas}>Adicionar médico</Text>
+                <Text>Id medico: {this.props.medico.idMedico}</Text>
+
                 <View style={styles.tabDadosMedicoCadastro}>
                     <InputTexto placeholder="Nome do médico" maxLength={50}
                         value={this.props.nomeMedico}

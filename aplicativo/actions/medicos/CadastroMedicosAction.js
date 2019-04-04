@@ -12,6 +12,9 @@ export const CADMED_ESPECIALIDADE_INICIA = "CADMED_ESPECIALIDADE_INICIA";
 export const CADMED_ESPECIALIDADE_SUCESSO = "CADMED_ESPECIALIDADE_SUCESSO";
 export const CADMED_ESPECIALIDADE_FALHA = "CADMED_ESPECIALIDADE_FALHA";
 
+export const CADMED_VINCULO_DESVINCULO_SUCESSO = "CADMED_VINCULO_DESVINCULO_SUCESSO";
+export const CADMED_VINCULO_DESVINCULO_FALHA = "CADMED_VINCULO_DESVINCULO_FALHA";
+export const CADMED_DESVINCULAR_CLINICA = "CADMED_DESVINCULAR_CLINICA";
 
 export const onChangeField = (fieldName, value) => ({
     type: CADMED_CHANGE_FIELD,
@@ -31,3 +34,9 @@ export const buscarEspecialidades = () => ({
 export const resetarDados = () => ({
     type: CADMED_RESET
 })
+
+export const desvincularClinica = (codClinica, codMedico) => ({
+    type: CADMED_DESVINCULAR_CLINICA,
+    codClinica, codMedico
+})
+

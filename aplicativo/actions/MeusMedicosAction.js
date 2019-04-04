@@ -13,6 +13,12 @@ export const MEUMED_SALVO_SUCESSO = "MEUMED_SALVO_SUCESSO";
 export const MEUMED_RETORNO_SUCESSO = "MEUMED_RETORNO_SUCESSO";
 export const MEUMED_RETORNO_FALHA = "MEUMED_RETORNO_FALHA";
 
+export const MEUMED_EDITAR_MEDICO_INICIA = "MEUMED_EDITAR_MEDICO_INICIA";
+export const MEUMED_EDITAR_MEDICO = "MEUMED_EDITAR_MEDICO";
+export const MEUMED_EDITAR_MEDICO_SUCESSO = "MEUMED_EDITAR_MEDICO_SUCESSO";
+export const MEUMED_EDITAR_MEDICO_FALHA = "MEUMED_EDITAR_MEDICO_FALHA";
+
+
 export const buscarMeusMedicos = () =>({
     type: MEUMED_CONSULTAR
 });
@@ -29,3 +35,8 @@ export const onChangeField = (fieldName, value) => ({
 export const vinculaMedicoLocal = (medico) =>({
     type: MEUMED_VINCULAR, medico
 });
+
+export const buscarMedicoEdicao = (codMedico) => ({
+    type: MEUMED_EDITAR_MEDICO, 
+    codMedico
+})

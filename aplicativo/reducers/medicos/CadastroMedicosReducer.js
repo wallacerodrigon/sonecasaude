@@ -1,10 +1,13 @@
-import { CADMED_CHANGE_FIELD, CADMED_INICIANDO, CADMED_SALVO_FALHA, CADMED_SALVO_SUCESSO, CADMED_ESPECIALIDADE_FALHA, 
-    CADMED_ESPECIALIDADE_SUCESSO, CADMED_ESPECIALIDADE_INICIA, CADMED_RESET } from "../../actions/medicos/CadastroMedicosAction";
+import { CADMED_CHANGE_FIELD, CADMED_DESVINCULAR_CLINICA, CADMED_ESPECIALIDADE_FALHA, CADMED_ESPECIALIDADE_INICIA, 
+    CADMED_ESPECIALIDADE_SUCESSO, CADMED_INICIANDO, CADMED_RESET, CADMED_SALVO_FALHA, CADMED_SALVO_SUCESSO, 
+    CADMED_VINCULO_DESVINCULO_SUCESSO, CADMED_VINCULO_DESVINCULO_FALHA } from "../../actions/medicos/CadastroMedicosAction";
+import { MEUMED_EDITAR_MEDICO_SUCESSO } from "../../actions/MeusMedicosAction";
 import { INTERNET_INOPERANTE } from "../../constants/ConstantesInternas";
 
 const INITIAL_STATE = {
-    medico: {idMedico: null, nomeMedico:'', codEspecialidade: null, numRegistroCrm:'', descEmail:'', numCelular:''},
-    mensagemFalha: '', loading: false, bolSucesso: false, bolExecutado: false, loadingEspecialidades: false,listaEspecialidades:[]
+    medico: {idMedico: null, nomeMedico:'', codEspecialidade: null, numRegistroCrm:'', descEmail:'', numCelular:'', clinicas: []},
+    mensagemFalha: '', loading: false, bolSucesso: false, bolExecutado: false, loadingEspecialidades: false,listaEspecialidades:[],
+    bolVinculo: false
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -27,8 +30,9 @@ export default (state = INITIAL_STATE, action) => {
         }
 
         case CADMED_SALVO_SUCESSO: {
-            let newState = {...INITIAL_STATE, bolSucesso: true, bolExecutado:true};
+            let newState = {...state, bolSucesso: true, bolExecutado:true};
             newState.listaEspecialidades = state.listaEspecialidades;
+            newState.medico.idMedico = action.idMedico;
             return {...newState};
         }
 
@@ -58,6 +62,35 @@ export default (state = INITIAL_STATE, action) => {
             return {...INITIAL_STATE, bolExecutado:true, loadingEspecialidades: false, mensagemFalha: action.mensagemFalha};
         }
 
+        case CADMED_DESVINCULAR_CLINICA: {
+            return {
+                ...state
+            }
+        }        
+
+        case MEUMED_EDITAR_MEDICO_SUCESSO: {
+            let newState = {...state};
+            //newState.medico['idMedico'] = 350;
+            return {
+                ...newState
+            }
+        }
+
+        case CADMED_VINCULO_DESVINCULO_SUCESSO:{
+            return {
+                ...state,
+                bolVinculo: true
+            }
+    
+        }
+
+        case CADMED_VINCULO_DESVINCULO_FALHA: {
+            return {
+                ...state,
+                bolVinculo: false,
+                mensagemFalha: action.mensagemFalha
+            }
+        }
 
         case INTERNET_INOPERANTE: {
             return {

@@ -1,28 +1,55 @@
+import { Fab, Icon } from 'native-base';
 import React from 'react';
-import {View, Text, TouchableHighlight, ScrollView, StyleSheet} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+// import { connect } from "react-redux";
+// import { desvincularClinica } from "../../actions/medicos/CadastroMedicosAction";
 import EstilosComuns from '../../assets/estilos/estilos';
-import { TELA_LISTA_MEDICOS, TELA_ADD_MEDICOS, TELA_LISTA_CLINICAS, TELA_ADD_CLINICA, TELA_BUSCA_CLINICA } from '../../constants/AppScreenData';
-import { List, ListItem, Left, Thumbnail, Body, Button, Right, Container, Fab, Icon } from 'native-base';
-import Botao from '../../components/botao/Botao';
+import { TELA_BUSCA_CLINICA, TELA_LISTA_CLINICAS } from '../../constants/AppScreenData';
 
 export default class ClinicasMedico extends React.Component {
     static navigationOptions = {
         title: TELA_LISTA_CLINICAS.title
-        /* No more header config here! */
       };
 
       constructor(props){
         super(props);
-
-        this.state = {nome: '', especialidade: '', email: ''}
-    }      
+        console.log(this.props);
+    }    
+    
+    componentDidMount(){
+        console.log('dados do médico:',this.props.medico);
+    }
 
     render() {
         return (
             <View style={[styles.tabDadosMedico, EstilosComuns.backgroundPadrao]}>
                 <Text style={EstilosComuns.tituloJanelas}>Clínicas do médico</Text>
-                <View style={styles.tabDadosMedicoCadastro}>
+                <View style={[styles.containerResultado]}>
                 </View>
+                {/* <FlatList  
+                                data= {this.props.listaClinicas}
+                                keyExtractor={clinica => new String(clinica.idClinica)}
+                                ListEmptyComponent= {
+                                    <Text style={[EstilosComuns.textoCentralizado, EstilosComuns.corVerde, styles.emptyResult]} >Nenhum resultado encontrado, informe os filtros para consultar!</Text>
+                                }
+                                renderItem = {clinica => {
+                                    return (
+                                        <BotaoOpacity>
+                                            <View style={styles.containerMedico}>
+                                                <View style={{flex: 9, flexDirection: 'column'}}>
+                                                    <Text  style={EstilosComuns.negrito}>{clinica.item.nomeClinica}</Text>
+                                                    <Text  style={EstilosComuns.italico}>{clinica.item.numTelefone}</Text>
+                                                    <Text style={EstilosComuns.italico}>{clinica.item.nomeCidade != null ? clinica.item.nomeCidade : ''}</Text>
+                                                </View>
+
+                                                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                                                    <Icon name="link" style={{color: 'blue'}} onPress={() => this.confirmarVinculo(clinica.item)} />        
+                                                </View>                                                
+                                            </View>                                    
+                                        </BotaoOpacity>
+                                    )
+                                }}
+                            />                   */}
 
                 <Fab
                     containerStyle={{ }}
@@ -62,3 +89,9 @@ const styles= StyleSheet.create({
         marginBottom: 5
     }
 })
+
+const mapStateToProps = state => {
+    medico: state.cadastroMedicosReducer.medico
+}
+
+//export default connect(mapStateToProps, {desvincularClinica})(ClinicasMedico);

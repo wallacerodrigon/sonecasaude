@@ -10,23 +10,23 @@ import IconeTabBar from '../../components/comuns/IconeTabBar';
 const AdicionaMedicoTab  = createBottomTabNavigator(
     {
         adicionarMedico: {
-            screen: AdicionaMedico,
+            screen: AdicionaMedico, 
             navigationOptions: () => ({
-                title: 'Novo médico',
+                tabBarLabel: 'Dados do médico',
                 tabBarIcon: () => (
                     <IconeTabBar iconName="medkit"/>
                 )
-            })
+            }),
         },   
         clinicasMedico: {
             screen: ClinicasMedico,
-            title: 'Clínicas do médico',
+            //params: {"medico":1},
             navigationOptions: () => ({
+                tabBarLabel: 'Clínicas do médico',
                 tabBarIcon: () => (
                     <IconeTabBar iconName="business"/>
                 )
-            })
-
+            }),
         },                             
     },
     {
@@ -40,6 +40,7 @@ const AdicionaMedicoTab  = createBottomTabNavigator(
                 <BotaoFecharHeader navigation={navigation}/>
               )             
         }),
+
         tabBarOptions: {
           showLabel: true, // hide labels
           activeTintColor: BRANCO, // active icon color

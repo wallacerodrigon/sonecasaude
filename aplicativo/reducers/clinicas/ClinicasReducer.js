@@ -31,14 +31,6 @@ export default (state=INITIAL_STATE, action) => {
             }
         }
 
-        case CADCLI_DESVINCULAR_CLINICA: {
-            return {
-                ...state
-            }
-        }        
-
-
-        case CADCLI_VINCULO_DESVINCULO_SUCESSO:
         case CADCLI_SALVO_SUCESSO: {
             let newState = {
                 clinica: {nomeClinica: '', numCep: '', nomeEstado: '', nomeCidade: '', nomeBairro: '', codLogradouro: '', nomeLogradouro: '', 
@@ -48,7 +40,7 @@ export default (state=INITIAL_STATE, action) => {
             return newState;
         }
 
-        case CADCLI_VINCULO_DESVINCULO_FALHA:
+
         case CADCLI_SALVO_FALHA: {
             return {
                 ...state,

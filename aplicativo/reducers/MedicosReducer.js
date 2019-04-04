@@ -1,8 +1,9 @@
-import { INTERNET_INOPERANTE, MEUMED_CHANGE_FIELD, MEUMED_DESVINCULAR_FALHA, MEUMED_DESVINCULAR_SUCESSO, MEUMED_INICIANDO, MEUMED_RETORNO_FALHA, MEUMED_RETORNO_SUCESSO, MEUMED_VINCULAR } from "../actions/MeusMedicosAction";
+import { INTERNET_INOPERANTE, MEUMED_CHANGE_FIELD, MEUMED_DESVINCULAR_FALHA, MEUMED_DESVINCULAR_SUCESSO, MEUMED_INICIANDO, MEUMED_RETORNO_FALHA, MEUMED_RETORNO_SUCESSO, MEUMED_VINCULAR, MEUMED_EDITAR_MEDICO_INICIA, MEUMED_EDITAR_MEDICO_SUCESSO, MEUMED_EDITAR_MEDICO_FALHA } from "../actions/MeusMedicosAction";
 
 const INITIAL_STATE = {
     medico: {nomeMedico:'', codEspecialidade: null, numRegistroCrm:'', descEmail:'', numCelular:''},
-    mensagemFalha: '', loading: false, bolSucesso: false, listaMedicos: [], bolExecutado: false, bolDesvinculo: false
+    mensagemFalha: '', loading: false, bolSucesso: false, listaMedicos: [], bolExecutado: false, bolDesvinculo: false,
+    bolEdita: false
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -75,6 +76,33 @@ export default (state = INITIAL_STATE, action) => {
                 mensagemFalha: action.mensagemFalha
             }            
         }
+
+        case MEUMED_EDITAR_MEDICO_INICIA: {
+            return {
+                ...state,
+                bolEdita: false,
+                loading: true
+            }
+        }
+
+        case MEUMED_EDITAR_MEDICO_SUCESSO: {
+            return {
+                ...state,
+                bolEdita: true,
+                loading: false
+            }
+        }
+
+        case MEUMED_EDITAR_MEDICO_FALHA: {
+            return {
+                ...state,
+                bolEdita: true,
+                loading: false,
+                mensagemFalha: action.mensagemFalha
+            }
+        }
+
+
 
         default: {
             return state;
