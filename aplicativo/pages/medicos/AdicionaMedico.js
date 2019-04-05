@@ -1,15 +1,14 @@
 import React from "react";
-import { ActivityIndicator, View, Text, Picker, StyleSheet} from "react-native";
-import Botao, { BotaoLoading } from "../../components/botao/Botao";
-import {InputTextComMascara, InputTexto} from "../../components/input/InputTexto";
-import EstilosComuns, { VERDE } from "../../assets/estilos/estilos";
-import { salvarMedico, onChangeField, buscarEspecialidades,resetarDados } from "../../actions/medicos/CadastroMedicosAction";
-import { buscarMeusMedicos } from "../../actions/MeusMedicosAction";
-
+import { Picker, StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
+import { buscarEspecialidades, onChangeField, resetarDados, salvarMedico } from "../../actions/medicos/CadastroMedicosAction";
+import { buscarMeusMedicos } from "../../actions/MeusMedicosAction";
+import EstilosComuns from "../../assets/estilos/estilos";
+import { BotaoLoading } from "../../components/botao/Botao";
+import { InputTextComMascara, InputTexto } from "../../components/input/InputTexto";
+import { MensagemCustomizada, MensagemErro, MensagemInformativa } from "../../components/mensagens/Mensagens";
 import Validador from '../../utilitarios/Validador';
-import { MensagemErro, MensagemInformativa, MensagemCustomizada } from "../../components/mensagens/Mensagens";
-import { TELA_LISTA_MEDICOS } from "../../constants/AppScreenData";
+
 
 class AdicionaMedico extends React.Component {
 
@@ -73,9 +72,9 @@ class AdicionaMedico extends React.Component {
     //executado depois do render
     componentDidMount(){
         //console.log('did mount:',this.props);
-        const {state} = this.props.navigation.state;
+       // const {state} = this.props.navigation.state;
 
-        console.log('alterando médico', this.props.nomeMedico, this.props.idEspecialidade);
+        //console.log('alterando médico', this.props.nomeMedico, this.props.idEspecialidade);
         //console.log('state:',state);
     }
 
@@ -89,19 +88,17 @@ class AdicionaMedico extends React.Component {
         this.props.salvarMedico(this.props.medico);        
     } 
 
-    componentDidUpdate(){
+    componentDidUpdate(prevProps, prevState){
         if (this.props.bolExecutado && this.props.bolSucesso){
 
             let botaoOk= {
                 text: 'Ok',
                 onPress: () =>  {
-                    //this.props.navigation.navigate(TELA_LISTA_MEDICOS.name);
-                    //this.props.resetarDados();
                     this.props.buscarMeusMedicos();
                 }
             };
     
-            MensagemCustomizada('Médico salvo com sucesso. Caso deseje vincular clínicas a este médico, selecionie a próxima aba!', [botaoOk]);
+            MensagemCustomizada('Médico salvo com sucesso. Caso deseje vincular clínicas a este médico, selecione a aba "Clínicas do médico"!', [botaoOk]);
             return true;
         }
 
@@ -135,9 +132,6 @@ class AdicionaMedico extends React.Component {
     render(){
         return (
             <View style={[styles.tabDadosMedico, EstilosComuns.backgroundPadrao]}>
-                <Text style={EstilosComuns.tituloJanelas}>Adicionar médico</Text>
-                <Text>Id medico: {this.props.medico.idMedico}</Text>
-
                 <View style={styles.tabDadosMedicoCadastro}>
                     <InputTexto placeholder="Nome do médico" maxLength={50}
                         value={this.props.nomeMedico}
@@ -205,7 +199,6 @@ const styles= StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    medico: state.cadastroMedicosReducer.medico,
     nomeMedico: state.cadastroMedicosReducer.medico.nomeMedico, 
     codEspecialidade: state.cadastroMedicosReducer.medico.codEspecialidade,
     numRegistroCrm: state.cadastroMedicosReducer.medico.numRegistroCrm,
@@ -216,7 +209,10 @@ const mapStateToProps = state => ({
     bolSucesso: state.cadastroMedicosReducer.bolSucesso,
     mensagemFalha: state.cadastroMedicosReducer.mensagemFalha,
     listaEspecialidades: state.cadastroMedicosReducer.listaEspecialidades,
-    loadingEspecialidades: state.cadastroMedicosReducer.loadingEspecialidades
+    loadingEspecialidades: state.cadastroMedicosReducer.loadingEspecialidades,
+
+    medicoEdicao: state.medicosReducer.medico
+
 })
 
 export default connect(mapStateToProps, {onChangeField, buscarMeusMedicos, salvarMedico, buscarEspecialidades,resetarDados})(AdicionaMedico);

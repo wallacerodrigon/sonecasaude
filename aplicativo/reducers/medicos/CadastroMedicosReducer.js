@@ -68,14 +68,12 @@ export default (state = INITIAL_STATE, action) => {
             }
         }        
 
+        //código sujo. Limpar
         case MEUMED_EDITAR_MEDICO_SUCESSO: {
             let newState = {...state};
-            //newState.medico['idMedico'] = 350;
-            return {
-                ...newState
-            }
+            Object.assign(newState.medico, action.medico);
+            return newState;
         }
-
         case CADMED_VINCULO_DESVINCULO_SUCESSO:{
             return {
                 ...state,

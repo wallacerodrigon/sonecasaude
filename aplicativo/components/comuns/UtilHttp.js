@@ -36,15 +36,15 @@ axiosApi.interceptors.request.use(
         return Promise.reject(error);
     }
 );
-
+//tratar erro de internet falha, site do sistema fora do ar (404) e erros dos links
 axiosApi.interceptors.request.use(
     (config) => {
       //tratar quando der 404 e quando o serviço estiver indisponível: ver o código
-        console.log('response ok')
+        //console.log('response ok')
         return config;
     },
     (error)=> {
-        console.log('response error', error);
+        //console.log('response error', error);
         return Promise.reject(error);
     }  
 );

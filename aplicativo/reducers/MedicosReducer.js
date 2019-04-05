@@ -89,7 +89,8 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 bolEdita: true,
-                loading: false
+                loading: false,
+                medico: action.medico
             }
         }
 

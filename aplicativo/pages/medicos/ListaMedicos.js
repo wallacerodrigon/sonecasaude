@@ -118,7 +118,7 @@ const mapStateToProps = state => {
     bolExecutado: state.medicosReducer.bolExecutado,
     bolDesvinculo: state.medicosReducer.bolDesvinculo,
     loading: state.medicosReducer.loading,
-    bolEdita: state.medicosReducer.bolEdita 
+    bolEdita: state.medicosReducer.bolEdita,
 }}
 
 export default connect(

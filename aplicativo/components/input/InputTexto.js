@@ -17,7 +17,6 @@ export class InputTexto extends React.Component {
 
     render() {
         return (
-            <View>
                 <TextInput style={[EstilosComuns.inputText]} 
                     placeholder={this.props.placeholder} 
                     maxLength={this.props.maxLength} 
@@ -32,7 +31,6 @@ export class InputTexto extends React.Component {
                     editable={this.props.editable}
                     value={this.props.value}
                 />
-            </View>
         )
     };
 }
