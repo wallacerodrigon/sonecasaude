@@ -4,6 +4,7 @@ export const MEUMED_INICIANDO = "MEUMED_INICIANDO";
 export const MEUMED_DESVINCULAR = "MEUMED_DESVINCULAR";
 export const MEUMED_VINCULAR = "MEUMED_VINCULAR";
 
+
 export const MEUMED_DESVINCULAR_SUCESSO = "MEUMED_DESVINCULAR_SUCESSO";
 export const MEUMED_DESVINCULAR_FALHA = "MEUMED_DESVINCULAR_FALHA";
 
@@ -40,3 +41,4 @@ export const buscarMedicoEdicao = (codMedico) => ({
     type: MEUMED_EDITAR_MEDICO, 
     codMedico
 })
+

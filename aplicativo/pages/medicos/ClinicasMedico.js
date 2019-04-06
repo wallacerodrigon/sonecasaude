@@ -2,10 +2,12 @@ import { Fab, Icon } from 'native-base';
 import React from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { connect } from "react-redux";
-// import { desvincularClinica } from "../../actions/medicos/CadastroMedicosAction";
+import { desvincularClinica } from "../../actions/medicos/CadastroMedicosAction";
 import EstilosComuns, { FUNDO_CINZA_CLARO } from '../../assets/estilos/estilos';
 import { TELA_BUSCA_CLINICA, TELA_LISTA_CLINICAS } from '../../constants/AppScreenData';
 import { BotaoOpacity } from '../../components/botao/Botao';
+import { MensagemErro, MensagemInformativa, MensagemConfirmacao } from "../../components/mensagens/Mensagens";
+import Loading from '../../components/comuns/Loading';
 
 class ClinicasMedico extends React.Component {
     static navigationOptions = {
@@ -17,23 +19,52 @@ class ClinicasMedico extends React.Component {
         console.log(this.props);
     }    
     
-    componentDidMount(){
-        console.log('dados do médico:',this.props.medico);
+    abrirModuloClinicas(){
+        if (!this.props.medico || this.props.medico.idMedico < 1 ){
+            MensagemErro('O médico deve ser selecionado!');
+            return false;
+        }
+        this.props.navigation.navigate(TELA_BUSCA_CLINICA.name, {medico:this.props.medico})         
     }
 
+    confirmarDesvinculo(clinica){
+        let botaoConfirma= {
+            text: 'SIM',
+            onPress: () =>  {
+               this.props.desvincularClinica(clinica.idClinica, this.props.medico.idMedico);        
+               //MensagemInformativa('Clínica desvinculada com sucesso!');
+            }
+        };
+
+        let botaoDescarta= {
+            text: 'NÃO',
+            style: 'cancel'
+        };
+
+        MensagemConfirmacao(`Você realmente deseja remover esta clínica da lista do(a) Dr(a) ${this.props.medico.nomeMedico}?`, 
+            [botaoConfirma, botaoDescarta]
+        );
+        
+    }    
+
     componentDidUpdate(){
-        console.log(this.props.medico.clinicas);
+        if (this.props.bolVinculo){
+            MensagemInformativa(this.props.bolVinculo ? 'Clínica removida com sucesso!': this.props.mensagemFalha);
+        }
     }
 
     render() {
         return (
             <View style={[styles.tabDadosMedico, EstilosComuns.backgroundPadrao]}>
                 <View style={[styles.containerResultado]}>
+                    {/* <Loading bolAtivo={this.props.Loading}/> */}
+
                     <FlatList  
                                     data= {this.props.medico.clinicas}
                                     keyExtractor={clinica => new String(clinica.idClinica)}
                                     ListEmptyComponent= {
-                                        <Text style={[EstilosComuns.textoCentralizado, EstilosComuns.corVerde]} >Nenhum resultado encontrado, informe os filtros para consultar!</Text>
+                                        <Text style={[EstilosComuns.textoCentralizado, EstilosComuns.corVerde]} >
+                                                Ainda não há clínicas associadas a este médico. Clique no botão abaixo para pesquisar e associar!</Text>
                                     }
                                     renderItem = {clinica => {
                                         return (
@@ -46,7 +77,7 @@ class ClinicasMedico extends React.Component {
                                                     </View>
 
                                                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                                                        <Icon name="link" style={{color: 'blue'}} onPress={() => this.confirmarVinculo(clinica.item)} />        
+                                                        <Icon name="trash" style={{color: 'red'}} onPress={() => this.confirmarDesvinculo(clinica.item)} />        
                                                     </View>                                                
                                                 </View>                                    
                                             </BotaoOpacity>
@@ -58,7 +89,7 @@ class ClinicasMedico extends React.Component {
                     containerStyle={{ }}
                     style={{ backgroundColor: "#04B486" }}
                     position="bottomRight"
-                    onPress={() => this.props.navigation.navigate(TELA_BUSCA_CLINICA.name) }>
+                    onPress={() => this.abrirModuloClinicas() }>
                     <Icon name="search" />
                 </Fab>                   
             </View>
@@ -112,7 +143,8 @@ const styles= StyleSheet.create({
 const mapStateToProps = state => ({
     idMedico: state.cadastroMedicosReducer.medico.idMedico, 
     medico: state.cadastroMedicosReducer.medico, 
-    mensagemFalha: state.cadastroMedicosReducer.mensagemFalha
+    mensagemFalha: state.cadastroMedicosReducer.mensagemFalha,
+    bolVinculo: state.cadastroMedicosReducer.bolVinculo
 })
 
-export default connect(mapStateToProps, {})(ClinicasMedico);
+export default connect(mapStateToProps, {desvincularClinica})(ClinicasMedico);

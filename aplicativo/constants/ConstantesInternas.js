@@ -18,3 +18,4 @@ export const ERRO_INESPERADO = "ERRO_INESPERADO";
 export const TAG_USUARIO_STORAGE = "usuario";
 export const TAG_USUARIO_LOGADO = "logado";
 
+export const CONTENT_TYPE = "application/json";

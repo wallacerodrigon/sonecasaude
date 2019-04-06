@@ -1,4 +1,4 @@
-import { INTERNET_INOPERANTE, MEUMED_CHANGE_FIELD, MEUMED_DESVINCULAR_FALHA, MEUMED_DESVINCULAR_SUCESSO, MEUMED_INICIANDO, MEUMED_RETORNO_FALHA, MEUMED_RETORNO_SUCESSO, MEUMED_VINCULAR, MEUMED_EDITAR_MEDICO_INICIA, MEUMED_EDITAR_MEDICO_SUCESSO, MEUMED_EDITAR_MEDICO_FALHA } from "../actions/MeusMedicosAction";
+import { INTERNET_INOPERANTE, MEUMED_CHANGE_FIELD, MEUMED_DESVINCULAR_FALHA, MEUMED_DESVINCULAR_SUCESSO, MEUMED_EDITAR_MEDICO_FALHA, MEUMED_EDITAR_MEDICO_INICIA, MEUMED_EDITAR_MEDICO_SUCESSO, MEUMED_INICIANDO, MEUMED_RETORNO_FALHA, MEUMED_RETORNO_SUCESSO, MEUMED_VINCULAR } from "../actions/MeusMedicosAction";
 
 const INITIAL_STATE = {
     medico: {nomeMedico:'', codEspecialidade: null, numRegistroCrm:'', descEmail:'', numCelular:''},
@@ -47,14 +47,16 @@ export default (state = INITIAL_STATE, action) => {
             let listaMedicos = newState.listaMedicos.concat(action.medico);
             return {
                 ...state,
+                bolEdita: false,
+                bolVinculo: false,
+                mensagemFalha: '',
                 listaMedicos
             }
         }
 
         case MEUMED_DESVINCULAR_SUCESSO: {
             let newState = {...state};
-            let novaListaMedicos = state.listaMedicos.filter(medico => medico.idMedico != action.idMedico)
-            newState.listaMedicos = novaListaMedicos;
+            newState.listaMedicos = state.listaMedicos.filter(medico => medico.idMedico != action.idMedico)
 
             return {
                 ...newState,
@@ -102,8 +104,6 @@ export default (state = INITIAL_STATE, action) => {
                 mensagemFalha: action.mensagemFalha
             }
         }
-
-
 
         default: {
             return state;

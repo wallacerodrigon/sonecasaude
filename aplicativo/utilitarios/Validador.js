@@ -345,21 +345,25 @@ export default class Validador {
     }
     
     isEmailValido(email){
-        let dados = email.split('@');
-
-        if (dados.length != 2){
+        if (email != null){
+            let dados = email.split('@');
+    
+            if (dados.length != 2){
+                return false;
+            }
+    
+            if (email.trim().indexOf(' ') > -1){
+                return false;
+            }
+    
+            if (dados[1].indexOf('.') === -1){
+                return false;
+            }
+    
+            return true;
+        } else {
             return false;
         }
-
-        if (email.trim().indexOf(' ') > -1){
-            return false;
-        }
-
-        if (dados[1].indexOf('.') === -1){
-            return false;
-        }
-
-        return true;
 
     }
   

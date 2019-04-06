@@ -1,15 +1,15 @@
+import { Fab, Icon } from 'native-base';
 import React from 'react';
-import { StyleSheet, Text, View,FlatList } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { connect } from "react-redux";
 import { buscaPorMedico, onChangeField, vincularMedico } from "../../actions/medicos/ProcuraMedicosAction";
-import { vinculaMedicoLocal } from "../../actions/MeusMedicosAction";
+import { buscarMedicoEdicao, vinculaMedicoLocal } from "../../actions/MeusMedicosAction";
 import EstilosComuns, { FUNDO_CINZA_CLARO, VERDE } from '../../assets/estilos/estilos';
-import { BotaoLoading, BotaoOpacity, BotaoExcluir, BotaoConfigIcon } from '../../components/botao/Botao';
+import { BotaoLoading, BotaoOpacity } from '../../components/botao/Botao';
 import { InputTexto } from '../../components/input/InputTexto';
-import { MensagemErro, MensagemConfirmacao, MensagemInformativa } from "../../components/mensagens/Mensagens";
-import { TELA_BUSCA_MEDICOS, TELA_ADD_MEDICOS } from '../../constants/AppScreenData';
+import { MensagemConfirmacao, MensagemErro, MensagemInformativa } from "../../components/mensagens/Mensagens";
+import { TELA_ADD_MEDICOS, TELA_BUSCA_MEDICOS } from '../../constants/AppScreenData';
 import Validador from '../../utilitarios/Validador';
-import { Fab, Icon } from 'native-base';
 
 class ProcuraMedico extends React.Component {
     static navigationOptions = {
@@ -56,23 +56,44 @@ class ProcuraMedico extends React.Component {
         );        
     }
 
-    componentDidUpdate(){
-          if (this.props.bolVinculo || this.props.mensagemFalha != ''){
-              MensagemInformativa(this.props.bolVinculo ? 'Vínculo efetuado com sucesso!' : this.props.mensagemFalha);
+    componentDidUpdate(prevProps, prevState){
+        let fezVinculo = !prevProps.bolVinculo && this.props.bolVinculo;
 
-              if (this.props.bolVinculo){
-                 // this.props.listaMedicosVinculados.push( this.medicoVinculado );
-                  //console.log(this.props.listaMedicosVinculados);
+          if (fezVinculo || this.props.mensagemFalha != ''){
+              MensagemInformativa(fezVinculo ? 'Vínculo efetuado com sucesso!' : this.props.mensagemFalha);
+
+              if (fezVinculo){
                   this.props.vinculaMedicoLocal(this.medicoVinculado);
               } 
 
           }
+
+       
+          let bolEditando = !prevProps.bolEdita && this.props.bolEdita;
+          let bolTemMensagem = this.props.mensagemFalha != '';
+  
+          if (bolEditando && !bolTemMensagem){
+              this.props.navigation.navigate(TELA_ADD_MEDICOS.name);
+          } else if (bolEditando && bolTemMensagem){
+              MensagemInformativa(this.props.mensagemFalha);
+          } 
+    }
+
+    buscarDadosMedico(medico){
+        //vai buscar no endPoint e carregar as clínicas do médico e o que mais para mostrar na tela de forma
+        //a buscar os dados atualizados
+       this.props.buscarMedicoEdicao(medico.idMedico);
+    }    
+
+    novoCadastro(){
+        this.props.navigation.navigate(TELA_ADD_MEDICOS.name), {novoCadastro: true}  
+
     }
 
     render() {
         return (
             <View style={EstilosComuns.container}>
-                <Text style={EstilosComuns.tituloJanelas}>Vincular Médico à conta</Text>
+                <Text style={EstilosComuns.tituloJanelas}>Buscar médico e vincular na minha conta</Text>
                 {/* <Text style={[styles.nota, EstilosComuns.italico]}>Antes de incluir, verifique se seu médico já existe no aplicativo buscando pelo nome ou CRM</Text>*/}
                 <View style={EstilosComuns.bodyMain}> 
                     
@@ -101,7 +122,7 @@ class ProcuraMedico extends React.Component {
                                 }
                                 renderItem = {medico => {
                                     return (
-                                        <BotaoOpacity onClick={() =>  this.props.navigation.navigate(TELA_ADD_MEDICOS.name, {medico}) }>
+                                        <BotaoOpacity onClick={() =>  this.buscarDadosMedico(medico.item) }>
                                             <View style={styles.containerMedico}>
                                                 <View style={{flex: 9, flexDirection: 'column'}}>
                                                     <Text  style={EstilosComuns.negrito}>{medico.item.nomeMedico}</Text>
@@ -122,7 +143,7 @@ class ProcuraMedico extends React.Component {
                     <Fab
                         style={{ backgroundColor: VERDE }}
                         position="bottomRight"
-                        onPress={() => this.props.navigation.navigate(TELA_ADD_MEDICOS.name)}>
+                        onPress={() => this.novoCadastro()}>
                         <Icon name="add" />
                     </Fab>                                         
 
@@ -140,7 +161,9 @@ const mapStateToProps = state => ({
     mensagemFalha: state.procuraMedicosReducer.mensagemFalha,
     buscaFalha: state.procuraMedicosReducer.buscaFalha,
     listaMedicosBusca: state.procuraMedicosReducer.listaMedicosBusca,
-    bolVinculo: state.procuraMedicosReducer.bolVinculo
+    bolVinculo: state.procuraMedicosReducer.bolVinculo,
+    bolNovoCadastro: state.procuraMedicosReducer.bolNovoCadastro,
+    bolEdita: state.medicosReducer.bolEdita,    
 })
 
 
@@ -182,4 +205,4 @@ const styles= StyleSheet.create({
     
 })
 
-export default connect( mapStateToProps, {buscaPorMedico, onChangeField, vincularMedico, vinculaMedicoLocal})(ProcuraMedico);
+export default connect( mapStateToProps, {buscaPorMedico, onChangeField, vincularMedico, vinculaMedicoLocal, buscarMedicoEdicao})(ProcuraMedico);

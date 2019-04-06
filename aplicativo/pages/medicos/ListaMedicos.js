@@ -7,6 +7,7 @@ import EstilosComuns, { FUNDO_CINZA_CLARO, VERDE } from '../../assets/estilos/es
 import { BotaoExcluir, BotaoFecharHeader, BotaoOpacity } from '../../components/botao/Botao';
 import { MensagemConfirmacao, MensagemInformativa } from "../../components/mensagens/Mensagens";
 import { TELA_ADD_MEDICOS, TELA_BUSCA_MEDICOS } from '../../constants/AppScreenData';
+import Loading from '../../components/comuns/Loading';
 
 
 class ListaMedicos extends React.Component {
@@ -98,7 +99,7 @@ class ListaMedicos extends React.Component {
                                     )
                                 }}
                             />
-                            {this.props.loading && <ActivityIndicator size="large" color={VERDE} style={styles.loadingStyle} />}
+                            {this.props.loading && <Loading bolAtivo={this.props.loading} />}
                 </View>
                 <Fab
                     style={{ backgroundColor: VERDE }}

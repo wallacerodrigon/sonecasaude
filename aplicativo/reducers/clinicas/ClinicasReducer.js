@@ -1,12 +1,10 @@
-import { CADCLI_INICIANDO, CADCLI_SALVO_SUCESSO, CADCLI_SALVO_FALHA, CADCLI_BUSCA_CLINICA, CADCLI_ALTERAR_CLINICA,
-CADCLI_CHANGE_FIELD, CADCLI_DESVINCULAR_CLINICA, CADCLI_VINCULAR_CLINICA, CADCLI_VINCULO_DESVINCULO_FALHA, CADCLI_VINCULO_DESVINCULO_SUCESSO
-} from "../../actions/clinicas/CadastroClinicasAction";
+import { CADCLI_BUSCA_CLINICA, CADCLI_CHANGE_FIELD, CADCLI_INICIANDO, CADCLI_SALVO_FALHA, CADCLI_SALVO_SUCESSO, CADCLI_SETA_CLINICA, CAD_CLI_BUSCA_CEP_FIM, CAD_CLI_BUSCA_CEP_INICIO } from "../../actions/clinicas/CadastroClinicasAction";
 
 const INITIAL_STATE = {
     
     clinica: {nomeClinica: '', numCep: '', nomeEstado: '', nomeCidade: '', nomeBairro: '', codLogradouro: '', nomeLogradouro: '', 
     numLocalEndereco: '', descComplemento: '',numTelefone:''},
-    bolSucesso: false, mensagemFalha: '', loading: false
+    bolSucesso: false, mensagemFalha: '', loading: false, loadingCep: false
 }
 
 export default (state=INITIAL_STATE, action) => {
@@ -23,6 +21,14 @@ export default (state=INITIAL_STATE, action) => {
                 loading: true
             }
         }
+
+        case CADCLI_SETA_CLINICA: {
+            return {
+                ...state,
+                clinica: action.clinica
+            }
+        }
+
 
         case CADCLI_BUSCA_CLINICA: {
             return {
@@ -47,6 +53,27 @@ export default (state=INITIAL_STATE, action) => {
                 loading: false,
                 bolSucesso: false,
                 mensagemFalha: action.mensagemFalha
+            }
+        }
+
+        case CAD_CLI_BUSCA_CEP_INICIO: {
+            return {
+                ...state,
+                loadingCep: true,
+                mensagemFalha: ''
+            }
+        }
+
+        case CAD_CLI_BUSCA_CEP_FIM: {
+            return {
+                ...state,
+                loadingCep: false,
+                mensagemFalha: action.mensagemFalha,
+                nomeEstado: action.dadosEndereco.estado, 
+                nomeCidade: action.dadosEndereco.cidade, 
+                nomeBairro: action.dadosEndereco.Bairro, 
+                codLogradouro: action.dadosEndereco.idLogradouro, 
+                nomeLogradouro: action.dadosEndereco.logradouro                
             }
         }
 

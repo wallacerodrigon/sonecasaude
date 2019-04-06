@@ -3,6 +3,8 @@ import { CADMED_ESPECIALIDADE_FALHA, CADMED_ESPECIALIDADE_INICIA, CADMED_ESPECIA
 import { MEUMED_DESVINCULAR_FALHA, MEUMED_DESVINCULAR_SUCESSO, MEUMED_EDITAR_MEDICO_FALHA, MEUMED_EDITAR_MEDICO_INICIA, MEUMED_EDITAR_MEDICO_SUCESSO, MEUMED_INICIANDO, MEUMED_RETORNO_FALHA, MEUMED_RETORNO_SUCESSO } from "../../actions/MeusMedicosAction";
 import { INTERNET_INOPERANTE, NETWORK_ERROR, RETORNO_SUCESSO } from "../../constants/ConstantesInternas";
 import MedicosServico from "../../servicos/MedicosServico";
+import { CADCLI_VINCULO_DESVINCULO_FALHA, CADCLI_VINCULO_DESVINCULO_SUCESSO, CADCLI_VINCULO_DESVINCULO_INICIA } from '../../actions/clinicas/CadastroClinicasAction';
+import ClinicaServico from '../../servicos/ClinicaServico';
 
 export function* recuperarMedicos(action){
     yield put({type: MEUMED_INICIANDO});
@@ -48,9 +50,7 @@ export function* salvarMedico(action){
     yield put({type: CADMED_INICIANDO});
     try {
         const {medico} = action;
-        console.log('salvando médico', medico);
         if (medico.idMedico != null){
-            console.log('alterando...')
             retorno = yield call(MedicosServico.alterarMedico, medico);
         } else {
             retorno = yield call(MedicosServico.salvarMedico, medico);
@@ -110,22 +110,21 @@ export function* buscarMedicoEdicao(action){
 }
 
 export function* desvincularClinica(action){
-    // yield put({type: CADCLI_BUSCA_CLINICA_INICIANDO});
-    // try {
-    //     const retorno = yield call(ClinicaServico.desvincularClinica, action.codClinica, action.codMedico);
-    //     if (retorno.status === RETORNO_SUCESSO){
-    //         console.log('vinculado')
-    //         yield put({type: CADCLI_VINCULO_DESVINCULO_SUCESSO});
-    //     } else {
-    //         yield put({type: CADCLI_VINCULO_DESVINCULO_FALHA, mensagemFalha: retorno.mensagemErro});
-    //     }
-    // } catch(error){
-    //     if (error == NETWORK_ERROR) {
-    //         yield put({type: INTERNET_INOPERANTE});
-    //     } else {
-    //         yield put({type: CADCLI_VINCULO_DESVINCULO_FALHA, mensagemFalha: error});
-    //     }
+    yield put({type: CADCLI_VINCULO_DESVINCULO_INICIA});
+    try {
+        const retorno = yield call(ClinicaServico.desvincularClinicaMedico, action.codClinica, action.codMedico);
+        if (retorno.status === RETORNO_SUCESSO){
+            yield put({type: CADCLI_VINCULO_DESVINCULO_SUCESSO, codClinicaDesvinculada: action.codClinica});
+        } else {
+            yield put({type: CADCLI_VINCULO_DESVINCULO_FALHA, mensagemFalha: retorno.mensagemErro});
+        }
+    } catch(error){
+        if (error == NETWORK_ERROR) {
+            yield put({type: INTERNET_INOPERANTE});
+        } else {
+            yield put({type: CADCLI_VINCULO_DESVINCULO_FALHA, mensagemFalha: error});
+        }
 
 
-    // }
+    }
 }

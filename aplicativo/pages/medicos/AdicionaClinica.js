@@ -3,10 +3,10 @@ import {View, Text,ScrollView, KeyboardAvoidingView} from 'react-native';
 import EstilosComuns from '../../assets/estilos/estilos';
 import { TELA_ADD_MEDICOS, TELA_HOME, TELA_ADD_CLINICA, TELA_LISTA_CLINICAS } from '../../constants/AppScreenData';
 import { InputTextComMascara, InputTexto } from '../../components/input/InputTexto';
-import Botao from '../../components/botao/Botao';
+import Botao, { BotaoLoading } from '../../components/botao/Botao';
 import { Label } from 'native-base';
 import { connect } from "react-redux";
-import { salvarClinica, onChangeField } from "../../actions/clinicas/CadastroClinicasAction";
+import { salvarClinica, onChangeField, onChangeClinica, buscarEnderecoPorCep } from "../../actions/clinicas/CadastroClinicasAction";
 import { MensagemInformativa } from "../../components/mensagens/Mensagens";
 import Validador from '../../utilitarios/Validador';
 
@@ -54,10 +54,18 @@ class AdicionaClinica extends React.Component {
             return false;
         }        
 
+        //perguntar se deseja vincular também e passar o médico também
         this.props.salvarClinica(this.props.clinica);
     }
 
+    buscarCep(){
+        this.bolHabilitaEndereco = false;
+        //this.props.buscarEnderecoPorCep(this.props.numCep);
+        //vai buscar o cep
+    }
+
     componentDidUpdate(){
+        this.bolHabilitaEndereco = this.props.codLogradouro != null && this.props.codLogradouro > 0;
         if (this.props.bolSucesso){
             MensagemInformativa('Clínica salva com sucesso!');
             this.props.navigation.goBack();
@@ -67,11 +75,20 @@ class AdicionaClinica extends React.Component {
 
     }
 
+    componentDidMount(){
+        console.log('state', this.props.navigation);
+        const {params} = this.props.navigation.state;
+        if (params && params.clinica && params.medico){
+            this.medico = params.medico;
+            this.props.onChangeClinica(params.clinica)
+        }
+    }
+
     render() {
         return (
         <KeyboardAvoidingView style={[EstilosComuns.container]} keyboardVerticalOffset={100} behavior="padding" enabled>
             <ScrollView>
-                <Text style={EstilosComuns.tituloJanelas}>Adicionar clínica</Text>
+                <Text style={EstilosComuns.tituloJanelas}>Clínica</Text>
             
                 <View style={EstilosComuns.bodyMain}>
                     <ScrollView>
@@ -80,11 +97,22 @@ class AdicionaClinica extends React.Component {
                                 onChangeInput={value => this.onChangeInput('nomeClinica', value)}
                             />
                         
-                        <InputTextComMascara placeholder="CEP"
-                                type={InputTextComMascara.MASK_CEP}
-                                value={this.props.numCep}
-                                onChangeText={value => this.onChangeInput('numCep',value)}
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 5, alignItems: 'center'}}>
+                            <View style={{flex: 8}}>
+                                <InputTextComMascara placeholder="CEP"
+                                    type={InputTextComMascara.MASK_CEP}
+                                    value={this.props.numCep}
+                                    onChangeText={text =>this.props.onChangeField('numCep', text)}
+                                    />
+                            </View>
+
+                            <View style={{flex: 2}}>
+                                <BotaoLoading tituloBotao="Buscar CEP" carregaLoading={this.props.loadingCep}  
+                                    onPress={() => this.buscarCep()}
                                 />
+                                
+                            </View>
+                       </View>
 
                         <InputTextComMascara  style={[EstilosComuns.inputText]} 
                             onChangeText={text =>this.props.onChangeField('numTelefone', text)}
@@ -95,20 +123,24 @@ class AdicionaClinica extends React.Component {
 
                         <InputTexto placeholder="Estado" maxLength={40}
                                 value={this.props.nomeEstado}
+                                editable={!this.props.bolHabilitaEndereco}
                                 onChangeInput={value => this.onChangeInput('nomeEstado', value)}
                             />
                         
                         <InputTexto placeholder="Cidade" maxLength={40}
+                                editable={!this.props.bolHabilitaEndereco}
                                 value={this.props.nomeCidade}
                                 onChangeInput={value => this.onChangeInput('nomeCidade',value)}
                             />
                         
                         <InputTexto placeholder="Bairro" maxLength={40}
+                                editable={!this.props.bolHabilitaEndereco}
                                 value={this.props.nomeBairro}
                                 onChangeInput={value => this.onChangeInput('nomeBairro',value)}
                             />
                         
                         <InputTexto placeholder="Logradouro" maxLength={40}
+                                editable={!this.props.bolHabilitaEndereco}
                                 value={this.props.nomeLogradouro}
                                 onChangeInput={value => this.onChangeInput('nomeLogradouro',value)}
                             />
@@ -116,7 +148,7 @@ class AdicionaClinica extends React.Component {
                         <InputTexto placeholder="Número" maxLength={60}
                                 value={this.props.numLocalEndereco}
                                 keyboardType={InputTexto.KEYBOARD_NUMBER}
-                            onChangeInput={value => this.onChangeInput('numLocalEndereco',value)}
+                                onChangeInput={value => this.onChangeInput('numLocalEndereco',value)}
                             />
                         
                         <InputTexto placeholder="Complemento" maxLength={40}
@@ -150,7 +182,8 @@ const mapStateToProps = state => ({
     numTelefone: state.clinicaReducer.clinica.numTelefone,
     loading: state.clinicaReducer.loading,
     bolSucesso: state.clinicaReducer.bolSucesso,
+    loadingCep: state.clinicaReducer.loadingCep,
     mensagemFalha: state.clinicaReducer.mensagemFalha
 })
 
-export default connect(mapStateToProps, {salvarClinica, onChangeField})(AdicionaClinica);
+export default connect(mapStateToProps, {salvarClinica, onChangeField, onChangeClinica, buscarEnderecoPorCep})(AdicionaClinica);

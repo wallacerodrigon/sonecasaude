@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { buscarEspecialidades, onChangeField, resetarDados, salvarMedico } from "../../actions/medicos/CadastroMedicosAction";
 import { buscarMeusMedicos } from "../../actions/MeusMedicosAction";
 import EstilosComuns from "../../assets/estilos/estilos";
-import { BotaoLoading } from "../../components/botao/Botao";
+import Botao, { BotaoLoading } from "../../components/botao/Botao";
 import { InputTextComMascara, InputTexto } from "../../components/input/InputTexto";
 import { MensagemCustomizada, MensagemErro, MensagemInformativa } from "../../components/mensagens/Mensagens";
 import Validador from '../../utilitarios/Validador';
@@ -14,34 +14,36 @@ class AdicionaMedico extends React.Component {
 
     constructor(props){
         super(props);
+        this.props.buscarEspecialidades();
     }
 
     //só para documentar
-    componentWillMount(){
-        this.props.buscarEspecialidades();
-    } //antes do render
+//    componentWillMount(){
+  //  } //antes do render
 
+    preencheuAtributo(nomeAtributo){
+        return this.props[nomeAtributo] && this.props[nomeAtributo] != '' && this.props[nomeAtributo].trim().length > 0;
+    }
 
     validarCampos(){
-
         let dadosInvalidos = '';
         let validador = new Validador();
 
-        if (this.props.nomeMedico.trim() === '') dadosInvalidos += '- Nome do médico não informado!\n';
+        if ( ! this.preencheuAtributo('nomeMedico') ) dadosInvalidos += '- Nome do médico não informado!\n';
         if (this.props.codEspecialidade === null || this.props.codEspecialidade === -1) dadosInvalidos += '- Especialidade não informada!\n';
 
         //validar número do CRM
-        if (this.props.numRegistroCrm != '' && ! validador.isCrmValido(this.props.numRegistroCrm)){
+        if (this.preencheuAtributo('numRegistroCrm') && ! validador.isCrmValido(this.props.numRegistroCrm)){
             dadosInvalidos += "- Número do CRM está inválido. Informe a UF e o número de registro. Ex: DF1234.\n";
         }
 
         //validar e-mail
-        if ( this.props.descEmail != '' && ! validador.isEmailValido(this.props.descEmail)){
+        if ( this.preencheuAtributo('descEmail') && ! validador.isEmailValido(this.props.descEmail)){
             dadosInvalidos += "- E-mail está inválido!\n";
         }
 
         //validar telefone
-        if (this.props.numCelular != '' && ! validador.isTelefoneValido(this.props.numCelular)){
+        if (this.preencheuAtributo('numCelular') && ! validador.isTelefoneValido(this.props.numCelular)){
             dadosInvalidos += "- O telefone está inválido!";
         }
 
@@ -71,11 +73,17 @@ class AdicionaMedico extends React.Component {
 
     //executado depois do render
     componentDidMount(){
-        //console.log('did mount:',this.props);
-       // const {state} = this.props.navigation.state;
+    
+        const {state} = this.props.navigation.state;
 
-        //console.log('alterando médico', this.props.nomeMedico, this.props.idEspecialidade);
-        //console.log('state:',state);
+        if (state && state.params && state.params.novoCadastro){
+            this.novoCadastro();
+        }
+
+    }
+
+    novoCadastro(){
+        this.props.resetarDados();        
     }
 
     salvarMedico(){
@@ -97,8 +105,12 @@ class AdicionaMedico extends React.Component {
                     this.props.buscarMeusMedicos();
                 }
             };
-    
-            MensagemCustomizada('Médico salvo com sucesso. Caso deseje vincular clínicas a este médico, selecione a aba "Clínicas do médico"!', [botaoOk]);
+
+            if (this.props.medico && this.props.medico.idMedico > 0){
+                MensagemCustomizada('Médico alterado com sucesso!', [botaoOk]);
+            } else {
+                MensagemCustomizada('Médico salvo com sucesso. Caso deseje vincular clínicas a este médico, selecione a aba "Clínicas do médico"!', [botaoOk]);
+            }
             return true;
         }
 
@@ -163,8 +175,14 @@ class AdicionaMedico extends React.Component {
                 </View>
 
                 <View style={styles.tabDadosMedicoRodape}>
-                    <BotaoLoading carregaLoading={this.props.loading} tituloBotao='Salvar' onClick={() =>  this.salvarMedico()}
-                    />    
+                    <View style={{flex: 1}}>
+                        <Botao tituloBotao='Novo' onClick={() =>  this.novoCadastro()}/>
+                    </View>
+
+                    <View style={{flex: 1}}>
+                        <BotaoLoading carregaLoading={this.props.loading} tituloBotao='Salvar' onClick={() =>  this.salvarMedico()}/>
+                    </View>
+                        
                 </View>
             </View>
         )
@@ -193,12 +211,13 @@ const styles= StyleSheet.create({
     },
     tabDadosMedicoRodape: {
         flex: 1,
-        padding: 5,
-        marginBottom: 5
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     }
 })
 
 const mapStateToProps = state => ({
+    medico: state.cadastroMedicosReducer.medico, 
     nomeMedico: state.cadastroMedicosReducer.medico.nomeMedico, 
     codEspecialidade: state.cadastroMedicosReducer.medico.codEspecialidade,
     numRegistroCrm: state.cadastroMedicosReducer.medico.numRegistroCrm,
@@ -210,9 +229,7 @@ const mapStateToProps = state => ({
     mensagemFalha: state.cadastroMedicosReducer.mensagemFalha,
     listaEspecialidades: state.cadastroMedicosReducer.listaEspecialidades,
     loadingEspecialidades: state.cadastroMedicosReducer.loadingEspecialidades,
-
-    medicoEdicao: state.medicosReducer.medico
-
 })
 
-export default connect(mapStateToProps, {onChangeField, buscarMeusMedicos, salvarMedico, buscarEspecialidades,resetarDados})(AdicionaMedico);
+export default connect(mapStateToProps, 
+    {onChangeField, buscarMeusMedicos, salvarMedico, buscarEspecialidades,resetarDados})(AdicionaMedico);

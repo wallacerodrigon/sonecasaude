@@ -1,18 +1,21 @@
 import axios from "axios";
-import URL_BACKEND, { TAG_USUARIO_STORAGE }  from "../../constants/ConstantesInternas";
+import URL_BACKEND, { TAG_USUARIO_STORAGE, CONTENT_TYPE }  from "../../constants/ConstantesInternas";
 import { getValoresStorage } from "../comuns/UtilStorage";
+import { NetInfo } from "react-native";
 
 const axiosApi = axios.create({
     baseURL: URL_BACKEND,
 })
 
 export const temInternet = () => {
+  
     return true;
 }
 
 //criar um interceptor para tratar os erros, colocar o header e verificar internet
 axiosApi.interceptors.request.use(
     async (config) => {
+            
         // if (this.temInternet()){
             const dadosUsuario = await getValoresStorage(TAG_USUARIO_STORAGE);
             if (dadosUsuario != null){
@@ -21,12 +24,12 @@ axiosApi.interceptors.request.use(
                 axiosApi.defaults.headers.common['X-CSRF'] = `${usuario.xsrf}`;
         
             }
-            axiosApi.defaults.headers.post['Content-Type'] = 'application/json';
+            axiosApi.defaults.headers.post['Content-Type'] = CONTENT_TYPE;
+            axiosApi.defaults.headers.put['Content-Type'] = CONTENT_TYPE;
             axiosApi.defaults.responseEncoding = 'utf-8';
            // axiosApi.timeout= 3000;
             axiosApi.baseURL = URL_BACKEND;
         
-          //  console.log('interceptando a requisição');
             return config;
 //        } else {
     },

@@ -47,27 +47,42 @@ const vincularMedico = async (medico) => {
 
 };
 
+const criarMedicoClone = (medico, bolAdiciona, usuario) => {
+    let novoMedico = {
+        idMedico: medico.idMedico, 
+        nomeMedico: medico.nomeMedico, 
+        codEspecialidade: medico.codEspecialidade, 
+        numRegistroCrm: medico.numRegistroCrm, 
+        descEmail: medico.descEmail,
+        numCelular: medico.numCelular
+    }
+    if (bolAdiciona){
+        novoMedico.codUsuarioCadastro = usuario.idUsuario
+    } else {
+        novoMedico.idMedico = medico.idMedico;
+    }
+    return novoMedico;
+}
+
 const salvarMedico = async (medico) => {
     const usuario = await recuperarDadosUsuario();
-    novoMedico = {...medico, codUsuarioCadastro: usuario.idUsuario};
-    delete (novoMedico.idMedico );
-    return axiosApi.post(`${URL_BACKEND}${URI}`, JSON.stringify(novoMedico))
+    return axiosApi.post(`${URL_BACKEND}${URI}`, JSON.stringify( criarMedicoClone(medico, true, usuario) ) )
         .then( result => result )
         .catch(error => Erro.getDetalhesErro(error));
 
 };
 
-const alterarMedico = async (medico) => {
-    const usuario = await recuperarDadosUsuario();
-    medico.codUsuarioCadastro = usuario.idUsuario;
-    return axiosApi.put(`${URL_BACKEND}${URI}`, JSON.stringify(medico))
+const alterarMedico = (medico) => {
+    let novoMedico = criarMedicoClone(medico, false, null);
+
+    return axiosApi.put(`${URL_BACKEND}${URI}`, JSON.stringify(novoMedico))
         .then( result => result )
         .catch(error => Erro.getDetalhesErro(error));
-
+    
+   return true;
 };
 
 const buscarMedico = (codMedico) => {
-    console.log(codMedico);
     return axiosApi.get(`${URL_BACKEND}${URI}/medico?codMedico=${codMedico}`)
         .then( result => result )
         .catch(error => Erro.getDetalhesErro(error));

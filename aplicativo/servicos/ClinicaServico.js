@@ -24,6 +24,7 @@ const vincularClinicaMedico = (codClinica, codMedico)  => {
 }
 
 const desvincularClinicaMedico = (codClinica, codMedico)  => {
+    console.log('desvinculando...')
     return axiosApi.post(`${URL_BACKEND}${URI}/vincularDesvincular`, montarObjetoVinculo(codClinica, codMedico, false) ) 
         .then( result => result )
         .catch(error => Erro.getDetalhesErro(error));

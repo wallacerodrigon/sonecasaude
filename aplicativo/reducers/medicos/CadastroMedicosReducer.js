@@ -1,6 +1,5 @@
-import { CADMED_CHANGE_FIELD, CADMED_DESVINCULAR_CLINICA, CADMED_ESPECIALIDADE_FALHA, CADMED_ESPECIALIDADE_INICIA, 
-    CADMED_ESPECIALIDADE_SUCESSO, CADMED_INICIANDO, CADMED_RESET, CADMED_SALVO_FALHA, CADMED_SALVO_SUCESSO, 
-    CADMED_VINCULO_DESVINCULO_SUCESSO, CADMED_VINCULO_DESVINCULO_FALHA } from "../../actions/medicos/CadastroMedicosAction";
+import { CADCLI_VINCULO_DESVINCULO_FALHA, CADCLI_VINCULO_DESVINCULO_INICIA, CADCLI_VINCULO_DESVINCULO_SUCESSO } from "../../actions/clinicas/CadastroClinicasAction";
+import { CADMED_CHANGE_FIELD, CADMED_DESVINCULAR_CLINICA, CADMED_ESPECIALIDADE_FALHA, CADMED_ESPECIALIDADE_INICIA, CADMED_ESPECIALIDADE_SUCESSO, CADMED_INICIANDO, CADMED_RESET, CADMED_SALVO_FALHA, CADMED_SALVO_SUCESSO } from "../../actions/medicos/CadastroMedicosAction";
 import { MEUMED_EDITAR_MEDICO_SUCESSO } from "../../actions/MeusMedicosAction";
 import { INTERNET_INOPERANTE } from "../../constants/ConstantesInternas";
 
@@ -30,7 +29,7 @@ export default (state = INITIAL_STATE, action) => {
         }
 
         case CADMED_SALVO_SUCESSO: {
-            let newState = {...state, bolSucesso: true, bolExecutado:true};
+            let newState = {...state, bolSucesso: true, bolExecutado:true, loading: false};
             newState.listaEspecialidades = state.listaEspecialidades;
             newState.medico.idMedico = action.idMedico;
             return {...newState};
@@ -38,7 +37,7 @@ export default (state = INITIAL_STATE, action) => {
 
         case CADMED_RESET: {
             let newState = {...INITIAL_STATE};
-            newState.medico = {nomeMedico:'', codEspecialidade: null, numRegistroCrm:'', descEmail:'', numCelular:''};
+            newState.medico = {nomeMedico:'', codEspecialidade: null, numRegistroCrm:'', descEmail:'', numCelular:'', clinicas: []};
             newState.listaEspecialidades = state.listaEspecialidades;
             return {...newState};
         }
@@ -72,20 +71,35 @@ export default (state = INITIAL_STATE, action) => {
         case MEUMED_EDITAR_MEDICO_SUCESSO: {
             let newState = {...state};
             Object.assign(newState.medico, action.medico);
+            newState.loading= false;
             return newState;
         }
-        case CADMED_VINCULO_DESVINCULO_SUCESSO:{
+
+        case CADCLI_VINCULO_DESVINCULO_INICIA:{
             return {
                 ...state,
-                bolVinculo: true
+                loading: true,
+                bolVinculo: false,
+                mensagemFalha: ''
+            }
+
+        }
+
+        case CADCLI_VINCULO_DESVINCULO_SUCESSO:{
+            let novaListaClinicas = state.medico.clinicas.filter(clinica => clinica.idClinica != action.codClinicaDesvinculada);
+            let newState = {...state, bolVinculo: true, loading: false, mensagemFalha: ''};
+            newState.medico.clinicas = novaListaClinicas;
+            return {
+                ...newState
             }
     
         }
 
-        case CADMED_VINCULO_DESVINCULO_FALHA: {
+        case CADCLI_VINCULO_DESVINCULO_FALHA: {
             return {
                 ...state,
-                bolVinculo: false,
+                bolVinculo: true,
+                loading: false,
                 mensagemFalha: action.mensagemFalha
             }
         }

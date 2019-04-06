@@ -27,12 +27,19 @@ class ProcuraClinica extends React.Component {
     }
 
     confirmarVinculo(clinica){
+
+        if (! this.medico){
+            MensagemInformativa('O médico deve ser selecionado!');
+            return false;
+        }
+
         let botaoConfirma= {
             text: 'SIM',
             onPress: () =>  {
                 //todo: falta pegar o código do médico
-                this.props.vincularClinica(clinica.idClinica, 1);
-                this.clinicaVinculada = clinica;      
+                this.props.vincularClinica(clinica.idClinica, this.medico.idMedico);
+                this.clinicaVinculada = clinica;
+               // this.medico.clinicas.push( clinica );      
             },
             style: 'destructive'
         };
@@ -42,9 +49,14 @@ class ProcuraClinica extends React.Component {
             style: 'cancel'
         };
 
-        MensagemConfirmacao(`Você realmente deseja vincular esta clinica ao Dr(a)?`, 
+        MensagemConfirmacao(`Você realmente deseja vincular esta clinica ao Dr(a) ${this.medico.nomeMedico}? `, 
             [botaoConfirma, botaoDescarta]
         );        
+    }
+
+    componentDidMount(){
+        const {params} = this.props.navigation.state;
+        this.medico = params.medico ? params.medico : null;
     }
 
     componentDidUpdate(){
@@ -60,6 +72,10 @@ class ProcuraClinica extends React.Component {
 
     onChangeField(field,value){
         this.props.onChangeFieldBusca(field, value);
+    }
+
+    editarClinica(clinica){
+        this.props.navigation.navigate(TELA_ADD_CLINICA.name, {clinica, medico:this.medico});
     }
 
     render() {
@@ -88,7 +104,7 @@ class ProcuraClinica extends React.Component {
                                 }
                                 renderItem = {clinica => {
                                     return (
-                                        <BotaoOpacity>
+                                        <BotaoOpacity onClick={()=> this.editarClinica(clinica.item)}>
                                             <View style={styles.containerMedico}>
                                                 <View style={{flex: 9, flexDirection: 'column'}}>
                                                     <Text  style={EstilosComuns.negrito}>{clinica.item.nomeClinica}</Text>

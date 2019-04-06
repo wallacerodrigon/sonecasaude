@@ -5,6 +5,7 @@ import {ActivityIndicator, View} from "react-native";
 import { VERDE } from '../assets/estilos/estilos';
 import { obterUltimaRota } from '../components/comuns/UtilRotas';
 import { TELA_HOME, NAV_LOGGED, NAV_NOT_LOGGED } from '../constants/AppScreenData';
+import Loading from '../components/comuns/Loading';
 
 export default class ControladorRouteScreen extends React.Component {
 
@@ -36,9 +37,7 @@ export default class ControladorRouteScreen extends React.Component {
 
     render(){
         return (
-            <View style={{flex: 1, flexDirection:'column', justifyContent: 'center', alignItems:'center' }}>
-                <ActivityIndicator size="large" color={VERDE}/>
-            </View>
+            <Loading bolAtivo={true} />
         )
     }
 }

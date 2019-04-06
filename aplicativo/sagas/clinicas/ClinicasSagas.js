@@ -1,7 +1,12 @@
 import { call, put } from 'redux-saga/effects';
-import { CADCLI_BUSCA_CLINICA_INICIANDO, CADCLI_BUSCA_CLINICA_FIM, CADCLI_BUSCA_CLINICA_FALHA, CADCLI_SALVO_SUCESSO, CADCLI_SALVO_FALHA, CADCLI_VINCULO_DESVINCULO_FALHA, CADCLI_VINCULO_DESVINCULO_SUCESSO } from '../../actions/clinicas/CadastroClinicasAction';
+import { CADCLI_BUSCA_CLINICA_INICIANDO, CADCLI_BUSCA_CLINICA_FIM, CADCLI_BUSCA_CLINICA_FALHA, CADCLI_SALVO_SUCESSO, CADCLI_SALVO_FALHA, 
+    CADCLI_VINCULO_DESVINCULO_FALHA, 
+    CADCLI_VINCULO_DESVINCULO_SUCESSO, 
+    CAD_CLI_BUSCA_CEP_INICIO,
+    CAD_CLI_BUSCA_CEP_FIM} from '../../actions/clinicas/CadastroClinicasAction';
 import ClinicaServico from '../../servicos/ClinicaServico';
 import { RETORNO_SUCESSO, NETWORK_ERROR, INTERNET_INOPERANTE } from '../../constants/ConstantesInternas';
+import EnderecoServico from '../../servicos/EnderecoServico';
 
 export function* salvarClinica(action){
     yield put({type: CADCLI_BUSCA_CLINICA_INICIANDO});
@@ -62,3 +67,41 @@ export function* buscarClinicas(action){
 
     }
 }
+
+export function* buscarEnderecoPorCep(action){
+
+    yield put({type: CAD_CLI_BUSCA_CEP_INICIO});
+  
+    try {
+      const dadosEndereco = yield call(EnderecoServico.buscarCep, action.numCep);
+      //console.log(dadosEndereco.status);
+       if (dadosEndereco.status === RETORNO_SUCESSO ){
+         const {retorno} = dadosEndereco.data;
+         
+         const retornoEndereco = {
+           numCep: action.numCep,
+           estado:  retorno.bairro.cidade.estado.nomeEstado,
+           cidade: retorno.bairro.cidade.nomeCidade,
+           bairro: retorno.bairro.nomeBairro,
+           idLogradouro: retorno.idLogradouro,
+           logradouro: retorno.nomeLogradouro + (retorno.descComplemento != null ? ` (${retorno.descComplemento})`: '')
+         };
+         yield put({type: CAD_CLI_BUSCA_CEP_FIM, dadosEndereco: retornoEndereco })
+       } else {
+          yield put({type: CAD_CLI_BUSCA_CEP_FIM, mensagemFalha: dadosEndereco.mensagemErro });
+       }
+  
+    } catch(error){
+       
+        if (error == NETWORK_ERROR) {
+          yield put({type: INTERNET_INOPERANTE});
+        }
+        else {
+          yield put({type: CAD_CLI_BUSCA_CEP_FIM, mensagemFalha: error })
+        } 
+    }
+  
+  
+  }
+
+

@@ -1,9 +1,10 @@
-import { BUSMED_CHANGE_FIELD, BUSMED_CONSULTA_SUCESSO, BUSMED_INICIANDO, BUSMED_CONSULTA_FALHA, BUSMED_VINCULAR_SUCESSO, BUSMED_VINCULAR_FALHA } from "../../actions/medicos/ProcuraMedicosAction";
+import { BUSMED_CHANGE_FIELD, BUSMED_CONSULTA_FALHA, BUSMED_CONSULTA_SUCESSO, BUSMED_INICIANDO, BUSMED_VINCULAR_FALHA, BUSMED_VINCULAR_SUCESSO } from "../../actions/medicos/ProcuraMedicosAction";
 import { alterarState } from "../FuncoesGenericas";
 
 
 const INITIAL_STATE = {
-    nomeMedico: '', numeroCrm: '', loading: false, buscaSucesso: false, mensagemFalha: '', buscaFalha: false, bolVinculo: false
+    nomeMedico: '', numeroCrm: '', loading: false, buscaSucesso: false, mensagemFalha: '', buscaFalha: false, bolVinculo: false,
+    bolNovoCadastro: false
 }
 
 
@@ -16,6 +17,7 @@ export default (state = INITIAL_STATE, action) => {
             newState.buscaSucesso = false;
             newState.bolVinculo = false;
             newState.mensagemFalha = '';
+            newState.bolNovoCadastro= false;
             return newState;
         }
 
@@ -23,7 +25,8 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 loading: true,
-                bolVinculo: false
+                bolVinculo: false,
+                bolNovoCadastro: false
             }
         }
 
@@ -44,6 +47,7 @@ export default (state = INITIAL_STATE, action) => {
                 loading: false,
                 buscaSucesso: false,
                 buscaFalha: true,
+                bolNovoCadastro:false,
                 mensagemFalha: action.mensagemFalha
             }
         }
@@ -54,6 +58,7 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 listaMedicosBusca: novaListaMedicos,
                 loading: false,
+                bolNovoCadastro:false,
                 bolVinculo: true
             }
 
