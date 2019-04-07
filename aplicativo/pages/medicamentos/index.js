@@ -7,13 +7,15 @@ import ComandoOuvindoVoz from '../voz/ComandoOuvindoVoz';
 import ListaMedicamentos from './ListaMedicamentos';
 import PeriodicidadeMedicamento from './PeriodicidadeMedicamento';
 import PrescricaoMedicamento from './PrescricaoMedicamento';
+import DetalheMedicamentos from "./DetalheMedicamentos";
 
 const MedicamentosNavigator = createStackNavigator(
     {
        listaMedicamentos: ListaMedicamentos,
         prescricaoMedicamento: PrescricaoMedicamento,
        periodicidadeMedicamento: PeriodicidadeMedicamento,
-        comandoVoz: ComandoOuvindoVoz
+        comandoVoz: ComandoOuvindoVoz,
+        detalheMedicamentos:  DetalheMedicamentos
     },
     {
         defaultNavigationOptions: ({navigation}) => ({

@@ -29,6 +29,7 @@ export const TELA_HISTORICO_DIARIO = {name:"historicoUso", title: "Usos diários
 export const TELA_LISTA_MEDICAMENTOS = {name:"listaMedicamentos", title: "Adicionar medicamento"};
 export const TELA_PRESCRICAO = {name:"prescricaoMedicamento", title: "Adicionar medicamento"};
 export const TELA_PERIODICIDADE = {name:"periodicidadeMedicamento", title: "Adicionar medicamento"};
+export const TELA_DETALHE_MEDICAMENTO = {name: "detalheMedicamentos", title: "Detalhes do medicamento"};
 
     /**alarmes e controle de voz */
 export const TELA_ALARME = {name:"alarme", title: ""};

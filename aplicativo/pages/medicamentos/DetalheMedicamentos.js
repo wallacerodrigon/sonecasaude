@@ -8,10 +8,10 @@ import { TELA_PERIODICIDADE, TELA_LISTA_MEDICAMENTOS, TELA_DETALHE_MEDICAMENTO }
  
 const imgComparacao = require('../../assets/img/losartana.jpeg');
 
-export default class ListaMedicamentos extends React.Component {
+export default class DetalheMedicamentos extends React.Component {
 
       static navigationOptions = ({ navigation }) => ({
-        title: TELA_LISTA_MEDICAMENTOS.title,
+        title: TELA_DETALHE_MEDICAMENTO.title,
         headerLeft: (
             <BotaoFecharHeader navigation={navigation}/>
           )          
@@ -19,19 +19,32 @@ export default class ListaMedicamentos extends React.Component {
 
     constructor(props){
         super(props);
-    }    
+
+        
+    }   
+    
+    componentWillMount(){
+       // const {state} = this.props.navigation.state;
+       // console.log('did mount', state.params);
+        // if (state && state.params && state.params.medicamento){
+        //   this.medicamento = state.params.medicamento;
+        // }
+        this.medicamento = {
+            nomeMedicamento: 'AAS',
+            principioAtivo: 'Ácido Acetil Salicílico'
+        }
+    }
     
     getResultadoFiltro(){
         return [
-            {id: 1, nomeMedicamento: 'Xarope 1', laboratorio: 'laboratorio 1', detalhes: 'comprimido', principioAtivo: "ácido acetil salicílico"},
-            {id: 2, nomeMedicamento: 'Xarope 2', laboratorio: 'laboratorio 1', detalhes: 'comprimido', principioAtivo: "ácido acetil salicílico"},
-            {id: 3, nomeMedicamento: 'Xarope 3', laboratorio: 'laboratorio 1', detalhes: 'comprimido', principioAtivo: "ácido acetil salicílico"},
-            {id: 4, nomeMedicamento: 'Xarope 4', laboratorio: 'laboratorio 1', detalhes: 'comprimido', principioAtivo: "ácido acetil salicílico"}
+            {id: 1, tarja: 'Similar', laboratorio: 'SANOFI-AVENTIS FARMACÊUTICA LTDA', apresentacao: '100 MG COM CT FR PLAS OPC X 120'},
+            {id: 1, tarja: 'Similar', laboratorio: 'SANOFI-AVENTIS FARMACÊUTICA LTDA', apresentacao: '100 MG COM CT BL AL PLAS INC X 200 (EMB MULT)'},
+            {id: 1, tarja: 'Similar', laboratorio: 'SANOFI-AVENTIS FARMACÊUTICA LTDA', apresentacao: '100 MG COM CT BL AL PLAS INC X 30'},
         ]
     }
 
     gotoPeriodicidade(medicamento){
-       this.props.navigation.navigate(TELA_DETALHE_MEDICAMENTO.name, {medicamento: medicamento})
+       this.props.navigation.navigate(TELA_PERIODICIDADE.name, {medicamento: this.medicamento})
     }
 
     renderRemedios(){
@@ -40,13 +53,10 @@ export default class ListaMedicamentos extends React.Component {
         return lista.map(remedio => {
             return (
                 <ListItem thumbnail selected button style={styles.containerRemedioResultado} onPress={() => this.gotoPeriodicidade(remedio)  } >
-                    <Left>
-                        <Thumbnail circular source={imgComparacao} />
-                    </Left>
                     <Body>
-                        <Text style={[styles.dadosMedicamento, EstilosComuns.negrito]} >{remedio.nomeMedicamento}</Text>
-                        <Text note>{remedio.principioAtivo}</Text>
+                        <Text style={[styles.dadosMedicamento, EstilosComuns.negrito]} >{remedio.apresentacao}</Text>
                         <Text note>{remedio.laboratorio}</Text>
+                        <Text note>{remedio.tarja}</Text>
                     </Body>
                 </ListItem> 
             )
@@ -55,19 +65,13 @@ export default class ListaMedicamentos extends React.Component {
 
     render() {
         return (
-            <View style={EstilosComuns.container}>                
-                <View style={styles.containerBusca}>
-                    <View style={{flex: 9}}>
-                        <InputTexto placeholder="Pesquise por um remédio" maxLength={40}
-                            onChangeInput={this.tratarFiltro}
-                            autoCapitalize="none"
-                        />                    
+            <View style={EstilosComuns.container}>     
+                <View style={[EstilosComuns.card, {flexDirection: 'row', padding: 5}]}>
+                    <View style={{flex: 5, paddingLeft: 5}}>
+                        <Text style={EstilosComuns.negrito}>{this.medicamento.nomeMedicamento}</Text>
+                        <Text note numberOfLines={1} >{this.medicamento.principioAtivo}</Text>
                     </View>
-                    <View style={{flex: 1}}>
-                        <Icon name="search" color={BRANCO} size={25} />
-                    </View>
-                </View>
-
+                </View>                       
                 <Container style={styles.containerResultado}>
                     <List>
                         <ScrollView>
@@ -79,7 +83,7 @@ export default class ListaMedicamentos extends React.Component {
 
                 <View style={styles.containerRodape}>
                     <Text style={[EstilosComuns.corVerde, EstilosComuns.textoCentralizado]}>
-                        Clique sobre o remédio para ver as dosagens e demais detalhes sobre o medicamento selecionado
+                        Clique sobre o remédio para cadastrar sua prescrição
                     </Text>
                 </View>
 

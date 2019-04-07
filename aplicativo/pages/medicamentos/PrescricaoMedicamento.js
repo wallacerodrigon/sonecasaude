@@ -207,7 +207,7 @@ export default class PrescricaoMedicamento extends React.Component {
 
     atualizarIntervaloHorarios(intervaloHorarios, qtd, medida){
         
-        let horario = '08:00';
+        let horario = '00:00';
         let repeticoes = Math.round( 24 / intervaloHorarios);
         let dadosHorario = horario.split(':');
         let horarios = [];
