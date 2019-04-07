@@ -65,15 +65,25 @@ export default (state=INITIAL_STATE, action) => {
         }
 
         case CAD_CLI_BUSCA_CEP_FIM: {
+            let newState = {...state};
+            if (action.dadosEndereco){
+                newState.clinica.nomeEstado= action.dadosEndereco.estado, 
+                newState.clinica.nomeCidade= action.dadosEndereco.cidade, 
+                newState.clinica.nomeBairro= action.dadosEndereco.bairro, 
+                newState.clinica.codLogradouro= action.dadosEndereco.idLogradouro, 
+                newState.clinica.nomeLogradouro= action.dadosEndereco.logradouro                
+            } else {
+                newState.clinica.nomeEstado= '';
+                newState.clinica.nomeCidade= '';
+                newState.clinica.nomeBairro= '';
+                newState.clinica.codLogradouro= ''; 
+                newState.clinica.nomeLogradouro= '';
+            }
+
             return {
-                ...state,
+                ...newState,
                 loadingCep: false,
                 mensagemFalha: action.mensagemFalha,
-                nomeEstado: action.dadosEndereco.estado, 
-                nomeCidade: action.dadosEndereco.cidade, 
-                nomeBairro: action.dadosEndereco.Bairro, 
-                codLogradouro: action.dadosEndereco.idLogradouro, 
-                nomeLogradouro: action.dadosEndereco.logradouro                
             }
         }
 

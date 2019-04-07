@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Text,ScrollView, KeyboardAvoidingView} from 'react-native';
-import EstilosComuns from '../../assets/estilos/estilos';
+import {View, Text,ScrollView, KeyboardAvoidingView, StyleSheet} from 'react-native';
+import EstilosComuns, { BRANCO, VERDE } from '../../assets/estilos/estilos';
 import { TELA_ADD_MEDICOS, TELA_HOME, TELA_ADD_CLINICA, TELA_LISTA_CLINICAS } from '../../constants/AppScreenData';
 import { InputTextComMascara, InputTexto } from '../../components/input/InputTexto';
-import Botao, { BotaoLoading } from '../../components/botao/Botao';
-import { Label } from 'native-base';
+import Botao, { BotaoLoading, BotaoConfigIcon } from '../../components/botao/Botao';
+import { Label, Icon } from 'native-base';
 import { connect } from "react-redux";
 import { salvarClinica, onChangeField, onChangeClinica, buscarEnderecoPorCep } from "../../actions/clinicas/CadastroClinicasAction";
 import { MensagemInformativa } from "../../components/mensagens/Mensagens";
@@ -28,8 +28,12 @@ class AdicionaClinica extends React.Component {
     }
 
     numeroEnderecoEstaValido(){
-        return this.props.numLocalEndereco != '' &&
-                new Validador().mantemSomenteNumeros(this.props.numLocalEndereco).length() === this.props.numLocalEndereco.length()
+        if (this.props.numLocalEndereco != null &&
+            this.props.numLocalEndereco != '' &&
+            this.props.numLocalEndereco.replace(/[0-9]/g, '') != ''){
+            return false;
+        } 
+        return true;
     }
 
     salvarClinica(){
@@ -38,12 +42,12 @@ class AdicionaClinica extends React.Component {
             return false;
         }
 
-        if (this.props.numCep != '' && !this.temEnderecoPreenchido() ){
+        if (this.props.numCep && !this.temEnderecoPreenchido() ){
             MensagemInformativa('Preencha os dados do endereço!');
             return false;
         }
 
-        if (this.props.numCep != '' && this.temEnderecoPreenchido() && this.numeroEnderecoEstaValido ){
+        if (!this.numeroEnderecoEstaValido() ){
             MensagemInformativa('O campo número só deve conter números!');
             return false;
         }
@@ -54,48 +58,57 @@ class AdicionaClinica extends React.Component {
             return false;
         }        
 
-        //perguntar se deseja vincular também e passar o médico também
         this.props.salvarClinica(this.props.clinica);
     }
 
     buscarCep(){
-        this.bolHabilitaEndereco = false;
-        //this.props.buscarEnderecoPorCep(this.props.numCep);
-        //vai buscar o cep
+        if (new Validador().validaCEP(this.props.numCep)){
+            this.props.buscarEnderecoPorCep(this.props.numCep);
+        } else {
+            MensagemInformativa('CEP inválido. CEP deve ter 8 dígitos!');
+        }
     }
 
     componentDidUpdate(){
-        this.bolHabilitaEndereco = this.props.codLogradouro != null && this.props.codLogradouro > 0;
         if (this.props.bolSucesso){
             MensagemInformativa('Clínica salva com sucesso!');
             this.props.navigation.goBack();
-        } else if (this.props.mensagemFalha != ''){
+        } else if (this.props.mensagemFalha && this.props.mensagemFalha != ''){
             MensagemInformativa(this.props.mensagemFalha);
         }
 
     }
 
     componentDidMount(){
-        console.log('state', this.props.navigation);
         const {params} = this.props.navigation.state;
+        console.log('did mount', params)
         if (params && params.clinica && params.medico){
             this.medico = params.medico;
             this.props.onChangeClinica(params.clinica)
         }
     }
 
+    editaEndereco(){
+        return this.props.codLogradouro === null || this.props.codLogradouro == '';
+    }    
+
     render() {
         return (
-        <KeyboardAvoidingView style={[EstilosComuns.container]} keyboardVerticalOffset={100} behavior="padding" enabled>
-            <ScrollView>
+        <ScrollView style={[EstilosComuns.container]} keyboardVerticalOffset={100} behavior="padding">
                 <Text style={EstilosComuns.tituloJanelas}>Clínica</Text>
             
-                <View style={EstilosComuns.bodyMain}>
-                    <ScrollView>
+                <View style={styles.formulario}>
                         <InputTexto placeholder="Nome clínica" maxLength={40}
                                 value={this.props.nomeClinica}
                                 onChangeInput={value => this.onChangeInput('nomeClinica', value)}
                             />
+
+                        <InputTextComMascara  style={[EstilosComuns.inputText]} 
+                            onChangeText={text =>this.props.onChangeField('numTelefone', text)}
+                            value={this.props.numTelefone}
+                            placeholder="Digite o telefone/celular (xx)xxxxx-xxxx"
+                            type={InputTextComMascara.MASK_CELULAR}
+                        />                                   
                         
                         <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 5, alignItems: 'center'}}>
                             <View style={{flex: 8}}>
@@ -108,39 +121,32 @@ class AdicionaClinica extends React.Component {
 
                             <View style={{flex: 2}}>
                                 <BotaoLoading tituloBotao="Buscar CEP" carregaLoading={this.props.loadingCep}  
-                                    onPress={() => this.buscarCep()}
+                                    onClick={() => this.buscarCep()}
                                 />
-                                
                             </View>
                        </View>
 
-                        <InputTextComMascara  style={[EstilosComuns.inputText]} 
-                            onChangeText={text =>this.props.onChangeField('numTelefone', text)}
-                            value={this.props.numTelefone}
-                            placeholder="Digite o telefone/celular (xx)xxxxx-xxxx"
-                            type={InputTextComMascara.MASK_CELULAR}
-                        />                                   
 
                         <InputTexto placeholder="Estado" maxLength={40}
                                 value={this.props.nomeEstado}
-                                editable={!this.props.bolHabilitaEndereco}
+                                editable={this.editaEndereco()}
                                 onChangeInput={value => this.onChangeInput('nomeEstado', value)}
                             />
                         
                         <InputTexto placeholder="Cidade" maxLength={40}
-                                editable={!this.props.bolHabilitaEndereco}
+                                editable={this.editaEndereco()}
                                 value={this.props.nomeCidade}
                                 onChangeInput={value => this.onChangeInput('nomeCidade',value)}
                             />
                         
                         <InputTexto placeholder="Bairro" maxLength={40}
-                                editable={!this.props.bolHabilitaEndereco}
+                                editable={this.editaEndereco()}
                                 value={this.props.nomeBairro}
                                 onChangeInput={value => this.onChangeInput('nomeBairro',value)}
                             />
                         
                         <InputTexto placeholder="Logradouro" maxLength={40}
-                                editable={!this.props.bolHabilitaEndereco}
+                                editable={this.editaEndereco()}
                                 value={this.props.nomeLogradouro}
                                 onChangeInput={value => this.onChangeInput('nomeLogradouro',value)}
                             />
@@ -155,15 +161,12 @@ class AdicionaClinica extends React.Component {
                                 value={this.props.descComplemento}
                                 onChangeInput={value => this.onChangeInput('descComplemento', value)}
                             />
-                    </ScrollView>
-
                 </View>
                 
-                <View style={EstilosComuns.rodape}>
+                <View style={styles.rodape}>
                     <Botao tituloBotao='Salvar' onClick={() => this.salvarClinica()}/>    
                 </View>
-            </ScrollView>  
-        </KeyboardAvoidingView>
+        </ScrollView>
         )
     };
 }
@@ -177,13 +180,26 @@ const mapStateToProps = state => ({
     nomeBairro: state.clinicaReducer.clinica.nomeBairro, 
     codLogradouro: state.clinicaReducer.clinica.codLogradouro, 
     nomeLogradouro: state.clinicaReducer.clinica.nomeLogradouro, 
-    numLocalEndereco: state.clinicaReducer.clinica.numEndereco, 
-    descComplemento: state.clinicaReducer.clinica.nomeComplemento,
+    numLocalEndereco: state.clinicaReducer.clinica.numLocalEndereco, 
+    descComplemento: state.clinicaReducer.clinica.descComplemento,
     numTelefone: state.clinicaReducer.clinica.numTelefone,
     loading: state.clinicaReducer.loading,
     bolSucesso: state.clinicaReducer.bolSucesso,
     loadingCep: state.clinicaReducer.loadingCep,
     mensagemFalha: state.clinicaReducer.mensagemFalha
+})
+
+const styles = StyleSheet.create({
+    formulario: {
+        flex: 9,
+        flexDirection: 'column',
+        padding: 5,
+        justifyContent: 'space-between'
+    }, 
+
+    rodape: {
+        flex: 1
+    }
 })
 
 export default connect(mapStateToProps, {salvarClinica, onChangeField, onChangeClinica, buscarEnderecoPorCep})(AdicionaClinica);

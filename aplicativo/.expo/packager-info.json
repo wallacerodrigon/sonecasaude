@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19001,
-  "packagerPort": 19004,
-  "packagerPid": 9882,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
   "expoServerNgrokUrl": "https://2t-s6y.wallacerodrigon.aplicativo.exp.direct",
   "packagerNgrokUrl": "https://packager.2t-s6y.wallacerodrigon.aplicativo.exp.direct",
-  "ngrokPid": 9905,
+  "ngrokPid": 13782,
   "webpackServerPort": null
 }

@@ -10,30 +10,23 @@ import EnderecoServico from '../../servicos/EnderecoServico';
 
 export function* salvarClinica(action){
     yield put({type: CADCLI_BUSCA_CLINICA_INICIANDO});
-    try {
-        const retorno = yield call(ClinicaServico.salvarClinica, action.clinica);
-        if (retorno.status === RETORNO_SUCESSO){
-            yield put({type: CADCLI_SALVO_SUCESSO});
-        } else {
-            yield put({type: CADCLI_SALVO_FALHA, mensagemFalha: retorno.mensagemErro});
-        }
-    } catch(error){
-        if (error == NETWORK_ERROR) {
-            yield put({type: INTERNET_INOPERANTE});
-        } else {
-            yield put({type: CADCLI_SALVO_FALHA, mensagemFalha: error});
-        }
 
+    const nomeMetodo = action.clinica.idClinica && action.clinica.idClinica > 0 ? 'alterarClinica': 'salvarClinica';
 
-    }}
+    const retorno = yield call(ClinicaServico[nomeMetodo], action.clinica);
+    if (retorno.status === RETORNO_SUCESSO){
+        yield put({type: CADCLI_SALVO_SUCESSO});
+    } else {
+        yield put({type: CADCLI_SALVO_FALHA, mensagemFalha: retorno.mensagemErro});
+    }
+}
 
 export function* vincularClinica(action){
     yield put({type: CADCLI_BUSCA_CLINICA_INICIANDO});
     try {
         const retorno = yield call(ClinicaServico.vincularClinicaMedico, action.codClinica, action.codMedico);
         if (retorno.status === RETORNO_SUCESSO){
-            console.log('vinculado')
-            yield put({type: CADCLI_VINCULO_DESVINCULO_SUCESSO});
+            yield put({type: CADCLI_VINCULO_DESVINCULO_SUCESSO, codClinicaVinculada: action.codClinica});
         } else {
             yield put({type: CADCLI_VINCULO_DESVINCULO_FALHA, mensagemFalha: retorno.mensagemErro});
         }
@@ -51,7 +44,7 @@ export function* vincularClinica(action){
 export function* buscarClinicas(action){
     yield put({type: CADCLI_BUSCA_CLINICA_INICIANDO});
     try {
-        const retorno = yield call(ClinicaServico.buscarClinicas, action.nomeClinica);
+        const retorno = yield call(ClinicaServico.buscarClinicas, action.nomeClinica, action.codMedico);
         if (retorno.status === RETORNO_SUCESSO){
             yield put({type: CADCLI_BUSCA_CLINICA_FIM, listaClinicas: retorno.data.retorno});
         } else {
@@ -71,37 +64,23 @@ export function* buscarClinicas(action){
 export function* buscarEnderecoPorCep(action){
 
     yield put({type: CAD_CLI_BUSCA_CEP_INICIO});
-  
-    try {
-      const dadosEndereco = yield call(EnderecoServico.buscarCep, action.numCep);
-      //console.log(dadosEndereco.status);
-       if (dadosEndereco.status === RETORNO_SUCESSO ){
-         const {retorno} = dadosEndereco.data;
-         
-         const retornoEndereco = {
-           numCep: action.numCep,
-           estado:  retorno.bairro.cidade.estado.nomeEstado,
-           cidade: retorno.bairro.cidade.nomeCidade,
-           bairro: retorno.bairro.nomeBairro,
-           idLogradouro: retorno.idLogradouro,
-           logradouro: retorno.nomeLogradouro + (retorno.descComplemento != null ? ` (${retorno.descComplemento})`: '')
-         };
-         yield put({type: CAD_CLI_BUSCA_CEP_FIM, dadosEndereco: retornoEndereco })
-       } else {
-          yield put({type: CAD_CLI_BUSCA_CEP_FIM, mensagemFalha: dadosEndereco.mensagemErro });
-       }
-  
-    } catch(error){
-       
-        if (error == NETWORK_ERROR) {
-          yield put({type: INTERNET_INOPERANTE});
-        }
-        else {
-          yield put({type: CAD_CLI_BUSCA_CEP_FIM, mensagemFalha: error })
-        } 
-    }
-  
-  
-  }
+    const dadosEndereco = yield call(EnderecoServico.buscarCep, action.numCep);
+    if (dadosEndereco.status === RETORNO_SUCESSO ){
+        const {retorno} = dadosEndereco.data;
+        
+        const retornoEndereco = {
+        numCep: action.numCep,
+        estado:  retorno.bairro.cidade.estado.nomeEstado,
+        cidade: retorno.bairro.cidade.nomeCidade,
+        bairro: retorno.bairro.nomeBairro,
+        idLogradouro: retorno.idLogradouro,
+        logradouro: retorno.nomeLogradouro + (retorno.descComplemento != null ? ` (${retorno.descComplemento})`: '')
+        };
+        yield put({type: CAD_CLI_BUSCA_CEP_FIM, dadosEndereco: retornoEndereco })
+    } else {
+        yield put({type: CAD_CLI_BUSCA_CEP_FIM, mensagemFalha: dadosEndereco.mensagemErro })
+    } 
+
+}
 
 

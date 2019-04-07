@@ -13,10 +13,10 @@ import ProcuraClinica from "./ProcuraClinica";
 const MedicosNavigator = createStackNavigator(
     {
       listaMedicos: {screen: ListaMedicos},                                     
+      procuraClinica: {screen: ProcuraClinica},                                    
+      adicionaClinica: {screen: AdicionaClinica},                                    
       adicionaMedicosTab: {screen: AdicionaMedicoTab},
       procuraMedicos: ProcuraMedico,
-        procuraClinica: {screen: ProcuraClinica},                                    
-        adicionaClinica: {screen: AdicionaClinica},                                    
         comandoVoz: ComandoOuvindoVoz,
     },
     {

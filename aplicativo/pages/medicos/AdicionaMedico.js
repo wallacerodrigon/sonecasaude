@@ -175,11 +175,11 @@ class AdicionaMedico extends React.Component {
                 </View>
 
                 <View style={styles.tabDadosMedicoRodape}>
-                    <View style={{flex: 1}}>
+                    <View style={{flex: 1, padding: 10}}>
                         <Botao tituloBotao='Novo' onClick={() =>  this.novoCadastro()}/>
                     </View>
 
-                    <View style={{flex: 1}}>
+                    <View style={{flex: 1, padding: 10}}>
                         <BotaoLoading carregaLoading={this.props.loading} tituloBotao='Salvar' onClick={() =>  this.salvarMedico()}/>
                     </View>
                         
@@ -213,6 +213,7 @@ const styles= StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        padding: 10
     }
 })
 

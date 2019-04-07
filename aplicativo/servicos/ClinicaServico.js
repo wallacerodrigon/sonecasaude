@@ -12,6 +12,7 @@ const salvarClinica = (clinica)  => {
 }
 
 const alterarClinica = (clinica)  => {
+    delete(clinica.dataHoraInclusao);
     return axiosApi.put(`${URL_BACKEND}${URI}`, JSON.stringify(clinica))
         .then( result => result )
         .catch(error => Erro.getDetalhesErro(error));
@@ -24,14 +25,13 @@ const vincularClinicaMedico = (codClinica, codMedico)  => {
 }
 
 const desvincularClinicaMedico = (codClinica, codMedico)  => {
-    console.log('desvinculando...')
     return axiosApi.post(`${URL_BACKEND}${URI}/vincularDesvincular`, montarObjetoVinculo(codClinica, codMedico, false) ) 
         .then( result => result )
         .catch(error => Erro.getDetalhesErro(error));
 }
 
-const buscarClinicas = (nome)  => {
-    return axiosApi.get(`${URL_BACKEND}${URI}/filtrar?nomeClinica=${nome}`) 
+const buscarClinicas = (nome, codMedico)  => {
+    return axiosApi.get(`${URL_BACKEND}${URI}/filtrar?nomeClinica=${nome}&codMedico=${codMedico}`) 
         .then( result => result )
         .catch(error => Erro.getDetalhesErro(error));
 }

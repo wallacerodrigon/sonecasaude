@@ -1,6 +1,6 @@
 import { takeLatest } from 'redux-saga/effects';
 import { CADUSU_BUSCA_CEP, CADUSU_CADASTRAR_USUARIO, CADUSU_VERIFICA_CPF } from '../actions/CadastroAction';
-import { CADCLI_BUSCA_CLINICA, CADCLI_DESVINCULAR_CLINICA, CADCLI_SALVAR_CLINICA, CADCLI_VINCULAR_CLINICA, CAD_CLI_BUSCA_CEP_INICIO } from '../actions/clinicas/CadastroClinicasAction';
+import { CADCLI_BUSCA_CLINICA, CADCLI_DESVINCULAR_CLINICA, CADCLI_SALVAR_CLINICA, CADCLI_VINCULAR_CLINICA, CAD_CLI_BUSCA_CEP_INICIO, CAD_CLI_BUSCA_CEP } from '../actions/clinicas/CadastroClinicasAction';
 import { RECSEN_RECUPERAR } from '../actions/EsqueciSenhaAction';
 import { LOGIN_EFETUAR_LOGIN } from '../actions/LoginAction';
 import { CADMED_BUSCAR_ESPECIALIDADES, CADMED_SALVAR_MEDICOS, CADMED_DESVINCULAR_CLINICA } from '../actions/medicos/CadastroMedicosAction';
@@ -46,7 +46,7 @@ import { recuperarSenha } from './RecuperarSenhaSagas';
      yield takeLatest(CADCLI_SALVAR_CLINICA, salvarClinica);
      yield takeLatest(CADCLI_VINCULAR_CLINICA, vincularClinica);
      yield takeLatest(CADCLI_BUSCA_CLINICA, buscarClinicas);
-     yield takeLatest(CAD_CLI_BUSCA_CEP_INICIO, buscarEnderecoPorCep);
+     yield takeLatest(CAD_CLI_BUSCA_CEP, buscarEnderecoPorCep);
 
   }
   

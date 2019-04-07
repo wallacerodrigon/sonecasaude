@@ -26,10 +26,13 @@ export default (state= INITIAL_STATE, action) => {
         }
 
         case CADCLI_VINCULO_DESVINCULO_SUCESSO:{
+            let listaClinicas = state.listaClinicas.filter(clinica => clinica.idClinica != action.codClinicaVinculada);
+
             return {
                 ...state,
                 loading: false,
-                bolVinculado: true
+                bolVinculado: true,
+                listaClinicas
             }
 
         }

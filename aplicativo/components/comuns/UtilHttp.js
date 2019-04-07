@@ -1,7 +1,8 @@
 import axios from "axios";
-import URL_BACKEND, { TAG_USUARIO_STORAGE, CONTENT_TYPE }  from "../../constants/ConstantesInternas";
+import URL_BACKEND, { TAG_USUARIO_STORAGE, CONTENT_TYPE, RETORNO_SERVER_INDISPONIVEL }  from "../../constants/ConstantesInternas";
 import { getValoresStorage } from "../comuns/UtilStorage";
 import { NetInfo } from "react-native";
+import { MensagemErro } from "../mensagens/Mensagens";
 
 const axiosApi = axios.create({
     baseURL: URL_BACKEND,
@@ -27,27 +28,28 @@ axiosApi.interceptors.request.use(
             axiosApi.defaults.headers.post['Content-Type'] = CONTENT_TYPE;
             axiosApi.defaults.headers.put['Content-Type'] = CONTENT_TYPE;
             axiosApi.defaults.responseEncoding = 'utf-8';
-           // axiosApi.timeout= 3000;
             axiosApi.baseURL = URL_BACKEND;
         
             return config;
 //        } else {
     },
     
-    (error) => {
-        console.log('ERRO de interceptando a requisição');
+    async (error) => {
+        console.log('ERRO interceptando a requisição', error);
         return Promise.reject(error);
     }
 );
 //tratar erro de internet falha, site do sistema fora do ar (404) e erros dos links
-axiosApi.interceptors.request.use(
-    (config) => {
-      //tratar quando der 404 e quando o serviço estiver indisponível: ver o código
-        //console.log('response ok')
-        return config;
+axiosApi.interceptors.response.use(
+    async (config) => {
+      return config;
     },
-    (error)=> {
-        //console.log('response error', error);
+    async (error)=> {
+        let mensagem = new String(error);
+        if (mensagem.indexOf(RETORNO_SERVER_INDISPONIVEL) > -1){
+          MensagemErro('O servidor está inoperante neste momento para esta operação! \nEntre em contato com a administração do Soneca: contato@soneca.com.br e informe os detalhes!');
+          return Promise.reject();
+        }
         return Promise.reject(error);
     }  
 );

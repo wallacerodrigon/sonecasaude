@@ -7,7 +7,8 @@ import { BotaoLoading, BotaoOpacity } from '../../components/botao/Botao';
 import { InputTexto } from '../../components/input/InputTexto';
 import { MensagemConfirmacao, MensagemInformativa } from "../../components/mensagens/Mensagens";
 import { TELA_ADD_CLINICA, TELA_BUSCA_CLINICA } from '../../constants/AppScreenData';
-import { onChangeFieldBusca, buscarClinica, vincularClinica, desvincularClinica } from "../../actions/clinicas/CadastroClinicasAction";
+import { onChangeFieldBusca, buscarClinica, vincularClinica, desvincularClinica} from "../../actions/clinicas/CadastroClinicasAction";
+//import { vincularClinicaNoMedicoAtual } from "../../actions/medicos/CadastroMedicosAction";
 
 class ProcuraClinica extends React.Component {
     static navigationOptions = {
@@ -23,7 +24,7 @@ class ProcuraClinica extends React.Component {
             MensagemInformativa('Informe o nome da clínica para filtrar');
             return false;
         }
-        this.props.buscarClinica(this.props.nomeClinica);
+        this.props.buscarClinica(this.props.nomeClinica, this.medico.idMedico);
     }
 
     confirmarVinculo(clinica){
@@ -39,7 +40,9 @@ class ProcuraClinica extends React.Component {
                 //todo: falta pegar o código do médico
                 this.props.vincularClinica(clinica.idClinica, this.medico.idMedico);
                 this.clinicaVinculada = clinica;
-               // this.medico.clinicas.push( clinica );      
+
+               // console.log('clinicas do médico', this.medico.clinicas);
+                //this.medico.clinicas.push( clinica );      
             },
             style: 'destructive'
         };
@@ -56,16 +59,16 @@ class ProcuraClinica extends React.Component {
 
     componentDidMount(){
         const {params} = this.props.navigation.state;
-        this.medico = params.medico ? params.medico : null;
+        this.medico = params && params.medico ? params.medico : null;
     }
 
     componentDidUpdate(){
           if (this.props.bolVinculado || this.props.mensagemFalha != ''){
               MensagemInformativa(this.props.bolVinculado ? 'Ação efetuada com sucesso!' : this.props.mensagemFalha);
 
-            //   if (this.props.bolVinculo){
-            //       this.props.vinculaMedicoLocal(this.medicoVinculado);
-            //   } 
+               if (this.props.bolVinculado){
+                   //this.props.vincularClinicaNoMedicoAtual(this.clinicaVinculada);
+               } 
 
          }
     }
@@ -75,7 +78,7 @@ class ProcuraClinica extends React.Component {
     }
 
     editarClinica(clinica){
-        this.props.navigation.navigate(TELA_ADD_CLINICA.name, {clinica, medico:this.medico});
+        this.props.navigation.navigate(TELA_ADD_CLINICA.name, {clinica, medico: this.medico});
     }
 
     render() {
@@ -149,7 +152,7 @@ const styles= StyleSheet.create({
     containerBusca: {
         flex: 2,
         flexDirection: 'column',
-        padding: 8
+        padding: 3
 
     },
     

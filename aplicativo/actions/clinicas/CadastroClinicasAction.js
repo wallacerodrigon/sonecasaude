@@ -10,6 +10,7 @@ export const CADCLI_BUSCA_CLINICA_INICIANDO = "CADCLI_BUSCA_CLINICA_INICIANDO";
 export const CADCLI_BUSCA_CLINICA_FIM = "CADCLI_BUSCA_CLINICA_FIM";
 export const CADCLI_BUSCA_CLINICA_FALHA = "CADCLI_BUSCA_CLINICA_FALHA";
 
+export const CAD_CLI_BUSCA_CEP = "CAD_CLI_BUSCA_CEP";
 export const CAD_CLI_BUSCA_CEP_INICIO = "CAD_CLI_BUSCA_CEP_INICIO";
 export const CAD_CLI_BUSCA_CEP_FIM = "CAD_CLI_BUSCA_CEP_FIM";
 
@@ -22,6 +23,7 @@ export const CADCLI_SETA_CLINICA = "CADCLI_SETA_CLINICA";
 export const CADCLI_VINCULO_DESVINCULO_INICIA = "CADCLI_VINCULO_DESVINCULO_INICIA";
 export const CADCLI_VINCULO_DESVINCULO_FALHA = "CADCLI_VINCULO_DESVINCULO_FALHA";
 export const CADCLI_VINCULO_DESVINCULO_SUCESSO = "CADCLI_VINCULO_DESVINCULO_SUCESSO";
+
 
 export const onChangeField = (fieldName, value) => ({
     type: CADCLI_CHANGE_FIELD,
@@ -52,11 +54,11 @@ export const vincularClinica = (codClinica, codMedico) => ({
     codClinica, codMedico
 })
 
-export const buscarClinica = (nomeClinica) => ({
-    type: CADCLI_BUSCA_CLINICA, nomeClinica
+export const buscarClinica = (nomeClinica, codMedico) => ({
+    type: CADCLI_BUSCA_CLINICA, nomeClinica, codMedico
 })
 
 export const buscarEnderecoPorCep = (numCep) => ({
-    type: CAD_CLI_BUSCA_CEP_INICIO, numCep
+    type: CAD_CLI_BUSCA_CEP, numCep
 })
 

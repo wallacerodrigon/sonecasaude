@@ -43,9 +43,9 @@ export const TELA_BUSCA_MEDICOS = {name:"procuraMedicos", title: "Médicos"};
 export const TELA_MEU_PERFIL = {name:"meuPerfil", title: "Meus dados"};
     
     /**clínicas */
-export const TELA_ADD_CLINICA = {name:"adicionaClinica", title: "Adicionar clínica"};
+export const TELA_ADD_CLINICA = {name:"adicionaClinica", title: "Clínicas"};
 export const TELA_BUSCA_CLINICA = {name:"procuraClinica", title: "Busca clínica"};
-export const TELA_LISTA_CLINICAS = {name:"listaClinicas", title: ""};
+export const TELA_LISTA_CLINICAS = {name:"listaClinicas", title: "Clínicas do médico"};
 
 /**navigators */
 export const DRAWER = {name:"DrawerOpen", title:""};

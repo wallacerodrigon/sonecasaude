@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import axiosApi from "../components/comuns/UtilHttp";
 import { URL_BACKEND } from "../constants/ConstantesInternas";
 import Erro from "../components/comuns/Erro";

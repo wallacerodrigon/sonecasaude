@@ -5,8 +5,9 @@ import { connect } from "react-redux";
 import { desvincularClinica } from "../../actions/medicos/CadastroMedicosAction";
 import EstilosComuns, { FUNDO_CINZA_CLARO } from '../../assets/estilos/estilos';
 import { TELA_BUSCA_CLINICA, TELA_LISTA_CLINICAS } from '../../constants/AppScreenData';
-import { BotaoOpacity } from '../../components/botao/Botao';
+import Botao, { BotaoOpacity } from '../../components/botao/Botao';
 import { MensagemErro, MensagemInformativa, MensagemConfirmacao } from "../../components/mensagens/Mensagens";
+import { buscarMedicoEdicao } from "../../actions/MeusMedicosAction";
 import Loading from '../../components/comuns/Loading';
 
 class ClinicasMedico extends React.Component {
@@ -53,10 +54,14 @@ class ClinicasMedico extends React.Component {
         }
     }
 
+    buscarMedico(){
+        this.props.buscarMedicoEdicao(this.props.medico.idMedico);
+    }
+
     render() {
         return (
             <View style={[styles.tabDadosMedico, EstilosComuns.backgroundPadrao]}>
-                <View style={[styles.containerResultado]}>
+                <View style={EstilosComuns.bodyMain}>
                     {/* <Loading bolAtivo={this.props.Loading}/> */}
 
                     <FlatList  
@@ -85,6 +90,12 @@ class ClinicasMedico extends React.Component {
                                     }}
                                 />                  
                 </View>
+
+                {/* <View style={[EstilosComuns.rodape, {flexDirection:'row', justifyContent:'center', alignItems: 'center'}]}>
+                    <Botao tituloBotao='Atualizar' onClick={() =>  this.buscarMedico()}/>
+
+                </View> */}
+
                 <Fab
                     containerStyle={{ }}
                     style={{ backgroundColor: "#04B486" }}
@@ -147,4 +158,4 @@ const mapStateToProps = state => ({
     bolVinculo: state.cadastroMedicosReducer.bolVinculo
 })
 
-export default connect(mapStateToProps, {desvincularClinica})(ClinicasMedico);
+export default connect(mapStateToProps, {desvincularClinica,buscarMedicoEdicao})(ClinicasMedico);

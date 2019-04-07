@@ -16,6 +16,8 @@ export const CADMED_VINCULO_DESVINCULO_SUCESSO = "CADMED_VINCULO_DESVINCULO_SUCE
 export const CADMED_VINCULO_DESVINCULO_FALHA = "CADMED_VINCULO_DESVINCULO_FALHA";
 export const CADMED_DESVINCULAR_CLINICA = "CADMED_DESVINCULAR_CLINICA";
 
+export const CADMED_VINCULO_CLINICA_LOCAL = "CADMED_VINCULO_CLINICA_LOCAL";
+
 export const onChangeField = (fieldName, value) => ({
     type: CADMED_CHANGE_FIELD,
     fieldName, value
@@ -40,3 +42,7 @@ export const desvincularClinica = (codClinica, codMedico) => ({
     codClinica, codMedico
 })
 
+export const vincularClinicaNoMedicoAtual = (clinica) => {
+    type: CADMED_VINCULO_CLINICA_LOCAL,
+    clinica
+}
