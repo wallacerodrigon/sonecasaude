@@ -1,13 +1,13 @@
 import { Fab, Icon } from 'native-base';
 import React from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { buscarMeusMedicos, desvinculaMedico, onChangeField, buscarMedicoEdicao } from "../../actions/MeusMedicosAction";
+import { buscarMedicoEdicao, buscarMeusMedicos, desvinculaMedico, onChangeField } from "../../actions/medicos/MeusMedicosAction";
 import EstilosComuns, { FUNDO_CINZA_CLARO, VERDE } from '../../assets/estilos/estilos';
 import { BotaoExcluir, BotaoFecharHeader, BotaoOpacity } from '../../components/botao/Botao';
-import { MensagemConfirmacao, MensagemInformativa } from "../../components/mensagens/Mensagens";
-import { TELA_ADD_MEDICOS, TELA_BUSCA_MEDICOS } from '../../constants/AppScreenData';
 import Loading from '../../components/comuns/Loading';
+import { MensagemConfirmacao } from "../../components/mensagens/Mensagens";
+import { TELA_ADD_MEDICOS, TELA_BUSCA_MEDICOS } from '../../constants/AppScreenData';
 
 
 class ListaMedicos extends React.Component {
@@ -26,19 +26,17 @@ class ListaMedicos extends React.Component {
     }    
 
     componentDidUpdate(prevProps, prevState){
-        if (this.props.bolDesvinculo && this.props.bolExecutado){
-            MensagemInformativa(this.props.mensagemFalha ? this.props.mensagemFalha: 'Médico desvinculado da sua lista com sucesso!');
-            this.props.onChangeField('bolDesvinculo', false);
-        }
+        // if (this.props.bolDesvinculo && this.props.bolExecutado){
+        //     MensagemInformativa(this.props.mensagemFalha ? this.props.mensagemFalha: 'Médico desvinculado da sua lista com sucesso!');
+        //     this.props.onChangeField('bolDesvinculo', false);
+        // }
             
         let bolEditando = !prevProps.bolEdita && this.props.bolEdita;
         let bolTemMensagem = this.props.mensagemFalha != '';
 
         if (bolEditando && !bolTemMensagem){
             this.props.navigation.navigate(TELA_ADD_MEDICOS.name);
-        } else if (bolEditando && bolTemMensagem){
-            MensagemInformativa(this.props.mensagemFalha);
-        }
+        } 
     }
 
     confirmarDesvinculo(medico){

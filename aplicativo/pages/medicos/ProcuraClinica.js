@@ -37,12 +37,8 @@ class ProcuraClinica extends React.Component {
         let botaoConfirma= {
             text: 'SIM',
             onPress: () =>  {
-                //todo: falta pegar o código do médico
                 this.props.vincularClinica(clinica.idClinica, this.medico.idMedico);
                 this.clinicaVinculada = clinica;
-
-               // console.log('clinicas do médico', this.medico.clinicas);
-                //this.medico.clinicas.push( clinica );      
             },
             style: 'destructive'
         };
@@ -60,17 +56,6 @@ class ProcuraClinica extends React.Component {
     componentDidMount(){
         const {params} = this.props.navigation.state;
         this.medico = params && params.medico ? params.medico : null;
-    }
-
-    componentDidUpdate(){
-          if (this.props.bolVinculado || this.props.mensagemFalha != ''){
-              MensagemInformativa(this.props.bolVinculado ? 'Ação efetuada com sucesso!' : this.props.mensagemFalha);
-
-               if (this.props.bolVinculado){
-                   //this.props.vincularClinicaNoMedicoAtual(this.clinicaVinculada);
-               } 
-
-         }
     }
 
     onChangeField(field,value){

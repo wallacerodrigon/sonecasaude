@@ -3,7 +3,7 @@ import {combineReducers} from "redux";
 import LoginReducer from "./LoginReducer";
 import EsqueciSenhaReducer from "./EsqueciSenhaReducer";
 import CadastroReducer from "./CadastroReducer";
-import MedicosReducer from "./MedicosReducer";
+import MedicosReducer from "./medicos/MeusMedicosReducer";
 import ProcuraMedicosReducer from "./medicos/ProcuraMedicosReducer";
 import CadastroMedicosReducer from "./medicos/CadastroMedicosReducer";
 import ClinicasReducer from "./clinicas/ClinicasReducer";

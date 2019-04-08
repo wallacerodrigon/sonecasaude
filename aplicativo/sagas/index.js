@@ -6,7 +6,7 @@ import { LOGIN_EFETUAR_LOGIN } from '../actions/LoginAction';
 import { CADMED_BUSCAR_ESPECIALIDADES, CADMED_SALVAR_MEDICOS, CADMED_DESVINCULAR_CLINICA } from '../actions/medicos/CadastroMedicosAction';
 import { BUSMED_CONSULTAR_MEDICOS, BUSMED_VINCULAR } from '../actions/medicos/ProcuraMedicosAction';
 //actions
-import { MEUMED_CONSULTAR, MEUMED_DESVINCULAR, MEUMED_EDITAR_MEDICO } from '../actions/MeusMedicosAction';
+import { MEUMED_CONSULTAR, MEUMED_DESVINCULAR, MEUMED_EDITAR_MEDICO } from '../actions/medicos/MeusMedicosAction';
 import { CADREM_BUSCA_DETALHES_MEDICAMENTOS, CADREM_BUSCA_MEDICAMENTOS } from "../actions/medicamentos/MedicamentosAction";
 
 //sagas

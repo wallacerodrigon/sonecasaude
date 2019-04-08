@@ -1,4 +1,4 @@
-import { CADCLI_BUSCA_CLINICA, CADCLI_CHANGE_FIELD, CADCLI_INICIANDO, CADCLI_SALVO_FALHA, CADCLI_SALVO_SUCESSO, CADCLI_SETA_CLINICA, CAD_CLI_BUSCA_CEP_FIM, CAD_CLI_BUSCA_CEP_INICIO } from "../../actions/clinicas/CadastroClinicasAction";
+import { CADCLI_BUSCA_CLINICA, CADCLI_CHANGE_FIELD, CADCLI_SALVAR_INICIANDO, CADCLI_SALVO_FALHA, CADCLI_SALVO_SUCESSO, CADCLI_SETA_CLINICA, CAD_CLI_BUSCA_CEP_FIM, CAD_CLI_BUSCA_CEP_INICIO } from "../../actions/clinicas/CadastroClinicasAction";
 
 const INITIAL_STATE = {
     
@@ -15,7 +15,7 @@ export default (state=INITIAL_STATE, action) => {
             return newState;
         }
 
-        case CADCLI_INICIANDO: {
+        case CADCLI_SALVAR_INICIANDO: {
             return {
                 ...state,
                 loading: true

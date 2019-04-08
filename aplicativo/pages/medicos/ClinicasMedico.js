@@ -1,14 +1,13 @@
 import { Fab, Icon } from 'native-base';
 import React from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { connect } from "react-redux";
 import { desvincularClinica } from "../../actions/medicos/CadastroMedicosAction";
+import { buscarMedicoEdicao } from "../../actions/medicos/MeusMedicosAction";
 import EstilosComuns, { FUNDO_CINZA_CLARO } from '../../assets/estilos/estilos';
+import { BotaoOpacity } from '../../components/botao/Botao';
+import { MensagemConfirmacao, MensagemErro } from "../../components/mensagens/Mensagens";
 import { TELA_BUSCA_CLINICA, TELA_LISTA_CLINICAS } from '../../constants/AppScreenData';
-import Botao, { BotaoOpacity } from '../../components/botao/Botao';
-import { MensagemErro, MensagemInformativa, MensagemConfirmacao } from "../../components/mensagens/Mensagens";
-import { buscarMedicoEdicao } from "../../actions/MeusMedicosAction";
-import Loading from '../../components/comuns/Loading';
 
 class ClinicasMedico extends React.Component {
     static navigationOptions = {
@@ -48,12 +47,6 @@ class ClinicasMedico extends React.Component {
         
     }    
 
-    componentDidUpdate(){
-        if (this.props.bolVinculo){
-            MensagemInformativa(this.props.bolVinculo ? 'Clínica removida com sucesso!': this.props.mensagemFalha);
-        }
-    }
-
     buscarMedico(){
         this.props.buscarMedicoEdicao(this.props.medico.idMedico);
     }
@@ -73,7 +66,7 @@ class ClinicasMedico extends React.Component {
                                     }
                                     renderItem = {clinica => {
                                         return (
-                                            <BotaoOpacity>
+                                            <BotaoOpacity onClick={() => null} >
                                                 <View style={styles.containerClinica}>
                                                     <View style={{flex: 9, flexDirection: 'column'}}>
                                                         <Text  style={EstilosComuns.negrito}>{clinica.item.nomeClinica}</Text>

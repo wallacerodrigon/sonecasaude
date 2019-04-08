@@ -3,7 +3,7 @@ import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { connect } from "react-redux";
 import { buscaPorMedico, onChangeField, vincularMedico } from "../../actions/medicos/ProcuraMedicosAction";
-import { buscarMedicoEdicao, vinculaMedicoLocal } from "../../actions/MeusMedicosAction";
+import { buscarMedicoEdicao, vinculaMedicoLocal } from "../../actions/medicos/MeusMedicosAction";
 import EstilosComuns, { FUNDO_CINZA_CLARO, VERDE } from '../../assets/estilos/estilos';
 import { BotaoLoading, BotaoOpacity } from '../../components/botao/Botao';
 import { InputTexto } from '../../components/input/InputTexto';
@@ -57,26 +57,19 @@ class ProcuraMedico extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState){
-        let fezVinculo = !prevProps.bolVinculo && this.props.bolVinculo;
+       // let fezVinculo = !prevProps.bolVinculo && this.props.bolVinculo;
 
-          if (fezVinculo || this.props.mensagemFalha != ''){
-              MensagemInformativa(fezVinculo ? 'Vínculo efetuado com sucesso!' : this.props.mensagemFalha);
-
-              if (fezVinculo){
-                  this.props.vinculaMedicoLocal(this.medicoVinculado);
-              } 
-
-          }
+        // if (fezVinculo){
+        //     this.props.vinculaMedicoLocal(this.medicoVinculado);
+        // }
 
        
-          let bolEditando = !prevProps.bolEdita && this.props.bolEdita;
-          let bolTemMensagem = this.props.mensagemFalha != '';
-  
-          if (bolEditando && !bolTemMensagem){
-              this.props.navigation.navigate(TELA_ADD_MEDICOS.name);
-          } else if (bolEditando && bolTemMensagem){
-              MensagemInformativa(this.props.mensagemFalha);
-          } 
+        let bolEditando = !prevProps.bolEdita && this.props.bolEdita;
+        let bolTemMensagem = this.props.mensagemFalha != '';
+
+        if (bolEditando && !bolTemMensagem){
+            this.props.navigation.navigate(TELA_ADD_MEDICOS.name);
+        }
     }
 
     buscarDadosMedico(medico){

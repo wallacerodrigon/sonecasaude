@@ -69,19 +69,14 @@ class AdicionaClinica extends React.Component {
         }
     }
 
-    componentDidUpdate(){
-        if (this.props.bolSucesso){
-            MensagemInformativa('Clínica salva com sucesso!');
-            this.props.navigation.goBack();
-        } else if (this.props.mensagemFalha && this.props.mensagemFalha != ''){
-            MensagemInformativa(this.props.mensagemFalha);
-        }
-
+    componentDidUpdate(prevProps, prevState){
+         if (!prevProps.bolSucesso && this.props.bolSucesso){
+             this.props.navigation.goBack();
+         }
     }
 
     componentDidMount(){
         const {params} = this.props.navigation.state;
-        console.log('did mount', params)
         if (params && params.clinica && params.medico){
             this.medico = params.medico;
             this.props.onChangeClinica(params.clinica)

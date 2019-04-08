@@ -1,12 +1,12 @@
 import React from "react";
-import { Picker, StyleSheet, Text, View } from "react-native";
+import { Picker, StyleSheet, View } from "react-native";
 import { connect } from "react-redux";
 import { buscarEspecialidades, onChangeField, resetarDados, salvarMedico } from "../../actions/medicos/CadastroMedicosAction";
-import { buscarMeusMedicos } from "../../actions/MeusMedicosAction";
+import { buscarMeusMedicos } from "../../actions/medicos/MeusMedicosAction";
 import EstilosComuns from "../../assets/estilos/estilos";
 import Botao, { BotaoLoading } from "../../components/botao/Botao";
 import { InputTextComMascara, InputTexto } from "../../components/input/InputTexto";
-import { MensagemCustomizada, MensagemErro, MensagemInformativa } from "../../components/mensagens/Mensagens";
+import { MensagemErro } from "../../components/mensagens/Mensagens";
 import Validador from '../../utilitarios/Validador';
 
 
@@ -97,26 +97,21 @@ class AdicionaMedico extends React.Component {
     } 
 
     componentDidUpdate(prevProps, prevState){
-        if (this.props.bolExecutado && this.props.bolSucesso){
+//        if (this.props.bolExecutado && this.props.bolSucesso){
+            // let botaoOk= {
+            //     text: 'Ok',
+            //     onPress: () =>  {
+            //         this.props.buscarMeusMedicos();
+            //     }
+            // };
 
-            let botaoOk= {
-                text: 'Ok',
-                onPress: () =>  {
-                    this.props.buscarMeusMedicos();
-                }
-            };
-
-            if (this.props.medico && this.props.medico.idMedico > 0){
-                MensagemCustomizada('Médico alterado com sucesso!', [botaoOk]);
-            } else {
-                MensagemCustomizada('Médico salvo com sucesso. Caso deseje vincular clínicas a este médico, selecione a aba "Clínicas do médico"!', [botaoOk]);
-            }
-            return true;
-        }
-
-        if (this.props.bolExecutado && this.props.mensagemFalha && this.props.mensagemFalha != ''){
-            MensagemInformativa(this.props.mensagemFalha);
-        }
+            // if (this.props.medico && this.props.medico.idMedico > 0){
+            //     MensagemCustomizada('Médico alterado com sucesso!', [botaoOk]);
+            // } else {
+            //     MensagemCustomizada('Médico salvo com sucesso. Caso deseje vincular clínicas a este médico, selecione a aba "Clínicas do médico"!', [botaoOk]);
+            // }
+  //          return true;
+    //    }
     }
 
     renderComboEspecialidades(){
