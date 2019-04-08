@@ -2,8 +2,8 @@ import React from "react";
 import {ActivityIndicator, StyleSheet, View} from "react-native";
 import { VERDE, FUNDO_CINZA_CLARO } from "../../assets/estilos/estilos";
 
-export default Loading = (bolAtivo) => {
-    return bolAtivo ?
+export default Loading = (props) => {
+    return props.bolAtivo ?
             <View style={styles.loading}>
                 <ActivityIndicator size="large" color={VERDE}/>
             </View>

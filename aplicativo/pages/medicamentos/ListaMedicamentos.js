@@ -1,14 +1,18 @@
-import { Icon, Container, List, ListItem, Left, Thumbnail, Body, Right } from 'native-base';
+import { Body, Container, Icon, Left, List, ListItem, Thumbnail } from 'native-base';
 import React from 'react';
-import { FlatList, StyleSheet, Text, View, ScrollView } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { connect } from "react-redux";
+import { buscarMedicamentos, onChangeField } from "../../actions/medicamentos/MedicamentosAction";
 import EstilosComuns, { BRANCO, FUNDO_ESCURO } from '../../assets/estilos/estilos';
-import { BotaoFecharHeader, BotaoOpacity } from '../../components/botao/Botao';
+import { BotaoFecharHeader } from '../../components/botao/Botao';
 import { InputTexto } from "../../components/input/InputTexto";
-import { TELA_PERIODICIDADE, TELA_LISTA_MEDICAMENTOS, TELA_DETALHE_MEDICAMENTO } from '../../constants/AppScreenData';
- 
+import { MensagemInformativa } from "../../components/mensagens/Mensagens";
+import { TELA_DETALHE_MEDICAMENTO, TELA_LISTA_MEDICAMENTOS } from '../../constants/AppScreenData';
+import Loading from "../../components/comuns/Loading";
+
 const imgComparacao = require('../../assets/img/losartana.jpeg');
 
-export default class ListaMedicamentos extends React.Component {
+class ListaMedicamentos extends React.Component {
 
       static navigationOptions = ({ navigation }) => ({
         title: TELA_LISTA_MEDICAMENTOS.title,
@@ -21,32 +25,29 @@ export default class ListaMedicamentos extends React.Component {
         super(props);
     }    
     
-    getResultadoFiltro(){
-        return [
-            {id: 1, nomeMedicamento: 'Xarope 1', laboratorio: 'laboratorio 1', detalhes: 'comprimido', principioAtivo: "ácido acetil salicílico"},
-            {id: 2, nomeMedicamento: 'Xarope 2', laboratorio: 'laboratorio 1', detalhes: 'comprimido', principioAtivo: "ácido acetil salicílico"},
-            {id: 3, nomeMedicamento: 'Xarope 3', laboratorio: 'laboratorio 1', detalhes: 'comprimido', principioAtivo: "ácido acetil salicílico"},
-            {id: 4, nomeMedicamento: 'Xarope 4', laboratorio: 'laboratorio 1', detalhes: 'comprimido', principioAtivo: "ácido acetil salicílico"}
-        ]
+    gotoPeriodicidade(remedio){
+       this.props.navigation.navigate(TELA_DETALHE_MEDICAMENTO.name, {medicamento: remedio})
     }
 
-    gotoPeriodicidade(medicamento){
-       this.props.navigation.navigate(TELA_DETALHE_MEDICAMENTO.name, {medicamento: medicamento})
+    buscarMedicamento(){
+        if (this.props.nomeMedicamento.trim().length == 0){
+            MensagemInformativa('Informe o nome do medicamento para pesquisar!');
+            return false;
+        }
+        this.props.buscarMedicamentos(this.props.nomeMedicamento);
     }
 
     renderRemedios(){
-        let lista = this.getResultadoFiltro();
 
-        return lista.map(remedio => {
+        return this.props.listaMedicamentos.map(remedio => {
             return (
                 <ListItem thumbnail selected button style={styles.containerRemedioResultado} onPress={() => this.gotoPeriodicidade(remedio)  } >
-                    <Left>
+                    {/* <Left>
                         <Thumbnail circular source={imgComparacao} />
-                    </Left>
+                    </Left> */}
                     <Body>
                         <Text style={[styles.dadosMedicamento, EstilosComuns.negrito]} >{remedio.nomeMedicamento}</Text>
-                        <Text note>{remedio.principioAtivo}</Text>
-                        <Text note>{remedio.laboratorio}</Text>
+                        <Text note>{remedio.nomePrincipioAtivo}</Text>
                     </Body>
                 </ListItem> 
             )
@@ -59,14 +60,16 @@ export default class ListaMedicamentos extends React.Component {
                 <View style={styles.containerBusca}>
                     <View style={{flex: 9}}>
                         <InputTexto placeholder="Pesquise por um remédio" maxLength={40}
-                            onChangeInput={this.tratarFiltro}
+                            onChangeInput={value => this.props.onChangeField('nomeMedicamento', value)}
                             autoCapitalize="none"
                         />                    
                     </View>
                     <View style={{flex: 1}}>
-                        <Icon name="search" color={BRANCO} size={25} />
+                        <Icon name="search" color={BRANCO} size={25} onPress={() => this.buscarMedicamento()} />
                     </View>
                 </View>
+
+                <Loading bolAtivo={this.props.loadingBusca}/>
 
                 <Container style={styles.containerResultado}>
                     <List>
@@ -126,3 +129,12 @@ const styles= StyleSheet.create({
         fontStyle: 'italic'
     }
 })
+
+const mapStateToProps = state => ({
+    nomeMedicamento: state.medicamentoReducer.nomeMedicamento,
+    mensagemFalha: state.medicamentoReducer.mensagemFalha,
+    loadingBusca: state.medicamentoReducer.loadingBusca,
+    listaMedicamentos: state.medicamentoReducer.listaMedicamentos
+})
+
+export default connect(mapStateToProps, {onChangeField, buscarMedicamentos})(ListaMedicamentos);

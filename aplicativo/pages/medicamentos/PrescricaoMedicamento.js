@@ -222,8 +222,22 @@ export default class PrescricaoMedicamento extends React.Component {
         this.setState({intervaloHorarios: intervaloHorarios});
     }
 
+    renderDetalheRemedio(detalheRemedio){
+        return (
+                <View>
+                    <Text note numberOfLines={1}>
+                        {detalheRemedio.nomeLaboratorio}
+                    </Text>
+                    <Text note numberOfLines={1}>
+                        {detalheRemedio.descApresentacao}
+                    </Text>
+                </View>
+        )
+    }
+
     render() {
         let {medicamento} = this.props.navigation.state.params;
+        let {detalheRemedio} = this.props.navigation.state.params;
         return (
            <KeyboardAvoidingView style={[EstilosComuns.container, {paddingTop: 5, paddingBottom: 5}]} keyboardVerticalOffset={70} behavior="padding" >
                 <ScrollView style={[styles.containerMain]}>
@@ -234,8 +248,10 @@ export default class PrescricaoMedicamento extends React.Component {
 
                                 <View style={{flex: 5, paddingLeft: 5}}>
                                     <Text style={EstilosComuns.negrito}>{medicamento.nomeMedicamento}</Text>
-                                    <Text note numberOfLines={1} >{medicamento.principioAtivo}</Text>
-                                    <Text note numberOfLines={1}>{medicamento.detalhes}</Text>
+                                    <Text note numberOfLines={1} >{medicamento.nomePrincipioAtivo}</Text>
+                                    {detalheRemedio &&
+                                        this.renderDetalheRemedio(detalheRemedio)
+                                    }
                                 </View>
                         </View>
 

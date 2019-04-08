@@ -1,77 +1,92 @@
-import { Icon, Container, List, ListItem, Left, Thumbnail, Body, Right } from 'native-base';
+import { Body, Container, List, ListItem, Icon } from 'native-base';
 import React from 'react';
-import { FlatList, StyleSheet, Text, View, ScrollView } from 'react-native';
-import EstilosComuns, { BRANCO, FUNDO_ESCURO } from '../../assets/estilos/estilos';
-import { BotaoFecharHeader, BotaoOpacity } from '../../components/botao/Botao';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { connect } from 'react-redux';
+import { buscarDetalhesMedicamentos, onChangeField, filtrarDetalhesMedicamentos } from "../../actions/medicamentos/MedicamentosAction";
+import EstilosComuns, { FUNDO_ESCURO, BRANCO } from '../../assets/estilos/estilos';
+import { TELA_DETALHE_MEDICAMENTO, TELA_PERIODICIDADE } from '../../constants/AppScreenData';
+import Loading from '../../components/comuns/Loading';
+import Botao from '../../components/botao/Botao';
 import { InputTexto } from "../../components/input/InputTexto";
-import { TELA_PERIODICIDADE, TELA_LISTA_MEDICAMENTOS, TELA_DETALHE_MEDICAMENTO } from '../../constants/AppScreenData';
  
-const imgComparacao = require('../../assets/img/losartana.jpeg');
+class DetalheMedicamentos extends React.Component {
 
-export default class DetalheMedicamentos extends React.Component {
-
-      static navigationOptions = ({ navigation }) => ({
+    static navigationOptions = ({ navigation }) => ({
         title: TELA_DETALHE_MEDICAMENTO.title,
-        headerLeft: (
-            <BotaoFecharHeader navigation={navigation}/>
-          )          
     });      
 
     constructor(props){
         super(props);
-
-        
     }   
-    
-    componentWillMount(){
-       // const {state} = this.props.navigation.state;
-       // console.log('did mount', state.params);
-        // if (state && state.params && state.params.medicamento){
-        //   this.medicamento = state.params.medicamento;
-        // }
-        this.medicamento = {
-            nomeMedicamento: 'AAS',
-            principioAtivo: 'Ácido Acetil Salicílico'
-        }
-    }
-    
-    getResultadoFiltro(){
-        return [
-            {id: 1, tarja: 'Similar', laboratorio: 'SANOFI-AVENTIS FARMACÊUTICA LTDA', apresentacao: '100 MG COM CT FR PLAS OPC X 120'},
-            {id: 1, tarja: 'Similar', laboratorio: 'SANOFI-AVENTIS FARMACÊUTICA LTDA', apresentacao: '100 MG COM CT BL AL PLAS INC X 200 (EMB MULT)'},
-            {id: 1, tarja: 'Similar', laboratorio: 'SANOFI-AVENTIS FARMACÊUTICA LTDA', apresentacao: '100 MG COM CT BL AL PLAS INC X 30'},
-        ]
-    }
 
-    gotoPeriodicidade(medicamento){
-       this.props.navigation.navigate(TELA_PERIODICIDADE.name, {medicamento: this.medicamento})
+    componentDidMount(){
+        const {state} = this.props.navigation;
+        if (state && state.params && state.params.medicamento){
+          this.medicamento = state.params.medicamento;
+          this.props.onChangeField('nomeDetalhe', '');
+          this.props.buscarDetalhesMedicamentos(this.medicamento.idMedicamento);
+        }
+        this.medicamentosFiltrados = [];
+    }
+    
+    gotoPeriodicidade(detalheRemedio){
+       this.props.navigation.navigate(TELA_PERIODICIDADE.name, {medicamento: this.medicamento, detalheRemedio: detalheRemedio})
     }
 
     renderRemedios(){
-        let lista = this.getResultadoFiltro();
-
-        return lista.map(remedio => {
+        
+        if (this.props.listaDetalhesMedicamentos == null || this.props.listaDetalhesMedicamentos.length === 0){
             return (
-                <ListItem thumbnail selected button style={styles.containerRemedioResultado} onPress={() => this.gotoPeriodicidade(remedio)  } >
+                    <View style={{padding: 10}}>
+                        <Text style={[EstilosComuns.corVerde]}>Nenhum detalhe foi encontrado para este medicamento!</Text>
+                    </View>
+                )
+        }
+        return this.props.listaDetalhesMedicamentos.map(detalheRemedio => {
+            return (
+                <ListItem thumbnail selected button style={styles.containerRemedioResultado} onPress={() => this.gotoPeriodicidade(detalheRemedio)  } >
                     <Body>
-                        <Text style={[styles.dadosMedicamento, EstilosComuns.negrito]} >{remedio.apresentacao}</Text>
-                        <Text note>{remedio.laboratorio}</Text>
-                        <Text note>{remedio.tarja}</Text>
+                        <Text style={[styles.dadosMedicamento, EstilosComuns.negrito]} >{detalheRemedio.descApresentacao}</Text>
+                        <Text note>{detalheRemedio.nomeLaboratorio}</Text>
+                        <Text note>{detalheRemedio.descTarja}</Text>
                     </Body>
                 </ListItem> 
             )
         })
     }
 
+    onFilter(value){
+        this.props.onChangeField('nomeDetalhe', value);
+        //this.props.filtrarDetalhesMedicamentos(value);
+    }
+
     render() {
+        let {medicamento} = this.props.navigation.state.params;
+
         return (
             <View style={EstilosComuns.container}>     
                 <View style={[EstilosComuns.card, {flexDirection: 'row', padding: 5}]}>
-                    <View style={{flex: 5, paddingLeft: 5}}>
-                        <Text style={EstilosComuns.negrito}>{this.medicamento.nomeMedicamento}</Text>
-                        <Text note numberOfLines={1} >{this.medicamento.principioAtivo}</Text>
+                    <Text style={EstilosComuns.negrito}>{medicamento.nomeMedicamento}</Text>
+                </View>  
+
+                
+                {/* HABILITAR em um outro momento
+                <View style={[EstilosComuns.card, {flexDirection: 'row', padding: 5}]}>
+                    <View style={{flex: 9}}>
+                        <InputTexto placeholder="Digite para filtrar" maxLength={40}
+                            onChangeInput={value => this.onFilter(value)}
+                            value={this.props.nomeDetalhe}
+                            autoCapitalize="none"
+                        /> 
                     </View>
-                </View>                       
+                    <View style={{flex: 1}}>
+                        <Icon name="search" color={BRANCO} size={25}/>
+                    </View>
+
+                </View> */}
+
+                <Loading bolAtivo={this.props.loadingDetalhes}/>
+
                 <Container style={styles.containerResultado}>
                     <List>
                         <ScrollView>
@@ -85,6 +100,8 @@ export default class DetalheMedicamentos extends React.Component {
                     <Text style={[EstilosComuns.corVerde, EstilosComuns.textoCentralizado]}>
                         Clique sobre o remédio para cadastrar sua prescrição
                     </Text>
+                    <Botao tituloBotao="Pular"
+                                        onClick={() => this.gotoPeriodicidade(null) }/>  
                 </View>
 
             </View>
@@ -118,7 +135,7 @@ const styles= StyleSheet.create({
     
     containerRodape: {
         flex: 1,
-        padding: 5
+        padding: 8
     },
 
     dadosMedicamento: {
@@ -130,3 +147,11 @@ const styles= StyleSheet.create({
         fontStyle: 'italic'
     }
 })
+
+const mapStateToProps = state => ({
+    listaDetalhesMedicamentos: state.medicamentoReducer.listaDetalhesMedicamentosFiltrados,
+    loadingDetalhes: state.medicamentoReducer.loadingDetalhes,
+    nomeDetalhe: state.medicamentoReducer.nomeDetalhe
+})
+
+export default connect(mapStateToProps, {buscarDetalhesMedicamentos, onChangeField, filtrarDetalhesMedicamentos})(DetalheMedicamentos);

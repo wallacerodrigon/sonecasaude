@@ -7,6 +7,8 @@ import { CADMED_BUSCAR_ESPECIALIDADES, CADMED_SALVAR_MEDICOS, CADMED_DESVINCULAR
 import { BUSMED_CONSULTAR_MEDICOS, BUSMED_VINCULAR } from '../actions/medicos/ProcuraMedicosAction';
 //actions
 import { MEUMED_CONSULTAR, MEUMED_DESVINCULAR, MEUMED_EDITAR_MEDICO } from '../actions/MeusMedicosAction';
+import { CADREM_BUSCA_DETALHES_MEDICAMENTOS, CADREM_BUSCA_MEDICAMENTOS } from "../actions/medicamentos/MedicamentosAction";
+
 //sagas
 import { buscarDadosEndereco, salvarCadastro, verificarExistenciaCpf } from './CadastrarUsuarioSagas';
 import { buscarClinicas, salvarClinica, vincularClinica, buscarEnderecoPorCep } from './clinicas/ClinicasSagas';
@@ -14,6 +16,7 @@ import { efetuarLogin } from "./LoginSagas";
 import { buscarEspecialidades, desvincularMedico, recuperarMedicos, salvarMedico, buscarMedicoEdicao, desvincularClinica } from './medicos/MeusMedicosSagas';
 import { filtrarMedicos, vincularMedico } from './medicos/ProcuraMedicosSagas';
 import { recuperarSenha } from './RecuperarSenhaSagas';
+import { listarDetalhesMedicamentos, listarMedicamentos } from "./medicamentos/MedicamentosSagas";
 
 
   
@@ -48,6 +51,9 @@ import { recuperarSenha } from './RecuperarSenhaSagas';
      yield takeLatest(CADCLI_BUSCA_CLINICA, buscarClinicas);
      yield takeLatest(CAD_CLI_BUSCA_CEP, buscarEnderecoPorCep);
 
+     //medicamentos
+     yield takeLatest(CADREM_BUSCA_MEDICAMENTOS, listarMedicamentos);
+     yield takeLatest(CADREM_BUSCA_DETALHES_MEDICAMENTOS, listarDetalhesMedicamentos);
   }
   
   export default rootSaga;

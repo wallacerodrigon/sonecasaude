@@ -1,0 +1,33 @@
+export const CADREM_BUSCA_MEDICAMENTOS_CHANGE = "CADREM_BUSCA_MEDICAMENTOS_CHANGE";
+
+export const CADREM_BUSCA_MEDICAMENTOS = "CADREM_BUSCA_MEDICAMENTOS";
+export const CADREM_FILTRA_DETALHE_MEDICAMENTOS = "CADREM_FILTRA_DETALHE_MEDICAMENTOS";
+
+export const CADREM_BUSCA_DETALHES_MEDICAMENTOS= "CADREM_BUSCA_DETALHES_MEDICAMENTOS";
+
+export const CADREM_BUSCA_MEDICAMENTOS_INI = "CADREM_BUSCA_MEDICAMENTOS_INI";
+export const CADREM_BUSCA_MEDICAMENTOS_FIM = "CADREM_BUSCA_MEDICAMENTOS_FIM";
+
+export const CADREM_BUSCA_DETALHES_MEDICAMENTOS_INI= "CADREM_BUSCA_DETALHES_MEDICAMENTOS_INI";
+export const CADREM_BUSCA_DETALHES_MEDICAMENTOS_FIM= "CADREM_BUSCA_DETALHES_MEDICAMENTOS_FIM";
+
+export const onChangeField = (fieldName, value) => ({
+    type: CADREM_BUSCA_MEDICAMENTOS_CHANGE,
+    fieldName, value
+})
+
+
+export const buscarMedicamentos = (nome) => ({
+    type: CADREM_BUSCA_MEDICAMENTOS,
+    nome
+})
+
+export const buscarDetalhesMedicamentos = (codMedicamento) => ({
+    type: CADREM_BUSCA_DETALHES_MEDICAMENTOS,
+    codMedicamento
+})
+
+export const filtrarDetalhesMedicamentos = (nomeFiltro) => ({
+    type: CADREM_FILTRA_DETALHE_MEDICAMENTOS,
+    nomeFiltro
+})

@@ -21,8 +21,9 @@ class PeriodicidadeMedicamento extends React.Component {
     }
 
     gotoPrescricao(siglaPeriodicidade){
-        const { medicamento } = this.props.navigation.state.params;
-        this.props.navigation.navigate(TELA_PRESCRICAO.name, {medicamento: medicamento, sigla: siglaPeriodicidade});        
+        const { medicamento, detalheRemedio } = this.props.navigation.state.params;
+
+        this.props.navigation.navigate(TELA_PRESCRICAO.name, {medicamento, sigla: siglaPeriodicidade, detalheRemedio});        
     }
 
 
