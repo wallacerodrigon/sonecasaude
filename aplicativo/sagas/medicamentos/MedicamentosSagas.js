@@ -12,7 +12,8 @@ export function* listarMedicamentos(action){
 
     try {
         if (retorno.status == RETORNO_SUCESSO){
-            yield put({type: CADREM_BUSCA_MEDICAMENTOS_FIM, listaMedicamentos: retorno.data.retorno});
+            let listaMedicamentos = retorno.data.retorno == null ? [] : retorno.data.retorno;
+            yield put({type: CADREM_BUSCA_MEDICAMENTOS_FIM, listaMedicamentos });
         } else {
             yield put({type: CADREM_BUSCA_MEDICAMENTOS_FIM, mensagemFalha: retorno.mensagemErro});
         }

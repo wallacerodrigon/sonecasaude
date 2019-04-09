@@ -61,6 +61,7 @@ const criarMedicoClone = (medico, bolAdiciona, usuario) => {
     } else {
         novoMedico.idMedico = medico.idMedico;
     }
+    console.log('clone medico', novoMedico);
     return novoMedico;
 }
 

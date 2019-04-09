@@ -6,14 +6,13 @@ import EstilosComuns, { FUNDO_CINZA_CLARO, VERDE } from '../../assets/estilos/es
 import { BotaoLoading, BotaoOpacity } from '../../components/botao/Botao';
 import { InputTexto } from '../../components/input/InputTexto';
 import { MensagemConfirmacao, MensagemInformativa } from "../../components/mensagens/Mensagens";
-import { TELA_ADD_CLINICA, TELA_BUSCA_CLINICA } from '../../constants/AppScreenData';
-import { onChangeFieldBusca, buscarClinica, vincularClinica, desvincularClinica} from "../../actions/clinicas/CadastroClinicasAction";
-//import { vincularClinicaNoMedicoAtual } from "../../actions/medicos/CadastroMedicosAction";
+import { TELA_ADD_CLINICA, TELA_BUSCA_CLINICA, TELA_LISTA_CLINICAS, TELA_ADD_MEDICOS } from '../../constants/AppScreenData';
+import { onChangeFieldBusca, buscarClinica, vincularClinica} from "../../actions/clinicas/CadastroClinicasAction";
 
 class ProcuraClinica extends React.Component {
-    static navigationOptions = {
-        title: TELA_BUSCA_CLINICA.title,
-      };
+    static navigationOptions = ({navigation}) => ({
+        title: TELA_BUSCA_CLINICA.title
+      });
 
     constructor(props){
         super(props);
@@ -37,8 +36,8 @@ class ProcuraClinica extends React.Component {
         let botaoConfirma= {
             text: 'SIM',
             onPress: () =>  {
-                this.props.vincularClinica(clinica.idClinica, this.medico.idMedico);
-                this.clinicaVinculada = clinica;
+                this.props.vincularClinica(clinica, this.medico.idMedico);
+                //this.props.navigation.navigate(TELA_ADD_MEDICOS.name);
             },
             style: 'destructive'
         };
@@ -171,6 +170,6 @@ const styles= StyleSheet.create({
 })
 
 export default connect( mapStateToProps, 
-    {onChangeFieldBusca, buscarClinica,vincularClinica, desvincularClinica}
+    {onChangeFieldBusca, buscarClinica,vincularClinica}
     )
 (ProcuraClinica);

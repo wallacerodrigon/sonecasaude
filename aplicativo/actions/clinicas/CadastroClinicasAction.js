@@ -23,6 +23,8 @@ export const CADCLI_VINCULO_DESVINCULO_INICIA = "CADCLI_VINCULO_DESVINCULO_INICI
 export const CADCLI_VINCULO_DESVINCULO_FALHA = "CADCLI_VINCULO_DESVINCULO_FALHA";
 export const CADCLI_VINCULO_DESVINCULO_SUCESSO = "CADCLI_VINCULO_DESVINCULO_SUCESSO";
 
+export const CADCLI_VINCULO_SUCESSO = "CADCLI_VINCULO_SUCESSO";
+export const CADCLI_VINCULAR_CLINICA_LOCAL = "CADCLI_VINCULAR_CLINICA_LOCAL";
 
 export const onChangeField = (fieldName, value) => ({
     type: CADCLI_CHANGE_FIELD,
@@ -48,9 +50,9 @@ export const alterarClinica = (clinica) => ({
 })
 
 
-export const vincularClinica = (codClinica, codMedico) => ({
+export const vincularClinica = (clinica, codMedico) => ({
     type: CADCLI_VINCULAR_CLINICA,
-    codClinica, codMedico
+    clinica, codMedico
 })
 
 export const buscarClinica = (nomeClinica, codMedico) => ({

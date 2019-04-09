@@ -39,6 +39,16 @@ class ListaMedicamentos extends React.Component {
 
     renderRemedios(){
 
+        if (this.props.listaMedicamentos.length == 0){
+            return (
+                <View>
+                    <Text style={[{padding: 20}, EstilosComuns.corVerde, EstilosComuns.textoCentralizado]}>
+                        Nenhum medicamento foi listado
+                    </Text>                    
+                </View>
+            )
+        }
+
         return this.props.listaMedicamentos.map(remedio => {
             return (
                 <ListItem thumbnail selected button style={styles.containerRemedioResultado} onPress={() => this.gotoPeriodicidade(remedio)  } >

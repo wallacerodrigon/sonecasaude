@@ -1,9 +1,9 @@
-import { CADCLI_BUSCA_CLINICA_FALHA, CADCLI_BUSCA_CLINICA_FIM, CADCLI_BUSCA_CLINICA_INICIANDO, CADCLI_CHANGE_FIELD_BUSCA, CADCLI_VINCULO_DESVINCULO_FALHA, CADCLI_VINCULO_DESVINCULO_SUCESSO } from "../../actions/clinicas/CadastroClinicasAction";
+import { CADCLI_BUSCA_CLINICA_FALHA, CADCLI_BUSCA_CLINICA_FIM, CADCLI_BUSCA_CLINICA_INICIANDO, CADCLI_CHANGE_FIELD_BUSCA, CADCLI_VINCULO_DESVINCULO_SUCESSO } from "../../actions/clinicas/CadastroClinicasAction";
 import { alterarState } from "../FuncoesGenericas";
 
 
 const INITIAL_STATE = {
-    nomeClinica: '', bolSucesso: false, mensagemFalha: '', loading: false, bolVinculado: false
+    nomeClinica: '', bolSucesso: false, mensagemFalha: '', loading: false, bolVinculado: false,listaClinicas:[]
 }
 
 export default (state= INITIAL_STATE, action) => {
@@ -25,8 +25,12 @@ export default (state= INITIAL_STATE, action) => {
             }
         }
 
+        //desvinculo
         case CADCLI_VINCULO_DESVINCULO_SUCESSO:{
-            let listaClinicas = state.listaClinicas.filter(clinica => clinica.idClinica != action.codClinicaVinculada);
+            let listaClinicas = [];
+            if (state.listaClinicas != null){
+                listaClinicas =state.listaClinicas.filter(clinica => clinica.idClinica != action.clinicaVinculada.idClinica);
+            }
 
             return {
                 ...state,
@@ -34,8 +38,9 @@ export default (state= INITIAL_STATE, action) => {
                 bolVinculado: true,
                 listaClinicas
             }
-
         }
+
+
         case CADCLI_BUSCA_CLINICA_FIM: {
             return {
                 ...state,
@@ -45,7 +50,7 @@ export default (state= INITIAL_STATE, action) => {
             }
 
         }
-        case CADCLI_VINCULO_DESVINCULO_FALHA:
+
         case CADCLI_BUSCA_CLINICA_FALHA: {
             return {
                 ...state,

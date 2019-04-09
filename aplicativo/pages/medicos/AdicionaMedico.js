@@ -73,17 +73,14 @@ class AdicionaMedico extends React.Component {
 
     //executado depois do render
     componentDidMount(){
-    
-        const {state} = this.props.navigation.state;
-
+        const {state} = this.props.navigation;
         if (state && state.params && state.params.novoCadastro){
-            this.novoCadastro();
+            this.props.resetarDados();  
         }
-
     }
 
     novoCadastro(){
-        this.props.resetarDados();        
+        this.props.resetarDados();  
     }
 
     salvarMedico(){
@@ -163,7 +160,7 @@ class AdicionaMedico extends React.Component {
                     <InputTextComMascara  style={[EstilosComuns.inputText]} 
                         onChangeText={text =>this.props.onChangeField('numCelular', text)}
                         value={this.props.numCelular}
-                        placeholder="Digite o celular (xx)xxxxx-xxxx"
+                        placeholder="Digite o celular"
                         type={InputTextComMascara.MASK_CELULAR}
                     />                        
                 

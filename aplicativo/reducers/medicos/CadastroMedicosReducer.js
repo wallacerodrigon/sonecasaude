@@ -1,4 +1,4 @@
-import { CADCLI_VINCULO_DESVINCULO_FALHA, CADCLI_VINCULO_DESVINCULO_INICIA, CADCLI_VINCULO_DESVINCULO_SUCESSO } from "../../actions/clinicas/CadastroClinicasAction";
+import { CADCLI_VINCULO_DESVINCULO_FALHA, CADCLI_VINCULO_DESVINCULO_INICIA, CADCLI_VINCULO_DESVINCULO_SUCESSO, CADCLI_VINCULAR_CLINICA_LOCAL } from "../../actions/clinicas/CadastroClinicasAction";
 import { CADMED_CHANGE_FIELD, CADMED_DESVINCULAR_CLINICA, CADMED_ESPECIALIDADE_FALHA, CADMED_ESPECIALIDADE_INICIA, CADMED_ESPECIALIDADE_SUCESSO, CADMED_INICIANDO, CADMED_RESET, CADMED_SALVO_FALHA, CADMED_SALVO_SUCESSO, CADMED_VINCULO_CLINICA_LOCAL } from "../../actions/medicos/CadastroMedicosAction";
 import { MEUMED_EDITAR_MEDICO_SUCESSO } from "../../actions/medicos/MeusMedicosAction";
 import { INTERNET_INOPERANTE } from "../../constants/ConstantesInternas";
@@ -37,7 +37,7 @@ export default (state = INITIAL_STATE, action) => {
 
         case CADMED_RESET: {
             let newState = {...INITIAL_STATE};
-            newState.medico = {nomeMedico:'', codEspecialidade: null, numRegistroCrm:'', descEmail:'', numCelular:'', clinicas: []};
+            newState.medico = {idMedico: null, nomeMedico:'', codEspecialidade: null, numRegistroCrm:'', descEmail:'', numCelular:'', clinicas: []};
             newState.listaEspecialidades = state.listaEspecialidades;
             return {...newState};
         }
@@ -104,15 +104,19 @@ export default (state = INITIAL_STATE, action) => {
             }
         }
 
-        case CADMED_VINCULO_CLINICA_LOCAL:{
-            let medico = {...state.medico};
-            medico.clinicas.push(action.clinica);
-            return {
-                ...newState, medico
+        case CADCLI_VINCULAR_CLINICA_LOCAL: {
+            let newState = {...state};
+            if (newState.medico.clinicas == null){
+                newState.medico.clinicas = [];
             }
-    
-        }
+            newState.medico.clinicas.push(action.clinicaVinculada);
 
+            console.log('new state após vinculo', newState.medico);
+            return {
+                ...newState
+            }
+        }
+        
         case INTERNET_INOPERANTE: {
             return {
                 ...state,

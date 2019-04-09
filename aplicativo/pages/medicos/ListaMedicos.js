@@ -26,15 +26,8 @@ class ListaMedicos extends React.Component {
     }    
 
     componentDidUpdate(prevProps, prevState){
-        // if (this.props.bolDesvinculo && this.props.bolExecutado){
-        //     MensagemInformativa(this.props.mensagemFalha ? this.props.mensagemFalha: 'Médico desvinculado da sua lista com sucesso!');
-        //     this.props.onChangeField('bolDesvinculo', false);
-        // }
-            
         let bolEditando = !prevProps.bolEdita && this.props.bolEdita;
-        let bolTemMensagem = this.props.mensagemFalha != '';
-
-        if (bolEditando && !bolTemMensagem){
+        if (bolEditando){
             this.props.navigation.navigate(TELA_ADD_MEDICOS.name);
         } 
     }

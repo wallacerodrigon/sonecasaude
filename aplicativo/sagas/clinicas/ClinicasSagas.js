@@ -4,7 +4,9 @@ import { CADCLI_BUSCA_CLINICA_INICIANDO, CADCLI_BUSCA_CLINICA_FIM, CADCLI_BUSCA_
     CADCLI_VINCULO_DESVINCULO_SUCESSO, 
     CAD_CLI_BUSCA_CEP_INICIO,
     CAD_CLI_BUSCA_CEP_FIM,
-    CADCLI_SALVAR_INICIANDO} from '../../actions/clinicas/CadastroClinicasAction';
+    CADCLI_SALVAR_INICIANDO,
+    CADCLI_VINCULAR_CLINICA_LOCAL,
+    CADCLI_VINCULO_SUCESSO} from '../../actions/clinicas/CadastroClinicasAction';
 import ClinicaServico from '../../servicos/ClinicaServico';
 import { RETORNO_SUCESSO, NETWORK_ERROR, INTERNET_INOPERANTE } from '../../constants/ConstantesInternas';
 import EnderecoServico from '../../servicos/EnderecoServico';
@@ -29,9 +31,11 @@ export function* salvarClinica(action){
 export function* vincularClinica(action){
     yield put({type: CADCLI_BUSCA_CLINICA_INICIANDO});
     try {
-        const retorno = yield call(ClinicaServico.vincularClinicaMedico, action.codClinica, action.codMedico);
+        const retorno = yield call(ClinicaServico.vincularClinicaMedico, action.clinica.idClinica, action.codMedico);
         if (retorno.status === RETORNO_SUCESSO){
-            yield put({type: CADCLI_VINCULO_DESVINCULO_SUCESSO, codClinicaVinculada: action.codClinica});
+            yield put({type: CADCLI_VINCULO_DESVINCULO_SUCESSO, clinicaVinculada: action.clinica});
+            yield put({type: CADCLI_VINCULAR_CLINICA_LOCAL, clinicaVinculada: action.clinica});
+
             MensagemInformativa('Clínica vinculada com sucesso!');
         } else {
             yield put({type: CADCLI_VINCULO_DESVINCULO_FALHA, mensagemFalha: retorno.mensagemErro});

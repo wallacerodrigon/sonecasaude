@@ -59,7 +59,6 @@ export default (state = INITIAL_STATE, action) => {
         case CADREM_FILTRA_DETALHE_MEDICAMENTOS: {
             let listaDetalhesMedicamentosFiltrados = [];
             if (action.nomeFiltro != ''){
-                console.log('filtrando...');
                 listaDetalhesMedicamentosFiltrados = this.props.listaDetalhesMedicamentos.filter(detalhe => 
                         detalhe.descApresentacao.toUpperCase().indexOf(action.nomeFiltro.toUpperCase()) > -1 ||
                         detalhe.nomeLaboratorio.toUpperCase().indexOf(action.nomeFiltro.toUpperCase()) > -1 ||

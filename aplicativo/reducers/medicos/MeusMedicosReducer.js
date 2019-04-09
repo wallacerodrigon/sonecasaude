@@ -1,4 +1,5 @@
 import { INTERNET_INOPERANTE, MEUMED_CHANGE_FIELD, MEUMED_DESVINCULAR_FALHA, MEUMED_DESVINCULAR_SUCESSO, MEUMED_EDITAR_MEDICO_FALHA, MEUMED_EDITAR_MEDICO_INICIA, MEUMED_EDITAR_MEDICO_SUCESSO, MEUMED_INICIANDO, MEUMED_RETORNO_FALHA, MEUMED_RETORNO_SUCESSO, MEUMED_VINCULAR } from "../../actions/medicos/MeusMedicosAction";
+import { CADCLI_VINCULAR_CLINICA_LOCAL, CADCLI_VINCULO_SUCESSO } from "../../actions/clinicas/CadastroClinicasAction";
 
 const INITIAL_STATE = {
     medico: {nomeMedico:'', codEspecialidade: null, numRegistroCrm:'', descEmail:'', numCelular:''},
@@ -44,7 +45,7 @@ export default (state = INITIAL_STATE, action) => {
 
         case MEUMED_VINCULAR: {
             let newState = {...state};
-          //  let listaMedicos = newState.listaMedicos.concat(action.medico);
+            let listaMedicos = state.listaMedicos.concat(action.medico);
             return {
                 ...state,
                 bolEdita: false,
@@ -56,7 +57,12 @@ export default (state = INITIAL_STATE, action) => {
 
         case MEUMED_DESVINCULAR_SUCESSO: {
             let newState = {...state};
-            newState.listaMedicos = state.listaMedicos.filter(medico => medico.idMedico != action.idMedico)
+
+            if (state.listaMedicos != null){
+                newState.listaMedicos = state.listaMedicos.filter(medico => medico.idMedico != action.idMedico)
+            } else {
+                newState.listaMedicos = [];
+            }
 
             return {
                 ...newState,

@@ -57,11 +57,11 @@ class ProcuraMedico extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState){
-       // let fezVinculo = !prevProps.bolVinculo && this.props.bolVinculo;
-
-        // if (fezVinculo){
-        //     this.props.vinculaMedicoLocal(this.medicoVinculado);
-        // }
+        let fezVinculo = !prevProps.bolVinculo && this.props.bolVinculo;
+        console.log('fez vinculo', fezVinculo);
+        if (fezVinculo){
+             this.props.vinculaMedicoLocal(this.medicoVinculado);
+         }
 
        
         let bolEditando = !prevProps.bolEdita && this.props.bolEdita;
@@ -79,7 +79,7 @@ class ProcuraMedico extends React.Component {
     }    
 
     novoCadastro(){
-        this.props.navigation.navigate(TELA_ADD_MEDICOS.name), {novoCadastro: true}  
+        this.props.navigation.navigate(TELA_ADD_MEDICOS.name, {novoCadastro: true});  
 
     }
 

@@ -129,6 +129,7 @@ export function* desvincularClinica(action){
         } else {
             yield put({type: CADCLI_VINCULO_DESVINCULO_FALHA, mensagemFalha: retorno.mensagemErro});
             MensagemInformativa(retorno.mensagemErro);
+            console.log('Erro retorno')
         }
     } catch(error){
         if (error == NETWORK_ERROR) {
@@ -138,6 +139,6 @@ export function* desvincularClinica(action){
         }
         MensagemInformativa(error);
 
-
+        console.log('Erro catch desvinculo', error)
     }
 }
