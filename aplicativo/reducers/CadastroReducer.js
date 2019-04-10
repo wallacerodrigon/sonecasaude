@@ -159,7 +159,7 @@ export default (state = INITIAL_STATE, action) => {
                 loading: false,
                 bolExecutado: true,
                 bolVerificouCpf: true,
-                bolProibeCadastro: false,
+                bolProibeCadastro: action.cpfJaExiste,
                 descMensagemFalha: action.mensagemFalha
             }
         }

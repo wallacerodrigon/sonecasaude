@@ -1,11 +1,11 @@
 import { call, put } from 'redux-saga/effects';
+import { CADCLI_VINCULO_DESVINCULO_FALHA, CADCLI_VINCULO_DESVINCULO_INICIA, CADCLI_VINCULO_DESVINCULO_SUCESSO } from '../../actions/clinicas/CadastroClinicasAction';
 import { CADMED_ESPECIALIDADE_FALHA, CADMED_ESPECIALIDADE_INICIA, CADMED_ESPECIALIDADE_SUCESSO, CADMED_INICIANDO, CADMED_SALVO_FALHA, CADMED_SALVO_SUCESSO } from '../../actions/medicos/CadastroMedicosAction';
 import { MEUMED_DESVINCULAR_FALHA, MEUMED_DESVINCULAR_SUCESSO, MEUMED_EDITAR_MEDICO_FALHA, MEUMED_EDITAR_MEDICO_INICIA, MEUMED_EDITAR_MEDICO_SUCESSO, MEUMED_INICIANDO, MEUMED_RETORNO_FALHA, MEUMED_RETORNO_SUCESSO } from "../../actions/medicos/MeusMedicosAction";
-import { INTERNET_INOPERANTE, NETWORK_ERROR, RETORNO_SUCESSO } from "../../constants/ConstantesInternas";
-import MedicosServico from "../../servicos/MedicosServico";
-import { CADCLI_VINCULO_DESVINCULO_FALHA, CADCLI_VINCULO_DESVINCULO_SUCESSO, CADCLI_VINCULO_DESVINCULO_INICIA } from '../../actions/clinicas/CadastroClinicasAction';
-import ClinicaServico from '../../servicos/ClinicaServico';
 import { MensagemInformativa } from "../../components/mensagens/Mensagens";
+import { RETORNO_SUCESSO, RETORNO_SERVER_INDISPONIVEL } from "../../constants/ConstantesInternas";
+import ClinicaServico from '../../servicos/ClinicaServico';
+import MedicosServico from "../../servicos/MedicosServico";
 
 export function* recuperarMedicos(action){
     yield put({type: MEUMED_INICIANDO});
@@ -15,19 +15,13 @@ export function* recuperarMedicos(action){
             yield put({type: MEUMED_RETORNO_SUCESSO,  listaMedicos: retorno.data.retorno});
         } else {
             yield put({type: MEUMED_RETORNO_FALHA, mensagemFalha: retorno.mensagemErro});
-            MensagemInformativa(retorno.mensagemErro);
+            if (retorno.status != RETORNO_SERVER_INDISPONIVEL){
+                MensagemInformativa(retorno.mensagemErro);
+            }
             console.log('falha na busca dos médicos')
         }
     } catch(error){
-        if (error == NETWORK_ERROR) {
-            yield put({type: INTERNET_INOPERANTE});
-        } else {
-            yield put({type: MEUMED_RETORNO_FALHA, mensagemFalha: error});
-        }
-        MensagemInformativa(error);
-        console.log('falha na busca dos médicos (catch)')
-
-
+        yield put({type: MEUMED_RETORNO_FALHA, mensagemFalha: error});
     }
 }
 
@@ -40,7 +34,9 @@ export function* desvincularMedico(action){
             MensagemInformativa('Médico desvinculado da sua lista com sucesso!');
         } else {
             yield put({type: MEUMED_DESVINCULAR_FALHA, mensagemFalha: retorno.mensagemErro, idMedico: null});
-            MensagemInformativa(retorno.mensagemErro);
+            if (retorno.status != RETORNO_SERVER_INDISPONIVEL){
+                MensagemInformativa(retorno.mensagemErro);
+            }
         }
     } catch(error){
 
@@ -65,16 +61,12 @@ export function* salvarMedico(action){
             MensagemInformativa('Médico salvo com sucesso! Vincule clínicas na aba "Clínicas do médico" ');
         } else {
             yield put({type: CADMED_SALVO_FALHA, mensagemFalha: retorno.mensagemErro});
-            MensagemInformativa(retorno.mensagemErro);
+            if (retorno.status != RETORNO_SERVER_INDISPONIVEL){
+                MensagemInformativa(retorno.mensagemErro);
+            }
         }
     } catch(error){
-        if (error == NETWORK_ERROR) {
-            yield put({type: INTERNET_INOPERANTE});
-        } else {
-            yield put({type: CADMED_SALVO_FALHA, mensagemFalha: error});
-        }
-        MensagemInformativa(error);
-
+        yield put({type: CADMED_SALVO_FALHA, mensagemFalha: error});
     }
 }
 
@@ -85,16 +77,13 @@ export function* buscarEspecialidades(action){
         if (retorno.status === RETORNO_SUCESSO){
             yield put({type: CADMED_ESPECIALIDADE_SUCESSO, listaEspecialidades: retorno.data.retorno});
         } else {
-            yield put({type: CADMED_ESPECIALIDADE_FALHA, mensagemFalha: retorno.mensagemErro});
+            yield put({type: CADMED_ESPECIALIDADE_FALHA, mensagemFalha: retorno.menagemErro});
+            if (retorno.status != RETORNO_SERVER_INDISPONIVEL){
+                MensagemInformativa(retorno.mensagemErro);
+            }
         }
     } catch(error){
-        //TENTAR MONTAR UM LUGAR ÚNICO PARA TRATAR A MENSAGEM OU RETORNAR A MENSAGEM DO ERRO
-        if (error == NETWORK_ERROR) {
-            yield put({type: INTERNET_INOPERANTE});
-        } else {
-            yield put({type: CADMED_ESPECIALIDADE_FALHA, mensagemFalha: error});
-        }
-        MensagemInformativa(error);
+        yield put({type: CADMED_ESPECIALIDADE_FALHA, mensagemFalha: error});
     }
 }
 
@@ -106,16 +95,12 @@ export function* buscarMedicoEdicao(action){
             yield put({type: MEUMED_EDITAR_MEDICO_SUCESSO, medico: retorno.data.retorno});
         } else {
             yield put({type: MEUMED_EDITAR_MEDICO_FALHA, mensagemFalha: retorno.mensagemErro});
-            MensagemInformativa(retorno.mensagemErro);
+            if (retorno.status != RETORNO_SERVER_INDISPONIVEL){
+                MensagemInformativa(retorno.mensagemErro);
+            }
         }
     } catch(error){
-        //TENTAR MONTAR UM LUGAR ÚNICO PARA TRATAR A MENSAGEM OU RETORNAR A MENSAGEM DO ERRO
-        if (error == NETWORK_ERROR) {
-            yield put({type: INTERNET_INOPERANTE});
-        } else {
-            yield put({type: MEUMED_EDITAR_MEDICO_FALHA, mensagemFalha: error});
-        }
-        MensagemInformativa(error);
+        yield put({type: MEUMED_EDITAR_MEDICO_FALHA, mensagemFalha: error});
     }    
 }
 
@@ -128,17 +113,12 @@ export function* desvincularClinica(action){
             MensagemInformativa('Clínica desvinculada com sucesso');
         } else {
             yield put({type: CADCLI_VINCULO_DESVINCULO_FALHA, mensagemFalha: retorno.mensagemErro});
-            MensagemInformativa(retorno.mensagemErro);
-            console.log('Erro retorno')
+            if (retorno.status != RETORNO_SERVER_INDISPONIVEL){
+                MensagemInformativa(retorno.mensagemErro);
+            }
+                   console.log('Erro retorno')
         }
     } catch(error){
-        if (error == NETWORK_ERROR) {
-            yield put({type: INTERNET_INOPERANTE});
-        } else {
-            yield put({type: CADCLI_VINCULO_DESVINCULO_FALHA, mensagemFalha: error});
-        }
-        MensagemInformativa(error);
-
-        console.log('Erro catch desvinculo', error)
+        yield put({type: CADCLI_VINCULO_DESVINCULO_FALHA, mensagemFalha: error});
     }
 }

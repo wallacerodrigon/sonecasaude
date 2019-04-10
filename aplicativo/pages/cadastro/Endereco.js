@@ -27,12 +27,6 @@ class Endereco extends React.Component {
        }
     }
 
-    componentDidUpdate(){
-        if (this.props.descMensagemFalha){
-            MensagemErro(this.props.descMensagemFalha);
-        }
-    }
-
     isPreencheLogradouro(){
         return this.props.idLogradouro === null;
     }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import URL_BACKEND, { TAG_USUARIO_STORAGE, CONTENT_TYPE, RETORNO_SERVER_INDISPONIVEL }  from "../../constants/ConstantesInternas";
+import URL_BACKEND, { TAG_USUARIO_STORAGE, CONTENT_TYPE, RETORNO_SERVER_INDISPONIVEL, NETWORK_ERROR }  from "../../constants/ConstantesInternas";
 import { getValoresStorage } from "../comuns/UtilStorage";
 import { NetInfo } from "react-native";
 import { MensagemErro } from "../mensagens/Mensagens";
@@ -19,6 +19,7 @@ axiosApi.interceptors.request.use(
             
         // if (this.temInternet()){
             const dadosUsuario = await getValoresStorage(TAG_USUARIO_STORAGE);
+            console.log('axios dados usuario', dadosUsuario);
             if (dadosUsuario != null){
                 let usuario = JSON.parse( dadosUsuario );
                 axiosApi.defaults.headers.common['Authorization'] = `Bearer ${usuario.token}`;
@@ -46,9 +47,15 @@ axiosApi.interceptors.response.use(
     },
     async (error)=> {
         let mensagem = new String(error);
+        console.log('mensagem', mensagem, error);
+        if (mensagem.indexOf(NETWORK_ERROR) > -1){
+          MensagemErro('Verifique sua internet. Não foi possível acessar os dados!');
+          return Promise.reject(error);
+        }
+
         if (mensagem.indexOf(RETORNO_SERVER_INDISPONIVEL) > -1){
           MensagemErro('O servidor está inoperante neste momento para esta operação! \nEntre em contato com a administração do Soneca: contato@soneca.com.br e informe os detalhes!');
-          return Promise.reject();
+          return Promise.reject(error);
         }
         return Promise.reject(error);
     }  

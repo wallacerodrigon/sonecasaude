@@ -1,22 +1,22 @@
 import { takeLatest } from 'redux-saga/effects';
 import { CADUSU_BUSCA_CEP, CADUSU_CADASTRAR_USUARIO, CADUSU_VERIFICA_CPF } from '../actions/CadastroAction';
-import { CADCLI_BUSCA_CLINICA, CADCLI_DESVINCULAR_CLINICA, CADCLI_SALVAR_CLINICA, CADCLI_VINCULAR_CLINICA, CAD_CLI_BUSCA_CEP_INICIO, CAD_CLI_BUSCA_CEP } from '../actions/clinicas/CadastroClinicasAction';
+import { CADCLI_BUSCA_CLINICA, CADCLI_SALVAR_CLINICA, CADCLI_VINCULAR_CLINICA, CAD_CLI_BUSCA_CEP } from '../actions/clinicas/CadastroClinicasAction';
 import { RECSEN_RECUPERAR } from '../actions/EsqueciSenhaAction';
 import { LOGIN_EFETUAR_LOGIN } from '../actions/LoginAction';
-import { CADMED_BUSCAR_ESPECIALIDADES, CADMED_SALVAR_MEDICOS, CADMED_DESVINCULAR_CLINICA } from '../actions/medicos/CadastroMedicosAction';
-import { BUSMED_CONSULTAR_MEDICOS, BUSMED_VINCULAR } from '../actions/medicos/ProcuraMedicosAction';
+import { CADREM_BUSCA_DETALHES_MEDICAMENTOS, CADREM_BUSCA_MEDICAMENTOS } from "../actions/medicamentos/MedicamentosAction";
+import { CADMED_BUSCAR_ESPECIALIDADES, CADMED_DESVINCULAR_CLINICA, CADMED_SALVAR_MEDICOS } from '../actions/medicos/CadastroMedicosAction';
 //actions
 import { MEUMED_CONSULTAR, MEUMED_DESVINCULAR, MEUMED_EDITAR_MEDICO } from '../actions/medicos/MeusMedicosAction';
-import { CADREM_BUSCA_DETALHES_MEDICAMENTOS, CADREM_BUSCA_MEDICAMENTOS } from "../actions/medicamentos/MedicamentosAction";
-
+import { BUSMED_CONSULTAR_MEDICOS, BUSMED_VINCULAR } from '../actions/medicos/ProcuraMedicosAction';
 //sagas
 import { buscarDadosEndereco, salvarCadastro, verificarExistenciaCpf } from './CadastrarUsuarioSagas';
-import { buscarClinicas, salvarClinica, vincularClinica, buscarEnderecoPorCep } from './clinicas/ClinicasSagas';
+import { buscarClinicas, buscarEnderecoPorCep, salvarClinica, vincularClinica } from './clinicas/ClinicasSagas';
+import { recuperarSenha } from './EsqueciSenhaSagas';
 import { efetuarLogin } from "./LoginSagas";
-import { buscarEspecialidades, desvincularMedico, recuperarMedicos, salvarMedico, buscarMedicoEdicao, desvincularClinica } from './medicos/MeusMedicosSagas';
-import { filtrarMedicos, vincularMedico } from './medicos/ProcuraMedicosSagas';
-import { recuperarSenha } from './RecuperarSenhaSagas';
 import { listarDetalhesMedicamentos, listarMedicamentos } from "./medicamentos/MedicamentosSagas";
+import { buscarEspecialidades, buscarMedicoEdicao, desvincularClinica, desvincularMedico, recuperarMedicos, salvarMedico } from './medicos/MeusMedicosSagas';
+import { filtrarMedicos, vincularMedico } from './medicos/ProcuraMedicosSagas';
+
 
 
   

@@ -2,7 +2,8 @@ import { call, put } from 'redux-saga/effects';
 import MedicamentoServico from "../../servicos/MedicamentoServico";
 import { CADREM_BUSCA_MEDICAMENTOS_FIM, CADREM_BUSCA_MEDICAMENTOS_INI, CADREM_BUSCA_DETALHES_MEDICAMENTOS_INI, 
     CADREM_BUSCA_DETALHES_MEDICAMENTOS_FIM } from '../../actions/medicamentos/MedicamentosAction';
-import { RETORNO_SUCESSO } from '../../constants/ConstantesInternas';
+import { RETORNO_SUCESSO, RETORNO_SERVER_INDISPONIVEL } from '../../constants/ConstantesInternas';
+import { MensagemInformativa } from '../../components/mensagens/Mensagens';
 
 export function* listarMedicamentos(action){
 
@@ -16,6 +17,9 @@ export function* listarMedicamentos(action){
             yield put({type: CADREM_BUSCA_MEDICAMENTOS_FIM, listaMedicamentos });
         } else {
             yield put({type: CADREM_BUSCA_MEDICAMENTOS_FIM, mensagemFalha: retorno.mensagemErro});
+            if (retorno.status != RETORNO_SERVER_INDISPONIVEL){
+                MensagemInformativa(retorno.mensagemErro);
+            }
         }
     } catch(erro){
         yield put({type: CADREM_BUSCA_MEDICAMENTOS_FIM, mensagemFalha: erro});
@@ -35,6 +39,9 @@ export function* listarDetalhesMedicamentos(action){
             yield put({type: CADREM_BUSCA_DETALHES_MEDICAMENTOS_FIM, listaDetalhesMedicamentos: retorno.data.retorno});
         } else {
             yield put({type: CADREM_BUSCA_DETALHES_MEDICAMENTOS_FIM, mensagemFalha: retorno.mensagemErro});
+            if (retorno.status != RETORNO_SERVER_INDISPONIVEL){
+                MensagemInformativa(retorno.mensagemErro);
+            }
         }
     } catch(erro){
         yield put({type: CADREM_BUSCA_DETALHES_MEDICAMENTOS_FIM, mensagemFalha: erro});

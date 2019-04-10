@@ -1,21 +1,28 @@
 import { Fab, Icon } from 'native-base';
 import React from 'react';
+import { NavigationActions } from "react-navigation";
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { connect } from "react-redux";
 import EstilosComuns, { FUNDO_CINZA_CLARO, VERDE } from '../../assets/estilos/estilos';
 import { BotaoLoading, BotaoOpacity } from '../../components/botao/Botao';
 import { InputTexto } from '../../components/input/InputTexto';
 import { MensagemConfirmacao, MensagemInformativa } from "../../components/mensagens/Mensagens";
-import { TELA_ADD_CLINICA, TELA_BUSCA_CLINICA, TELA_LISTA_CLINICAS, TELA_ADD_MEDICOS } from '../../constants/AppScreenData';
+import { TELA_ADD_CLINICA, TELA_BUSCA_CLINICA, TELA_LISTA_CLINICAS, TELA_ADD_MEDICOS, TELA_HOME } from '../../constants/AppScreenData';
 import { onChangeFieldBusca, buscarClinica, vincularClinica} from "../../actions/clinicas/CadastroClinicasAction";
 
 class ProcuraClinica extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: TELA_BUSCA_CLINICA.title
-      });
+    });
 
     constructor(props){
         super(props);
+
+        // const backAction = NavigationActions.back({
+        //     key: TELA_HOME.name,
+        //     params: {atualizaLista: true}
+        //   });        
+        // this.props.navigation.dispatch(backAction);
     }
     
     buscarClinicas(){
@@ -37,7 +44,6 @@ class ProcuraClinica extends React.Component {
             text: 'SIM',
             onPress: () =>  {
                 this.props.vincularClinica(clinica, this.medico.idMedico);
-                //this.props.navigation.navigate(TELA_ADD_MEDICOS.name);
             },
             style: 'destructive'
         };
@@ -55,6 +61,14 @@ class ProcuraClinica extends React.Component {
     componentDidMount(){
         const {params} = this.props.navigation.state;
         this.medico = params && params.medico ? params.medico : null;
+    }
+
+    componentDidUpdate(prevProps){
+        console.log('encaminha para a tela de médicos', this.props.bolVinculoClinica);
+
+        if (this.props.bolVinculoClinica){
+            this.props.navigation.navigate(TELA_LISTA_CLINICAS.name, {atualizaLista: true});
+        }
     }
 
     onChangeField(field,value){
@@ -128,7 +142,9 @@ const mapStateToProps = state => ({
     buscaSucesso: state.procuraClinicaReducer.buscaSucesso,
     bolVinculado: state.procuraClinicaReducer.bolVinculado,
     mensagemFalha: state.procuraClinicaReducer.mensagemFalha,
-    listaClinicas: state.procuraClinicaReducer.listaClinicas
+    listaClinicas: state.procuraClinicaReducer.listaClinicas,
+
+    bolVinculoClinica: state.cadastroMedicosReducer.bolVinculoClinica
 })
 
 

@@ -1,16 +1,14 @@
-import { Body, Container, Icon, Left, List, ListItem, Thumbnail } from 'native-base';
+import { Body, Container, Icon, List, ListItem } from 'native-base';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { connect } from "react-redux";
 import { buscarMedicamentos, onChangeField } from "../../actions/medicamentos/MedicamentosAction";
 import EstilosComuns, { BRANCO, FUNDO_ESCURO } from '../../assets/estilos/estilos';
 import { BotaoFecharHeader } from '../../components/botao/Botao';
+import Loading from "../../components/comuns/Loading";
 import { InputTexto } from "../../components/input/InputTexto";
 import { MensagemInformativa } from "../../components/mensagens/Mensagens";
 import { TELA_DETALHE_MEDICAMENTO, TELA_LISTA_MEDICAMENTOS } from '../../constants/AppScreenData';
-import Loading from "../../components/comuns/Loading";
-
-const imgComparacao = require('../../assets/img/losartana.jpeg');
 
 class ListaMedicamentos extends React.Component {
 
@@ -32,6 +30,10 @@ class ListaMedicamentos extends React.Component {
     buscarMedicamento(){
         if (this.props.nomeMedicamento.trim().length == 0){
             MensagemInformativa('Informe o nome do medicamento para pesquisar!');
+            return false;
+        }
+        if (this.props.nomeMedicamento.trim().length < 3){
+            MensagemInformativa('Informe pelo menos 3 letras do nome do medicamento para pesquisar!');
             return false;
         }
         this.props.buscarMedicamentos(this.props.nomeMedicamento);

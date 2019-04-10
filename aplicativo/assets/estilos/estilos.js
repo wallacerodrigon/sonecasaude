@@ -102,7 +102,6 @@ const EstilosComuns = StyleSheet.create({
         flex: 8,
         flexDirection: 'column',
         padding: 5,
-        justifyContent: 'space-between'
     },
     rodape: {
         flex: 1

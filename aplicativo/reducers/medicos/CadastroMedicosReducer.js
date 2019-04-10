@@ -6,7 +6,7 @@ import { INTERNET_INOPERANTE } from "../../constants/ConstantesInternas";
 const INITIAL_STATE = {
     medico: {idMedico: null, nomeMedico:'', codEspecialidade: null, numRegistroCrm:'', descEmail:'', numCelular:'', clinicas: []},
     mensagemFalha: '', loading: false, bolSucesso: false, bolExecutado: false, loadingEspecialidades: false,listaEspecialidades:[],
-    bolVinculo: false
+    bolVinculo: false, bolVinculoClinica: false
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -63,7 +63,8 @@ export default (state = INITIAL_STATE, action) => {
 
         case CADMED_DESVINCULAR_CLINICA: {
             return {
-                ...state
+                ...state,
+                bolVinculoClinica: false
             }
         }        
 
@@ -80,6 +81,7 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 loading: true,
                 bolVinculo: false,
+                bolVinculoClinica: false,
                 mensagemFalha: ''
             }
 
@@ -87,8 +89,9 @@ export default (state = INITIAL_STATE, action) => {
 
         case CADCLI_VINCULO_DESVINCULO_SUCESSO:{
             let novaListaClinicas = state.medico.clinicas.filter(clinica => clinica.idClinica != action.codClinicaDesvinculada);
-            let newState = {...state, bolVinculo: true, loading: false, mensagemFalha: ''};
+            let newState = {...state, bolVinculo: true, bolVinculoClinica: true, loading: false, mensagemFalha: ''};
             newState.medico.clinicas = novaListaClinicas;
+            console.log('médico vinculado com sucesso');
             return {
                 ...newState
             }
@@ -100,6 +103,7 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 bolVinculo: true,
                 loading: false,
+                bolVinculoClinica: false,
                 mensagemFalha: action.mensagemFalha
             }
         }
@@ -110,8 +114,6 @@ export default (state = INITIAL_STATE, action) => {
                 newState.medico.clinicas = [];
             }
             newState.medico.clinicas.push(action.clinicaVinculada);
-
-            console.log('new state após vinculo', newState.medico);
             return {
                 ...newState
             }

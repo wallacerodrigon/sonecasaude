@@ -105,7 +105,7 @@ export default (state = INITIAL_STATE, action) => {
         case MEUMED_EDITAR_MEDICO_FALHA: {
             return {
                 ...state,
-                bolEdita: true,
+                bolEdita: false,
                 loading: false,
                 mensagemFalha: action.mensagemFalha
             }

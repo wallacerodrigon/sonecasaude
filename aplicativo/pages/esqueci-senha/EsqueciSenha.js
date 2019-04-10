@@ -22,10 +22,7 @@ class EsqueciSenha extends React.Component {
 
     componentDidUpdate(){
         if (this.props.executado && this.props.sucesso){
-            MensagemInformativa("Encaminhamos um e-mail com um link para ativação da sua nova senha!"); 
             this.props.navigation.navigate(TELA_LOGIN.name);   
-        } else if (this.props.executado && this.props.mensagemFalha) {
-            MensagemErro(this.props.mensagemFalha); 
         }
     }
 

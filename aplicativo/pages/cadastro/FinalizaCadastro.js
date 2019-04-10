@@ -35,13 +35,9 @@ class FinalizaCadastro extends React.Component {
     }
 
     componentDidUpdate(){
-     //   console.log('finalizando cadastro:', this.props.bolExecutado, this.props.bolSalvo);
         if (this.props.bolExecutado && this.props.bolSalvo){
-            MensagemInformativa('Cadastro salvo com sucesso. Enviamos a você um e-mail de ativação para acesso ao aplicativo!', 
-                this.finalizarCadastro());
-        } else if (this.props.bolExecutado && this.props.descMensagemFalha != '') {
-            MensagemErro(this.props.descMensagemFalha);
-        }
+            this.finalizarCadastro();
+        } 
     }
 
     salvarCadastro(){

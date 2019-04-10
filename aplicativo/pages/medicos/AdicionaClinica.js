@@ -89,7 +89,7 @@ class AdicionaClinica extends React.Component {
 
     render() {
         return (
-        <ScrollView style={[EstilosComuns.container]} keyboardVerticalOffset={100} behavior="padding">
+        <KeyboardAvoidingView style={[EstilosComuns.container]} keyboardVerticalOffset={100} behavior="padding">
                 <Text style={EstilosComuns.tituloJanelas}>Clínica</Text>
             
                 <View style={styles.formulario}>
@@ -161,7 +161,7 @@ class AdicionaClinica extends React.Component {
                 <View style={styles.rodape}>
                     <Botao tituloBotao='Salvar' onClick={() => this.salvarClinica()}/>    
                 </View>
-        </ScrollView>
+        </KeyboardAvoidingView>
         )
     };
 }

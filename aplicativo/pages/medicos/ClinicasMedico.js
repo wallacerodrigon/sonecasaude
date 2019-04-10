@@ -10,15 +10,23 @@ import { MensagemConfirmacao, MensagemErro } from "../../components/mensagens/Me
 import { TELA_BUSCA_CLINICA, TELA_LISTA_CLINICAS } from '../../constants/AppScreenData';
 
 class ClinicasMedico extends React.Component {
-    static navigationOptions = {
-        title: TELA_LISTA_CLINICAS.title
-      };
+     static navigationOptions = {
+        title: TELA_LISTA_CLINICAS.title,
+     };
 
-      constructor(props){
+    constructor(props){
         super(props);
-        console.log('construtor', this.props);
-    }    
+    }  
     
+    componentDidUpdate(){
+        console.log('updated')
+    }
+
+    componentDidMount(){
+        console.log('did mount');
+    }
+
+
     abrirModuloClinicas(){
         if (!this.props.medico || this.props.medico.idMedico < 1 ){
             MensagemErro('O médico deve ser selecionado!');
@@ -32,7 +40,6 @@ class ClinicasMedico extends React.Component {
             text: 'SIM',
             onPress: () =>  {
                this.props.desvincularClinica(clinica.idClinica, this.props.medico.idMedico);        
-               //MensagemInformativa('Clínica desvinculada com sucesso!');
             }
         };
 

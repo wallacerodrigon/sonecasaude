@@ -1,10 +1,10 @@
 import { call, put } from 'redux-saga/effects';
-
-import { BUSMED_INICIANDO, BUSMED_CONSULTA_FALHA, BUSMED_CONSULTA_SUCESSO, BUSMED_VINCULAR_SUCESSO, BUSMED_VINCULAR_FALHA } from "../../actions/medicos/ProcuraMedicosAction";
-import { NETWORK_ERROR, RETORNO_SUCESSO, INTERNET_INOPERANTE } from "../../constants/ConstantesInternas";
-
-import MedicosServico from "../../servicos/MedicosServico";
+import { BUSMED_CONSULTA_FALHA, BUSMED_CONSULTA_SUCESSO, BUSMED_INICIANDO, BUSMED_VINCULAR_FALHA, BUSMED_VINCULAR_SUCESSO } from "../../actions/medicos/ProcuraMedicosAction";
 import { MensagemInformativa } from "../../components/mensagens/Mensagens";
+import { RETORNO_SUCESSO, RETORNO_SERVER_INDISPONIVEL } from "../../constants/ConstantesInternas";
+import MedicosServico from "../../servicos/MedicosServico";
+
+
 
 export function* filtrarMedicos(action){
     yield put({type: BUSMED_INICIANDO});
@@ -14,18 +14,13 @@ export function* filtrarMedicos(action){
             yield put({type: BUSMED_CONSULTA_SUCESSO,  listaMedicos: retorno.data.retorno});
         } else {
             yield put({type: BUSMED_CONSULTA_FALHA, mensagemFalha: retorno.mensagemErro});
-            MensagemInformativa(retorno.mensagemErro);
+            if (retorno.status != RETORNO_SERVER_INDISPONIVEL){
+                MensagemInformativa(retorno.mensagemErro);
+            }
         }
     } catch(error){
-        if (error == NETWORK_ERROR) {
-            yield put({type: INTERNET_INOPERANTE});
-        } else {
-            yield put({type: BUSMED_CONSULTA_FALHA, mensagemFalha: error});
-        }
-        MensagemInformativa(error);
-
-
-    }
+        yield put({type: BUSMED_CONSULTA_FALHA, mensagemFalha: error});
+   }
 }
 
 export function* vincularMedico(action){
@@ -38,17 +33,11 @@ export function* vincularMedico(action){
 
         } else {
             yield put({type: BUSMED_VINCULAR_FALHA, mensagemFalha: retorno.mensagemErro});
-            MensagemInformativa(retorno.mensagemErro);
-
+            if (retorno.status != RETORNO_SERVER_INDISPONIVEL){
+                MensagemInformativa(retorno.mensagemErro);
+            }
         }
     } catch(error){
-        if (error == NETWORK_ERROR) {
-            yield put({type: INTERNET_INOPERANTE});
-        } else {
-            yield put({type: BUSMED_VINCULAR_FALHA, mensagemFalha: error});
-        }
-        MensagemInformativa(error);
-
-
+        yield put({type: BUSMED_VINCULAR_FALHA, mensagemFalha: error});
     }
 }

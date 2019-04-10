@@ -6,6 +6,7 @@ import { TELA_ADD_MEDICOS } from "../../constants/AppScreenData";
 import AdicionaMedico from "./AdicionaMedico";
 import ClinicasMedico from "./ClinicasMedico";
 import IconeTabBar from '../../components/comuns/IconeTabBar';
+import ProcuraClinica from "./ProcuraClinica";
 
 const AdicionaMedicoTab  = createBottomTabNavigator(
     {
@@ -20,14 +21,22 @@ const AdicionaMedicoTab  = createBottomTabNavigator(
         },   
         clinicasMedico: {
             screen: ClinicasMedico,
-            //params: {"medico":1},
             navigationOptions: () => ({
                 tabBarLabel: 'Clínicas do médico',
                 tabBarIcon: () => (
                     <IconeTabBar iconName="business"/>
                 )
             }),
-        },                             
+        },         
+        procuraClinica: {
+            screen: ProcuraClinica,
+            navigationOptions: () => ({
+                tabBarLabel: 'Buscar clínicas',
+                tabBarIcon: () => (
+                    <IconeTabBar iconName="search"/>
+                )
+            }),
+        },                               
     },
     {
         defaultNavigationOptions: ({navigation}) => ({

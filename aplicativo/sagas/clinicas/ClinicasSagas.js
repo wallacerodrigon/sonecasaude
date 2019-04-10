@@ -1,17 +1,9 @@
 import { call, put } from 'redux-saga/effects';
-import { CADCLI_BUSCA_CLINICA_INICIANDO, CADCLI_BUSCA_CLINICA_FIM, CADCLI_BUSCA_CLINICA_FALHA, CADCLI_SALVO_SUCESSO, CADCLI_SALVO_FALHA, 
-    CADCLI_VINCULO_DESVINCULO_FALHA, 
-    CADCLI_VINCULO_DESVINCULO_SUCESSO, 
-    CAD_CLI_BUSCA_CEP_INICIO,
-    CAD_CLI_BUSCA_CEP_FIM,
-    CADCLI_SALVAR_INICIANDO,
-    CADCLI_VINCULAR_CLINICA_LOCAL,
-    CADCLI_VINCULO_SUCESSO} from '../../actions/clinicas/CadastroClinicasAction';
-import ClinicaServico from '../../servicos/ClinicaServico';
-import { RETORNO_SUCESSO, NETWORK_ERROR, INTERNET_INOPERANTE } from '../../constants/ConstantesInternas';
-import EnderecoServico from '../../servicos/EnderecoServico';
+import { CADCLI_BUSCA_CLINICA_FALHA, CADCLI_BUSCA_CLINICA_FIM, CADCLI_BUSCA_CLINICA_INICIANDO, CADCLI_SALVAR_INICIANDO, CADCLI_SALVO_FALHA, CADCLI_SALVO_SUCESSO, CADCLI_VINCULAR_CLINICA_LOCAL, CADCLI_VINCULO_DESVINCULO_FALHA, CADCLI_VINCULO_DESVINCULO_SUCESSO, CAD_CLI_BUSCA_CEP_FIM, CAD_CLI_BUSCA_CEP_INICIO } from '../../actions/clinicas/CadastroClinicasAction';
 import { MensagemInformativa } from "../../components/mensagens/Mensagens";
-import { MEUMED_EDITAR_MEDICO_SUCESSO, MEUMED_EDITAR_MEDICO } from '../../actions/medicos/MeusMedicosAction';
+import { RETORNO_SUCESSO, RETORNO_SERVER_INDISPONIVEL } from '../../constants/ConstantesInternas';
+import ClinicaServico from '../../servicos/ClinicaServico';
+import EnderecoServico from '../../servicos/EnderecoServico';
 
 export function* salvarClinica(action){
     yield put({type: CADCLI_SALVAR_INICIANDO});
@@ -24,7 +16,9 @@ export function* salvarClinica(action){
         MensagemInformativa('Clínica salva com sucesso!');
     } else {
         yield put({type: CADCLI_SALVO_FALHA, mensagemFalha: retorno.mensagemErro});
-        MensagemInformativa(retorno.mensagemErro);
+        if (retorno.status != RETORNO_SERVER_INDISPONIVEL){
+            MensagemInformativa(retorno.mensagemErro);
+        }
     } 
 }
 
@@ -39,11 +33,13 @@ export function* vincularClinica(action){
             MensagemInformativa('Clínica vinculada com sucesso!');
         } else {
             yield put({type: CADCLI_VINCULO_DESVINCULO_FALHA, mensagemFalha: retorno.mensagemErro});
-            MensagemInformativa(retorno.mensagemErro);
+            if (retorno.status != RETORNO_SERVER_INDISPONIVEL){
+                MensagemInformativa(retorno.mensagemErro);
+            }
+        
         }
     } catch(error){
         yield put({type: CADCLI_VINCULO_DESVINCULO_FALHA, mensagemFalha: error});
-        MensagemInformativa(error);
     }
 }
 
@@ -55,16 +51,12 @@ export function* buscarClinicas(action){
             yield put({type: CADCLI_BUSCA_CLINICA_FIM, listaClinicas: retorno.data.retorno});
         } else {
             yield put({type: CADCLI_BUSCA_CLINICA_FALHA, mensagemFalha: retorno.mensagemErro});
-            MensagemInformativa(retorno.mensagemErro);
-        }
+            if (retorno.status != RETORNO_SERVER_INDISPONIVEL){
+                MensagemInformativa(retorno.mensagemErro);
+            }
+         }
     } catch(error){
-        if (error == NETWORK_ERROR) {
-            yield put({type: INTERNET_INOPERANTE});
-        } else {
-            yield put({type: CADCLI_BUSCA_CLINICA_FALHA, mensagemFalha: error});
-        }
-        MensagemInformativa(error);
-
+        yield put({type: CADCLI_BUSCA_CLINICA_FALHA, mensagemFalha: error});
     }
 }
 
@@ -86,7 +78,9 @@ export function* buscarEnderecoPorCep(action){
         yield put({type: CAD_CLI_BUSCA_CEP_FIM, dadosEndereco: retornoEndereco })
     } else {
         yield put({type: CAD_CLI_BUSCA_CEP_FIM, mensagemFalha: dadosEndereco.mensagemErro })
-        MensagemInformativa(dadosEndereco.mensagemErro);
+        if (retorno.status != RETORNO_SERVER_INDISPONIVEL){
+            MensagemInformativa(dadosEndereco.mensagemErro);
+        }
     } 
 
 }

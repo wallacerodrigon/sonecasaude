@@ -30,10 +30,8 @@ class DadosPessoais extends React.Component {
     }
 
     componentDidUpdate(){
-        let bolConsultouCpf = this.props.bolExecutado && this.props.bolVerificouCpf;
-        if (bolConsultouCpf && this.props.bolProibeCadastro){
-            MensagemErro('Já existe um cadastro com este CPF!');
-        } else if (this.props.bolExecutado && !this.props.bolProibeCadastro) {
+        //let bolConsultouCpf = this.props.bolExecutado && this.props.bolVerificouCpf;
+        if (this.props.bolExecutado && !this.props.bolProibeCadastro) {
             this.gotoNextScreen();
         }
     }
